@@ -1,0 +1,188 @@
+{
+  "day": "2026-09-07",
+  "title": "N-central’s fourth hotfix, and routers under attack",
+  "duration_s": 594,
+  "chars": 9033,
+  "audio": "https://raw.githubusercontent.com/lab522/news/main/episodes/2026-09-07.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/news/main/episodes/2026-09-07.md",
+  "paragraphs": [
+    "Four N-central hotfixes in five weeks, and even the previous day’s update isn’t enough. It’s Monday, the seventh of September, twenty twenty-six. I’m George, and this is The morning brief: public router exploits, database and Java traps, then active attacks on remote management platforms and online shops.",
+    "First, a limit on today’s numbers: the supplied material gives no EPSS probabilities, KEV status or due dates, and no confirmed ransomware links for these vulnerabilities. Public exploit code and confirmed exploitation aren’t interchangeable; I’ll keep those separate.",
+    "D-Link DIR-822A, build A_101, has a stack-based buffer overflow in udhcpcd’s serverpacket.c, involving strcpy. CVE-2026-86296 scores ten: low-complexity exploitation over the network, no credentials, no user interaction, with effects crossing a security boundary. Exploit code is public, but neither a fixed version nor a mitigation is supplied. If you run that build, establish its exposure and look for vendor guidance; there’s no patch number here to hand you.",
+    "Advantech has two command-injection flaws affecting WISE-6610 NB, EB, TB, JB and CB models, their EL variants, and WISE-6610P DEA, DNA and DTA models, on 1 point 2 point 1, build 20251110. The first, CVE-2026-79697, abuses the act argument in basicstation_apply, the Basic Station certificate-deletion handler. It scores nine point nine: low-complexity exploitation over the network, low privileges, no user interaction, crossing a security boundary. Its exploit is public; this entry supplies no fix.",
+    "The second Advantech flaw, CVE-2026-79698, puts the same dangerous act argument in nodered_lib_apply, in the Node-RED library handler. Again, nine point nine: over the network, low complexity, low privileges, no user interaction, crossing a security boundary. Public exploit code is available, and this one explicitly has a fix: 1 point 2 point 4, build 20260821. That fix is stated for the Node-RED issue; don’t silently count it as confirmation that the certificate handler is repaired too.",
+    "Linksys RE7000 firmware 2 point 0 point 15 has OS command injection in its PingTest handler, through the IP address, packet size or repetition-count arguments. CVE-2026-86299 scores nine point nine: low-complexity exploitation over the network, low privileges, no user interaction, with cross-boundary impact. The exploit is public, and no fix is supplied. A ping diagnostic becoming a command launcher is rather more functionality than anyone ordered.",
+    "For Java teams, Jetty has an unauthenticated heap-exhaustion route when WebSocket auto-fragmentation is enabled. An unknown opcode slips past normal maximum-frame-size handling, and a huge declared payload triggers allocation before opcode validation. CVE-2026-19204 scores eight point seven: over the network, low complexity, no additional attack conditions, credentials or user interaction, with availability impact.",
+    "Affected Jetty ranges are 12 point 1 point 0 through 12 point 1 point 11; 12 point 0 point 0 through 12 point 0 point 37; 11 point 0 point 0 through 11 point 0 point 31; and 10 point 0 point 0 through 10 point 0 point 31, inclusive. If you run those branches, check WebSocket auto-fragmentation settings. The material supplies no fixed release.",
+    "PostgreSQL Anonymizer has a masking problem with teeth: unprivileged masked users can plant untrusted expressions in operators, domain casts or view subqueries, then have masking machinery evaluate them with elevated privileges. Classified as SQL injection, CVE-2026-19633 allows arbitrary code execution and scores eight point eight: low-complexity exploitation over the network, low privileges, no user interaction, with scope unchanged. Versions from 1 up to, but excluding, 3 point 1 point 4 are affected. Upgrade to 3 point 1 point 4 or later.",
+    "Red Hat JBoss EAP 7 and 8 get an unsafe-deserialisation warning, although precise affected builds aren’t given. In Artemis, ObjectMessage.getObject() reaches a class loader whose default empty allow-list and block-list effectively trust every class. CVE-2026-86404 scores eight point eight: over the network, low complexity, low privileges, no user interaction, with scope unchanged. Check the Artemis deserialisation configuration if you use it; neither a fixed build nor a specific remediation is supplied.",
+    "For embedded teams, Nordic’s nRF Connect SDK from 2 point 2 point 0 through 3 point 3 point 0 has an out-of-bounds write in the Bluetooth Continuous Glucose Monitoring Service’s record-access write handler. CVE-2026-14297 scores eight point seven: its vector says adjacent-network access, low complexity, no additional attack conditions, no privileges and no user interaction, with high impact confined to the vulnerable system. But the description explicitly requires an authenticated BLE peer, so that access requirement needs clarification. The twenty-byte buffer overflows into neighbouring BSS memory; actual impact depends on the firmware’s linker layout, and no fix is supplied.",
+    "Now the operational news, starting with that N-central update treadmill. Every on-premises build below 2026 point 3 point 1 point 14 needs Hotfix Four for an unauthenticated remote-code-execution flaw described as maximum severity, including installations updated to Hotfix Three a day earlier. N-able’s incident notice says it has been exploited; its release notes say that’s unconfirmed, while BleepingComputer reports ongoing attacks. The reporting conflicts, but the upgrade threshold doesn’t.",
+    "MikroTik routers with internet-exposed SSH are being taken over through a chain of two recently disclosed flaws, including an SSH authentication bypass. MikroTik released a patch late last week; exact affected and fixed RouterOS versions aren’t in this material. SANS advises assuming compromise. If you operate exposed RouterOS SSH services, identify the vendor’s applicable patched release and investigate for takeover rather than treating the update as the whole job.",
+    "Adobe Commerce and Magento stores are being backdoored through the StyleSmuggler zero-day, which allows attackers to execute code. The supplied report gives no affected version range, access prerequisites or fix. If you run either platform, check for the vendor’s advisory and investigate for backdoors; there isn’t enough detail here to name a safe release.",
+    "ScreenConnect has two separate stories, and they must stay separate. ConnectWise has announced an unpatched Remote Access vulnerability, with temporary mitigations available and a patch planned later this week; the supplied excerpt omits both the affected versions and the mitigation steps. If you run ScreenConnect Remote Access, get those instructions directly from ConnectWise rather than improvising from the headline.",
+    "Separately, researchers describe worm-like activity using backdoored ScreenConnect instances to transfer and execute payloads on newly connected clients, including a four-stage VBScript chain. If you investigate this campaign, check ScreenConnect-mediated transfers and execution around new client connections. Nothing supplied links it to the newly announced flaw. Your remote-support channel is the delivery route here, not proof of which door the attackers first opened.",
+    "There’s also a public TantoSec exploit chaining an AES-CBC padding oracle in Telerik UI for ASP.NET AJAX into unauthenticated remote code execution. The important brake on the headline: it only works against a specific non-default application configuration, and Progress patched the chain in July. If you use Telerik UI, check the July advisory against your configuration and installed build; neither the configuration details nor version thresholds are supplied here.",
+    "Two breaches underline how much exposure sits off to the side of the main product. Mathspace says attackers stole data on more than a million students, staff and parents through its internal Metabase reporting system; the entry mechanism and stolen fields aren’t specified. Trezor’s August breach at logistics provider ShipMonk now affects eighty-one thousand customers, after another sixty-seven thousand US customers were identified. That report is about logistics data exposure, not evidence of hardware-wallet compromise.",
+    "Finally, watch HAProxy integrity if you support automotive or media organisations in South Korea: a reported North Korean Linux espionage toolkit embeds its backdoor in HAProxy for long-term surveillance. The material supplies no initial-access route or indicators. A proxy can be a very comfortable listening post.",
+    "Priority order: patch on-premises N-central to Hotfix Four first, and address the actively exploited MikroTik flaws using the vendor’s version guidance. Next, check exposed management services, Commerce stores and ScreenConnect activity, then work through the affected Advantech and PostgreSQL Anonymizer upgrades and the remaining product advisories. Watch for the ScreenConnect patch and the missing version details on today’s active-exploitation reports. Thanks for listening — I’m George, and I’ll see you next time."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-86296",
+      "CVE-2026-79697",
+      "CVE-2026-79698",
+      "CVE-2026-86299",
+      "CVE-2026-19633",
+      "CVE-2026-86404",
+      "CVE-2026-14297",
+      "CVE-2026-19204"
+    ],
+    "news": [
+      {
+        "id": "d78e9d94-80fe-48a4-ab86-846e1a7c39ed",
+        "url": "https://www.bleepingcomputer.com/news/security/mathspace-discloses-data-breach-affecting-over-1-million-people/",
+        "title": "Mathspace discloses data breach affecting over 1 million people",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "a253d6e7-1f18-4a80-bd15-5078dec8811c",
+        "url": "https://www.bleepingcomputer.com/news/security/trezor-data-breach-impact-now-reaches-81-000-customers/",
+        "title": "Trezor data breach impact now reaches 81,000 customers",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "64d7a614-2f45-4cb7-ba77-382850a4d7cf",
+        "url": "https://www.securityweek.com/nightmare-eclipse-drops-crowdstrike-nvidia-avast-zero-day-exploits/",
+        "title": "Nightmare Eclipse Drops CrowdStrike, Nvidia, Avast Zero-Day Exploits",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "acedeb92-1afc-48dc-8ce4-5771d721af25",
+        "url": "https://www.securityweek.com/north-korean-hackers-deploy-new-linux-espionage-toolkit/",
+        "title": "North Korean Hackers Deploy New Linux Espionage Toolkit",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "62d9ee25-fc46-48bb-b464-c4b018ec0151",
+        "url": "https://www.securityweek.com/openai-agents-hijack-another-victim-website/",
+        "title": "OpenAI Agents Hijack Another Victim Website",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "14741438-587b-46ce-8601-72885a8739ec",
+        "url": "https://www.ncsc.gov.uk/blogs/the-hidden-risks-of-shadow-ai",
+        "title": "The hidden risks of shadow AI",
+        "source": "NCSC"
+      },
+      {
+        "id": "a8648e3c-4880-40c4-b4a9-fe78615223f4",
+        "url": "https://www.securityweek.com/adobe-commerce-zero-day-exploited-to-backdoor-online-stores/",
+        "title": "Adobe Commerce Zero-Day Exploited to Backdoor Online Stores",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "50f1391d-650b-449d-9999-3648973e18c6",
+        "url": "https://therecord.media/germany-berlin-second-data-breach-city-agencies",
+        "title": "Berlin investigates new data leak after hackers publish stolen login credentials",
+        "source": "The Record"
+      },
+      {
+        "id": "8432f29d-1a49-4f10-b012-23adbebb3e26",
+        "url": "https://www.securityweek.com/modified-screenconnect-clients-used-in-worm-like-campaign/",
+        "title": "Modified ScreenConnect Clients Used in Worm-Like Campaign",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "447c26e7-fccc-41d6-b9db-ac27f51463f5",
+        "url": "https://thehackernews.com/2026/09/your-cloud-security-checklist-doesnt.html",
+        "title": "Your Cloud Security Checklist Doesn't Work the Way You Think It Does",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "98bc0607-6ce5-44d9-88f8-4ce03714796f",
+        "url": "https://thehackernews.com/2026/09/rogue-screenconnect-clients-spread-four.html",
+        "title": "Rogue ScreenConnect Clients Spread Four-Stage VBScript Chain to Newly Connected Hosts",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "be057c2a-dbf2-4fc1-87c4-d5fa92088679",
+        "url": "https://thehackernews.com/2026/09/telerik-ui-padding-oracle-bug-chained.html",
+        "title": "Telerik UI Padding-Oracle Bug Chained to Unauthenticated RCE — Public Exploit Released",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "1e925057-420a-4079-9787-4aada6c664e5",
+        "url": "https://www.schneier.com/blog/archives/2026/09/automobile-camouflage-to-hide-from-flock-cameras.html",
+        "title": "Automobile Camouflage to Hide from Flock Cameras",
+        "source": "Schneier on Security"
+      },
+      {
+        "id": "8a901ae3-f13f-432b-8ee6-3249de976925",
+        "url": "https://www.bleepingcomputer.com/news/artificial-intelligence/chatgpt-can-now-connect-to-your-personal-apps-to-mimic-writing-style/",
+        "title": "ChatGPT can now connect to your personal apps to mimic writing style",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "a1f3cf35-9430-4023-9424-f9e8c33929c4",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-exploit-new-mikrotik-routeros-flaws-to-hijack-routers/",
+        "title": "Hackers exploit new MikroTik RouterOS flaws to hijack routers",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "36703fcb-6633-4520-b4bb-7e9ad704c55e",
+        "url": "https://www.bleepingcomputer.com/news/security/connectwise-warns-of-new-screenconnect-flaw-without-patch/",
+        "title": "ConnectWise warns of new ScreenConnect flaw without patch",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "1fdbcc6b-2d26-4f09-83d8-4c7b079f6435",
+        "url": "https://thehackernews.com/2026/09/n-able-issues-fourth-n-central-hotfix.html",
+        "title": "N-able Issues Fourth N-central Hotfix in Five Weeks for Unauthenticated RCE Flaw",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "b989a9b4-0739-4094-a86d-bf65ad00795d",
+        "url": "https://thehackernews.com/2026/09/jsceal-malware-can-bypass-google.html",
+        "title": "JSCeal Malware Can Bypass Google Authentication Using Stolen Session Cookies",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "aa0c8a1b-8149-4fa2-81b0-0036de321ffa",
+        "url": "https://www.bleepingcomputer.com/news/security/n-able-patches-max-severity-n-central-flaw-amid-ongoing-attacks/",
+        "title": "N-able patches max severity N-central flaw amid ongoing attacks",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "2a917bd0-fd17-455e-ae5a-5873c52933a8",
+        "url": "https://news.risky.biz/risky-bulletin-bec-campaign-steals-eur35-million-from-french-notaries/",
+        "title": "Risky Bulletin: BEC campaign steals €35 million from French notaries",
+        "source": "Risky Business News"
+      },
+      {
+        "id": "a2fb0c14-77bd-4298-87ea-fe7346c79892",
+        "url": "https://www.bleepingcomputer.com/news/artificial-intelligence/chatgpt-astra-is-now-rolling-out-to-20-plus-subscription/",
+        "title": "ChatGPT Astra is now rolling out to $20 Plus subscription",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "f7a48982-aaf1-4c66-b6b4-ad73e556b726",
+        "url": "https://www.sophos.com/en-us/blog/dissecting-a-php-web-server-rootkit",
+        "title": "Dissecting a PHP web server rootkit",
+        "source": "Sophos News"
+      },
+      {
+        "id": "4dda9b73-bd03-429a-bf5d-254bc0114343",
+        "url": "https://isc.sans.edu/diary/rss/33314",
+        "title": "Critical MikroTik Vulnerability - Patch Now, (Sun, Sep 6th)",
+        "source": "SANS ISC"
+      },
+      {
+        "id": "05eb47b9-9f1b-4743-8994-99608d61c676",
+        "url": "https://www.bleepingcomputer.com/news/security/attackers-conceal-phishing-lures-using-invisible-unicode-characters/",
+        "title": "Attackers conceal phishing lures using invisible Unicode characters",
+        "source": "BleepingComputer"
+      }
+    ]
+  }
+}
