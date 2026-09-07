@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "day": "2026-09-07",
+    "title": "Remote management, remote execution, immediate work",
+    "duration_s": 573,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-07.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-07.md"
+  }
+]
