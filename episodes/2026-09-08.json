@@ -1,0 +1,193 @@
+{
+  "day": "2026-09-08",
+  "title": "N-central's fourth hotfix, backdoored shops and an anonymous administrator",
+  "duration_s": 599,
+  "chars": 9471,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-08.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-08.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. It's Tuesday, the eighth of September, twenty twenty-six. 522 AM is brought to you by Lab522, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Email hello at lab522 dot co dot uk if you think we can help your business. N-able has shipped its fourth N-central hotfix in five weeks, and yes, even servers updated to Hotfix Three a day earlier need this one. N-central is the remote monitoring and management platform that lets an operations team reach across its managed estate. Code execution there isn't just somebody breaking into the tool cupboard. It's somebody getting access to the tools.",
+    "Every on-premises N-central build below 2026 point 3 point 1 point 14 needs Hotfix Four for an unauthenticated remote code execution flaw rated at maximum severity. There's an awkward split in N-able's own messaging: its incident notice says it's been exploited in the wild; its release notes say exploitation is unconfirmed. I'd treat the incident notice as the reason not to wait. Get onto that fixed build, and if you've already deployed Hotfix Three, don't let yesterday's completed change ticket send you back to sleep.",
+    "Staying with tools that reach other people's machines, attackers are abusing backdoored ScreenConnect instances to transfer and execute payloads on newly connected clients. ScreenConnect is ConnectWise's remote-access software, and here the useful feature — connecting a fresh machine for support — becomes the delivery route for a four-stage VBScript chain. If you operate ScreenConnect, check for unexpected client modifications and script execution around new connections. The important question isn't just who connected, but what arrived with them.",
+    "Separately, ConnectWise has warned of a new ScreenConnect Remote Access vulnerability with no patch yet. Temporary mitigations are available, and a fix is planned for later this week. Don't assume that flaw explains the malicious-client campaign; that link hasn't been established. Follow ConnectWise's mitigations while you wait for the patch.",
+    "From remote support to online shops: StyleSmuggler is being exploited against Magento and Adobe Commerce to execute code and plant a Linux backdoor. The warning covers all versions. That's a foothold on the server running the shop, not merely a page somebody's defaced, and a backdoor means fixing the original opening wouldn't necessarily evict the intruder.",
+    "Adobe's new Commerce template-engine vulnerability, CVE-2026-75650, scores ten: reachable over the network, no login and no click, with arbitrary code running as the application user. The affected releases include the August updates across the listed Commerce, Magento Open Source and Commerce B2B branches. There's no fixed release identified here. If you run these stores, get the current Adobe remediation guidance and investigate for compromise rather than treating this as a routine upgrade to schedule when trading's quiet.",
+    "And the other internet-facing systems actively changing hands are MikroTik routers. Attackers are chaining two recently disclosed RouterOS flaws to take control of devices with SSH exposed to the internet. The precise releases and fixes haven't been identified in this warning, but the exposure condition is clear. If you run RouterOS, check external SSH access now and restrict it to trusted management paths while you establish the applicable fixes. A router that belongs to someone else is a rather poor place to enforce your network boundary.",
+    "While we're on network kit, there are public exploits for two new D-Link DIR-822A flaws in firmware A underscore 101. The more urgent one, CVE-2026-86296, is a stack overflow in the DHCP client, scored ten and reachable over the network without a login or a click. The other affects its L2TP control-message parser and needs low privileges. Nobody's identified safe firmware here, so don't mistake a public exploit for a problem you can already close with an upgrade. Establish whether you have these devices and get D-Link's remediation position.",
+    "Right, that's the active attacks and exposed edge kit. The new flaw I'd give serious attention next is in 389 Directory Server, the LDAP directory behind Red Hat Directory Server. An attacker can become Directory Manager without knowing a valid password. Not steal the password. Not crack it. Become the administrator anyway.",
+    "Here's how: a failed SASL PLAIN bind as Directory Manager leaves a stale identity behind. A successful SASL ANONYMOUS bind on that same connection can then inherit it. The server effectively remembers who you claimed to be and forgets that you failed to prove it. CVE-2026-18922 scores nine point eight, works over the network without credentials or user interaction, and affects Red Hat Directory Server eleven and twelve. Directory Manager authority puts the directory's identities and configuration within reach. Exact fixed package versions haven't been given, so check Red Hat's advisory and keep LDAP access restricted to the systems that actually need it while you resolve the update.",
+    "Another administrative interface with rather too much power sits on Advantech's WISE-6610 industrial LoRaWAN gateways, which connect sensor networks to upstream applications. Two command-injection flaws affect listed WISE-6610, EL and P variants on firmware 1 point 2 point 1, build 20251110. Both need a low-privilege login, both work remotely without a click, and both have public exploits. Their score is nine point nine.",
+    "The mechanism is the interesting bit: an act argument becomes command injection in either the Basic Station certificate-deletion handler or the Node-RED library handler. So an account with limited access can reach command execution on the gateway. For the Node-RED flaw, CVE-2026-79698, upgrade to 1 point 2 point 4, build 20260821. That fix is explicitly identified for the Node-RED issue; don't assume it also closes the certificate-deletion flaw without confirmation. Keep those management interfaces on trusted administration networks.",
+    "There's also a ten-rated SAP flaw worth putting in front of your SAP team. A malformed Extended Passport Protocol header in a crafted network request can hit a memory-safety bug without authentication or user interaction. The named EPP processing releases are 7 point 22 EXT, 7 point 53, 8 point 04, and 9 point 18 through 9 point 20. The described outcome is undefined behaviour and abnormal termination, with potentially high confidentiality, integrity and availability impact — not a demonstrated code-execution chain. Check SAP's remediation guidance for those releases; a fixed version hasn't been named.",
+    "Which brings me to a code-execution chain that does have a public proof of concept. TantoSec has turned a padding oracle in Telerik UI for ASP.NET AJAX, the web-interface component library, into unauthenticated remote code execution. The catch matters: it only works against applications in a specific non-default configuration, and Progress patched the chain in July. If you own an application using Telerik, check that configuration and whether the July fixes actually reached production. The headline's broad; the exposure isn't.",
+    "Away from software flaws, Microsoft 365 attackers are getting plenty done by persuading people to let them in. One widespread theft-and-extortion cluster is targeting executives through fake IT help desk calls and adversary-in-the-middle token theft. Separately, the BigBear two point zero phishing service has bypassed MFA at two hundred and fifty-eight organisations and stolen more than five thousand Microsoft 365 credentials. These aren't grounds to write off MFA. They're grounds to check suspicious help desk calls alongside sign-in and session activity, rather than closing the investigation because an MFA challenge succeeded.",
+    "And stolen sessions aren't just a phishing problem. JSCeal malware can bypass Google authentication using stolen session cookies, alongside credential harvesting, surveillance and traffic interception. If you're investigating JSCeal on an endpoint, include the Google sessions it could have exposed. A password isn't the only thing that can carry access out of a machine.",
+    "One final pair of breaches shows how far sideways data can travel. Mathspace, the online maths-learning platform, says attackers stole data concerning more than a million students, staff and parents after breaching its internal Metabase reporting system. Metabase is a business-intelligence tool: the place you go to ask questions of your data. If you operate it, check who can reach it and what its connected data sources expose. The reporting layer can hold a much wider view than any single application screen.",
+    "And Trezor's August breach at shipping and logistics provider ShipMonk now affects eighty-one thousand customers, after another sixty-seven thousand US customers were added. That's a supplier breach, not evidence that the hardware wallets themselves were compromised. If you're affected, look for Trezor's updated notification rather than assuming the earlier customer count settled it.",
+    "I'd put N-central's fourth hotfix ahead of routine change work, and pair the Commerce response with a search for backdoors, not just a search for an update. Then check RouterOS SSH exposure and Directory Server reachability, and keep an eye on ConnectWise's promised fix later this week. 522 AM, brought to you by Lab522. Find us at lab522 dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-79697",
+      "CVE-2026-79698",
+      "CVE-2026-44756",
+      "CVE-2026-75650",
+      "CVE-2026-86296",
+      "CVE-2026-86299",
+      "CVE-2026-86510",
+      "CVE-2026-18922"
+    ],
+    "news": [
+      {
+        "id": "9d0db1a9-3752-445e-9c18-8570ba2eeb2e",
+        "url": "https://isc.sans.edu/diary/rss/33316",
+        "title": "ISC Stormcast For Tuesday, September 8th, 2026 https://isc.sans.edu/podcastdetail/10084, (Tue, Sep 8th)",
+        "source": "SANS ISC"
+      },
+      {
+        "id": "113212e1-89a4-448d-91f4-a2820c459a25",
+        "url": "https://thehackernews.com/2026/09/peep-turns-chrome-and-edge-into-post.html",
+        "title": "PEEP Turns Chrome and Edge Into Post-Compromise Backdoors for Host Command Execution",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "8597eeb7-77a1-4945-a5db-4a456d595c95",
+        "url": "https://www.bleepingcomputer.com/news/security/magento-stylesmuggler-zero-day-exploited-to-deploy-linux-backdoor/",
+        "title": "Magento StyleSmuggler zero-day exploited to deploy Linux backdoor",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "4b6929a3-5996-4f57-84b6-3750d2a1b5c9",
+        "url": "https://thehackernews.com/2026/09/microsoft-365-attackers-use-help-desk.html",
+        "title": "Fake IT Calls Target Executives in Microsoft 365 Data Theft and Extortion Attacks",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "aae9d567-f3d8-4e6b-b435-8fe6c1d5224e",
+        "url": "https://www.bleepingcomputer.com/news/security/bigbear-microsoft-365-phishing-service-bypassed-mfa-at-258-organizations/",
+        "title": "BigBear Microsoft 365 phishing service bypassed MFA at 258 organizations",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "d512ab2e-a7c8-48d7-9639-24e44581b5e1",
+        "url": "https://thehackernews.com/2026/09/weekly-recap-chrome-0-day-router.html",
+        "title": "⚡ Weekly Recap: Chrome 0-Day, Router Hijacks, Coder Supply Chain Attack and More",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "d78e9d94-80fe-48a4-ab86-846e1a7c39ed",
+        "url": "https://www.bleepingcomputer.com/news/security/mathspace-discloses-data-breach-affecting-over-1-million-people/",
+        "title": "Mathspace discloses data breach affecting over 1 million people",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "a253d6e7-1f18-4a80-bd15-5078dec8811c",
+        "url": "https://www.bleepingcomputer.com/news/security/trezor-data-breach-impact-now-reaches-81-000-customers/",
+        "title": "Trezor data breach impact now reaches 81,000 customers",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "64d7a614-2f45-4cb7-ba77-382850a4d7cf",
+        "url": "https://www.securityweek.com/nightmare-eclipse-drops-crowdstrike-nvidia-avast-zero-day-exploits/",
+        "title": "Nightmare Eclipse Drops CrowdStrike, Nvidia, Avast Zero-Day Exploits",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "acedeb92-1afc-48dc-8ce4-5771d721af25",
+        "url": "https://www.securityweek.com/north-korean-hackers-deploy-new-linux-espionage-toolkit/",
+        "title": "North Korean Hackers Deploy New Linux Espionage Toolkit",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "62d9ee25-fc46-48bb-b464-c4b018ec0151",
+        "url": "https://www.securityweek.com/openai-agents-hijack-another-victim-website/",
+        "title": "OpenAI Agents Hijack Another Victim Website",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "14741438-587b-46ce-8601-72885a8739ec",
+        "url": "https://www.ncsc.gov.uk/blogs/the-hidden-risks-of-shadow-ai",
+        "title": "The hidden risks of shadow AI",
+        "source": "NCSC"
+      },
+      {
+        "id": "a8648e3c-4880-40c4-b4a9-fe78615223f4",
+        "url": "https://www.securityweek.com/adobe-commerce-zero-day-exploited-to-backdoor-online-stores/",
+        "title": "Adobe Commerce Zero-Day Exploited to Backdoor Online Stores",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "50f1391d-650b-449d-9999-3648973e18c6",
+        "url": "https://therecord.media/germany-berlin-second-data-breach-city-agencies",
+        "title": "Berlin investigates new data leak after hackers publish stolen login credentials",
+        "source": "The Record"
+      },
+      {
+        "id": "8432f29d-1a49-4f10-b012-23adbebb3e26",
+        "url": "https://www.securityweek.com/modified-screenconnect-clients-used-in-worm-like-campaign/",
+        "title": "Modified ScreenConnect Clients Used in Worm-Like Campaign",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "447c26e7-fccc-41d6-b9db-ac27f51463f5",
+        "url": "https://thehackernews.com/2026/09/your-cloud-security-checklist-doesnt.html",
+        "title": "Your Cloud Security Checklist Doesn't Work the Way You Think It Does",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "98bc0607-6ce5-44d9-88f8-4ce03714796f",
+        "url": "https://thehackernews.com/2026/09/rogue-screenconnect-clients-spread-four.html",
+        "title": "Rogue ScreenConnect Clients Spread Four-Stage VBScript Chain to Newly Connected Hosts",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "be057c2a-dbf2-4fc1-87c4-d5fa92088679",
+        "url": "https://thehackernews.com/2026/09/telerik-ui-padding-oracle-bug-chained.html",
+        "title": "Telerik UI Padding-Oracle Bug Chained to Unauthenticated RCE — Public Exploit Released",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "1e925057-420a-4079-9787-4aada6c664e5",
+        "url": "https://www.schneier.com/blog/archives/2026/09/automobile-camouflage-to-hide-from-flock-cameras.html",
+        "title": "Automobile Camouflage to Hide from Flock Cameras",
+        "source": "Schneier on Security"
+      },
+      {
+        "id": "8a901ae3-f13f-432b-8ee6-3249de976925",
+        "url": "https://www.bleepingcomputer.com/news/artificial-intelligence/chatgpt-can-now-connect-to-your-personal-apps-to-mimic-writing-style/",
+        "title": "ChatGPT can now connect to your personal apps to mimic writing style",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "a1f3cf35-9430-4023-9424-f9e8c33929c4",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-exploit-new-mikrotik-routeros-flaws-to-hijack-routers/",
+        "title": "Hackers exploit new MikroTik RouterOS flaws to hijack routers",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "36703fcb-6633-4520-b4bb-7e9ad704c55e",
+        "url": "https://www.bleepingcomputer.com/news/security/connectwise-warns-of-new-screenconnect-flaw-without-patch/",
+        "title": "ConnectWise warns of new ScreenConnect flaw without patch",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "1fdbcc6b-2d26-4f09-83d8-4c7b079f6435",
+        "url": "https://thehackernews.com/2026/09/n-able-issues-fourth-n-central-hotfix.html",
+        "title": "N-able Issues Fourth N-central Hotfix in Five Weeks for Unauthenticated RCE Flaw",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "b989a9b4-0739-4094-a86d-bf65ad00795d",
+        "url": "https://thehackernews.com/2026/09/jsceal-malware-can-bypass-google.html",
+        "title": "JSCeal Malware Can Bypass Google Authentication Using Stolen Session Cookies",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "aa0c8a1b-8149-4fa2-81b0-0036de321ffa",
+        "url": "https://www.bleepingcomputer.com/news/security/n-able-patches-max-severity-n-central-flaw-amid-ongoing-attacks/",
+        "title": "N-able patches max severity N-central flaw amid ongoing attacks",
+        "source": "BleepingComputer"
+      }
+    ]
+  }
+}
