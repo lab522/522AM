@@ -1,43 +1,64 @@
 {
   "day": "2026-09-08",
-  "title": "N-central's fourth hotfix, backdoored shops and an anonymous administrator",
-  "duration_s": 599,
-  "chars": 9471,
+  "title": "Adobe patches StyleSmuggler, SAP registration flaw and passenger records exposed",
+  "duration_s": 496,
+  "chars": 6708,
   "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-08.mp3",
   "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-08.md",
   "paragraphs": [
-    "Good morning, it's 5:22 AM. It's Tuesday, the eighth of September, twenty twenty-six. 522 AM is brought to you by Lab522, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Email hello at lab522 dot co dot uk if you think we can help your business. N-able has shipped its fourth N-central hotfix in five weeks, and yes, even servers updated to Hotfix Three a day earlier need this one. N-central is the remote monitoring and management platform that lets an operations team reach across its managed estate. Code execution there isn't just somebody breaking into the tool cupboard. It's somebody getting access to the tools.",
-    "Every on-premises N-central build below 2026 point 3 point 1 point 14 needs Hotfix Four for an unauthenticated remote code execution flaw rated at maximum severity. There's an awkward split in N-able's own messaging: its incident notice says it's been exploited in the wild; its release notes say exploitation is unconfirmed. I'd treat the incident notice as the reason not to wait. Get onto that fixed build, and if you've already deployed Hotfix Three, don't let yesterday's completed change ticket send you back to sleep.",
-    "Staying with tools that reach other people's machines, attackers are abusing backdoored ScreenConnect instances to transfer and execute payloads on newly connected clients. ScreenConnect is ConnectWise's remote-access software, and here the useful feature — connecting a fresh machine for support — becomes the delivery route for a four-stage VBScript chain. If you operate ScreenConnect, check for unexpected client modifications and script execution around new connections. The important question isn't just who connected, but what arrived with them.",
-    "Separately, ConnectWise has warned of a new ScreenConnect Remote Access vulnerability with no patch yet. Temporary mitigations are available, and a fix is planned for later this week. Don't assume that flaw explains the malicious-client campaign; that link hasn't been established. Follow ConnectWise's mitigations while you wait for the patch.",
-    "From remote support to online shops: StyleSmuggler is being exploited against Magento and Adobe Commerce to execute code and plant a Linux backdoor. The warning covers all versions. That's a foothold on the server running the shop, not merely a page somebody's defaced, and a backdoor means fixing the original opening wouldn't necessarily evict the intruder.",
-    "Adobe's new Commerce template-engine vulnerability, CVE-2026-75650, scores ten: reachable over the network, no login and no click, with arbitrary code running as the application user. The affected releases include the August updates across the listed Commerce, Magento Open Source and Commerce B2B branches. There's no fixed release identified here. If you run these stores, get the current Adobe remediation guidance and investigate for compromise rather than treating this as a routine upgrade to schedule when trading's quiet.",
-    "And the other internet-facing systems actively changing hands are MikroTik routers. Attackers are chaining two recently disclosed RouterOS flaws to take control of devices with SSH exposed to the internet. The precise releases and fixes haven't been identified in this warning, but the exposure condition is clear. If you run RouterOS, check external SSH access now and restrict it to trusted management paths while you establish the applicable fixes. A router that belongs to someone else is a rather poor place to enforce your network boundary.",
-    "While we're on network kit, there are public exploits for two new D-Link DIR-822A flaws in firmware A underscore 101. The more urgent one, CVE-2026-86296, is a stack overflow in the DHCP client, scored ten and reachable over the network without a login or a click. The other affects its L2TP control-message parser and needs low privileges. Nobody's identified safe firmware here, so don't mistake a public exploit for a problem you can already close with an upgrade. Establish whether you have these devices and get D-Link's remediation position.",
-    "Right, that's the active attacks and exposed edge kit. The new flaw I'd give serious attention next is in 389 Directory Server, the LDAP directory behind Red Hat Directory Server. An attacker can become Directory Manager without knowing a valid password. Not steal the password. Not crack it. Become the administrator anyway.",
-    "Here's how: a failed SASL PLAIN bind as Directory Manager leaves a stale identity behind. A successful SASL ANONYMOUS bind on that same connection can then inherit it. The server effectively remembers who you claimed to be and forgets that you failed to prove it. CVE-2026-18922 scores nine point eight, works over the network without credentials or user interaction, and affects Red Hat Directory Server eleven and twelve. Directory Manager authority puts the directory's identities and configuration within reach. Exact fixed package versions haven't been given, so check Red Hat's advisory and keep LDAP access restricted to the systems that actually need it while you resolve the update.",
-    "Another administrative interface with rather too much power sits on Advantech's WISE-6610 industrial LoRaWAN gateways, which connect sensor networks to upstream applications. Two command-injection flaws affect listed WISE-6610, EL and P variants on firmware 1 point 2 point 1, build 20251110. Both need a low-privilege login, both work remotely without a click, and both have public exploits. Their score is nine point nine.",
-    "The mechanism is the interesting bit: an act argument becomes command injection in either the Basic Station certificate-deletion handler or the Node-RED library handler. So an account with limited access can reach command execution on the gateway. For the Node-RED flaw, CVE-2026-79698, upgrade to 1 point 2 point 4, build 20260821. That fix is explicitly identified for the Node-RED issue; don't assume it also closes the certificate-deletion flaw without confirmation. Keep those management interfaces on trusted administration networks.",
-    "There's also a ten-rated SAP flaw worth putting in front of your SAP team. A malformed Extended Passport Protocol header in a crafted network request can hit a memory-safety bug without authentication or user interaction. The named EPP processing releases are 7 point 22 EXT, 7 point 53, 8 point 04, and 9 point 18 through 9 point 20. The described outcome is undefined behaviour and abnormal termination, with potentially high confidentiality, integrity and availability impact — not a demonstrated code-execution chain. Check SAP's remediation guidance for those releases; a fixed version hasn't been named.",
-    "Which brings me to a code-execution chain that does have a public proof of concept. TantoSec has turned a padding oracle in Telerik UI for ASP.NET AJAX, the web-interface component library, into unauthenticated remote code execution. The catch matters: it only works against applications in a specific non-default configuration, and Progress patched the chain in July. If you own an application using Telerik, check that configuration and whether the July fixes actually reached production. The headline's broad; the exposure isn't.",
-    "Away from software flaws, Microsoft 365 attackers are getting plenty done by persuading people to let them in. One widespread theft-and-extortion cluster is targeting executives through fake IT help desk calls and adversary-in-the-middle token theft. Separately, the BigBear two point zero phishing service has bypassed MFA at two hundred and fifty-eight organisations and stolen more than five thousand Microsoft 365 credentials. These aren't grounds to write off MFA. They're grounds to check suspicious help desk calls alongside sign-in and session activity, rather than closing the investigation because an MFA challenge succeeded.",
-    "And stolen sessions aren't just a phishing problem. JSCeal malware can bypass Google authentication using stolen session cookies, alongside credential harvesting, surveillance and traffic interception. If you're investigating JSCeal on an endpoint, include the Google sessions it could have exposed. A password isn't the only thing that can carry access out of a machine.",
-    "One final pair of breaches shows how far sideways data can travel. Mathspace, the online maths-learning platform, says attackers stole data concerning more than a million students, staff and parents after breaching its internal Metabase reporting system. Metabase is a business-intelligence tool: the place you go to ask questions of your data. If you operate it, check who can reach it and what its connected data sources expose. The reporting layer can hold a much wider view than any single application screen.",
-    "And Trezor's August breach at shipping and logistics provider ShipMonk now affects eighty-one thousand customers, after another sixty-seven thousand US customers were added. That's a supplier breach, not evidence that the hardware wallets themselves were compromised. If you're affected, look for Trezor's updated notification rather than assuming the earlier customer count settled it.",
-    "I'd put N-central's fourth hotfix ahead of routine change work, and pair the Commerce response with a search for backdoors, not just a search for an update. Then check RouterOS SSH exposure and Directory Server reachability, and keep an eye on ConnectWise's promised fix later this week. 522 AM, brought to you by Lab522. Find us at lab522 dot co dot uk."
+    "Good morning, it's 5:22 AM. Tuesday, the eighth of September, twenty twenty-six. 522 AM is brought to you by Lab522, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Email hello at lab522 dot co dot uk if you think we can help your business. Adobe has released patches for the StyleSmuggler zero-day. That's the important change since yesterday: store operators now have a vendor fix to apply, while attackers are deploying a Rust backdoor and PHP web shells.",
+    "The flaw is CVE-2026-75650, and it scores ten. Improper handling of special elements in the template engine lets an attacker execute code as the application's current user, over the network, without a login or a click. That's execution inside the software running your shop, not just somebody changing the window display.",
+    "The affected Adobe Commerce branches run from 2 point 4 point 4 through 2 point 4 point 9, including their August twenty twenty-six updates. Magento Open Source branches 2 point 4 point 6 through 2 point 4 point 9 are also listed through those August updates, alongside several Commerce B2B branches. Get Adobe's Monday security patches matched to your edition and branch; an August update doesn't clear you. And because attackers are leaving both native backdoors and web shells, check beyond the PHP files when investigating a store. Closing the entrance doesn't remove whoever came through it.",
+    "From storefronts to the systems behind the business: SAP has two new critical flaws worth getting in front of your SAP team today. The more concrete trust failure is in NetWeaver Message Server, which coordinates communication between application servers. It doesn't sufficiently verify that a component registering as an internal application server really belongs there.",
+    "An attacker with network access can register an unauthorised component without credentials or user interaction, potentially gaining the ability to perform unauthorised actions inside the application environment. CVE-2026-58240 scores nine point eight and affects versions 9 point 18, 9 point 19 and 9 point 20. The registration desk is accepting claims of membership without checking them. Review which hosts can reach that service and check SAP's remediation guidance for those versions.",
+    "Alongside that, SAP's Extended Passport Protocol processing library has a memory-safety flaw triggered by a malformed EPP header in a crafted network request. The library handles context passed between SAP components, so this is embedded plumbing rather than another application for your inventory. CVE-2026-44756 scores ten and needs neither authentication nor user interaction. Affected versions are 7 point 22 EXT, 7 point 53, 8 point 04, and 9 point 18 through 9 point 20.",
+    "Here's the distinction: abnormal termination and undefined behaviour are described, with potentially severe confidentiality and integrity consequences, but confirmed code execution isn't. Don't turn the score into a capability nobody's established. Fixed builds haven't been specified for either SAP flaw here; use SAP's current guidance to establish the update destination, and check service reachability while you do.",
+    "There's a more straightforward version boundary on the industrial side. Siemens Reyrolle 7SR5 protection relays, the devices monitoring electrical systems and responding to faults, are affected before version 2 point 70. Their web interface exposes information that lets an attacker calculate current and past session IDs. The result is an authentication bypass and unauthorised device access over the network, with no login or click required.",
+    "That's CVE-2026-62645, scoring nine point eight. If you operate these relays, arrange the move to 2 point 70 or later under your operational change process, and restrict web-interface access to the management hosts that need it. A session identifier isn't much of a secret if the device hands out the working.",
+    "While we're on appliances, there's an additional D-Link DIR-822A flaw, distinct from yesterday's warning. Firmware A underscore 101 has an out-of-bounds write in its L2TP control-message parser, with a public exploit. It requires a low-privilege login over the network. Check D-Link's guidance for CVE-2026-86510 and restrict access to the affected service; no safe firmware has been identified.",
+    "Moving from appliance access to persistence on workstations, researchers have disclosed PEEP, a Chromium-based post-exploitation toolkit that disguises itself as a bookmarks extension. It turns Chrome and Edge into backdoors capable of executing commands on the host. The bookmarks are rather less interesting than what sits behind them.",
+    "Post-exploitation is the key word: this isn't evidence that visiting a page gives an attacker a shell in a clean browser. For responders investigating an already compromised endpoint, though, browser extensions belong in the persistence review. Don't dismiss one just because its stated job sounds harmless; correlate suspect extensions with unexpected host command execution.",
+    "And attackers are also using the browser's front door. BengalSEO is a search-poisoning campaign targeting Bing results to deliver MayaBot malware and tech-support scams. The DFIR Report discovered it in March. For investigations involving those payloads or scams, trace the search result and subsequent browsing path, rather than assuming the lure arrived by email. A prominent search result can lend borrowed credibility just as neatly as a convincing sender name.",
+    "One more before we finish, and the scale needs careful wording. An exposed, Vietnam-linked Advance Passenger Information System database held two hundred and twenty million passenger and crew records. Records, not necessarily that many different people. They span twenty seventeen to twenty twenty-six and include names, passport numbers, dates of birth, nationalities and flight details.",
+    "APIS systems carry identity and journey information for passenger processing and border checks. Put those fields together and you've got enough context for a very convincing travel-related approach. If you operate passenger-data integrations, review exposure and access controls on the databases carrying that feed, not just the public booking application. The exposure is established; who accessed the database hasn't been established here.",
+    "I'd give the Adobe patches the first change slot today, with compromise checks alongside the update rather than afterwards as an optional extra. Then I'd get the SAP service owners to establish reachability and a remediation plan, while relay operators line up a safe maintenance window. 522 AM, brought to you by Lab522. Find us at lab522 dot co dot uk."
   ],
   "sources": {
     "cves": [
-      "CVE-2026-79697",
-      "CVE-2026-79698",
       "CVE-2026-44756",
       "CVE-2026-75650",
       "CVE-2026-86296",
       "CVE-2026-86299",
       "CVE-2026-86510",
-      "CVE-2026-18922"
+      "CVE-2026-18922",
+      "CVE-2026-58240",
+      "CVE-2026-62645"
     ],
     "news": [
+      {
+        "id": "436cb584-7cf7-4388-90e0-c868fcb12f0a",
+        "url": "https://thehackernews.com/2026/09/adobe-patches-magento-zero-day.html",
+        "title": "Adobe Patches Magento Zero-Day Exploited to Deploy Rust Backdoor and PHP Web Shell",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "04d8c8a9-f899-4eb0-a0f6-8d2dad8572ce",
+        "url": "https://thehackernews.com/2026/09/bengalseo-poisons-bing-search-results.html",
+        "title": "BengalSEO Poisons Bing Search Results to Deliver MayaBot and Tech Support Scams",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "90f66154-a5ad-463b-9115-ad94e66853c8",
+        "url": "https://www.bleepingcomputer.com/news/security/220-million-traveler-records-exposed-in-vietnam-linked-apis-leak/",
+        "title": "220 million traveler records exposed in Vietnam-linked APIS leak",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "80a5ce8e-2a62-48ef-bd91-a2ba9a8feb47",
+        "url": "https://thehackernews.com/2026/09/grindr-to-pay-26-million-to-settle-uk.html",
+        "title": "Grindr to Pay £26 Million to Settle U.K. Claims Over HIV Status Data Sharing",
+        "source": "The Hacker News"
+      },
       {
         "id": "9d0db1a9-3752-445e-9c18-8570ba2eeb2e",
         "url": "https://isc.sans.edu/diary/rss/33316",
@@ -168,24 +189,6 @@
         "id": "36703fcb-6633-4520-b4bb-7e9ad704c55e",
         "url": "https://www.bleepingcomputer.com/news/security/connectwise-warns-of-new-screenconnect-flaw-without-patch/",
         "title": "ConnectWise warns of new ScreenConnect flaw without patch",
-        "source": "BleepingComputer"
-      },
-      {
-        "id": "1fdbcc6b-2d26-4f09-83d8-4c7b079f6435",
-        "url": "https://thehackernews.com/2026/09/n-able-issues-fourth-n-central-hotfix.html",
-        "title": "N-able Issues Fourth N-central Hotfix in Five Weeks for Unauthenticated RCE Flaw",
-        "source": "The Hacker News"
-      },
-      {
-        "id": "b989a9b4-0739-4094-a86d-bf65ad00795d",
-        "url": "https://thehackernews.com/2026/09/jsceal-malware-can-bypass-google.html",
-        "title": "JSCeal Malware Can Bypass Google Authentication Using Stolen Session Cookies",
-        "source": "The Hacker News"
-      },
-      {
-        "id": "aa0c8a1b-8149-4fa2-81b0-0036de321ffa",
-        "url": "https://www.bleepingcomputer.com/news/security/n-able-patches-max-severity-n-central-flaw-amid-ongoing-attacks/",
-        "title": "N-able patches max severity N-central flaw amid ongoing attacks",
         "source": "BleepingComputer"
       }
     ]
