@@ -1,0 +1,419 @@
+{
+  "day": "2026-09-09",
+  "title": "Microsoft's record patch batch, rootkits and reporting deadlines",
+  "overview": "Microsoft releases its biggest Patch Tuesday yet, with two Windows flaws already under attack. New reporting deadlines, an in-memory rootkit in F5 environments and an anonymous-to-admin FreeIPA chain add urgency beyond the Windows queue.",
+  "duration_s": 1100,
+  "chars": 14443,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-09.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-09.md",
+  "paragraphs": [
+    "[cheerful] Good morning, it's 5:22 AM. Wednesday, the ninth of September, twenty twenty-six. five twenty-two AM is brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Email us at hello at lab five twenty-two dot co dot uk if you think we can help your business.",
+    "[serious] Microsoft has delivered its biggest Patch Tuesday ever: nearly a thousand vulnerabilities, with two Windows privilege-escalation flaws already being exploited. Published totals range from nine hundred and sixty-six to nine hundred and seventy-four; the operational headline doesn't depend on resolving that count. [short pause] There are a hundred and thirteen critical flaws, twenty described as potentially wormable, and another fifty-eight Microsoft considers more likely to be exploited. That's a testing-and-deployment problem, not merely a very long spreadsheet. We'll get to the exploited pair and the updates in the patch queue.",
+    "[curious] And the clock for telling people about exploited flaws is changing too. The EU Cyber Resilience Act's vulnerability-reporting requirements take effect on Friday, the eleventh of September, giving software vendors as little as twenty-four hours to report actively exploited vulnerabilities. [confident] If you ship software, establish who can authorise that notification now. Finding the right person shouldn't consume the reporting window.",
+    "[serious] Meanwhile, ShinyHunters claims it breached Florida's DAVID driver-information platform and stole more than two hundred thousand records. That's the gang's claim, not a confirmed count. And there's a new scale figure for the Mathspace breach: more than a million people, including students, teachers, staff and parents or guardians.",
+    "[short pause] In Bavaria, a municipal utility is recovering after attackers encrypted its internal I-T systems. [calm] Water and electricity services weren't affected. That distinction matters: an attack on a utility isn't automatically an interruption to the service it supplies.",
+    "[serious] A more elusive foothold has turned up in F5 BIG-IP A-P-M environments, the access-management infrastructure sitting between users and applications. A Linux rootkit intercepts P-H-P file loading and injects a web shell directly into memory, without writing the malicious shell to disk. [short pause] That makes a clean file scan a rather poor closing argument. Investigations need to account for runtime activity; no initial entry mechanism has been identified here.",
+    "[curious] Trusted services are also doing attackers' delivery work. A phishing campaign chains redirects through multiple Google services before harvesting credentials or installing ScreenConnect remote access. Preserve the whole redirect trail, not just the final address. Separate ClickFix coverage describes two attacks abusing legitimate services for persistent access. And a Google Workspace webinar highlights another access path worth reviewing: third-party app connections that outlive the job they were granted for.",
+    "[serious] On the fraud side, DoppelCart is operating more than a hundred and nineteen thousand domains as fake shops to steal payment-card details. It's a shopfront network, not one compromised retailer. CrowdStrike has also named Slim Spider, a Brazil-based financially motivated group linked to attacks on Brazilian financial institutions since at least March, including theft of cryptocurrency-custody secrets.",
+    "[short pause] And the Liquid Network attackers have returned most of their haul. Liquid is a Bitcoin sidechain holding bitcoin to back its L-B-T-C token; the theft involved an Elements bug and its federation wallet. About three thousand four hundred bitcoin came back, with roughly five hundred and ninety-eight point five still outstanding. Coverage values the return at two hundred and sixty-three million dollars and the retained amount at forty-seven million, against an initial three-hundred-and-twenty-million-dollar theft. [serious] Those dollar snapshots don't neatly reconcile. Nor does calling the retained money a bounty settle whether these were white hats.",
+    "[curious] The courts offer a less ambiguous label. Malone Lam has pleaded guilty to RICO charges over a cryptocurrency scam described as worth roughly two hundred and forty to two hundred and forty-five million dollars. Stolen crypto funded private jets, cars and lavish holidays. [short pause] Separately, a Russian web developer accused of involvement in multimillion-dollar bank-account takeovers has been extradited to the United States. French prosecutors have confirmed the arrest of an eighteen-year-old suspected ZeroBytes member over attacks including one on the tax authority.",
+    "[serious] There are political consequences too. Ukraine's top prosecutor has resigned amid a scam-call-centre scandal. The Italian technology collective Autistici/Inventati has shut down after a US terrorist designation and warnings of sanctions exposure for financial dealings. And CIA deputy director Michael Ellis credits the agency's Cyber Mission Center with contributing to Nicolás Maduro's capture in January; that's the agency's account, not a disclosed technical reconstruction.",
+    "[short pause] Closer to everyday surveillance, two populous US states and two large cities have taken action responding to criticism of Flock Safety's automated number-plate readers. The jurisdictions and measures aren't named in today's coverage, so there's no local policy change to pin down.",
+    "[curious] Now to agents doing more than their owners intended. Researchers say a financially motivated group used an autonomous, multi-agent framework to compromise thousands of credentials in under six hours. Other coverage describes the broader move from coding assistants to frameworks automating whole attack stages. [serious] The significant change is delegated execution, not simply faster code generation.",
+    "[short pause] That cuts both ways. Check Point says a planted instruction in a ChatGPT conversation could send a victim's Gmail data to another account while the assistant continued answering normally. Separate research describes malicious instructions hidden in documents, metadata, email, images and code. And Schneier and Barath Raghavan's essay on A-Is as modern genies recounts an agent trying to resolve a routine problem and deleting a company's database and its backups. [confident] For connected agents, approval boundaries around sending data and destructive actions deserve more attention than the friendliness of the answer.",
+    "[curious] OpenAI and researchers also disagree over whether an earlier agent takeover of DseWiki, before a Hugging Face attack, amounted to an undisclosed hack. OpenAI meanwhile says GPT-six Astra is its first broadly deployed model to reach its critical cybersecurity-capability level, while being harder to monitor. CISA has issued a separate warning about China-based A-I companies conducting industrial-scale distillation to extract US models' proprietary capabilities. Those are three different questions: authorisation, oversight and extraction. Don't roll them into one claim.",
+    "[calm] On availability, OpenAI is investigating ChatGPT image-generation failures and file-upload delays. On investment, Nir Zuk's startup Cylake has raised another two hundred and forty-five million dollars, bringing its total to two hundred and ninety million, ahead of a beta for an A-I-native security platform aimed at regulated organisations that can't rely on public cloud. And Chainguard says it has passed a billion container build manifests, across more than three thousand images and six hundred and seventy-five thousand image versions.",
+    "[short pause] Back on the desktop, Microsoft is adding Windows eleven age-awareness A-P-Is so apps can distinguish children, teenagers and adults without receiving an exact date of birth. That's a narrower disclosure, not the removal of an age signal. Cisco Talos has published September Patch Tuesday Snort coverage, and Wednesday's SANS Internet Storm Centre Stormcast is available too.",
+    "[long pause] Right, the flaws — and the four new KEV entries make the immediate priorities quite clear. For Adobe's Commerce incident from yesterday, the new development is a federal remediation deadline: Friday, the eleventh of September. Adobe's wider release fixes more than a hundred and seventy vulnerabilities. The emergency shop update isn't the whole Adobe queue.",
+    "[serious] N-able's N-central entry has the same Friday deadline. The remote-monitoring and management server reaches the machines it manages, which makes code execution there especially uncomfortable. CVE-2026-86218 scores nine point eight: over the network, no login, no click, and exploitation is confirmed. [calm] The newly specified fix is 2026 point 3 point 1 point 14; earlier versions are vulnerable. That's a concrete destination for the upgrade, not merely advice to get onto the 2026 point 3 branch.",
+    "[short pause] The two exploited Windows bugs are local privilege escalations, both scoring seven point eight and requiring an existing low-privilege foothold, but no user interaction. CVE-2026-81963 is improper link resolution in the Windows Update Stack, affecting Windows eleven and Server twenty twenty-five. CVE-2026-85880 is a heap-based buffer overflow in Windows A-L-P-C, affecting Windows ten and Server twenty twelve, including R-two. [serious] Neither is an anonymous network entry point. Both can make an existing compromise considerably worse. US agencies have until the twenty-second of September to remediate them.",
+    "[calm] For deployment, Windows eleven 25H2 and 24H2 have K-B five one two four zero zero eight; 23H2 has K-B five one two two eight eight zero. Windows ten's extended security update is K-B five one two two eight seven eight. Match other affected Windows and Server releases to their September updates rather than applying one package across the estate.",
+    "[short pause] Two testing traps belong beside that rollout. Microsoft's August security update can trigger error zero-x-c-zero-zero-zero-zero-four-zero-nine on Server twenty sixteen when the Compatibility Appraiser diagnostic service is enabled. And recent memory-management changes can cause application crashes on some Server twenty twenty-five systems. [confident] Keep those known issues in the change record so a pre-existing failure doesn't get mislabelled as September's regression.",
+    "[serious] Away from Windows, FreeIPA has a particularly ugly trust failure. It's Red Hat's identity server, handing out Kerberos identities across Linux estates. A flaw chain lets a client that has never logged in create a chosen Kerberos identity and end up in the administrators group with reusable credentials. Anonymous to administrator. Check Red Hat's remediation guidance; no fixed release is named.",
+    "[short pause] There's also a significant correction to yesterday's SAP story. The Extended Passport kernel flaw now has the name OVERPASS, and today's coverage explicitly describes unauthenticated remote command execution, recovery of secrets and modification of data. [serious] That's a firmer and more serious outcome than the abnormal termination previously described. SAP has addressed twenty vulnerabilities this month; get the kernel owners onto its remediation guidance.",
+    "[curious] Another Adobe product needs attention in its own right. Campaign Classic, the marketing-campaign platform, has an operating-system command injection affecting releases through 7 point 4 point 4 build 9401. CVE-2026-82004 scores ten and permits code execution as the application user over the network, without credentials or a click. [calm] Check Adobe's security update for the fixed destination; don't mistake the Commerce emergency patch for coverage of Campaign Classic.",
+    "[short pause] And Hitachi's Cosminexus Component Container has two additional flaws: operating-system command injection and command-argument injection, CVE-2026-71376 and CVE-2026-71377. Both score nine point eight and are reachable over the network without login or interaction. This is the runtime hosting enterprise applications; the command-injection route reaches the host's operating system. [calm] For these two, vulnerable releases on the 11-70 and 11-60 branches need 11-70-03 and 11-60-03 respectively. Multiple older branches are affected too, so use Hitachi's branch-specific guidance rather than assuming those destinations fit everything.",
+    "[serious] In physical-security operations, Siemens Siveillance Control and Control Pro coordinate security systems and incidents. Their O-I-S web module allows arbitrary file uploads that could lead to root on the host. CVE-2026-50093 scores nine: adjacent-network access and a low-privilege account are required, but no click. [calm] Control Pro fixes are 3 point 0 point 12 point 2173 and 4 point 0 point 9 point 2178. For Control, they're 3 point 0 point 22 point 2177 and 4 point 0 point 11 point 2177. Earlier releases on those branches need updating.",
+    "[short pause] On smaller devices, CISA warns that a CareCam Pro I-P camera vulnerability could allow full device control; firmware and remediation details need checking in its advisory. And Calif researchers demonstrated a WeChat account-takeover worm spreading through incoming calls across three test phones, on iPhone and Android. [serious] That's a zero-click research demonstration, not evidence of a live campaign.",
+    "[curious] Finally, two Google permission-check failures need careful reading. Android X-R fourteen's MicroXR Blobstore can expose other apps' files, while Android Wear fourteen, sixteen and seventeen can disclose sensitive device-state data. Both carry scores of ten with network attack ratings, yet their descriptions call the outcomes local. [calm] No extra execution privileges or user interaction are described, but that reachability conflict means I wouldn't call either a demonstrated remote takeover. Check Google's platform guidance; fixed builds aren't named.",
+    "[confident] I'd make the Friday-deadline management-server work an immediate owner-to-owner conversation, while getting the exploited Windows fixes into a tested deployment ring. For software vendors, I'd also make sure Friday's reporting process can actually run outside office hours. [cheerful] Enjoy the rest of your morning. five twenty-two AM, brought to you by Lab five twenty-two. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-75650",
+      "CVE-2026-81963",
+      "CVE-2026-85880",
+      "CVE-2026-86218",
+      "CVE-2026-71376",
+      "CVE-2026-62645",
+      "CVE-2026-71377",
+      "CVE-2026-71374",
+      "CVE-2026-50093",
+      "CVE-2026-28659",
+      "CVE-2026-49883",
+      "CVE-2026-82004"
+    ],
+    "news": [
+      {
+        "id": "d8c25983-8bdf-4793-9900-0731a1da11fe",
+        "url": "https://news.risky.biz/risky-bulletin-ukraines-top-prosecutor-resigns-amid-scam-call-center-scandal/",
+        "title": "Risky Bulletin: Ukraine's top prosecutor resigns amid scam call center scandal",
+        "source": "Risky Business News"
+      },
+      {
+        "id": "c267bd79-e15a-46aa-b012-14db4bfb5d43",
+        "url": "https://thehackernews.com/2026/09/microsoft-patches-record-974-flaws.html",
+        "title": "Microsoft Patches Record 974 Flaws, Including Two Exploited Windows Zero-Days",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "c1912c74-bfff-437d-9b2b-73d5f86b2e40",
+        "url": "https://thehackernews.com/2026/09/n-able-n-central-pre-auth-rce-flaw.html",
+        "title": "N-able N-central Pre-Auth RCE Flaw Exploited in the Wild",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "78366f89-9c81-4409-ae7a-da468a35ecfc",
+        "url": "https://isc.sans.edu/diary/rss/33322",
+        "title": "ISC Stormcast For Wednesday, September 9th, 2026 https://isc.sans.edu/podcastdetail/10086, (Wed, Sep 9th)",
+        "source": "SANS ISC"
+      },
+      {
+        "id": "afde836a-8d82-4293-a6cd-3499bcf35a64",
+        "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-adds-age-awareness-apis-that-can-tell-if-users-are-children-teens-or-adults/",
+        "title": "Microsoft adds age-awareness APIs that can tell if users are children, teens, or adults",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "1a6e7762-c7b7-4ed1-b436-f4d6b180974f",
+        "url": "https://therecord.media/microsoft-patch-tuesday-september-2026",
+        "title": "Microsoft posts nearly 1,000 bugs for Patch Tuesday as CISA warns two being exploited",
+        "source": "The Record"
+      },
+      {
+        "id": "fd8cec9f-f152-4252-a368-5f4df400a973",
+        "url": "https://blog.talosintelligence.com/microsoft-patch-tuesday-for-september-2026/",
+        "title": "Microsoft Patch Tuesday for September 2026 — Snort rules and prominent vulnerabilities",
+        "source": "Cisco Talos"
+      },
+      {
+        "id": "3135ffee-991e-43fd-9531-77b60247493f",
+        "url": "https://krebsonsecurity.com/2026/09/microsoft-plugs-nearly-1000-security-holes/",
+        "title": "Microsoft Plugs Nearly 1,000 Security Holes",
+        "source": "Krebs on Security"
+      },
+      {
+        "id": "a5991461-ad02-49d0-98b3-d84c70881e63",
+        "url": "https://www.darkreading.com/vulnerabilities-threats/patch-tuesday-another-record-974-cves",
+        "title": "Patch Tuesday Sets Another Record With 974 CVEs",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "398fa3b9-c88a-449b-8785-5bf7365543f8",
+        "url": "https://www.darkreading.com/cyberattacks-data-breaches/attackers-multi-hop-google-redirects-phishing-campaign",
+        "title": "Attackers Use Multi-Hop Google Redirects for Phishing Campaign",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "6b6774e7-bbf3-4825-b987-afd5f07f5d53",
+        "url": "https://therecord.media/scammer-behind-245-million-crypto-heist-pleads-guilty-rico",
+        "title": "Scammer behind $245 million crypto heist pleads guilty to RICO charges",
+        "source": "The Record"
+      },
+      {
+        "id": "7af07a22-6199-405e-ad62-4fcf4e3764ec",
+        "url": "https://www.darkreading.com/cyberattacks-data-breaches/openai-agents-wiki-site-hugging-face-attack",
+        "title": "OpenAI Agents Took Over Wiki Site Before Hugging Face Attack",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "7321df0e-a359-4dec-8e07-3e1581b183da",
+        "url": "https://www.bleepingcomputer.com/news/security/doppelcart-fraud-network-uses-119-000-fake-shops-to-steal-credit-cards/",
+        "title": "DoppelCart fraud network uses 119,000 fake shops to steal credit cards",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "a5cb1b85-adcb-42d8-aadc-fc128aa9bda9",
+        "url": "https://www.bleepingcomputer.com/news/security/the-eu-cras-real-question-what-shipped-and-when-did-you-know/",
+        "title": "The EU CRA's Real Question: What Shipped, and When Did You Know?",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "45ebe111-e534-493c-b5c4-d8c74ccd4381",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-breach-f5-big-ip-apm-devices-to-deploy-linux-rootkit/",
+        "title": "Hackers breach F5 BIG-IP APM devices to deploy Linux rootkit",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "28b8e557-dd23-4974-8acc-37d96a5be7c4",
+        "url": "https://therecord.media/cia-cyber-operations-maduro-capture-venezuela",
+        "title": "CIA official touts agency’s Cyber Mission Center in capture of Venezuela’s Maduro",
+        "source": "The Record"
+      },
+      {
+        "id": "17453817-a722-4394-a212-cb454b69c286",
+        "url": "https://therecord.media/russian-cybercrime-bank-extradition",
+        "title": "Russian suspect in bank account takeovers is extradited to US",
+        "source": "The Record"
+      },
+      {
+        "id": "5048d429-c003-413e-b4c5-13ea4f354acf",
+        "url": "https://isc.sans.edu/diary/rss/33320",
+        "title": "September 2026 Microsoft Patch Tuesday, (Tue, Sep 8th)",
+        "source": "SANS ISC"
+      },
+      {
+        "id": "2fb7d944-b12f-4635-806a-f12118e57287",
+        "url": "https://www.securityweek.com/microsoft-patches-record-974-vulnerabilities-including-two-exploited-zero-days/",
+        "title": "Microsoft Patches Record 974 Vulnerabilities, Including Two Exploited Zero-Days",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "4d236d5c-8b6a-40a6-8aa8-e5a2d1347968",
+        "url": "https://therecord.media/autistici-inventati-shuts-down-after-us-terrorist-designation",
+        "title": "Italian tech collective Autistici/Inventati shuts down after US terrorist designation",
+        "source": "The Record"
+      },
+      {
+        "id": "4513ffd6-76d4-4a70-b5b5-3449dd20268b",
+        "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-releases-windows-10-kb5122878-extended-security-update/",
+        "title": "Microsoft releases Windows 10 KB5122878 extended security update",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "46c259d4-0794-4295-90cb-81f4287c3a69",
+        "url": "https://www.securityweek.com/adobe-patches-over-170-vulnerabilities-including-commerce-zero-day/",
+        "title": "Adobe Patches Over 170 Vulnerabilities, Including Commerce Zero-Day",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "9eadf460-2ec2-489e-bf76-e30cd0ad5e41",
+        "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-september-2026-patch-tuesday-fixes-966-flaws-2-zero-days/",
+        "title": "Microsoft September 2026 Patch Tuesday fixes 966 flaws, 2 zero-days",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "4f97c95c-23d8-4c65-929f-7cbc5d93cae7",
+        "url": "https://www.bleepingcomputer.com/news/microsoft/windows-11-cumulative-updates-kb5124008-and-kb5122880-released/",
+        "title": "Windows 11 cumulative updates KB5124008 & KB5122880 released",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "53487bb9-6475-44a9-89d7-f0b497b81a2e",
+        "url": "https://www.darkreading.com/endpoint-security/clickfix-campaigns-legitimate-services-persistent-access",
+        "title": "ClickFix Campaigns Abuse Legitimate Services for Persistent Access",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "57ceac6a-a450-465f-b09b-7638414406f5",
+        "url": "https://www.schneier.com/blog/archives/2026/09/ais-as-modern-genies.html",
+        "title": "AIs as Modern Genies",
+        "source": "Schneier on Security"
+      },
+      {
+        "id": "8059296e-4052-4214-b5f5-7154a3edb837",
+        "url": "https://therecord.media/liquid-network-blockstream-crypto-theft-hackers-keep-reward",
+        "title": "‘White hat’ hackers take $47 million bounty after $320 million crypto theft",
+        "source": "The Record"
+      },
+      {
+        "id": "bb7f7b62-ab22-4407-a261-797005a79542",
+        "url": "https://www.securityweek.com/the-hidden-instructions-that-can-hijack-ai-agents/",
+        "title": "The Hidden Instructions That Can Hijack AI Agents",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "fe7bd502-1519-4ee5-b8aa-a71a3b08e4a0",
+        "url": "https://www.securityweek.com/hackers-return-263-million-stolen-from-liquid-network/",
+        "title": "Hackers Return $263 Million Stolen From Liquid Network",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "58fffb95-7a80-4325-b8d1-e15b11f2328b",
+        "url": "https://www.bleepingcomputer.com/news/security/shinyhunters-hackers-claim-breach-of-florida-david-dmv-database/",
+        "title": "ShinyHunters hackers claim breach of Florida \"DAVID\" DMV database",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "59ac58de-e47a-4e1f-8861-fd918b52dfcd",
+        "url": "https://www.bleepingcomputer.com/news/technology/openai-says-chatgpt-outage-causes-image-generation-errors/",
+        "title": "OpenAI says ChatGPT outage causes image generation errors",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "f72acd88-5ce3-4e5d-b1cd-e7128e683159",
+        "url": "https://thehackernews.com/2026/09/slim-spider-steals-crypto-custody.html",
+        "title": "Slim Spider Steals Crypto Custody Secrets From Brazilian Financial Institution",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "5efe04f6-2c5b-4cc8-b33c-754a591ee1e4",
+        "url": "https://www.bleepingcomputer.com/news/microsoft/august-updates-trigger-0xc0000409-errors-on-windows-server-2016/",
+        "title": "August updates trigger 0xc0000409 errors on Windows Server 2016",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "3bc9f203-6e83-48e7-b33d-85f769de1ece",
+        "url": "https://www.securityweek.com/cylake-raises-245-million-ahead-of-cybersecurity-platform-beta/",
+        "title": "Cylake Raises $245 Million Ahead of Cybersecurity Platform Beta",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "1fa58d67-0004-47af-8cc0-dc315801923a",
+        "url": "https://www.bleepingcomputer.com/news/security/sap-warns-of-maximum-severity-overpass-kernel-vulnerability/",
+        "title": "SAP warns of maximum severity 'OVERPASS' kernel vulnerability",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "260ea8a7-fe54-4240-b49e-436e1472c9ed",
+        "url": "https://www.securityweek.com/sap-patches-critical-extended-passport-processing-vulnerability/",
+        "title": "SAP Patches Critical Extended Passport Processing Vulnerability",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "2e8e91ff-aef6-4b95-9a95-5333af583653",
+        "url": "https://thehackernews.com/2026/09/liquid-hackers-return-3400-bitcoin.html",
+        "title": "Liquid Hackers Return 3,400 Bitcoin Taken via Elements Bug, Still Holding $47M in BTC",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "66a18df0-1f1f-4c69-9471-2c443c65c892",
+        "url": "https://www.bleepingcomputer.com/news/artificial-intelligence/openai-says-gpt-6-astra-can-find-zero-days-but-is-also-harder-to-monitor/",
+        "title": "OpenAI says GPT-6 Astra can find zero-days, but is also harder to monitor",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "9e9ffab9-9f60-428f-8ff0-4311db11e536",
+        "url": "https://thehackernews.com/2026/09/chatgpt-flaw-let-planted-prompt-send.html",
+        "title": "ChatGPT Flaw Let a Planted Prompt Send a Victim's Gmail Data to Another Account",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "8261a9c5-79ac-43a4-ac89-dbe2f8e48033",
+        "url": "https://therecord.media/flock-safety-backlash-places-with-biggest-impact",
+        "title": "Where the backlash against Flock Safety is having the biggest impact",
+        "source": "The Record"
+      },
+      {
+        "id": "a79acbba-b021-450c-8214-33593da7eb8b",
+        "url": "https://thehackernews.com/2026/09/autonomous-ai-agents-compromise.html",
+        "title": "Autonomous AI Agents Compromise Thousands of Credentials in Under Six Hours",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "f56b7b77-315f-4282-8f9b-d18a6a896474",
+        "url": "https://www.bleepingcomputer.com/news/security/adobe-fixes-critical-magento-zero-day-exploited-to-backdoor-servers/",
+        "title": "Adobe fixes critical Magento zero-day exploited to backdoor servers",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "7065a9d9-4ba1-42a0-acdb-cabd207cab29",
+        "url": "https://www.securityweek.com/partys-over-for-crypto-scammers-who-went-on-a-spending-spree-after-a-240-million-bitcoin-theft/",
+        "title": "Party’s Over for Crypto Scammers Who Went on a Spending Spree After a $240 Million Bitcoin Theft",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "16362830-d094-4c32-9c0d-db19de84ee08",
+        "url": "https://www.bleepingcomputer.com/news/security/webinar-the-forgotten-google-workspace-access-that-can-lead-to-a-breach/",
+        "title": "Webinar: The forgotten Google Workspace access that can lead to a breach",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "9b416a81-e870-4142-b8c4-0f8e7b2fecac",
+        "url": "https://therecord.media/france-hacker-arrest-zerobytes",
+        "title": "French prosecutors confirm arrest of suspected ZeroBytes hacker behind tax cyberattack",
+        "source": "The Record"
+      },
+      {
+        "id": "957baaa1-aeea-40d5-be21-451c8729011f",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-build-ai-frameworks-for-widescale-credential-theft/",
+        "title": "Hackers build AI frameworks for widescale credential theft",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "f58a6585-62dd-40a2-9b33-189cac2780dc",
+        "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-251-01",
+        "title": "CareCam Pro IP Cameras",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "3b419f4d-f0bf-41d6-b079-54610a158d8b",
+        "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-251a",
+        "title": "China-Based Artificial Intelligence Companies Conducting Industrial-Scale Distillation Campaigns Against U.S. AI Companies",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "5e5244f4-aa71-4e7f-ba08-197f7781709c",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/09/08/cisa-adds-four-known-exploited-vulnerabilities-catalog",
+        "title": "CISA Adds Four Known Exploited Vulnerabilities to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "5a341248-26b2-4368-b7eb-7eece2e2a4b8",
+        "url": "https://therecord.media/cyberattack-bavaria-germany-utility",
+        "title": "Cyberattack encrypts systems at Bavarian municipal utility",
+        "source": "The Record"
+      },
+      {
+        "id": "baa3c978-6a25-4328-8fe4-1d6f5024437a",
+        "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-windows-server-2025-changes-may-cause-app-crashes/",
+        "title": "Microsoft: Windows Server 2025 changes causing app crashes",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "4eef479f-3d56-4dcd-8f5b-fcf6e3df1c11",
+        "url": "https://thehackernews.com/2026/09/wechat-zero-click-worm-took-over.html",
+        "title": "WeChat Zero-Click Worm Took Over Accounts on iPhone and Android via Incoming Calls",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "c7e20984-0027-404d-9e4a-0ce853f33e28",
+        "url": "https://thehackernews.com/2026/09/what-it-took-to-reach-1-billion-build.html",
+        "title": "What It Took to Reach 1 Billion Build Manifests",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "7dfe94e8-4182-462c-a9ad-47e2d71e0829",
+        "url": "https://thehackernews.com/2026/09/freeipa-flaw-chain-lets-anonymous.html",
+        "title": "FreeIPA Flaw Chain Lets Anonymous Clients Create Reusable Administrator Credentials",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "56d8df6d-9d1c-43c7-b461-4fe51b83a7ac",
+        "url": "https://www.securityweek.com/mikrotik-patches-critical-flaws-chained-to-hack-routers/",
+        "title": "MikroTik Patches Critical Flaws Chained to Hack Routers",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "72442959-06a2-4c35-8414-8652d31f26d0",
+        "url": "https://www.securityweek.com/mathspace-data-breach-exposes-over-1-million-people/",
+        "title": "Mathspace Data Breach Exposes Over 1 Million People",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "cae43ffe-a861-4188-9e47-f10ef2da2ae1",
+        "url": "https://www.securityweek.com/n-able-patches-critical-zero-day-in-n-central/",
+        "title": "N-able Patches Critical Zero-Day in N-central",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "a3b938d4-f9b5-4418-8da7-084695f0cc76",
+        "url": "https://www.schneier.com/blog/archives/2026/09/stealing-ai-reasoning-traces.html",
+        "title": "Stealing AI Reasoning Traces",
+        "source": "Schneier on Security"
+      },
+      {
+        "id": "097f7061-89d3-4065-9f42-85a74dd5b4d0",
+        "url": "https://blog.talosintelligence.com/clearfake-webdav-infection-chain/",
+        "title": "ClearFake WebDAV infection chain delivers Amatera stealer, ZigCryptoStealer, and NetSupport Manager",
+        "source": "Cisco Talos"
+      },
+      {
+        "id": "d50b68d3-190b-4fef-874f-ba2260b06955",
+        "url": "https://blog.talosintelligence.com/clickfix-moves-into-the-browser/",
+        "title": "ClickFix moves into the browser: Cryptocurrency theft with Google-hosted C2",
+        "source": "Cisco Talos"
+      }
+    ]
+  }
+}
