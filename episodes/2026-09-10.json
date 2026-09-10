@@ -1,0 +1,393 @@
+{
+  "day": "2026-09-10",
+  "title": "Firewall takeovers, healthcare breaches and agents escaping their cages",
+  "overview": "Cisco firewall management software is under active attack, with urgent deadlines also covering Fortinet and NetScaler. Healthcare breaches expose millions, while new flaws put agent tools, support gateways and incident-response infrastructure in the patch queue.",
+  "duration_s": 1035,
+  "chars": 13879,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-10.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-10.md",
+  "paragraphs": [
+    "[cheerful] Good morning, it's 5:22 AM. Thursday, the tenth of September, twenty twenty-six. five twenty-two AM is brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Email us at hello at lab five twenty-two dot co dot uk if you think we can help your business.",
+    "[serious] AdaptHealth has confirmed that four point one million people had data exposed in the cyberattack it discovered in July, attributed to ShinyHunters. That's a substantial healthcare breach with a confirmed scale. [short pause] Separately, electronic health record supplier Veradigm says patients' personal data was exposed through a third-party vendor. It says access was confined to a specific interface, without disruption or compromise of its broader networks, servers or databases. Limited access, then — not limited consequences for the patients.",
+    "[serious] And the driver-data story has a much bigger number attached today: a database advertised as containing a hundred and fifty-three million driving licences is for sale on the dark web. That's an advertised haul, not a verified victim count, and there's no basis here to equate it with yesterday's Florida claim. [curious] Risky Business is examining the national-security implications. Identity records at that scale are useful for considerably more than ordinary fraud.",
+    "[short pause] Staying with sensitive data, Grindr has agreed a thirty-five-million-dollar settlement over alleged disclosure of users' H-I-V statuses. The case began with UK users in April twenty twenty-four. [serious] And in Ohio, a man has received fifteen years in prison for crimes including cyberstalking and extorting women using A-I-generated sexually explicit videos.",
+    "[confident] There's disruption on the supply side of fraud too. The US has targeted Xinbi Guarantee, a marketplace selling services to scammers, seizing Telegram channels and cryptocurrency assets. The announced value is fifty-two point eight million dollars. Accounts differ on whether the wallet count is two or fifty-two, so don't treat those as interchangeable descriptions. [short pause] Following yesterday's Ukrainian resignation, the specific allegation is that officials in prosecutor general Ruslan Kravchenko's office took bribes to shield scam call centres.",
+    "[curious] The agencies chasing those operations are spelling out their own plans. The F-B-I has published its first public cyber strategy, aligning field offices and its international presence against hackers and cybercrime groups. Acting CISA director Nick Andersen says his agency needs to change quickly, with cyber security, infrastructure security and emergency communications priorities as it fills vacancies.",
+    "[serious] On the intrusion side, Microsoft is tracking passkey-themed social engineering followed by unusual cloud sign-ins and attacker-added authentication methods across multiple accounts. The passkey is the lure; don't mistake that for evidence that passkey cryptography broke. [confident] Check authentication-method additions alongside those sign-ins. Separate coverage highlights account recovery as a route around M-F-A, while infostealer logs are supplying replayable tokens for A-I services, including Google and Anthropic. A stolen session doesn't necessarily ask for your second factor again.",
+    "[short pause] And attackers are getting less dependent on a phishing website you can block. One campaign uses trusted Microsoft services and blob addresses to build the malicious page inside the victim's browser. [curious] No static site waiting at the end of the chain. Meanwhile, Unit forty-two has traced YouTube gaming lures and search-engine poisoning into multi-payload malware reaching enterprise networks. Preserve the delivery chain, not just the eventual payload.",
+    "[serious] Espionage groups are sharing tools too. Researchers describe BlueMoon, a previously undocumented exploit kit chaining Chrome and Windows vulnerabilities. At least four China-linked spy groups used the same Chrome zero-day exploit within a week. That's the August bug; don't conflate it with today's newly patched Chrome flaw. [short pause] Google also warns that A-I automation is giving less-resourced attackers reach previously associated with nation states.",
+    "[curious] The model-extraction allegations have become more specific since yesterday: US agencies name six Chinese companies, say activity dates back to at least late twenty twenty-four, and allege billions of tokens were extracted from OpenAI, Anthropic, Gemini and Grok. Those remain the agencies' allegations. [serious] Meanwhile, analysis of Project Glasswing findings points to a human bottleneck: only a fraction have reached disclosure, and fewer have been fixed. Finding bugs faster isn't the same as getting them out of production.",
+    "[short pause] Agents also have some very ordinary access-control problems. Research on “workflow identity hijacking” describes an unauthenticated request leading to misuse of a workflow's identity and access to enterprise data. DeepSeek Harness, which runs coding agents on developers' machines, had a flaw allowing an agent to disable its own file sandbox with one command, without approval. [serious] A boundary the confined process can switch off isn't much of a boundary.",
+    "[curious] Against that backdrop, Meta has launched its personal agent Muse with the agent and user data housed in a dedicated virtual machine. That's an isolation choice, not proof that every action is safe. And for a less alarming demonstration, Claude Fable 5 point 1 solved a three-hundred-and-seventy-year-old cipher in forty-four minutes. [cheerful] Searching and testing at speed: a rather good use of the machinery.",
+    "[short pause] A few things for the reading queue: Microsoft has introduced an ATT&CK-aligned threat matrix for cloud web applications; a webinar tackles answering “are we exposed?” after a new CVE; and a proposed open standard aims to make discovered, leaked A-P-I keys unusable within sixty seconds. That's a proposal, not a capability you can assume exists today. HelmGuard has also raised seven point three million dollars for agentic governance, risk, compliance and security, with US expansion and hiring planned.",
+    "[long pause] Right, the flaws — and Cisco's firewall management plane is being taken over. Cisco confirms active exploitation of CVE-2026-20079, an authentication bypass scoring ten. Crafted H-T-T-P requests reach an improperly created boot-time process, allowing script execution and root on Secure Firewall Management Center. [serious] Over the network, no login, no click. Root on the system managing your firewalls. That's the one I'd put straight onto an incident-response call, not just a change ticket.",
+    "[calm] The affected list includes 7 point 0 point 0, 7 point 0 point 1 and 7 point 0 point 2, plus each one's point-one build; Security Cloud Control Firewall Management is also named. Get Cisco's advisory for the complete scope and fixed releases. Talos is tracking exploitation of two management-centre vulnerabilities, although only this one's identified here. US agencies have until Saturday, the twelfth of September.",
+    "[serious] The same Saturday deadline applies to two more newly listed exploited flaws. Fortinet's CVE-2025-25249 lets crafted packets trigger a heap overflow and execute code or commands in FortiOS and FortiSwitchManager: nine point eight, no authentication or interaction. [calm] FortiOS destinations on the newer branches are 7 point 0 point 18, 7 point 2 point 12, 7 point 4 point 9 and 7 point 6 point 4. The affected-version descriptions disagree over whether 6 point 4 point 17 is safe; verify that branch with Fortinet rather than assuming.",
+    "[short pause] For FortiSwitchManager, the 7 point 0 branch needs 7 point 0 point 6. The 7 point 2 branch is affected through 7 point 2 point 6, but no safe destination is named. [serious] And NetScaler A-D-C and Gateway have an exploited alternate-path authentication bypass, CVE-2026-19490, scoring nine point three. It's network-reachable without credentials or a click, affecting 14 point 1 through build 73 point 32, and 13 point 1 through build 63 point 21. Check Citrix's advisory for the fixed builds; don't invent one by incrementing the number.",
+    "[calm] The fourth new KEV addition is Chrome's V8 out-of-bounds write, CVE-2026-87491. A crafted web page can execute code inside the sandbox: eight point eight, no login, but user interaction required. Update to 153 point 0 point 8010 point 36 or later. [serious] Exploitation is confirmed, and the federal deadline is the twenty-third of September. Chrome 153 contains two hundred and thirty security fixes, including this year's seventh patched zero-day. Inside the sandbox is not, by itself, a full machine takeover.",
+    "[short pause] And there's fresh Windows trouble after yesterday's patch rollout: a public Microsoft Defender proof of concept called ShieldCrash claims SYSTEM access and a bypass of the ShieldBreak patch. Coverage uses different researcher handles, so the handle isn't the useful part. [serious] The useful distinction is public exploit code versus confirmed attacks; no live exploitation is established here.",
+    "[curious] Now to the new flaws, and Google's agent tooling has a particularly sharp one. The Cloud Agent Development Kit for Python can execute a remote attacker's code through a crafted test-session replay in adk web, where pytest is installed. CVE-2026-79696 scores ten: no login or click, affecting 2 point 0 point 0 through 2 point 6 point 0, including Cloud Run and Google Kubernetes Engine deployments. [calm] Upgrade to 2 point 7 point 0. Check that pytest condition — it decides whether this particular route applies.",
+    "[serious] Another management foothold comes through Dell Secure Connect Gateway, the support gateway linking infrastructure to Dell's services. CVE-2026-79689 is unauthenticated network command injection, scoring nine point eight, with script injection as the stated outcome. [calm] The appliance needs 5 point 36 point 00 point 16; the application needs 5 point 36 point 00 point 00. Different packages, different destinations.",
+    "[short pause] And your investigation tool can become the attacker's execution tool. Rapid7 Velociraptor before 0 point 77 point 2 fails to enforce additional permissions when scheduling client-monitoring artefacts. A user allowed to schedule monitoring can instead schedule restricted shell-command artefacts on endpoints. [serious] CVE-2026-19583 scores nine point nine, requires a low-privilege account and no click. Upgrade to 0 point 77 point 2; this bypasses the distinction between watching an endpoint and running commands on it.",
+    "[curious] On hosted systems, cPanel has patched EmailTrack so a hosting account with mail privileges can no longer create arbitrary files and progress to root over the whole server. For WordPress, Drag and Drop File Upload for Elementor Forms through 1 point 6 point 0 has an unauthenticated arbitrary-upload flaw. Attacker-controlled type information bypasses validation, then filename normalisation turns a crafted extension into P-H-P. [serious] No fixed release is named for that plugin; check its advisory before leaving uploads available.",
+    "[short pause] Payments need attention too. PayTR's Virtual Pos iFrame A-P-I v9x module for WHMCS, the hosting billing platform, trusts a less-trusted source for identifiers. It's reachable without credentials or interaction and affects 9 point 0 point 0 through versions before 9 point 0 point 3. [calm] Move to 9 point 0 point 3. Separately, Alby warns that an Alby Hub flaw could let attackers take over Bitcoin wallets and send funds where owners have made the Hub internet-reachable. That exposure condition matters.",
+    "[serious] There's a broader exposed-server queue: more than thirty-six thousand internet-facing Plex Media Servers remain unpatched against recent flaws, and SANS is seeing scans for Proxmox servers after an advisory affecting only the long-unsupported Proxmox V-E version seven. [short pause] Ivanti has patched six critical remote-code-execution flaws in Neurons for I-T-S-M, plus authentication bypasses in Sentry and E-P-M-M. Fortinet also has critical fixes for FortiMonitorOnSight and its Chrome extension, covering authentication bypass and proxying a user's browser traffic.",
+    "[calm] On mobile, Android's September release fixes a hundred and eighty vulnerabilities across Framework, System and Kernel. Samsung's September twenty twenty-six Release one also fixes separate D-N-G and JPEG decoder heap overflows allowing remote code execution without login or interaction, subject to additional conditions that aren't specified. Both score nine point two. The same release fixes DualDAR use-after-free giving root code execution to an already privileged local attacker. Don't give that local flaw the same exposure story as the image decoders.",
+    "[short pause] Away from phones, Skullcandy Dime three earbuds accept Bluetooth pairing requests from nearby, previously unpaired devices without user interaction, according to CERT Coordination Center. [curious] Nearby is the important boundary; this isn't an internet attack. And the remaining patch notices cover Nvidia, A-M-D and Arm, plus industrial products from Schneider Electric, Siemens, AVEVA and Rockwell Automation. Those belong with the relevant hardware and control-system owners.",
+    "[confident] I'd get the actively exploited management-plane flaws in front of both deployment and response teams today, then verify Chrome's running build rather than merely its downloaded update. For agent deployments, check where test tooling and monitoring permissions have quietly become execution privileges. [cheerful] Enjoy the rest of your morning. five twenty-two AM, brought to you by Lab five twenty-two. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2025-25249",
+      "CVE-2026-19490",
+      "CVE-2026-20079",
+      "CVE-2026-87491",
+      "CVE-2026-79696",
+      "CVE-2026-21095",
+      "CVE-2026-21096",
+      "CVE-2026-16272",
+      "CVE-2026-21102",
+      "CVE-2026-19583",
+      "CVE-2026-18351",
+      "CVE-2026-79689"
+    ],
+    "news": [
+      {
+        "id": "3e1a8de0-3739-4c80-bff4-c2b1396f340a",
+        "url": "https://news.risky.biz/srsly-risky-biz-americas-drivers-licence-breach-is-a-national-security-disaster/",
+        "title": "Srsly Risky Biz: America's Drivers Licence Breach is a National Security Disaster",
+        "source": "Risky Business News"
+      },
+      {
+        "id": "ce3c9ba7-23ed-4135-bd52-fefc95aaaa4e",
+        "url": "https://www.bleepingcomputer.com/news/security/cisco-confirms-cve-2026-20079-secure-fmc-flaw-exploited-in-attacks/",
+        "title": "Cisco confirms CVE-2026-20079 Secure FMC flaw exploited in attacks",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "ce9a2eea-0040-499a-a616-e3f43f60eca4",
+        "url": "https://www.bleepingcomputer.com/news/security/adapthealth-confirms-41-million-people-exposed-in-july-cyberattack/",
+        "title": "AdaptHealth confirms 4.1 million people exposed in July cyberattack",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "4c040373-09f8-4507-8e7e-11cf7b20e779",
+        "url": "https://www.microsoft.com/en-us/security/blog/2026/09/09/threat-matrix-mapping-threats-across-cloud-web-applications/",
+        "title": "Threat Matrix: Mapping threats across cloud web applications",
+        "source": "Microsoft Security Blog"
+      },
+      {
+        "id": "4969052d-54f2-4ffc-a51e-09454f3d0241",
+        "url": "https://therecord.media/cisa-hiring-nick-andersen-warning",
+        "title": "CISA head says agency must change quickly to prevent the 'worst that could happen'",
+        "source": "The Record"
+      },
+      {
+        "id": "29f7b002-0ef9-48bc-9289-766cdaac40a2",
+        "url": "https://www.darkreading.com/application-security/mythos-vulnerability-firehose-hits-human-bottleneck",
+        "title": "Mythos Vulnerability Firehose Hits a Human Bottleneck",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "3e3fc656-21ba-4c59-8ab7-692743ce96fb",
+        "url": "https://www.bleepingcomputer.com/news/security/skullcandy-dime-3-earbuds-expose-users-to-bluetooth-hijacking/",
+        "title": "Skullcandy Dime 3 earbuds expose users to Bluetooth hijacking",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "c9986328-83bf-4f2b-87f7-7c15e8cecb21",
+        "url": "https://therecord.media/us-disrupts-xinbi-guarantee-marketplace-cybercrime",
+        "title": "US disrupts Xinbi Guarantee marketplace fueling the cyber scam economy",
+        "source": "The Record"
+      },
+      {
+        "id": "3a00617e-54e2-47a8-be1d-94aa7b8591fd",
+        "url": "https://www.darkreading.com/application-security/us-government-chinese-ai-firms-distilling-frontier-models",
+        "title": "US Government Accuses Chinese AI Firms of Distilling Frontier Models",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "d46c9af8-eedf-4665-9fe6-24f67c18cae2",
+        "url": "https://thehackernews.com/2026/09/us-disrupts-xinbi-guarantee-scam.html",
+        "title": "U.S. Disrupts Xinbi Guarantee Scam Marketplace, Freezes $52.8 Million in Crypto",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "89d6d3a3-edef-4e7c-952b-d48ffffd1159",
+        "url": "https://therecord.media/grindr-settles-privacy-lawsuit-hiv-status-35-million",
+        "title": "Grindr settles privacy lawsuit tied to disclosure of users’ HIV statuses for $35 million",
+        "source": "The Record"
+      },
+      {
+        "id": "835fe9e3-89e9-4f42-bb82-a9a36137229f",
+        "url": "https://isc.sans.edu/diary/rss/33324",
+        "title": "Scans for Proxmox Servers, (Wed, Sep 9th)",
+        "source": "SANS ISC"
+      },
+      {
+        "id": "18003935-d053-4c51-92a6-04da355615b0",
+        "url": "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/",
+        "title": "Passkey-themed social engineering leads to identity and cloud compromise",
+        "source": "Microsoft Security Blog"
+      },
+      {
+        "id": "96d89c3a-aaff-4d45-8614-93af145bce7a",
+        "url": "https://www.securityweek.com/helmguard-raises-7-3-million-for-agentic-grc-and-security/",
+        "title": "HelmGuard Raises $7.3 Million for Agentic GRC and Security",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "c37834fc-1b2d-4cab-95ca-4c25fad491ae",
+        "url": "https://therecord.media/electronic-health-record-company-says-customer-data-stolen-in-breach",
+        "title": "Electronic health record company says customer data stolen in breach",
+        "source": "The Record"
+      },
+      {
+        "id": "05e29dd3-4609-457d-96ba-d6941c4cf5d4",
+        "url": "https://www.securityweek.com/ai-is-giving-lesser-resourced-attackers-nation-state-level-reach-google-warns/",
+        "title": "AI Is Giving Lesser-Resourced Attackers Nation-State-Level Reach, Google Warns",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "c0786d0d-e53a-40b3-aa00-42699d585494",
+        "url": "https://www.bleepingcomputer.com/news/security/us-says-chinese-firms-extracted-billions-of-tokens-from-frontier-ai-models/",
+        "title": "US says Chinese firms extracted billions of tokens from frontier AI models",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "1ba8d57b-b306-4256-91d0-9383a390c28a",
+        "url": "https://thehackernews.com/2026/09/four-spy-groups-used-same-chrome-and.html",
+        "title": "Four Spy Groups Used the Same Chrome and Windows Exploit Kit Within a Week",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "942adab3-15a4-404c-8c73-a6b5a2a735ce",
+        "url": "https://www.securityweek.com/androids-september-2026-updates-patch-180-vulnerabilities/",
+        "title": "Android’s September 2026 Updates Patch 180 Vulnerabilities",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "177259e5-1dfb-4150-aadd-52ce9e7dbc57",
+        "url": "https://therecord.media/china-hackers-chrome-browser-zero-day-multiple-groups",
+        "title": "Multiple Chinese hacking groups seen using identical Chrome zero-day exploit",
+        "source": "The Record"
+      },
+      {
+        "id": "820d1509-c042-46f7-bd95-996ca82d8103",
+        "url": "https://www.securityweek.com/chipmaker-patch-tuesday-nvidia-amd-arm-issue-security-advisories/",
+        "title": "Chipmaker Patch Tuesday: Nvidia, AMD, Arm Issue Security Advisories",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "af0fc042-ea0a-485d-83ee-d319ff94e822",
+        "url": "https://blog.talosintelligence.com/fmc-ongoing-exploitation/",
+        "title": "Active exploitation of Cisco Secure Firewall Management Center vulnerabilities",
+        "source": "Cisco Talos"
+      },
+      {
+        "id": "6f42b974-3d69-44a5-ba88-377dd7f7b25a",
+        "url": "https://www.schneier.com/blog/archives/2026/09/drivers-license-data-for-sale.html",
+        "title": "Driver’s License Data for Sale",
+        "source": "Schneier on Security"
+      },
+      {
+        "id": "c4cd5678-c114-426e-a448-bd50f93221d7",
+        "url": "https://therecord.media/fbi-releases-first-public-cybersecurity-strategy",
+        "title": "FBI puts its cyber strategy on paper",
+        "source": "The Record"
+      },
+      {
+        "id": "89509ceb-19ee-4b3c-9012-21b0d9e0d1b6",
+        "url": "https://www.bleepingcomputer.com/news/security/veradigm-discloses-patient-data-breach-after-gentlemen-gang-claims-attack/",
+        "title": "Veradigm warns of patient data breach after ransomware gang claims attack",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "eb842ec6-5225-44f4-b6f1-6745c30d1f0f",
+        "url": "https://www.darkreading.com/threat-intelligence/identity-based-ai-attack-security-enterprise-data",
+        "title": "Identity-Based AI Attack Threatens Security of Enterprise Data",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "6069265a-6947-42c2-9841-368b3f648b64",
+        "url": "https://www.securityweek.com/fortinet-patches-critical-vulnerabilities-in-fortimonitoronsight-chrome-extension/",
+        "title": "Fortinet Patches Critical Vulnerabilities in FortiMonitorOnSight, Chrome Extension",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "1b2e3b3e-1769-493a-9c08-7e71a9151c34",
+        "url": "https://thehackernews.com/2026/09/infostealer-logs-expose-replayable-ai.html",
+        "title": "Infostealer Logs Expose Replayable AI Tokens That Can Bypass MFA",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "318b9982-7d50-4e9e-a345-8cf6f5ed36c2",
+        "url": "https://www.bleepingcomputer.com/news/security/mfas-weakest-link-account-recovery-is-the-new-attack-path/",
+        "title": "MFA's Weakest Link: Account Recovery Is the New Attack Path",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "50efda89-bee6-4d40-8228-9d079a0d8399",
+        "url": "https://www.securityweek.com/us-agencies-warn-china-is-systematically-extracting-frontier-ai-capabilities/",
+        "title": "US Agencies Warn China Is Systematically Extracting Frontier AI Capabilities",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "a6f172e4-4acb-47e0-88d3-4113d36fd18f",
+        "url": "https://therecord.media/ukraine-prosecutor-general-scam-center",
+        "title": "Ukraine prosecutor general steps down amid scam call center bribery probe",
+        "source": "The Record"
+      },
+      {
+        "id": "c406443d-fa16-4853-8e92-0232573fc817",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/09/09/cisa-adds-four-known-exploited-vulnerabilities-catalog",
+        "title": "CISA Adds Four Known Exploited Vulnerabilities to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "5687a4f8-7905-4894-8bdf-ebd151c6fbbc",
+        "url": "https://www.securityweek.com/meta-launches-personal-ai-agent-muse-emphasizes-safety-and-privacy/",
+        "title": "Meta Launches Personal AI Agent, Muse, Emphasizes Safety and Privacy",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "3942813f-c126-4816-a825-932dcbade324",
+        "url": "https://thehackernews.com/2026/09/webinar-learn-how-to-answer-are-we.html",
+        "title": "Webinar: Learn How to Answer “Are We Exposed?” Faster After a New CVE",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "68c33d5d-7a2f-4262-aed4-4c77d486044f",
+        "url": "https://thehackernews.com/2026/09/deepseek-harness-flaw-let-ai-agents.html",
+        "title": "DeepSeek Harness Flaw Let AI Agents Disable Their Own File Sandbox Without Approval",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "8b391c70-a71c-4f92-b9f9-a94e14e23cb7",
+        "url": "https://www.schneier.com/blog/archives/2026/09/claude-fable-solves-a-historical-cipher.html",
+        "title": "Claude Fable Solves a Historical Cipher",
+        "source": "Schneier on Security"
+      },
+      {
+        "id": "7bdac1a1-14b4-476e-b912-2b95d3894fc0",
+        "url": "https://www.securityweek.com/ics-patch-tuesday-schneider-electric-siemens-fix-critical-flaws/",
+        "title": "ICS Patch Tuesday: Schneider Electric, Siemens Fix Critical Flaws",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "68b8220a-4cf7-45ce-bb46-d94766940a35",
+        "url": "https://thehackernews.com/2026/09/alby-hub-critical-flaw-could-let.html",
+        "title": "Alby Hub Critical Flaw Could Let Attackers Take Over Internet-Exposed Bitcoin Wallets",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "c85a0424-3295-48bf-8061-3a29fde45f36",
+        "url": "https://www.securityweek.com/ivanti-patches-critical-flaws-across-enterprise-security-products/",
+        "title": "Ivanti Patches Critical Flaws Across Enterprise Security Products",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "ea645042-6849-45b2-8879-4c159778d7c4",
+        "url": "https://www.bleepingcomputer.com/news/security/over-36-000-plex-servers-unpatched-against-recently-disclosed-flaws/",
+        "title": "Over 36,000 exposed Plex servers vulnerable to recent flaws",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "b7649c01-156a-4ff6-b2e0-352c21470738",
+        "url": "https://unit42.paloaltonetworks.com/ppi-network-malware-campaign-analysis/",
+        "title": "Untracked Nightmares: The Threats Hiding Behind Commodity Infrastructure",
+        "source": "Unit 42"
+      },
+      {
+        "id": "16db47bf-e9d6-4b1c-99e1-837da38791a8",
+        "url": "https://www.securityweek.com/this-key-will-self-destruct-an-open-standard-for-revocable-api-keys/",
+        "title": "This Key Will Self-Destruct: An Open Standard for Revocable API Keys",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "fa246485-308b-4e45-805b-01d0ef1b06bc",
+        "url": "https://www.securityweek.com/new-phishing-attack-creates-malicious-pages-inside-the-victims-browser/",
+        "title": "New Phishing Attack Creates Malicious Pages Inside the Victim’s Browser",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "89e1e5b9-097e-4814-b318-a2b158e5f962",
+        "url": "https://www.securityweek.com/chrome-153-patches-seventh-zero-day-of-2026/",
+        "title": "Chrome 153 Patches Seventh Zero-Day of 2026",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "9685fc10-0dac-4535-b1be-9ea5d19e167d",
+        "url": "https://thehackernews.com/2026/09/us-agencies-accuse-china-ai-firms-of.html",
+        "title": "U.S. Agencies Accuse China AI Firms of Distilling Claude, GPT, Gemini, and Grok",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "035c18aa-69e6-46c4-a461-9832804b55f8",
+        "url": "https://thehackernews.com/2026/09/chrome-v8-zero-day-exploited-in-wild.html",
+        "title": "Chrome V8 Zero-Day Exploited in the Wild Enables Code Execution Inside Sandbox",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "8445a789-2cb1-4555-b16a-35ca70a2f18e",
+        "url": "https://www.bleepingcomputer.com/news/security/man-gets-15-years-in-prison-for-cyberstalking-and-sextortion/",
+        "title": "Man gets 15 years for extorting women with AI-generated porn videos",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "b2e1edd8-35a4-472f-acf3-e2416a1a2751",
+        "url": "https://thehackernews.com/2026/09/new-cpanel-flaw-lets-hosting-account.html",
+        "title": "New cPanel Flaw Lets a Hosting Account With Mail Privileges Run Code as Root",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "457f292c-42b8-4be8-b547-be0725951453",
+        "url": "https://thehackernews.com/2026/09/f5-big-ip-apm-malware-injects-php-web.html",
+        "title": "F5 BIG-IP APM Malware Injects a PHP Web Shell Into Memory, Evading Disk Scans",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "155b133c-6ee6-4af0-aead-3d875794201c",
+        "url": "https://www.bleepingcomputer.com/news/security/new-microsoft-defender-shieldcrash-zero-day-grants-system-access/",
+        "title": "New Microsoft Defender 'ShieldCrash' zero-day grants SYSTEM access",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "1a29faab-c88a-41bb-b082-d9d70fec77df",
+        "url": "https://thehackernews.com/2026/09/researcher-drops-new-microsoft-defender.html",
+        "title": "Researcher Drops New Microsoft Defender PoC Showing ShieldBreak Patch Can Be Bypassed",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "1cb3a164-33b7-4ac7-a2f4-0c54f912a1d8",
+        "url": "https://www.bleepingcomputer.com/news/security/google-patches-seventh-chrome-zero-day-exploited-in-attacks-this-year/",
+        "title": "Google warns of new Chrome zero-day bug exploited in attacks",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "6ff06c38-2525-40a6-a1a6-cbee4218c6e8",
+        "url": "https://thehackernews.com/2026/09/sap-patches-cvss-100-kernel-flaw.html",
+        "title": "SAP Patches CVSS 10.0 Kernel Flaw Enabling Unauthenticated Remote Code Execution",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "d8c25983-8bdf-4793-9900-0731a1da11fe",
+        "url": "https://news.risky.biz/risky-bulletin-ukraines-top-prosecutor-resigns-amid-scam-call-center-scandal/",
+        "title": "Risky Bulletin: Ukraine's top prosecutor resigns amid scam call center scandal",
+        "source": "Risky Business News"
+      },
+      {
+        "id": "c267bd79-e15a-46aa-b012-14db4bfb5d43",
+        "url": "https://thehackernews.com/2026/09/microsoft-patches-record-974-flaws.html",
+        "title": "Microsoft Patches Record 974 Flaws, Including Two Exploited Windows Zero-Days",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "c1912c74-bfff-437d-9b2b-73d5f86b2e40",
+        "url": "https://thehackernews.com/2026/09/n-able-n-central-pre-auth-rce-flaw.html",
+        "title": "N-able N-central Pre-Auth RCE Flaw Exploited in the Wild",
+        "source": "The Hacker News"
+      }
+    ]
+  }
+}
