@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-09-11",
+    "title": "PaperCut agents, missing patches, and broken remote desktops",
+    "duration_s": 379,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-11.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-11.md"
+  },
+  {
     "day": "2026-09-10",
     "title": "Firewall consoles compromised, BlueMoon spreads, and an example key",
     "duration_s": 399,
