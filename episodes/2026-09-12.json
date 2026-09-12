@@ -1,0 +1,163 @@
+{
+  "day": "2026-09-12",
+  "title": "GitLab secrets exposed, Artifactory backdoors, and a reporting clock",
+  "overview": "GitLab joins CISA’s exploited catalogue a day after patching a maximum-severity file-read flaw, while Artifactory attacks turn anonymous access into administrator control. Anthropic details automated intrusions, Cisco and PaperCut have updates, and the EU’s vulnerability-reporting deadlines are now in force.",
+  "duration_s": 464,
+  "chars": 6589,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-12.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-12.md",
+  "paragraphs": [
+    "[cheerful] Good morning, it's 5:22 AM. Saturday, the twelfth of September, twenty twenty-six. five twenty-two AM is brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Email us at hello at lab five twenty-two dot co dot uk if you think we can help your business.",
+    "[serious] One public project is enough to put a self-managed GitLab server's secrets within reach. Thursday brought the patch; watchTowr saw probes by six A-M U-T-C on Friday, and CISA added the flaw to its exploited catalogue that day. CVE-2026-85706 scores ten. The repository commits A-P-I fails to confine file paths properly and enforce authentication, letting someone read arbitrary server files with a single H-T-T-P request. [short pause] That means credentials, not merely source code. On the platform running your build pipelines, those credentials can open doors well beyond GitLab.",
+    "[confident] I'd give internet-facing GitLab the first maintenance slot today. Community and Enterprise editions are affected from 18 point 7: upgrade to 19 point 1 point 8 on that release line, or 19 point 2 point 6. For 19 point 3, it's 19 point 3 point 2. GitLab dot com is already patched; Dedicated customers needn't act. If patching has to wait, restrict network access temporarily. [serious] Hunt for H-T-T-P POST requests to the projects repository commits endpoint containing file dot path parameters, and rotate secrets readable by the GitLab process on exposed instances. The federal deadline is Monday, the fourteenth. The release also fixes an Enterprise deserialisation flaw scoring nine point nine: authenticated Duo Chat users could extract Advanced Search configuration and credentials. Seventeen other fixes come with it.",
+    "[curious] And the store your builds pull packages from has its own anonymous-to-administrator problem. Wiz has confirmed attacks against three patched flaws in self-hosted JFrog Artifactory. One hands out an internal anonymous token even with anonymous access disabled; another accepts that token for administrator scope because it checks the signature and issuer, but not the scope. [serious] Attackers reached working administrator accounts in under five minutes, then used malicious Groovy plugins for command execution and planted a Rust backdoor. A separate bypass gives unauthenticated attackers administrator privileges in the default configuration.",
+    "[calm] Move self-hosted Artifactory to a fixed release for your branch; 7 point 161 point 20 or later is one option. Cloud customers need no action. Roughly half of reachable instances remain vulnerable to at least one flaw, and two have a federal deadline of the twenty-fifth. [confident] What I'd check after patching is token revocation: the update doesn't invalidate access attackers already minted. Rotate the platform join key and revoke access tokens issued since the twenty-eighth of August. Hunt unexpected administrators and plugin activity; administrator actions can misleadingly appear as token colon anonymous.",
+    "[long pause] [serious] Stolen tokens also feature in Anthropic's account of Claude misuse, but the detail that bothers me is malware watching its own detection status. Monitoring agents checked whether security products flagged implants, then modified and rebuilt them before redeployment. That's an attacker closing the feedback loop without waiting at the keyboard. Anthropic says a Russia-linked group targeted more than twenty government and related organisations, stealing drone-vision development software and over three hundred thousand identity records.",
+    "[curious] Elsewhere, a suspected ShinyHunters affiliate scanned one point eight million Android app packages for embedded secrets, extracting over two thousand one hundred Azure A-D tokens across more than forty tenants in about thirty-four hours. A Chinese-speaking group found unknown flaws in an endpoint-security product. Anthropic also disrupted distillation attacks from seven China-based labs; users in Houthi-held Yemen attempted missile-guidance work, without fielding an operational device. [confident] Treat A-I service keys and agent integrations as production credentials, and bring Anthropic's indicators into detections. One operator went from a stolen developer token to full administrator control in under three hours. Revocation can't wait for the next shift.",
+    "[serious] On intrusions we've already been following, Cisco Talos has now named three clusters behind the Firewall Management Center attacks, including U-A-T-11988, which used built-in tooling for reconnaissance and actually deployed Qilin ransomware. Apply Cisco's hotfixes today—the federal deadline is here—and investigate compromised appliances rather than treating a patch as eviction. [short pause] Another confirmed intrusion involved the Windows Chinese-typing tool Sogou Input Method: Gen Digital says China-linked UNC3569 exploited it to install GRAYRABBIT. Check it's on 16 point 3 point 0 point 3498, the fix Tencent pushed automatically in April; non-T-L-S traffic to mail dot uaiubifas dot top on port four hundred and forty-three is a hunting clue.",
+    "[calm] And for yesterday's PaperCut emergency work, the replacement builds have arrived: move to maintenance release 26 point 0 point 5, or 25 point 0 point 13; the older line gets 24 point 1 point 10. They supersede every emergency patch, adding hardening alongside two regression fixes and mitigation against potential attack chains.",
+    "[short pause] [serious] Beyond installing fixes, there's now a legal clock: the E-U Cyber Resilience Act's Article fourteen took effect yesterday, requiring manufacturers selling digital products into the E-U, wherever they're based, to warn of actively exploited flaws within twenty-four hours and notify in detail within seventy-two hours; the final account follows within fourteen days of a fix becoming available. Severe incidents share the initial deadlines, filings go through ENISA's Single Reporting Platform to the coordinating C-SIRT, and core-duty breaches can draw fifteen-million-euro fines or two point five per cent of annual turnover—so name someone who can authorise that first filing, and get registered before you need it.",
+    "[confident] I'd put exposed GitLab ahead of routine weekend changes. For Artifactory, I'd want someone owning the intrusion checks while the upgrade happens, not after the ticket closes. [cheerful] Enjoy the rest of your morning. five twenty-two AM, brought to you by Lab five twenty-two. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-42016",
+      "CVE-2026-42018",
+      "CVE-2026-85706"
+    ],
+    "news": [
+      {
+        "id": "9d8508ba-98ae-49b5-b70e-6d2a57e889c3",
+        "url": "https://www.securityweek.com/users-in-houthi-held-yemen-tried-to-develop-advanced-weapons-with-ai-anthropic-says/",
+        "title": "Users in Houthi-Held Yemen Tried to Develop Advanced Weapons With AI, Anthropic Says",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "21407927-77d5-4fc1-b91c-e81bb20508ec",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-abused-claude-to-extract-secrets-from-18m-android-apps/",
+        "title": "Hackers abused Claude to extract secrets from 1.8M Android apps",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "edbaeb8e-1b89-4d23-9346-bff498ccbc71",
+        "url": "https://cyberscoop.com/gitlab-critical-flaws-path-traversal-scans/",
+        "title": "GitLab’s critical flaw is already drawing internet-wide probes",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "b14437b3-216a-43a0-9a18-88225e7c50a4",
+        "url": "https://www.theregister.com/security/2026/09/11/more-jfrog-artifactory-bugs-under-attack-and-all-3-have-patches/5295943",
+        "title": "More JFrog Artifactory bugs under attack, and all 3 have patches",
+        "source": "The Register security"
+      },
+      {
+        "id": "601f5a4d-a10b-4199-9d9c-a466c5a98a94",
+        "url": "https://thehackernews.com/2026/09/gitlab-cvss-10-file-read-flaw-draws-in.html",
+        "title": "GitLab CVSS 10 File-Read Flaw Draws In-the-Wild Probes After Disclosure",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "0a9f9fef-69cd-4371-896e-e4c436b554b8",
+        "url": "https://www.bleepingcomputer.com/news/security/artifactory-flaws-chained-in-attacks-deploying-backdoor-malware/",
+        "title": "Artifactory flaws chained in attacks deploying backdoor malware",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "ebc29efd-20dc-46ae-bc11-77365981f814",
+        "url": "https://thehackernews.com/2026/09/anthropic-says-seven-china-based-ai.html",
+        "title": "Anthropic Says Seven China-Based AI Labs Ran Industrial-Scale Claude Distillation Attacks",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "37671c96-8a55-435c-9ddb-0e7f954823f9",
+        "url": "https://www.securityweek.com/gitlab-vulnerability-exploited-one-day-after-disclosure/",
+        "title": "GitLab Vulnerability Exploited One Day After Disclosure",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "5fc92c74-7903-4846-a09d-4b4ad42699f4",
+        "url": "https://www.darkreading.com/cyberattacks-data-breaches/papercut-ai-swarm-attack-cyber-kill-chain",
+        "title": "Papercut AI Swarm Attack Heralds Changes for Cyber Kill Chain",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "e4096e9f-9140-4152-8cc0-950198d3c89d",
+        "url": "https://thehackernews.com/2026/09/claude-used-to-automate-exploitation.html",
+        "title": "Claude Used to Automate Exploitation and Data Theft Across Multiple Victims",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "e4b0fc9f-ec6e-408e-9419-f303aaa20f8c",
+        "url": "https://thehackernews.com/2026/09/russian-state-sponsored-hackers-use.html",
+        "title": "Russian State-Sponsored Hackers Use Claude to Rebuild Malware After Detection",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "f6d9baac-5036-4b9a-9661-f64504b26253",
+        "url": "https://therecord.media/anthropic-russia-hackers-claude",
+        "title": "Anthropic caught Russia-linked spies using Claude in hacking operations",
+        "source": "The Record"
+      },
+      {
+        "id": "269f095d-acaa-49a4-b05e-7d0073ee5cd4",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/09/11/cisa-adds-three-known-exploited-vulnerabilities-catalog",
+        "title": "CISA Adds Three Known Exploited Vulnerabilities to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "b00df55e-bf99-4836-b010-364013a90f12",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/09/11/cisa-adds-one-known-exploited-vulnerability-catalog",
+        "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "34565b07-72eb-4d68-a0c3-744c62443902",
+        "url": "https://www.theregister.com/security/2026/09/11/eus-cyber-resilience-act-starts-the-24-hour-vulnerability-clock/5295821",
+        "title": "EU's Cyber Resilience Act starts the 24-hour vulnerability clock",
+        "source": "The Register security"
+      },
+      {
+        "id": "5bc4b16f-c457-483c-86f9-be85e2602c50",
+        "url": "https://www.bleepingcomputer.com/news/security/gitlab-urges-users-to-patch-max-severity-path-traversal-flaw/",
+        "title": "GitLab urges users to patch max severity path traversal flaw",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "fac917eb-2970-48bc-9845-9ba7831d0b25",
+        "url": "https://www.securityweek.com/anthropic-says-russian-hackers-used-claude-ai-to-automate-malware-evasion/",
+        "title": "Anthropic Says Russian Hackers Used Claude AI to Automate Malware Evasion",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "91500729-cec8-441c-8fa5-dbfa9728e781",
+        "url": "https://www.securityweek.com/papercut-flaws-exploited-in-ai-powered-attacks/",
+        "title": "PaperCut Flaws Exploited in AI-Powered Attacks",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "7d783c5a-cf2e-48a7-baf7-913af0c01efd",
+        "url": "https://thehackernews.com/2026/09/attackers-chain-jfrog-artifactory-flaws.html",
+        "title": "Attackers Chain JFrog Artifactory Flaws to Gain Admin Control and Plant Backdoors",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "ec04c631-3683-4db7-9185-c4e6a1ee6a34",
+        "url": "https://thehackernews.com/2026/09/china-linked-unc3569-exploited-sogou.html",
+        "title": "China-Linked UNC3569 Exploited Sogou Input Method Flaw to Deploy GRAYRABBIT Backdoor",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "9ee20b4c-d288-489f-b2cd-dd3148975928",
+        "url": "https://thehackernews.com/2026/09/papercut-replaces-emergency-patches.html",
+        "title": "PaperCut Replaces Emergency Patches With Fixes for Two Actively Exploited Flaws",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "d2d37003-4e2c-4924-a5dc-23c8fd7e70df",
+        "url": "https://thehackernews.com/2026/09/cisco-fmc-flaws-exploited-to-steal.html",
+        "title": "Cisco FMC Flaws Exploited to Steal Credentials and Deploy Qilin Ransomware",
+        "source": "The Hacker News"
+      }
+    ]
+  }
+}
