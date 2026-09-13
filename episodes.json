@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-09-13",
+    "title": "ScreenConnect gets a fix, WordPress comments become code",
+    "duration_s": 357,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-13.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-13.md"
+  },
+  {
     "day": "2026-09-12",
     "title": "GitLab secrets exposed, Artifactory backdoors, and a reporting clock",
     "duration_s": 464,
