@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-09-15",
+    "title": "Root by email, secrets through Git",
+    "duration_s": 435,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-15.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-15.md"
+  },
+  {
     "day": "2026-09-14",
     "title": "Fake passkey help desks, real cloud theft",
     "duration_s": 331,

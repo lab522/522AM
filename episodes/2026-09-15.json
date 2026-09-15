@@ -1,0 +1,117 @@
+{
+  "day": "2026-09-15",
+  "title": "Root by email, secrets through Git",
+  "overview": "Cisco's mail gateway is being rooted through crafted messages, while Red Heron turns a public Gitea exploit into an espionage campaign. Emergency Windows fixes are out, and fresh attacks show why exposed development tools and medium-severity VPN bugs deserve attention.",
+  "duration_s": 435,
+  "chars": 5903,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-15.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-15.md",
+  "paragraphs": [
+    "[cheerful] Good morning, it's 5:22 AM. Tuesday, the fifteenth of September, twenty twenty-six. five twenty-two AM is brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Email us at hello at lab five twenty-two dot co dot uk if you think we can help your business.",
+    "[serious] The appliance checking your company's email can be rooted by sending it email. Cisco says attackers are already exploiting CVE-2026-76461 in Secure Email Gateway, its mail-filtering appliance. AsyncOS doesn't properly validate messages as it parses them, letting malicious S-Q-L statements become commands running as root. Nine point eight, and every physical or virtual gateway configuration is exposed. [short pause] No workaround. CISA's deadline for US agencies is Thursday, the seventeenth; I'd put it ahead of the ordinary patch queue.",
+    "[confident] Before upgrading, search mail_logs on every cluster member for the pattern COPY dot star TO PROGRAM. Cross-check off-appliance firewall logs for unexpected uploads: root access means attackers can hide the evidence on the box itself. [calm] AsyncOS 15 point 5 and earlier needs 15 point 5 point 5 dash 0141; 16 point 0 needs 16 point 0 point 4 dash 3021. Cisco recommends moving to 16 point 5 point 0 dash 780, which fixes that branch too. Compromised virtual appliances need rebuilding, with credentials and cryptographic material renewed; physical-box owners should contact Cisco T-A-C. Cisco's already upgraded its cloud devices and contacted customers where it detected malicious activity. The companion hardening release fixes five other issues and includes Secure Email and Web Manager: its fixed releases are 15 point 5 point 5 dash 006 or 16 point 5 point 0 dash 429. That manager isn't affected by the S-Q-L flaw; Secure Web Appliance isn't vulnerable either.",
+    "[serious] And a foothold doesn't stay on the first box. Acronis says Red Heron, a suspected China-linked actor, has compromised thirteen organisations across six countries through internet-facing Gitea, the self-hosted Git service. Within days of July's disclosure, public exploit code for CVE-2026-60004 became an automated framework that registers accounts before exploiting servers and stealing repositories. [curious] In one Taiwanese environment, that led to root on a three-node Proxmox cluster. That's the bit I'd investigate beyond the Git server. Patch exposed Gitea now, review new accounts and repository cloning, and replace secrets stored in repositories. Hunt Linux hosts for the JITTERLY implant and SIXZUT L-D underscore PRELOAD rootkit, which hides activity and relaunches if removed. A clean-looking process list isn't much reassurance there.",
+    "[curious] That same hop from developer tool to infrastructure took eight seconds in Sysdig's Marimo notebook investigation—but a human had spent four hours preparing the chain, not an A-I improvising at speed. Update Marimo to 0 point 23 point 0, authenticate or disable its terminal endpoint, and restrict Secrets Manager permissions so notebook credentials can't retrieve a bastion's S-S-H key. [serious] Meanwhile, exposed Vite development servers are being scanned for A-W-S and Azure secrets: affected versions are 7 point 1 point 0 through 7 point 3 point 2, and version eight before 8 point 0 point 5. Update, block external access to port five one seven three, and rotate reachable secrets. And public-facing WordPress sites have an older problem turning active: Wordfence says attackers are exploiting unauthenticated file uploads in WooCommerce Wholesale Lead Capture, disclosed in February. No fixed version is named; remove the plugin and inspect uploads and the web root for unexpected P-H-P files, then check for new admin accounts.",
+    "[long pause] [calm] A better development for the patch queue: those Remote Desktop Services failures we mentioned on Friday now have Microsoft's confirmation and September fourteenth out-of-band fixes for Server 2019, 2022 and 2025, plus affected Windows clients. Install your platform's emergency update and reverse temporary mitigations or rollbacks; the Windows eleven fixes also address Hyper-V Plan9 folder sharing and multichannel U-S-B audio, but the wider Audio Class one point zero failures remain unresolved.",
+    "[serious] From trusted updates to trusted accounts: attackers hijacked HBO Max's verified Reddit account to run a hundred and eight malicious ads in roughly forty-eight hours, including a fake Mac app whose download button instructed users to paste a Terminal command. Reddit locked the account; if someone ran that command, treat the machine as compromised and revoke exposed credentials and sessions. [short pause] And there's another edge-device breach disclosure, separate from Saturday's Cisco story: Japan's Digital Agency says a V-P-N flaw may have exposed about two hundred and forty-six thousand personnel-record rows. The unnamed flaw was medium severity and wasn't a zero-day; watch for bulk file access by maintenance accounts, the signal that started this investigation.",
+    "[curious] Which rather sharpens the question of what deserves the patch slot: Picus Security counts thirty-five thousand eight hundred and fifty-three CVEs published in the first half of the year, with four hundred and ninety-five catalogued as exploited during that period. A hundred and sixteen were already under attack on disclosure day—keep a same-day lane for those, and rank the rest by reachability rather than score alone.",
+    "[confident] I'd make room for an incident check alongside today's urgent upgrades, not treat installation as proof the job's finished. If an exposed service held deployment secrets, follow where those secrets could take someone. [cheerful] Have a good Tuesday. five twenty-two AM, brought to you by Lab five twenty-two. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-76461"
+    ],
+    "news": [
+      {
+        "id": "2f98c72a-a0f5-427e-851d-930568d58619",
+        "url": "https://www.theregister.com/cyber-crime/2026/09/14/hbo-max-reddit-account-compromised-to-serve-clickfix-attacks/5296408",
+        "title": "HBO Max Reddit account compromised to serve ClickFix attacks",
+        "source": "The Register security"
+      },
+      {
+        "id": "7c71ecf1-5ebd-48b2-84dd-07c9ce89db0d",
+        "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-releases-emergency-windows-updates-to-fix-rds-failures/",
+        "title": "Microsoft releases emergency Windows updates to fix RDS failures",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "ba87036b-df1c-4491-b5fa-96304e285b68",
+        "url": "https://www.bleepingcomputer.com/news/security/japans-digital-agency-says-vpn-flaw-exposed-246-000-personnel-records/",
+        "title": "Japan's Digital Agency says VPN flaw exposed 246,000 personnel records",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "c6b7de63-d2ed-4f49-bc79-79a12bc00d81",
+        "url": "https://www.wordfence.com/blog/2026/09/attackers-actively-exploiting-critical-vulnerability-in-woocommerce-wholesale-lead-capture-plugin/",
+        "title": "Attackers Actively Exploiting Critical Vulnerability in WooCommerce Wholesale Lead Capture Plugin",
+        "source": "Wordfence"
+      },
+      {
+        "id": "f9a5d970-a04c-4479-91c8-5f08d5d05236",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-hijack-hbo-max-reddit-account-to-push-malware-in-clickfix-ads/",
+        "title": "Hackers hijack HBO Max Reddit account to push malware in ClickFix ads",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "4cf35012-cc4e-450b-bf71-12ee6bd3378b",
+        "url": "https://techcrunch.com/2026/09/14/clickfix-attacks-are-tricking-mac-and-windows-users-into-hacking-themselves/",
+        "title": "ClickFix attacks are tricking Mac and Windows users into hacking themselves",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "65ba715b-eff0-4714-8b7a-17239578ac5c",
+        "url": "https://thehackernews.com/2026/09/red-heron-exploits-gitea-rce-to.html",
+        "title": "Red Heron Exploits Gitea RCE to Compromise 13 Organizations Across Six Countries",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "1a56a4c6-7a87-4704-9d17-235032f2f2e5",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-target-exposed-vite-dev-servers-to-steal-aws-azure-secrets/",
+        "title": "Hackers target exposed Vite dev servers to steal AWS, Azure secrets",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "2c105861-1189-4592-89cd-5ddda5980f7e",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-esa-inj-2bLVGmhX?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Secure%20Email%20Gateway%20SQL%20Injection%20Vulnerability%26vs_k=1",
+        "title": "Cisco Secure Email Gateway SQL Injection Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "309b11fd-d96b-43ce-8b88-ceb45b755acd",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-hardening-esa-dfCrfXkm?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Secure%20Email%20Gateway%20and%20Secure%20Email%20and%20Web%20Manager%20Security%20Hardening%20Release:%20September%202026%26vs_k=1",
+        "title": "Cisco Secure Email Gateway and Secure Email and Web Manager Security Hardening Release: September 2026",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "a546f4f2-61cb-4b16-b25e-fe6877bc855a",
+        "url": "https://www.infosecurity-magazine.com/news/human-attacker-machine-speed/",
+        "title": "Human Attacker Hits Machine-Speed Exploitation of Marimo RCE",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "e66bdc42-6268-4c07-aae5-0e5f8783ac97",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/09/14/cisa-adds-one-known-exploited-vulnerability-catalog",
+        "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "8472552e-7568-4578-bb1f-ddd7052db76c",
+        "url": "https://thehackernews.com/2026/09/ai-changed-exposure-problem-validation.html",
+        "title": "AI Changed the Exposure Problem. Validation Needs to Change With It.",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "973ff4ae-2901-4561-b6b3-d4f5305b22c9",
+        "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-september-updates-cause-rds-failures-on-windows-server/",
+        "title": "Microsoft: September updates cause RDS failures on Windows Server",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "5019a976-f542-46d2-b47b-6466f2e215e3",
+        "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-september-updates-break-audio-on-some-windows-pcs/",
+        "title": "Microsoft: September updates break audio on some Windows PCs",
+        "source": "BleepingComputer"
+      }
+    ]
+  }
+}
