@@ -1,0 +1,186 @@
+{
+  "day": "2026-09-16",
+  "title": "Pixel's modem hole, backup's privilege problem",
+  "overview": "Google patches a targeted Pixel modem zero-day, while Acronis warns of exploitation in its hosting backup plugin. Forged administrator tokens and poisoned WordPress updates add urgency, alongside fresh ScreenConnect exposure figures and a revealing PaperCut timeline.",
+  "duration_s": 402,
+  "chars": 5615,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-16.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-16.md",
+  "paragraphs": [
+    "[cheerful] Good morning, it's 5:22 AM. Wednesday, the sixteenth of September, twenty twenty-six. five twenty-two AM is brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Email us at hello at lab five twenty-two dot co dot uk if you think we can help your business.",
+    "[serious] Your Pixel's cellular modem has a permission check that doesn't hold, and Google says there are signs someone's already using it in limited, targeted attacks. CVE-2026-58704 scores eight point zero: a logic error lets an attacker with basic privileges on the phone raise those privileges through the modem. No tap required. [short pause] But they also need access to an adjacent network; it isn't a takeover from anywhere on the internet. Google hasn't said how attackers get that initial access, or who's behind it. [confident] I'd get this onto the managed-phone queue today, without turning it into a claim that every Pixel's remotely owned. Tuesday's bulletin fixes a hundred and ten vulnerabilities altogether, including forty-six critical Pixel-component bugs. The modem's only one reason to install it. [calm] On Pixel, open Settings, then Security and privacy, System and updates, and Security update. Install and restart, then confirm the Android security update level says September fifth, twenty twenty-six, or later. That check matters more than seeing a download finish. Other Android brands need their manufacturer's latest monthly update; this modem fix is Pixel-specific.",
+    "[serious] And another privilege boundary's giving way on hosting servers, inside Acronis's backup add-on for cPanel and Web Host Manager—the consoles used to manage websites and their underlying servers. Insecure file permissions let a low-privileged local attacker gain greater access, potentially reaching sensitive data or running arbitrary code without user interaction. CVE-2026-87886 scores seven point eight. Acronis says targeted exploitation's been detected against the cPanel plugin, although it told BleepingComputer that assessment rests on one potentially affected customer's account. [calm] Update that plugin to 1 point 9 point 3 Hotfix three, build 1 point 9 point 3 point 1021. The Plesk backup extension also needs 1 point 8 point 11, build 1 point 8 point 11 point 638; exploitation hasn't been reported there. Acronis is withholding technical detail to give admins time, and there are no published compromise indicators, so review local accounts and privilege use rather than waiting for a ready-made hunt.",
+    "[curious] From gaining privileges to simply claiming you've got them: watchTowr caught forged administrator J-W-T tokens targeting W-S-O-two's A-P-I Manager on Sunday, exploiting signature-verification flaw CVE-2026-5430. Apply the vendor's product-specific update levels now—or its two community code fixes—then hunt for tokens using unsupported signing algorithms and rotate consumer keys and secrets. [serious] And on the ScreenConnect flaw we covered on Sunday, CISA now explicitly confirms exploitation, while Shadowserver still sees over a thousand unpatched instances online; the federal deadline has passed. Get clients to 26 point 6 point 5 or later, or disable TransferFiles permissions while patching's blocked.",
+    "[long pause] [serious] But an update's no comfort when the vendor's distribution site still belongs to the intruder: Monday's compromised Admin Menu Editor Pro 2 point 35 reached fifteen hundred WordPress sites, and its replacement, 2 point 36, was poisoned too. I'd favour restoring a backup from before Monday's compromise, the most reliable recovery here; the vendor site is offline for restoration. [curious] Deliberate surveillance rather than poisoned maintenance next: British, American and Dutch agencies have exposed Chosen Brick, also called Heavygram, Windows spyware used by Iranian state actors against dissidents and journalists, with Telegram used for command and control. Share the advisory with likely targets and help check personal devices too; useful hunting leads include Run entries named S-M-Q-D-Service or winappx, alongside unexplained Microsoft Defender exclusions.",
+    "[calm] Back to updates that should actually help: Apple's latest cycle fixes more than two hundred and sixty CVEs, with ten credited directly to A-I-assisted hunting, according to The Register. Move to iOS 27 and macOS 27 Golden Gate, prioritising Macs that print or mount network shares. [curious] Mozilla's apparent avalanche is different: backfilled advisories cover older Firefox and Thunderbird releases, including memory-corruption bugs that could allow code execution, but none is reported exploited. There's no new incident or extra installation here—confirm you're current, particularly on deferred E-S-R channels.",
+    "[serious] Which leaves the timing behind PaperCut's emergency releases: a sponsored Picus column says the August twenty-seventh advisory arrived without a patch despite ongoing exploitation, the first fix was bypassed on release day, and the third landed six days into the response. That's new context for Saturday's maintenance release, not another patch announcement; check servers have left the emergency builds behind.",
+    "[confident] I'd give the actively exploited fixes a real slot today, not a promise for the next window. And when the next advisory arrives ahead of its patch, decide what access you can restrict while you test your controls. [cheerful] Have a good Wednesday. five twenty-two AM, brought to you by Lab five twenty-two. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [],
+    "news": [
+      {
+        "id": "4a3c4a0d-90a3-4d1c-9b4e-9efbecb95639",
+        "url": "https://www.securityweek.com/pixel-modem-zero-day-exploited-in-targeted-attacks/",
+        "title": "Pixel Modem Zero-Day Exploited in Targeted Attacks",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "d9a4b4f3-5984-4604-a17a-d725077eef24",
+        "url": "https://www.securityweek.com/us-uk-dutch-agencies-expose-iranian-chosen-brick-surveillance-malware/",
+        "title": "US, UK, Dutch Agencies Expose Iranian ‘Chosen Brick’ Surveillance Malware",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "99fe4be6-2772-4c53-854c-05ef34ff18df",
+        "url": "https://thehackernews.com/2026/09/google-patches-pixel-modem-flaw-amid.html",
+        "title": "Google Patches Pixel Modem Flaw Amid Signs of Limited Targeted Exploitation",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "1faf7f6d-9163-4ae7-8ab0-a3039be9ef71",
+        "url": "https://www.bleepingcomputer.com/news/security/cisa-warns-of-hackers-exploiting-critical-screenconnect-flaw/",
+        "title": "Critical ScreenConnect flaw now actively exploited in attacks",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "71d5191a-d8a1-44cc-9933-82af07ce8613",
+        "url": "https://thehackernews.com/2026/09/acronis-cpanel-backup-plugin.html",
+        "title": "Acronis cPanel Backup Plugin Vulnerability Exploited in Targeted Attacks",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "2a4bd143-1ecd-463c-9e24-59c91ced3048",
+        "url": "https://www.malwarebytes.com/blog/mobile/2026/09/google-pixel-owners-urged-to-patch-actively-exploited-modem-flaw",
+        "title": "Google Pixel owners urged to patch actively exploited modem flaw",
+        "source": "Malwarebytes Labs"
+      },
+      {
+        "id": "558c28c2-ba25-4937-a755-86f94f3cd850",
+        "url": "https://www.securityweek.com/acronis-patches-exploited-vulnerability-in-cpanel-backup-plugin/",
+        "title": "Acronis Patches Exploited Vulnerability in cPanel Backup Plugin",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "ce5dd3aa-4d8f-463d-8898-0ed7546f8a75",
+        "url": "https://www.securityweek.com/enterprises-warned-of-attacks-exploiting-wso2-vulnerability/",
+        "title": "Enterprises Warned of Attacks Exploiting WSO2 Vulnerability",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "f65b6459-cf43-47c5-97a4-dbfe5cacd0aa",
+        "url": "https://www.infosecurity-magazine.com/news/ncsc-allies-warn-iranian-chosen/",
+        "title": "NCSC and Allies Warn of Iranian Spyware Campaign",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "7990fd23-610f-4331-9b89-acc1cced9848",
+        "url": "https://www.bleepingcomputer.com/news/security/google-fixes-actively-exploited-android-zero-day-on-pixel-devices/",
+        "title": "Google fixes actively exploited Android zero-day on Pixel devices",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "a3561ac9-67ee-42fd-a9ee-25510af16d14",
+        "url": "https://thehackernews.com/2026/09/active-exploitation-attempts-target.html",
+        "title": "Active Exploitation Attempts Target WSO2 API Manager JWT Bypass With Forged Admin Tokens",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "ffd1670e-7300-4f0e-8764-276260cebe8c",
+        "url": "https://www.theregister.com/security/2026/09/15/the-vulnpocalypse-rains-ibugs-down-on-apple-with-record-setting-number-of-patches/5296679",
+        "title": "The vulnpocalypse rains iBugs down on Apple with record-setting number of patches",
+        "source": "The Register security"
+      },
+      {
+        "id": "11ed2c6d-b988-4611-b0bc-6732e57c504e",
+        "url": "https://www.bleepingcomputer.com/news/security/acronis-warns-of-actively-exploited-flaw-in-its-cpanel-backup-plugin/",
+        "title": "Acronis warns of actively exploited flaw in its cPanel backup plugin",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "724f48b8-b8b4-4150-975c-a319b1b00d46",
+        "url": "https://www.bleepingcomputer.com/news/security/malcious-admin-menu-editor-pro-plugin-backdoors-1-500-wordpress-sites/",
+        "title": "Malcious Admin Menu Editor Pro plugin backdoors 1,500 WordPress sites",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "0808283c-9e7e-4749-bfb1-ef2f2f900e21",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-82/",
+        "title": "MFSA 2025-82 Security Vulnerabilities fixed in Firefox ESR 115.29",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "fd97f8e4-5d9d-400b-b912-98860ae08bcc",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-75/",
+        "title": "MFSA 2025-75 Security Vulnerabilities fixed in Firefox ESR 140.3",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "2c2241e8-4310-4995-9ab2-3fd15d9f7816",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-98/",
+        "title": "MFSA 2025-98 Security Vulnerabilities fixed in Firefox 146.0.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "178fbbbb-108c-4c0a-b2d2-1a8c92c42280",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2026-19/",
+        "title": "MFSA 2026-19 Security Vulnerabilities fixed in Firefox 148.0.2",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "8de03d28-5930-4a4b-94a3-7f111b535222",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2026-26/",
+        "title": "MFSA 2026-26 Security Vulnerabilities fixed in Firefox ESR 115.34.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a75d886b-e7f2-4b49-a683-70d12017af04",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2026-25/",
+        "title": "MFSA 2026-25 Security Vulnerabilities fixed in Firefox 149.0.2",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "edc2f166-8514-42fa-95c8-8878ab31caf3",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2026-28/",
+        "title": "MFSA 2026-28 Security Vulnerabilities fixed in Thunderbird 149.0.2",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "660b60a3-db2a-4ba0-a18f-d89e3725b1b7",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2026-29/",
+        "title": "MFSA 2026-29 Security Vulnerabilities fixed in Thunderbird 140.9.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "ae9ef469-aeae-4d09-8ffb-7311c7e880e9",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2026-27/",
+        "title": "MFSA 2026-27 Security Vulnerabilities fixed in Firefox ESR 140.9.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1da5db0e-2eed-4aa5-9c35-1bd501b9f189",
+        "url": "https://www.theregister.com/security/2026/09/15/iranian-spies-hit-windows-machines-with-chosen-brick-data-stealing-malware/5296646",
+        "title": "Iranian spies hit Windows machines with Chosen Brick data-stealing malware",
+        "source": "The Register security"
+      },
+      {
+        "id": "0a46dc93-4646-4603-8427-c01e522fc75b",
+        "url": "https://thehackernews.com/2026/09/iranian-hackers-use-telegram-controlled.html",
+        "title": "Iranian Hackers Use Telegram-Controlled Malware to Spy on Dissidents and Journalists",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "e38227c2-cc71-47c6-be2a-c88f321b1531",
+        "url": "https://therecord.media/iran-cyber-spies-use-fake-mri-scans-as-lure",
+        "title": "Iranian cyber spies used fake MRI scan results to hack ‘enemy of regime’",
+        "source": "The Record"
+      },
+      {
+        "id": "3f96dcab-5ab3-4c48-b339-28b09e42ced0",
+        "url": "https://www.bleepingcomputer.com/news/security/what-zero-day-response-should-be-in-the-post-mythos-era/",
+        "title": "What Zero-Day Response Should Be in the Post-Mythos Era",
+        "source": "BleepingComputer"
+      }
+    ]
+  }
+}
