@@ -1,0 +1,626 @@
+{
+  "day": "2026-09-17",
+  "title": "Cisco's root bypass, N-central's confirmed exploitation",
+  "overview": "Cisco's September bundle includes an actively exploited authentication bypass in Identity Services Engine, while N-central's hotfix now has a confirmed exploitation warning and an exact build to check. Also: attacks on Issabel phone systems, Windows domain-trust breakage, and changes to vulnerability feeds.",
+  "duration_s": 387,
+  "chars": 5141,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-17.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-17.md",
+  "paragraphs": [
+    "[cheerful] Good morning, it's 5:22 AM. Thursday, the seventeenth of September, twenty twenty-six. five twenty-two AM is brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Email us at hello at lab five twenty-two dot co dot uk if you think we can help your business.",
+    "[serious] The box deciding which devices get onto your network has a door that doesn't properly check who's asking. Cisco's September bundle landed yesterday with an actively exploited authentication bypass in Identity Services Engine and I-S-E-PIC, its Passive Identity Connector. CVE-2026-76460 scores ten point zero: a crafted request to an A-P-I endpoint bypasses the web management login, and Cisco warns attackers may get command execution as root. Any configuration from 3 point 1 upwards is exposed. [short pause] CISA added it to the exploited catalogue alongside yesterday's Acronis flaw; both now have a September nineteenth federal remediation deadline. The Cisco entry's the new problem, separate from Tuesday's email gateway story. [confident] I'd put this ahead of routine maintenance. Root on the network's admission desk is quite enough reason.",
+    "[calm] For I-S-E, the fixes are 3 point 1 Patch 12 or 3 point 2 Patch 11; on newer branches, 3 point 3 Patch 12, 3 point 4 Patch 7 or 3 point 5 Patch 4. There's no workaround. Infrastructure access control lists can restrict the management plane while you patch. Check every node's ise-kong access dot log for suspicious usernames; Cisco strongly recommends re-imaging suspect nodes, restoring configuration backups if needed. [serious] And the bundle isn't just I-S-E: Cisco says two Management Center flaws are being exploited too, in the console managing the firewall fleet. Every Secure Firewall deployment needs attention: A-S-A goes to 9 point 24 point 1 point 26 or the matching fixed train; Threat Defense and Management Center go to 7 point 7 point 13. Nexus Dashboard 4 point 2 and earlier needs 4 point 3 point 1 point 175. Also check the advisories for ThousandEyes Virtual Appliance before 0 point 265 and BroadWorks CommPilot.",
+    "[curious] Another console with a lot behind it: that N-central hotfix we discussed last week now has an exact vulnerability and build to pin to the change ticket. CVE-2026-86218 is static code injection allowing code execution without authentication, rated ten point zero by N-able, and CISA has confirmed exploitation. N-central's the remote management platform that can reach customers' endpoints, so the server isn't the end of the concern. [calm] Self-hosted installations before 2026 point 3 point 1 point 14 need that build, delivered as 2026 point 3 Hotfix 4; hosted instances are already patched. If you can't upgrade immediately, restrict access from untrusted networks, but that isn't a fix. [confident] I'd review appliance logs and administrative activity as a separate job: the hotfix can't tell you whether somebody got there first. Not every publicly discussed N-central compromise has been conclusively tied to this particular flaw.",
+    "[serious] And unauthenticated commands are reaching phone systems too: Issabel Framework, the web front end for an Asterisk-based P-B-X, has an actively exploited hard-coded J-W-T signing key flaw, CVE-2026-89026. Apply the latest Framework fixes—the August first patch replaces that shared key—and check internet-reachable installations for calls to slash pbxapi slash manager slash originate. [pause] But applying updates has its own snag today: Microsoft is investigating Windows eleven update K-B five one two four zero zero eight breaking domain trust on some enterprise machines, leaving valid domain credentials unable to log in. There's no official workaround yet, and I'd avoid pushing the community's MachineIdentityIsolation registry change across a fleet: disabling it can itself break trust, with Microsoft's documentation warning that disabling after enforcement requires leaving and rejoining the domain.",
+    "[long pause] [curious] Away from the patch queue, check what fills it: CISA's weekly vulnerability bulletin stops on September twenty-eighth as the agency shifts towards risk-based prioritisation. Enable the exploited-catalogue and Cybersecurity Advisories subscriptions in GovDelivery or Granicus before then; CISA also points readers to the CVE catalogue. And yesterday's Mozilla backfill has reached further back, through M-F-S-A twenty twenty-five dash fifteen to dash seventy-three, including Firefox 137 point 0 point 2 and older E-S-R releases. [calm] The batch also extends to Mozilla's iOS browsers and its macOS V-P-N; don't reopen last year's patch tickets just because their advisory pages have arrived today.",
+    "[confident] I'd book the management-console changes now, with time reserved afterwards to investigate anything odd in the logs. And if that Windows update's in your pilot ring, check a domain login after the reboot before widening deployment. [cheerful] Have a good Thursday. five twenty-two AM, brought to you by Lab five twenty-two. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-76460",
+      "CVE-2026-87886"
+    ],
+    "news": [
+      {
+        "id": "aaaf1f95-324f-41b6-b84a-aa083a3c366d",
+        "url": "https://www.bleepingcomputer.com/news/microsoft/windows-11-kb5124008-update-breaks-domain-trust-for-some-users/",
+        "title": "Windows 11 KB5124008 update breaks domain trust for some users",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "be5c0fbf-d613-4d5a-a45b-e1fd362fbf9f",
+        "url": "https://www.theregister.com/security/2026/09/16/cisa-decides-weekly-vulnerability-bulletin-isnt-necessary-anymore/5296968",
+        "title": "CISA decides weekly vulnerability bulletin isn't necessary anymore",
+        "source": "The Register security"
+      },
+      {
+        "id": "c7f57a3b-8455-4720-8de9-46e9b30a1fde",
+        "url": "https://horizon3.ai/attack-research/vulnerabilities/cve-2026-86218/",
+        "title": "CVE-2026-86218 | N-able N-central Pre-Authentication Remote Code Execution Vulnerability",
+        "source": "Horizon3"
+      },
+      {
+        "id": "f1272ca9-2af3-49a5-a030-3592970ae6e1",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-asaftdvirtual-dos-MuenGnYR?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Secure%20Firewall%20Adaptive%20Security%20Appliance%20and%20Secure%20Firewall%20Threat%20Defense%20Software%20SSL%20VPN%20Denial%20of%20Service%20Vulnerability%26vs_k=1",
+        "title": "Cisco Secure Firewall Adaptive Security Appliance and Secure Firewall Threat Defense Software SSL VPN Denial of Service Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "10744893-1810-4e37-8f08-91467bae5cca",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-asaftd-eigrp-dos-GOhNejSj?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Secure%20Firewall%20Adaptive%20Security%20Appliance%20and%20Secure%20Firewall%20Threat%20Defense%20Software%20EIGRP%20Denial%20of%20Service%20Vulnerability%26vs_k=1",
+        "title": "Cisco Secure Firewall Adaptive Security Appliance and Secure Firewall Threat Defense Software EIGRP Denial of Service Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "1c626d45-a582-40e6-83d4-ad120b9aa9e1",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ise-mult-vul-ymSsTLCc?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Identity%20Services%20Engine%20Authenticated%20Remote%20Code%20Execution%20and%20API%20Vulnerabilities%26vs_k=1",
+        "title": "Cisco Identity Services Engine Authenticated Remote Code Execution and API Vulnerabilities",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "a527587e-3e68-4555-b65e-493b7024ba91",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-fmc-javarce-y2NypXwk?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Secure%20Firewall%20Management%20Center%20Software%20Java%20Deserialization%20Remote%20Code%20Execution%20Vulnerability%26vs_k=1",
+        "title": "Cisco Secure Firewall Management Center Software Java Deserialization Remote Code Execution Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "3e078a5e-44ed-4d90-bd1b-ccabb4997101",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ise-RADIUS-dos-wR3hYPMw?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Identity%20Services%20Engine%20RADIUS%20Denial%20of%20Service%20Vulnerability%26vs_k=1",
+        "title": "Cisco Identity Services Engine RADIUS Denial of Service Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "1f4758ce-b3e1-4c0a-b7cc-1371c41fa0b8",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-fmcftd-sftun-multivulns-WGVHOrN3?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Secure%20Firewall%20Management%20Center%20and%20Secure%20Firewall%20Threat%20Defense%20Software%20sftunnel%20Vulnerabilities%26vs_k=1",
+        "title": "Cisco Secure Firewall Management Center and Secure Firewall Threat Defense Software sftunnel Vulnerabilities",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "1d23905d-5f16-437f-a3fa-0c773569b091",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ise-multi-vuln-kWLeNnRD?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Identity%20Services%20Engine%20802.1X%20Session%20Hijack%20and%20Information%20Disclosure%20Vulnerabilities%26vs_k=1",
+        "title": "Cisco Identity Services Engine 802.1X Session Hijack and Information Disclosure Vulnerabilities",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "a58fb0f8-66be-4d3f-b9b2-0eb70b2558fd",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-fmc-mulivulns-4PsnFwvx?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Secure%20Firewall%20Management%20Center%20Software%20Vulnerabilities%26vs_k=1",
+        "title": "Cisco Secure Firewall Management Center Software Vulnerabilities",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "fced79d8-a0b3-466f-ae69-02957e483c96",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-teva-os-command-W4GAO6jp?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20ThousandEyes%20Virtual%20Appliance%20Authenticated%20Web%20Interface%20Command%20Injection%20Vulnerability%26vs_k=1",
+        "title": "Cisco ThousandEyes Virtual Appliance Authenticated Web Interface Command Injection Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "370dd1d4-631b-4bf5-845e-65b972edae2b",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ftd-snort2-ssldos-Mw7WYX9c?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Secure%20Firewall%20Threat%20Defense%20Software%20Snort%202%20SSL/TLS%20Denial%20of%20Service%20Vulnerability%26vs_k=1",
+        "title": "Cisco Secure Firewall Threat Defense Software Snort 2 SSL/TLS Denial of Service Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "6e3b7afe-3310-4754-aca8-316a82e2ba3b",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ftd-acl-bypass-8p6vFvw?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Secure%20Firewall%20Adaptive%20Security%20Appliance%20and%20Secure%20Firewall%20Threat%20Defense%20Software%20Object%20Group%20Access%20Control%20List%20Bypass%20Vulnerabilities%26vs_k=1",
+        "title": "Cisco Secure Firewall Adaptive Security Appliance and Secure Firewall Threat Defense Software Object Group Access Control List Bypass Vulnerabilities",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "1f4f3c4e-9965-4d16-87dd-8fcf5695cca1",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ISE-ABP-VNSW7Tn5?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Identity%20Services%20Engine%20Authentication%20Bypass%20Vulnerability%26vs_k=1",
+        "title": "Cisco Identity Services Engine Authentication Bypass Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "961dc684-6b13-48c6-88b4-72dfb17e9cff",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-hardening-ndw1-psFvnrg?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Nexus%20Dashboard%20Software%20Security%20Hardening%20Release:%20September%202026%26vs_k=1",
+        "title": "Cisco Nexus Dashboard Software Security Hardening Release: September 2026",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "19907e76-6f89-46c0-9a8b-4584caed4ae7",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-fmc2-multivulns-HXgcqRG?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Secure%20Firewall%20Management%20Center%20Software%20Vulnerabilities%26vs_k=1",
+        "title": "Cisco Secure Firewall Management Center Software Vulnerabilities",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "95eed5f5-980c-42b9-919b-2738a15a1fd2",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ise-multiauth-bypass-sgD2HbL4?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Identity%20Services%20Engine%20Authentication%20Bypass%20Vulnerabilities%26vs_k=1",
+        "title": "Cisco Identity Services Engine Authentication Bypass Vulnerabilities",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "9e31cc93-48d8-40cd-b7c6-e705c773761f",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-asaftd-dtls-dos-Kp57HkyO?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Secure%20Firewall%20Adaptive%20Security%20Appliance%20and%20Secure%20Firewall%20Threat%20Defense%20Software%20for%20Secure%20Firewall%203100%20and%204200%20Series%20DTLS%20Denial%20of%20Service%20Vulnerability%26vs_k=1",
+        "title": "Cisco Secure Firewall Adaptive Security Appliance and Secure Firewall Threat Defense Software for Secure Firewall 3100 and 4200 Series DTLS Denial of Service Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "c2012095-8a2c-4cc1-9c89-85a45054621c",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ise-multi-traversal-WDTgYCdn?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Identity%20Services%20Engine%20Multiple%20Path%20Traversal%20Vulnerabilities%26vs_k=1",
+        "title": "Cisco Identity Services Engine Multiple Path Traversal Vulnerabilities",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "c247f52c-33ff-4d48-b6ba-aba49d6f952f",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ise-sql-inj-3QTKR947?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Identity%20Services%20Engine%20SQL%20Injection%20Vulnerabilities%26vs_k=1",
+        "title": "Cisco Identity Services Engine SQL Injection Vulnerabilities",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "f449d8f4-871d-432d-971d-c240310529f6",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-fmc-sftunn-codex-c3O4Jft2?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Secure%20Firewall%20Management%20Center%20Software%20sftunnel%20Root%20Arbitrary%20Code%20Execution%20Vulnerability%26vs_k=1",
+        "title": "Cisco Secure Firewall Management Center Software sftunnel Root Arbitrary Code Execution Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "1e76b20c-d52d-4c08-b829-c7a4a1c448a0",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ise-multi-hrP9jQSQ?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Identity%20Services%20Engine%20Vulnerabilities%26vs_k=1",
+        "title": "Cisco Identity Services Engine Vulnerabilities",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "3689e5b9-10d8-479b-856d-0d69e5d3dc83",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-asa-ftd-logging-dos-ZXXNesfN?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Secure%20Firewall%20Adaptive%20Security%20Appliance%20and%20Secure%20Firewall%20Threat%20Defense%20Software%20Logging%20Denial%20of%20Service%20Vulnerability%26vs_k=1",
+        "title": "Cisco Secure Firewall Adaptive Security Appliance and Secure Firewall Threat Defense Software Logging Denial of Service Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "d2b8925a-9cc5-418f-9ce8-e393b1c18dad",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ise-rce-se7bYU57?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Identity%20Services%20Engine%20Remote%20Code%20Execution%20Vulnerabilities%26vs_k=1",
+        "title": "Cisco Identity Services Engine Remote Code Execution Vulnerabilities",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "8238af92-e066-44b0-8162-e4b3fd944127",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ftd-tls1.3-dos-dLxwFWgF?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Secure%20Firewall%20Threat%20Defense%20Software%20TLS%201.3%20Denial%20of%20Service%20Vulnerability%26vs_k=1",
+        "title": "Cisco Secure Firewall Threat Defense Software TLS 1.3 Denial of Service Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "877c0793-4346-4dd5-a3de-235368ae724c",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-asaftd-tcpdns-dos-p6dUnjr5?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Secure%20Firewall%20Adaptive%20Security%20Appliance%20and%20Secure%20Firewall%20Threat%20Defense%20Software%20TCP%20DNS%20Denial%20of%20Service%20Vulnerability%26vs_k=1",
+        "title": "Cisco Secure Firewall Adaptive Security Appliance and Secure Firewall Threat Defense Software TCP DNS Denial of Service Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "7a7672f5-fc45-4298-ab17-913cbe65e586",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-auth-bypass-broadwor-57m9dmm5?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20BroadWorks%20CommPilot%20Application%20Software%20Authorization%20Bypass%20Vulnerability%26vs_k=1",
+        "title": "Cisco BroadWorks CommPilot Application Software Authorization Bypass Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "0288f5a1-c6ee-49cb-a650-34e4085c0946",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ise-multisql-inject-JnHK54Rq?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Identity%20Services%20Engine%20SQL%20and%20HQL%20Injection%20Vulnerabilities%26vs_k=1",
+        "title": "Cisco Identity Services Engine SQL and HQL Injection Vulnerabilities",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "6335a07a-7829-4c54-ac75-3c2efcdd7c2f",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ise-xss-Uz9VWRQ?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Identity%20Services%20Engine%20Cross-Site%20Scripting%20Vulnerability%26vs_k=1",
+        "title": "Cisco Identity Services Engine Cross-Site Scripting Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "d0c2d348-67d8-4317-9122-576d8c0b7cf9",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ise-cmd-inj-e2CuZCYZ?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Identity%20Services%20Engine%20Command%20Injection%20Vulnerabilities%26vs_k=1",
+        "title": "Cisco Identity Services Engine Command Injection Vulnerabilities",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "a8e9e58d-a314-484a-a089-0a72f87b4c72",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ise-auth-bypass-1-MxcTNgwx?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Identity%20Services%20Engine%20Authorization%20Bypass%20Vulnerabilities%26vs_k=1",
+        "title": "Cisco Identity Services Engine Authorization Bypass Vulnerabilities",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "1b98291b-1d92-4939-8f90-72aad03fc3bc",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-hardening-asaftdfmc-uvpPROhN?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Secure%20Firewall%20Adaptive%20Security%20Appliance,%20Secure%20Firewall%20Threat%20Defense,%20and%20Secure%20Firewall%20Management%20Center%20Software%20Hardening%20Release:%20September%202026%26vs_k=1",
+        "title": "Cisco Secure Firewall Adaptive Security Appliance, Secure Firewall Threat Defense, and Secure Firewall Management Center Software Hardening Release: September 2026",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "4106d328-3cd9-441e-9806-270f448af847",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-hardening-ise-XU5EwX5T?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Identity%20Services%20Engine%20Hardening%20Release:%20September%202026%26vs_k=1",
+        "title": "Cisco Identity Services Engine Hardening Release: September 2026",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "f1db1d92-9882-4132-b1e4-1f0e20c6b695",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-asaftd-ikev2cert-dos-uWyc2xtv?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Secure%20Firewall%20Adaptive%20Security%20Appliance%20and%20Secure%20Firewall%20Threat%20Defense%20Software%20IKEv2%20Certificate%20Authentication%20Denial%20of%20Service%20Vulnerability%26vs_k=1",
+        "title": "Cisco Secure Firewall Adaptive Security Appliance and Secure Firewall Threat Defense Software IKEv2 Certificate Authentication Denial of Service Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "789cafe9-2044-4985-9fdd-3fd0f7190a68",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ise-inf-disc-LFWvcCu?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Identity%20Services%20Engine%20Information%20Disclosure%20Vulnerability%26vs_k=1",
+        "title": "Cisco Identity Services Engine Information Disclosure Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "3719954c-c699-4079-b3c8-7dba4707129d",
+        "url": "https://thehackernews.com/2026/09/attackers-exploit-issabel-framework.html",
+        "title": "Attackers Exploit Issabel Framework Flaw Enabling Unauthenticated OS Command Execution",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "b8ca17c0-72fd-48d3-932e-995ea667a557",
+        "url": "https://www.cybersecuritydive.com/news/hackers-exploit-zero-day-cisco-email-gateway/830553/",
+        "title": "Hackers exploit zero-day flaw in Cisco email gateway",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "54b0330c-f778-43ec-a909-971a75029675",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-25/",
+        "title": "MFSA 2025-25 Security vulnerability fixed in Firefox 137.0.2",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c4847d9b-1f94-4032-8b46-2cfe37cd48ab",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-38/",
+        "title": "MFSA 2025-38 Security Vulnerabilities fixed in Firefox ESR 115.23.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a11a9fa5-be92-40e8-be61-c33ccac6dd48",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-21/",
+        "title": "MFSA 2025-21 Security Vulnerabilities fixed in Firefox ESR 115.22",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0de4c5f6-6cf5-4534-b7a8-60ba852c0ba0",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-28/",
+        "title": "MFSA 2025-28 Security Vulnerabilities fixed in Firefox 138",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "fa294a44-ec1d-407b-aaf9-0524e8ad13e3",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-42/",
+        "title": "MFSA 2025-42 Security Vulnerabilities fixed in Firefox 139",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d232b21c-3ea3-472c-9b91-6e89f28e9bff",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-19/",
+        "title": "MFSA 2025-19 Security Vulnerability fixed in Firefox 136.0.4, Firefox ESR 128.8.1, Firefox ESR 115.21.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "713bda23-0b8a-4423-8d67-304722ce5756",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-43/",
+        "title": "MFSA 2025-43 Security Vulnerabilities fixed in Firefox ESR 115.24",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d0c8cc6a-9eaf-4337-8898-c691df8cc161",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-16/",
+        "title": "MFSA 2025-16 Security Vulnerabilities fixed in Firefox ESR 128.8",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "de0e7122-4b43-433f-b6f6-430e5d76fd17",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-15/",
+        "title": "MFSA 2025-15 Security Vulnerabilities fixed in Firefox ESR 115.21",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c6ce9d31-a88c-4557-a18e-25a52bd94d9c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-39/",
+        "title": "MFSA 2025-39 Security Vulnerabilities fixed in Firefox for iOS 139",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "25af1873-a6f4-4f27-836f-bd802afccfc3",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-17/",
+        "title": "MFSA 2025-17 Security Vulnerabilities fixed in Thunderbird 136",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7a9131ef-f25f-469d-a653-511e4a76e14a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-18/",
+        "title": "MFSA 2025-18 Security Vulnerabilities fixed in Thunderbird ESR 128.8",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "acd26433-7f64-41d3-a2ae-964ce698d05c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-20/",
+        "title": "MFSA 2025-20 Security Vulnerabilities fixed in Firefox 137",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "54f59c6d-8014-4d5b-a7cd-3817fed6ed02",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-22/",
+        "title": "MFSA 2025-22 Security Vulnerabilities fixed in Firefox ESR 128.9",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1fa5a576-41cb-4c5f-b661-6c554894ceaa",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-23/",
+        "title": "MFSA 2025-23 Security Vulnerabilities fixed in Thunderbird 137",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "dddca571-d607-4525-a006-a7e41dfde239",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-24/",
+        "title": "MFSA 2025-24 Security Vulnerabilities fixed in Thunderbird ESR 128.9",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "16ce73bc-e504-481d-9310-910b5aa9c05c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-26/",
+        "title": "MFSA 2025-26 Security Vulnerabilities fixed in Thunderbird 137.0.2",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "8bc2fb58-8cb7-49bc-8240-f92b95269d13",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-27/",
+        "title": "MFSA 2025-27 Security Vulnerabilities fixed in Thunderbird ESR 128.9.2",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "641e2636-eb67-4dc6-9d7b-4d7821f7b2d5",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-33/",
+        "title": "MFSA 2025-33 Security vulnerability fixed in Focus for iOS 138",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "dbd11f78-1d34-4fd6-8505-4599cb718a47",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-29/",
+        "title": "MFSA 2025-29 Security Vulnerabilities fixed in Firefox ESR 128.10",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "42fd3306-784b-40cd-b066-2016889d700f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-30/",
+        "title": "MFSA 2025-30 Security Vulnerabilities fixed in Firefox ESR 115.23",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "221f8fcc-039d-4843-98e5-adea61a29cb7",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-32/",
+        "title": "MFSA 2025-32 Security Vulnerabilities fixed in Thunderbird 128.10",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "959346f8-b091-4f4b-b354-6e409e2c6157",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-31/",
+        "title": "MFSA 2025-31 Security Vulnerabilities fixed in Thunderbird 138",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "574ed75c-2d0f-40b1-9d5f-4e1e952ec0e6",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-35/",
+        "title": "MFSA 2025-35 Security Vulnerabilities fixed in Thunderbird 138.0.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5322440a-7149-4693-a4da-080a6e3e548c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-34/",
+        "title": "MFSA 2025-34 Security Vulnerabilities fixed in Thunderbird 128.10.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "8e740bed-cf0a-4814-a87f-f2b9ebcda296",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-36/",
+        "title": "MFSA 2025-36 Security Vulnerabilities fixed in Firefox 138.0.4",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "46b21e4b-395e-4df5-8349-3367bdf726a7",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-37/",
+        "title": "MFSA 2025-37 Security Vulnerabilities fixed in Firefox ESR 128.10.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e917f34d-b84b-49dd-a66e-67a27bf6501c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-41/",
+        "title": "MFSA 2025-41 Security Vulnerabilities fixed in Thunderbird 138.0.2",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "fd2901ad-f589-4229-a5fe-037f777d931c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-40/",
+        "title": "MFSA 2025-40 Security Vulnerabilities fixed in Thunderbird 128.10.2",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "34c10093-c06c-490a-a113-2c7e7430f948",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-69/",
+        "title": "MFSA 2025-69 Security Vulnerabilities fixed in Focus for iOS 142",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f38076aa-25f9-44c8-8251-bf7bf80014ed",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-57/",
+        "title": "MFSA 2025-57 Security Vulnerabilities fixed in Firefox ESR 115.26",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "63b49339-2b03-45fc-897b-db19957fc4d9",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-65/",
+        "title": "MFSA 2025-65 Security Vulnerabilities fixed in Firefox ESR 115.27",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "247e1b9c-b848-46a0-8320-e9bfca1a733b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-70/",
+        "title": "MFSA 2025-70 Security Vulnerabilities fixed in Thunderbird 142",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "39e97b97-e2ad-4633-ace8-fd39ca4ba92b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-72/",
+        "title": "MFSA 2025-72 Security Vulnerabilities fixed in Thunderbird 140.2",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "43de4bed-e064-4fb4-9391-4af0b670a784",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-44/",
+        "title": "MFSA 2025-44 Security Vulnerabilities fixed in Firefox ESR 128.11",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "dd70b2e9-f91a-4b72-9538-f16a5f5c3139",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-45/",
+        "title": "MFSA 2025-45 Security Vulnerabilities fixed in Thunderbird 139",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "040463bf-fae7-4d2d-a59f-c79daae54a55",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-46/",
+        "title": "MFSA 2025-46 Security Vulnerabilities fixed in Thunderbird 128.11",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1de99759-e5db-487d-9ea7-0ee5eb93deed",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-48/",
+        "title": "MFSA 2025-48 Security Issue fixed in Mozilla VPN for macOS v2.28.0",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "47d38857-0769-4615-aa50-2c21dd8dd6b4",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-47/",
+        "title": "MFSA 2025-47 Security Vulnerabilities fixed in Firefox 139.0.4",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5246dba6-09f0-4873-b22e-81894645d1dc",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-49/",
+        "title": "MFSA 2025-49 Security Vulnerabilities fixed in Thunderbird 128.11.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d55b1853-7f33-4db6-991a-7896782ee4ee",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-51/",
+        "title": "MFSA 2025-51 Security Vulnerabilities fixed in Firefox 140",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "02a3290d-7d3f-4094-a91e-015f6aef233f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-50/",
+        "title": "MFSA 2025-50 Security Vulnerabilities fixed in Thunderbird 139.0.2",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "055d7130-271c-4849-adc4-d4a7565c8137",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-52/",
+        "title": "MFSA 2025-52 Security Vulnerabilities fixed in Firefox ESR 115.25",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "79d0ac8d-80ad-409f-8eb5-a990c5f752fe",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-53/",
+        "title": "MFSA 2025-53 Security Vulnerabilities fixed in Firefox ESR 128.12",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7b1bc181-5c39-45ad-9d37-8b7d024cc736",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-55/",
+        "title": "MFSA 2025-55 Security Vulnerabilities fixed in Thunderbird 128.12",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c75d77c9-f556-4946-a969-77e352a9a6f2",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-56/",
+        "title": "MFSA 2025-56 Security Vulnerabilities fixed in Firefox 141",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "8b066a5a-52fe-459c-b3b8-96a1d4e16a7c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-54/",
+        "title": "MFSA 2025-54 Security Vulnerabilities fixed in Thunderbird 140",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9f910ffb-cb5d-4e08-9943-8bbbc9f1de68",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-58/",
+        "title": "MFSA 2025-58 Security Vulnerabilities fixed in Firefox ESR 128.13",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "89db79a6-efcd-46b7-8d12-8ae569b5bce2",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-61/",
+        "title": "MFSA 2025-61 Security Vulnerabilities fixed in Thunderbird 141",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "2a8ce38a-7454-417f-abca-09eb4ad67cdc",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-59/",
+        "title": "MFSA 2025-59 Security Vulnerabilities fixed in Firefox ESR 140.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1cf35267-0eb3-4ca1-89ba-2f05f49c8fca",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-60/",
+        "title": "MFSA 2025-60 Security Vulnerabilities fixed in Firefox for iOS 141",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "eaba754f-0097-4478-91a8-7d98cda8c981",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-62/",
+        "title": "MFSA 2025-62 Security Vulnerabilities fixed in Thunderbird 128.13",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "ba3dcd38-967a-4106-9985-05538009c2b2",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-63/",
+        "title": "MFSA 2025-63 Security Vulnerabilities fixed in Thunderbird 140.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e4168c59-83cd-4c7b-a2d2-213f1b67b456",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-64/",
+        "title": "MFSA 2025-64 Security Vulnerabilities fixed in Firefox 142",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c6ca7515-9d70-404c-9bce-a1849da79377",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-66/",
+        "title": "MFSA 2025-66 Security Vulnerabilities fixed in Firefox ESR 128.14",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a27f6084-15e2-4b65-9472-278ceaa01b93",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-67/",
+        "title": "MFSA 2025-67 Security Vulnerabilities fixed in Firefox ESR 140.2",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "811a30c8-a2e0-46ed-afcf-6bfffb22c441",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-68/",
+        "title": "MFSA 2025-68 Security Vulnerabilities fixed in Firefox for iOS 142",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "803bfb29-6ca0-4628-a006-60f436407994",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-73/",
+        "title": "MFSA 2025-73 Security Vulnerabilities fixed in Firefox 143",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a50e7f84-c828-4245-b255-62d3a1303425",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-71/",
+        "title": "MFSA 2025-71 Security Vulnerabilities fixed in Thunderbird 128.14",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "027cd575-464b-4894-a224-c13f8c567a54",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/09/16/cisa-adds-two-known-exploited-vulnerabilities-catalog",
+        "title": "CISA Adds Two Known Exploited Vulnerabilities to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "71d5191a-d8a1-44cc-9933-82af07ce8613",
+        "url": "https://thehackernews.com/2026/09/acronis-cpanel-backup-plugin.html",
+        "title": "Acronis cPanel Backup Plugin Vulnerability Exploited in Targeted Attacks",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "558c28c2-ba25-4937-a755-86f94f3cd850",
+        "url": "https://www.securityweek.com/acronis-patches-exploited-vulnerability-in-cpanel-backup-plugin/",
+        "title": "Acronis Patches Exploited Vulnerability in cPanel Backup Plugin",
+        "source": "SecurityWeek"
+      }
+    ]
+  }
+}

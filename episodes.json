@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-09-17",
+    "title": "Cisco's root bypass, N-central's confirmed exploitation",
+    "duration_s": 387,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-17.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-17.md"
+  },
+  {
     "day": "2026-09-16",
     "title": "Pixel's modem hole, backup's privilege problem",
     "duration_s": 402,
