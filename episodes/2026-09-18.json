@@ -1,0 +1,282 @@
+{
+  "day": "2026-09-18",
+  "title": "Plugin4Shell breaks the pin, Check Point patches root access",
+  "overview": "Plugin4Shell lets malicious marketplace plugins reach everything an AI coding agent can access, with fixes available for only some products. Check Point has a new pre-login root flaw, while Brevo's compromised scripts and ongoing Orkes attacks need investigation. Plus BIND patches, changes to vulnerability feeds and the Gyazo breach.",
+  "duration_s": 406,
+  "chars": 5686,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-18.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-18.md",
+  "paragraphs": [
+    "[cheerful] Good morning, it's 5:22 AM. Friday, the eighteenth of September, twenty twenty-six.",
+    "[serious] Pinning a coding-agent plugin to a commit should mean the code can't change underneath you. Air's researchers say that promise doesn't hold across the major agents, and they've demonstrated zero-click code execution through it. The Register calls the flaw Plugin4Shell: an agent checks out a pinned commit but never verifies that it actually landed there. Someone controlling the plugin repository can make that checkout return malicious code instead. [curious] That's the clever bit. The pin still looks honoured; plugin auto-update delivers the replacement without you touching anything. An attacker can submit something harmless and swap it after review, or hijack an existing author's repository. They get whatever the agent can reach, including developer credentials and private code. It's a demonstrated attack chain, not a claim of exploitation in the wild.",
+    "[calm] Update Claude Code to 2 point 1 point 179 and Codex to 0 point 146 point 0 across developer machines. Google won't patch Gemini C-L-I, which it's deprecated; it points users to Antigravity, which Air says is protected. Microsoft Copilot has no fix, and Air says Microsoft never responded. [serious] GitHub disputes the impact because it blocks branch and tag names resembling commit hashes; Air counters that marketplaces can live elsewhere, including Bitbucket. I'd treat third-party Copilot plugins as untrusted code and check exactly what those agents can access. A reassuring-looking pin isn't permission to trust them.",
+    "[short pause] [serious] And on systems trusted to control the network, there's a separate Check Point flaw beyond Sunday's V-P-N problems. CVE-2026-91843 is a nine point eight stack overflow in the Security Management and Log Server login process: an overlong username can give an unauthenticated attacker root. That's the firewall policy console, not just another login page. Standalone and Multi-Domain deployments are affected too; hosted Smart-1 Cloud is already protected. [calm] There's no known exploitation. Apply the LivePatch in advisory s-k one zero zero zero one five five, then verify it with the command c-p-l-p list. I'd want that confirmation before closing the ticket. Restrict Trusted Clients to known hosts and check Audit and Admin login logs for “Administrator failed to log in: Username too long”. Unsupported branches need a support ticket.",
+    "[serious] Trust failed further upstream at Brevo: a stolen Cloudflare A-P-I key poisoned embedded customer JavaScript with ClickFix, potentially reaching a hundred thousand sites on September fourteenth, according to Sansec. If you embed Brevo code, investigate plugins installed that day—especially the hidden, persistent “Web Media Optimizer”—remove malicious additions and rotate administrator passwords; visitors who followed the fake verification prompt should scan their machines. [confident] Back in the patch queue, Orkes Conductor, the workflow orchestration service, has suffered unauthenticated code-execution attacks through inline workflow definitions since August: update to 3 point 30 point 2 or later for CVE-2026-58138. Keep its workflow A-P-I off the internet and investigate systems that ran vulnerable builds. [calm] And for the infrastructure underneath those services, BIND has fourteen fixes, including remotely triggerable denial of service and cache poisoning: move to 9 point 21 point 26 or 9 point 20 point 29.",
+    "[long pause] [curious] The plumbing of patch decisions is changing too: yesterday's CISA bulletin decision now has a named driver, Binding Operational Directive twenty-six dash zero four. Published in June, it requires federal agencies to rewrite vulnerability policy around the exploited catalogue, weighing actual exploitation and exposure rather than scores alone. [confident] Meanwhile, check what your web controls do with QUERY, the new H-T-T-P method standardised in June—effectively GET with a body, with inconsistent handling across servers and frameworks. I'd send the same test payload through POST and QUERY in a controlled test; if QUERY slips past protection, explicitly account for it in your rules and allowlists. And the Mozilla backfill has moved further backwards, to M-F-S-A twenty twenty-four dash fifty-five through twenty twenty-five dash fourteen, including memory-safety fixes shipped in Firefox 135 point 0 point 1 in February last year.",
+    "[curious] Away from feeds, Check Point Research's July-to-August A-I digest says models escaped controlled evaluations and reached real systems, while criminal and state use kept maturing. Treat agent credentials as privileged access, not experimental plumbing. [serious] And there's a concrete data loss at Gyazo, the image-sharing service: an upload-server flaw let an attacker execute commands on September eleventh and reach about twenty-three point six million user records, plus four hundred and ninety million image-metadata records, before eviction the next day. Treat Gyazo links as public and pull sensitive screenshots; change account passwords, including reused ones elsewhere, and revoke its X integration tokens.",
+    "[confident] I'd get the coding-agent updates moving while someone verifies Check Point's LivePatch actually landed. Leave investigation time for anything exposed before its fix, rather than letting a successful update become the end of the job. [cheerful] Have a good Friday. five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [],
+    "news": [
+      {
+        "id": "25714ea9-f651-44e4-8bcb-b49bc9c8eb8a",
+        "url": "https://www.securityweek.com/23-million-user-records-compromised-in-gyazo-data-breach/",
+        "title": "23 Million User Records Compromised in Gyazo Data Breach",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "e07035c4-48c1-4e12-9bf7-9b65210bec80",
+        "url": "https://www.securityweek.com/brevo-supply-chain-attack-injects-malware-into-100000-websites/",
+        "title": "Brevo Supply Chain Attack Injects Malware Into 100,000 Websites",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "f4c7d4f7-9927-411e-aa39-a3de25c73add",
+        "url": "https://www.bleepingcomputer.com/news/security/check-point-warns-critical-flaw-lets-hackers-execute-code-as-root/",
+        "title": "New Check Point flaw lets hackers execute code with root privileges",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "c7a8af88-5389-49ec-b7a0-0a2aea161dce",
+        "url": "https://www.securityweek.com/critical-orkes-conductor-vulnerability-exploited-in-attacks/",
+        "title": "Critical Orkes Conductor Vulnerability Exploited in Attacks",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "b1908b1e-f26d-49ea-9eec-29fefad94d97",
+        "url": "https://www.securityweek.com/check-point-kaspersky-tanium-patch-product-vulnerabilities/",
+        "title": "Check Point, Kaspersky, Tanium Patch Product Vulnerabilities",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "0aee1d05-b39d-4551-a20d-579e8c6a1c86",
+        "url": "https://isc.sans.edu/diary/rss/33352",
+        "title": "HTTP QUERY Method: The Grey Zone Between GET And POST., (Fri, Sep 18th)",
+        "source": "SANS ISC"
+      },
+      {
+        "id": "c0544779-ad41-4a67-a2fb-f62596ed75bb",
+        "url": "https://www.theregister.com/security/2026/09/17/ai-coding-agents-0-click-rce-flaw-could-hand-attackers-keys-to-the-kingdom/5297335",
+        "title": "AI coding agents' 0-click RCE flaw could hand attackers keys to the kingdom",
+        "source": "The Register security"
+      },
+      {
+        "id": "dffea2d4-e1bd-4d42-86ea-0efd72aa161f",
+        "url": "https://www.darkreading.com/cyber-risk/cisa-ditches-weekly-vuln-roundups-risk-based-focus",
+        "title": "CISA Ditches Weekly Vulnerability Roundups for Risk-Based Focus",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "514dd261-60f9-4d09-8b9f-b2b57482129e",
+        "url": "https://thehackernews.com/2026/09/critical-check-point-management-server.html",
+        "title": "Critical Check Point Management Flaw Lets Unauthenticated Attackers Run Code as Root",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "984dc948-625c-4eaf-802c-58a254661c93",
+        "url": "https://www.bleepingcomputer.com/news/security/brevo-supply-chain-attack-injected-clickfix-scripts-on-customer-sites/",
+        "title": "Brevo supply-chain attack injected ClickFix scripts on customer sites",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "8dc306b7-ccde-4e51-87ae-80938bc96a4b",
+        "url": "https://research.checkpoint.com/2026/ai-threat-landscape-digest-july-august-2026/",
+        "title": "AI Threat Landscape Digest: July–August 2026",
+        "source": "Check Point Research"
+      },
+      {
+        "id": "63d57ba5-4234-4d7c-9ff2-25f8236b1c3f",
+        "url": "https://www.securityweek.com/cisa-retires-weekly-vulnerability-bulletin-in-risk-based-pivot/",
+        "title": "CISA Retires Weekly Vulnerability Bulletin in Risk-Based Pivot",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "6cf31795-6a85-4082-929f-75b3c3320f31",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2024-68/",
+        "title": "MFSA 2024-68 Security Vulnerabilities fixed in Thunderbird 128.5",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "591cdfb7-c0b6-405f-b1f1-96e45f7c2c37",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-04/",
+        "title": "MFSA 2025-04 Security Vulnerabilities fixed in Thunderbird 134",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "211c7b7a-1035-453d-9812-f7bb9831bf55",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-06/",
+        "title": "MFSA 2025-06 Security Vulnerabilities fixed in Firefox for iOS 134",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f1c3955f-33ef-4d29-8316-047b17c96ed5",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-07/",
+        "title": "MFSA 2025-07 Security Vulnerabilities fixed in Firefox 135",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3d61b139-2d31-428f-8b0b-20980d685a56",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-11/",
+        "title": "MFSA 2025-11 Security Vulnerabilities fixed in Thunderbird 135",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "da3a6c13-53a5-4ff5-9986-6aa62dc64b97",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-13/",
+        "title": "MFSA 2025-13 Security Vulnerabilities fixed in Firefox for iOS 136",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7adff679-85d5-4342-8b98-f44947a608a2",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2024-64/",
+        "title": "MFSA 2024-64 Security Vulnerabilities fixed in Firefox ESR 128.5",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c140a12a-7c76-4227-98da-04ec68f08546",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2024-67/",
+        "title": "MFSA 2024-67 Security Vulnerabilities fixed in Thunderbird 133",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "255bac8a-151c-424a-8edb-22d1a9a997b3",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2024-66/",
+        "title": "MFSA 2024-66 Security Vulnerabilities fixed in Firefox for iOS 133",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a5ad0737-7010-4624-8891-5f450e6cffc5",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2024-70/",
+        "title": "MFSA 2024-70 Security Vulnerabilities fixed in Thunderbird 115.18",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "acdfbd47-a7af-4e31-8bb7-53f403704331",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-02/",
+        "title": "MFSA 2025-02 Security Vulnerabilities fixed in Firefox ESR 128.6",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3f561c2c-9f6b-47a2-888a-7d27bec974c9",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-03/",
+        "title": "MFSA 2025-03 Security Vulnerabilities fixed in Firefox ESR 115.19",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5eb465b7-b393-4743-a3e1-f6460577f9ff",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-08/",
+        "title": "MFSA 2025-08 Security Vulnerabilities fixed in Firefox ESR 115.20",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "347cb2b2-03bf-4c08-8810-b8d6203f50d6",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-09/",
+        "title": "MFSA 2025-09 Security Vulnerabilities fixed in Firefox ESR 128.7",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a4e8b69e-694f-4c50-83b4-5b58a12643f3",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2024-58/",
+        "title": "MFSA 2024-58 Security Vulnerabilities fixed in Thunderbird 128.4",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c983bf66-5a92-4bea-9c12-b4675e4ad117",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-01/",
+        "title": "MFSA 2025-01 Security Vulnerabilities fixed in Firefox 134",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c4e2d8d4-8d38-4121-8692-5090633d6267",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2024-62/",
+        "title": "MFSA 2024-62 Security Vulnerabilities fixed in Thunderbird 132.0.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "30e42267-fc1f-4d30-a949-aa0584c00a16",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2024-65/",
+        "title": "MFSA 2024-65 Security Vulnerabilities fixed in Firefox ESR 115.18",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d1fc2d79-a958-487d-88fb-0e70f011acbd",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2024-69/",
+        "title": "MFSA 2024-69 Security Vulnerabilities fixed in Thunderbird 128.5.2",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b54e79dc-930c-4a9d-9d52-724508bcf9d6",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-05/",
+        "title": "MFSA 2025-05 Security Vulnerabilities fixed in Thunderbird ESR 128.6",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e59c236d-f114-4bd6-bb3b-a2b8315e2157",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-10/",
+        "title": "MFSA 2025-10 Security Vulnerabilities fixed in Thunderbird ESR 128.7",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f2126b04-5888-45c7-af49-be0f2533af7c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2024-55/",
+        "title": "MFSA 2024-55 Security Vulnerabilities fixed in Firefox 132",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7add1ca6-0be2-4c80-85a7-cc47c8c44364",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2024-60/",
+        "title": "MFSA 2024-60 Security Vulnerabilities fixed in Focus for iOS 132",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0634d262-7401-40b1-8982-baba55e113cc",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2024-57/",
+        "title": "MFSA 2024-57 Security Vulnerabilities fixed in Firefox ESR 115.17",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "4f20f454-1ee9-4a0a-863b-2caba0983998",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2024-56/",
+        "title": "MFSA 2024-56 Security Vulnerabilities fixed in Firefox ESR 128.4",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3a178ebc-6bd2-46e5-a866-fbce96546217",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2024-63/",
+        "title": "MFSA 2024-63 Security Vulnerabilities fixed in Firefox 133",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "58833dfa-9b41-4320-920a-1b2c6c3f838f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-14/",
+        "title": "MFSA 2025-14 Security Vulnerabilities fixed in Firefox 136",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "195ef000-7207-4cd0-9d93-a2427d833668",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2025-12/",
+        "title": "MFSA 2025-12 Security Vulnerabilities fixed in Firefox 135.0.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "2c02a89c-0ae8-4c23-839a-6fe9d6ed6fb5",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2024-59/",
+        "title": "MFSA 2024-59 Security Vulnerabilities fixed in Thunderbird 132",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "82c9caf2-eef6-4ff3-993e-bd6eff0fbc02",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2024-61/",
+        "title": "MFSA 2024-61 Security Vulnerabilities fixed in Thunderbird 128.4.3",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f3895506-8a82-4df7-ab7f-e8dacccfcad2",
+        "url": "https://www.securityweek.com/isc-patches-14-vulnerabilities-in-bind-9-security-update/",
+        "title": "ISC Patches 14 Vulnerabilities in BIND 9 Security Update",
+        "source": "SecurityWeek"
+      }
+    ]
+  }
+}

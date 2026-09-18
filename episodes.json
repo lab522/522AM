@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-09-18",
+    "title": "Plugin4Shell breaks the pin, Check Point patches root access",
+    "duration_s": 406,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-18.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-18.md"
+  },
+  {
     "day": "2026-09-17",
     "title": "Cisco's root bypass, N-central's confirmed exploitation",
     "duration_s": 387,
