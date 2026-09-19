@@ -1,0 +1,130 @@
+{
+  "day": "2026-09-19",
+  "title": "HEIF Heist reaches OpenAI, Linux root exploits go public",
+  "overview": "An image-decoder flaw helped researchers reach OpenAI's internal code, despite an upstream fix already existing. Public Linux root exploits add urgency to kernel updates, alongside WordPress patches and fresh details on Gyazo's breach. Microsoft's cloud fixes are done, but a Windows update still needs installing.",
+  "duration_s": 374,
+  "chars": 5168,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-19.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-19.md",
+  "paragraphs": [
+    "[cheerful] Good morning, it's 5:22 AM. Saturday, the nineteenth of September, twenty twenty-six.",
+    "[serious] A security fix that never gets labelled a security fix can sit upstream while everyone downstream stays vulnerable. That's the uncomfortable bit of HEIF Heist: Hacktron researchers used Claude to turn a libheif memory bug into access to OpenAI's internal monorepo in under seventy-two hours. They entered through its Discourse community forum on July twenty-fifth, using a corrupted image. Discourse's normal image checker couldn't handle HEIF in that setup, so it handed the upload to ImageMagick, which passed it to libheif. [curious] The fallback was the door. A heap buffer overflow in the decoder let them hijack the server; a separate OpenAI sign-in flaw gave forum tokens excessive permissions, opening employee ChatGPT and Codex accounts. They proved access with an internal pull request.",
+    "[serious] The library bug had already been fixed upstream, but without a security designation or CVE, it missed the usual patch cycle. What bugs me is that a clean vulnerability dashboard wouldn't have told you to move. Claude Opus 4 point 8 couldn't make the exploit work; Opus 5 did. [calm] OpenAI fixed its side in about fourteen hours. For Discourse, apply its fix and follow the advisory's rebuild guidance, including image-processing sandboxing. Elsewhere, take the latest upstream libheif patches wherever you decode uploaded images, and trace those fallback paths. Review what your forum's single sign-on tokens actually permit. The researchers warn the same primitives reach other major services; that's not evidence they've been attacked.",
+    "[short pause] [serious] And once somebody has a foothold, four newly public Linux kernel exploits offer a route to root. Asim Manizada held publication while distributions shipped fixes; there's no reported real-world exploitation of these four. They're networking memory-safety bugs: DirtyAH6 and TUNderflow mishandle bounds or sizes, while PPPoEject uses a stale pointer and DiagSpill wraps an endpoint counter. [confident] I'd prioritise shared build machines. Check your distribution's advisory confirms all four fixes, rather than guessing from its kernel number. Disabling unprivileged user namespaces blocks the ordinary-user route to the first three, but not DiagSpill, which only needs the S-C-T-P module. Disable unused affected networking modules if patching has to wait. Separately, CISA has added actively exploited kernel flaws CVE-2025-39682 and CVE-2025-39964 to its catalogue. CVE-2026-53266 joins them, with all three due for US agency remediation by Monday, September twenty-first.",
+    "[calm] Back at the upload-facing end, WordPress's Click2Shell lets a crafted link opened by a logged-in administrator force a theme installation from the official directory, with a further chain to code execution. Install 7 point 1 point 1 or your branch's matching security update. [serious] And installation is also worth watching on Windows: Huntress saw Settra ransomware deploy MeshAgent for persistence, with a vulnerable driver added in September to attack security tools. Hunt unauthorised MeshAgent installs and execution from C colon backslash Perflogs; the crew also deliberately dismantles recovery, so backups need to survive outside the encrypted host.",
+    "[long pause] [serious] The consequences go beyond files: foreign actors manipulated drinking-water control equipment at two small Colorado utilities in late August, each serving fewer than two hundred people. If you support a small utility, check who can reach its controls from outside. And yesterday's Gyazo breach has moved on: the service is now offline preventively, with access to affected files temporarily disabled, and it says the flaw was fixed on September twelfth. Newly disclosed exposure includes login session identifiers and Google single sign-on email addresses; image metadata also contained location data and recognised text, so check those Google sign-in sessions.",
+    "[calm] There's a happier distinction between a service being unavailable and a service being patched: Microsoft has fixed eighteen Azure and A-I product flaws server-side, including a ten point zero privilege-escalation flaw in Azure A-I Foundry, with nothing for customers to install. Windows 11 version 26H1 does need the separate out-of-band update, K-B five one two nine one nine four, build 28000 point 2956. [curious] And a useful refinement to yesterday's QUERY discussion: nginx proxies it but doesn't cache it, while its limit-except pattern silently rejects it. Apache needs configuration changes to recognise the method and handle cross-origin requests; dot NET 10 supports it out of the box.",
+    "[confident] I'd give image-processing owners the upstream patch check, not just a scanner ticket. For kernel changes, make sure the fixed kernel is actually running before calling the maintenance window done. [cheerful] Have a good Saturday. five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2025-39682",
+      "CVE-2025-39964",
+      "CVE-2026-53266"
+    ],
+    "news": [
+      {
+        "id": "6f7d08cf-1657-4168-85ff-42310328b866",
+        "url": "https://databreaches.net/2026/09/18/foreign-actors-breach-colorado-water-systems/",
+        "title": "Foreign actors breach Colorado water systems",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "d6fa0669-a15b-4764-b1dc-58c11e3fadc7",
+        "url": "https://thehackernews.com/2026/09/public-exploits-released-for-four-linux.html",
+        "title": "Public Exploits Released for Four Linux Kernel Flaws That Enable Local Root",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "8196fd0a-c14b-4d45-83e7-dbaec8deda4f",
+        "url": "https://cyberscoop.com/hacktron-ai-heif-heist-vulnerability/",
+        "title": "Researchers use AI to find widespread software decoder flaw",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "3a001733-1380-4455-add1-1d4ecd92b191",
+        "url": "https://www.theregister.com/security/2026/09/18/researchers-used-claude-to-hack-openai-employees-chatgpt-accounts/5297517",
+        "title": "Researchers used Claude to hack OpenAI employees' ChatGPT accounts",
+        "source": "The Register security"
+      },
+      {
+        "id": "93403878-83ff-4d0a-ad78-140e19634555",
+        "url": "https://thehackernews.com/2026/09/new-wordpress-click2shell-flaw-forces.html",
+        "title": "New WordPress Click2Shell Flaw Forces Theme Installs, Can Chain to Code Execution",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "65a8f37b-1494-4341-b4dd-993279197ef3",
+        "url": "https://www.bleepingcomputer.com/news/security/gyazo-server-flaw-exploited-to-steal-236-million-user-records/",
+        "title": "Gyazo server flaw exploited to steal 23.6 million user records",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "54207765-9964-467d-8423-13ba349787d3",
+        "url": "https://www.cybersecuritydive.com/news/settra-ransomware-variant-recent-attacks/830787/",
+        "title": "Settra ransomware variant deployed in recent attacks",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "961b93b9-4c11-404c-a31b-446e952157c7",
+        "url": "https://techcrunch.com/2026/09/18/researchers-used-anthropics-claude-to-hack-into-openai/",
+        "title": "Researchers used Anthropic’s Claude to hack into OpenAI",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "5ac5ce1b-6d1a-421f-ac9d-6d07a5c095a2",
+        "url": "https://arstechnica.com/ai/2026/09/researchers-used-claude-to-hack-openai/",
+        "title": "Researchers used Claude to hack OpenAI",
+        "source": "Ars Technica security"
+      },
+      {
+        "id": "b5df15bc-bee8-4c84-bebb-9862944c6aa3",
+        "url": "https://www.infosecurity-magazine.com/news/settra-ransomware-retail/",
+        "title": "New Settra Ransomware Variant Deployed in Attacks on Retail and Manufacturing",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "105aedbf-802d-4924-a399-90b3ad0405de",
+        "url": "https://thehackernews.com/2026/09/microsoft-patches-cvss-100-azure-ai.html",
+        "title": "Microsoft Patches CVSS 10.0 Azure AI Foundry Flaw Enabling Unauthorized Privilege Escalation",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "0daa75f7-ae03-4a62-8655-21b967aba16a",
+        "url": "https://www.securityweek.com/ai-built-exploit-and-sign-in-flaw-opened-path-to-internal-openai-code/",
+        "title": "AI-Built Exploit and Sign-In Flaw Opened Path to Internal OpenAI Code",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "3587dd41-bc52-4535-a154-d21b043949e2",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/09/18/cisa-adds-two-known-exploited-vulnerabilities-catalog",
+        "title": "CISA Adds Two Known Exploited Vulnerabilities to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "5a5ff9b9-9be5-4b65-8425-a107558f0407",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/09/18/cisa-adds-one-known-exploited-vulnerability-catalog",
+        "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "25714ea9-f651-44e4-8bcb-b49bc9c8eb8a",
+        "url": "https://www.securityweek.com/23-million-user-records-compromised-in-gyazo-data-breach/",
+        "title": "23 Million User Records Compromised in Gyazo Data Breach",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "23dff871-c739-4e6a-9530-8d157e6209a8",
+        "url": "https://www.securityweek.com/microsoft-patches-18-vulnerabilities-in-ai-cloud-products/",
+        "title": "Microsoft Patches 18 Vulnerabilities in AI, Cloud Products",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "0aee1d05-b39d-4551-a20d-579e8c6a1c86",
+        "url": "https://isc.sans.edu/diary/rss/33352",
+        "title": "HTTP QUERY Method: The Grey Zone Between GET And POST., (Fri, Sep 18th)",
+        "source": "SANS ISC"
+      }
+    ]
+  }
+}
