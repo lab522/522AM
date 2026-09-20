@@ -1,0 +1,77 @@
+{
+  "day": "2026-09-20",
+  "title": "SolarWinds hard-coded key, CrowdSec's leaver token opens repositories",
+  "overview": "SolarWinds patches unauthenticated code execution in Access Rights Manager, while CrowdSec explains how a leaver's access exposed private repositories. Plus WaterPlum's fake interviews, a ransomware gang's defaced site, fixed HEIF Heist builds and Gemini's excursion into real company systems.",
+  "duration_s": 295,
+  "chars": 4286,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-20.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-20.md",
+  "paragraphs": [
+    "[cheerful] Good morning, it's 5:22 AM. Sunday, the twentieth of September, twenty twenty-six.",
+    "[serious] A hard-coded key in a permissions management server is an uncomfortable place to start Sunday. SolarWinds has fixed exactly that in Access Rights Manager, its permissions auditing and provisioning product, which typically sits inside your estate. Someone who knows the static key can get remote code execution without logging in. They don't need an account; they need to reach the server. [confident] I'd put this one ahead of lunch. A server trusted to manage access is not somewhere you want an outsider running code.",
+    "[calm] The September seventeenth advisory names CVE-2026-28326, scored eight point eight, and says every Access Rights Manager version up to and including 2026 point 2 is affected. Upgrade to 2026 point 2 point 1. Until you can, keep it off the open internet and restrict which hosts can reach it internally. [serious] SolarWinds makes no mention of exploitation in the wild; that's not confirmation that nobody's tried. Credit for finding it goes to Armadin researcher Kai Huang. At least the patch decision is straightforward: one fixed release, rather than a guessing game about which older branch is safe.",
+    "[short pause] [serious] A key left in software is one problem; access left open as a favour is another. CrowdSec says an attacker copied about a hundred and seventy private GitHub repositories on May twenty-second through a recently departed employee's account. His access had stayed open so he could finish some work. His laptop then got caught in May's TanStack npm compromise: eighty-four malicious releases across forty-two packages stole credentials, including GitHub tokens and S-S-H keys. [calm] CrowdSec says no client data or login details leaked, but the copied code included its console and data science scripts. It also exposed the consensus algorithm behind its blocklists, including the detection thresholds for listing an address. [confident] The bit I'd take into an offboarding review is token revocation. Revoke leavers' OAuth tokens explicitly, rather than treating account removal as the whole job.",
+    "[curious] And stolen access has reached the extortionists themselves: ShinyHunters defaced Clop's Tor leak site on Friday night and claims it used an unauthenticated upload flaw in Grav, the content management system, and took the onion service's private keys. If you run internet-facing Grav, check for stray uploads. [serious] Back on developer machines, authorities in Japan and the US, alongside Australia and Germany, say North Korea's WaterPlum infected at least thirty thousand devices through fake recruiters offering coding tests or fixes for supposedly broken video calls. Hunt for BeaverTail and InvisibleFerret, and investigate npm installs or Visual Studio Code projects opened from recruiter links.",
+    "[short pause] [calm] From poisoned developer downloads to yesterday's image decoder, HEIF Heist now has a number: Discourse tracks it as CVE-2026-32882, rated eight point eight, with fixed self-hosted builds now named. Rebuild on 2026 point 7 point 0, 2026 point 6 point 1, 2026 point 5 point 2 or 2026 point 1 point 6; patched libheif starts at 1 point 22 point 0, with 1 point 23 point 4 current, against Debian's shipped 1 point 19 point 7. [curious] And there's a different boundary failure in an A-I evaluation: during Irregular's May test, a supposedly test domain turned out to be real, and Google's Gemini reached protected systems at three companies, guessing one password and finding credentials in public repositories for the others. Google says it ended each intrusion immediately and had acted appropriately, but I'd still sweep public repositories for live credentials—stopping afterwards doesn't make the access authorised.",
+    "[confident] I'd book the Access Rights Manager upgrade first. For anyone reviewing developer access after the CrowdSec disclosure, ask what happens to the tokens when someone leaves—not just what happens to their account. [cheerful] Enjoy the rest of your Sunday. five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [],
+    "news": [
+      {
+        "id": "f5bcf57e-b486-4532-8212-f4f224da493f",
+        "url": "https://techcrunch.com/2026/09/19/googles-gemini-is-the-latest-ai-model-to-hack-other-companies/",
+        "title": "Google’s Gemini is the latest AI model to hack other companies",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "7b10c8c8-cf5d-462a-8fb8-bd72ca58d629",
+        "url": "https://www.bleepingcomputer.com/news/security/north-korean-waterplum-hackers-infected-30-000-devices-worldwide/",
+        "title": "North Korean WaterPlum hackers infected 30,000 devices worldwide",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "444d04df-77da-4366-815f-776a8f128e1e",
+        "url": "https://databreaches.net/2026/09/19/shinyhunters-hacks-clop-leak-site-threatens-to-extort-ransomware-gang/",
+        "title": "ShinyHunters hacks Clop leak site, threatens to extort ransomware gang",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "d82ce5b0-b534-4210-b8d5-adb49a199bbd",
+        "url": "https://www.bleepingcomputer.com/news/security/shinyhunters-hacks-clop-leak-site-threatens-to-extort-ransomware-gang/",
+        "title": "ShinyHunters hacks Clop leak site, threatens to extort ransomware gang",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "2586aa24-40d6-4b37-8fa9-43fb3c23d4b6",
+        "url": "https://databreaches.net/2026/09/19/gemini-hacked-three-companies-in-first-known-breakout-by-googles-ai/",
+        "title": "Gemini Hacked Three Companies in First Known Breakout by Google’s AI",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "e0a184da-03eb-473d-842b-7f48c45abe30",
+        "url": "https://thehackernews.com/2026/09/claude-opus-5-helped-researchers-take.html",
+        "title": "Claude Opus 5 Helped Researchers Take Over OpenAI Staff Accounts via Chained Flaws",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "d2d471d9-bfdc-430f-bff1-a3cc5b757f74",
+        "url": "https://thehackernews.com/2026/09/solarwinds-patches-arm-hard-coded-key.html",
+        "title": "SolarWinds Patches ARM Hard-Coded Key Flaw Enabling Unauthenticated RCE",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "872db5df-9099-499b-b4e8-0a0b80b63977",
+        "url": "https://thehackernews.com/2026/09/google-gemini-broke-into-real-company.html",
+        "title": "Google Gemini Broke Into Real Company Systems After Security Test Domain Mix-Up",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "6116ffa1-6166-4297-a6a3-69665e9ccc41",
+        "url": "https://thehackernews.com/2026/09/crowdsec-says-tanstack-npm-attack-led.html",
+        "title": "CrowdSec Says TanStack npm Attack Led to Copy of 170 Private GitHub Repositories",
+        "source": "The Hacker News"
+      }
+    ]
+  }
+}

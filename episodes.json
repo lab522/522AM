@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-09-20",
+    "title": "SolarWinds hard-coded key, CrowdSec's leaver token opens repositories",
+    "duration_s": 295,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-20.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-20.md"
+  },
+  {
     "day": "2026-09-19",
     "title": "HEIF Heist reaches OpenAI, Linux root exploits go public",
     "duration_s": 374,
