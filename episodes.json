@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-09-21",
+    "title": "npm malware waits for runtime, Codex escapes patched",
+    "duration_s": 371,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-21.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-21.md"
+  },
+  {
     "day": "2026-09-20",
     "title": "SolarWinds hard-coded key, CrowdSec's leaver token opens repositories",
     "duration_s": 295,

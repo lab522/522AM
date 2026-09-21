@@ -1,0 +1,52 @@
+{
+  "day": "2026-09-21",
+  "title": "npm malware waits for runtime, Codex escapes patched",
+  "overview": "An ongoing npm campaign hides its loader in ordinary library calls rather than installation scripts. Google's mole inside TeamPCP reveals the scale of stolen developer credentials, while Codex fixes two sandbox escapes. Public router exploits leave Netcore and D-Link owners facing isolation and replacement decisions.",
+  "duration_s": 371,
+  "chars": 5155,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-21.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-21.md",
+  "paragraphs": [
+    "[cheerful] Good morning, it's 5:22 AM. Monday, the twenty-first of September, twenty twenty-six.",
+    "[short pause] [serious] A clean npm install doesn't mean the package is clean. Checkmarx has found an ongoing campaign around indexed-btree, an imitation of the legitimate sorted-btree library, with its loader hidden inside the function your application calls to store a value. Separate from yesterday's npm story; there's no stated connection between these campaigns.",
+    "[curious] The clever bit is where it waits. Since June, GitHub's npm rules have blocked installation scripts unless explicitly approved. This package doesn't use them. It puts the loader inside BTree dot prototype dot set, triggered when your application supplies a particular key. Installation looks innocent, and npm version twelve's approval checks never fire. The operators even padded a GitHub repository's commit history to make the project look established. [serious] Once running, the loader gathers machine details and sends them through Slack and Telegram. It polls an Ethereum smart contract on the Sepolia test network for instructions, using a key exchange to unlock its second stage. On command, it can delete its files and remove the trigger from the package.",
+    "[calm] Nine linked packages have been removed, including btree-core, with nearly two million downloads, and btree-leaderboard, with nearly half a million. If you installed indexed-btree or a linked package, rotate all secrets and restore the development environment from a safe backup. [confident] I'd add runtime behavioural analysis here. An install-time check can't be your only gate when the malicious bit waits until you actually use the library.",
+    "[curious] And while that crew dressed itself up as a developer, Google had a researcher dressed up as a criminal inside TeamPCP. Mandiant's undercover persona reached its inner circle in March, joining about twelve people in the core chat. The gang poisoned open-source projects, stole developer credentials, then used those accounts to poison the next tool along. Its Mini Shai-Hulud worm automated the cycle; more than a thousand companies were breached.",
+    "[serious] The analyst reached the stolen-credential server. Australian police say the trove covered more than half a million users, and two alleged principal participants were arrested and charged last month. Hundreds of notification emails went out, but Google prioritised providers because contacting every victim would've taken too long. [confident] I'd take the missing email as precisely nothing. If developer credentials touched the affected spring releases or infrastructure at Trivy and LiteLLM, or Checkmarx, TanStack and Mistral AI, rotate passwords and access tokens. Revoke cloud keys at the provider too. The arrests don't revoke them for you.",
+    "[short pause] [serious] Stolen credentials aren't the only way out of a developer's workspace. Accomplish AI found two escapes from OpenAI's Codex coding agent; the worse, Heapjack, let a hostile repository run commands on the host when someone opened it and asked about the code. No approval prompt, even in read-only mode.",
+    "[curious] Codex Desktop installed a JavaScript tool through shared configuration that command-line users inherited. Trusted and untrusted code shared one Node process and its memory heap. The untrusted code could snapshot that heap, brute-force the trust token and send requests to the unsandboxed parent, which could also reach Unix sockets, including a Docker daemon socket. The second escape, Overpatch, abused apply_patch granting access to each target's parent directory: name slash tmp, get the disk's root directory. Researchers used it to append to the user's dot zshrc. [calm] These are proof-of-concept findings, and both were fixed within eight days of the August twelfth disclosure. Update Codex Desktop to build 26 point 818 point 21641 and the command-line tool to 0 point 149 point 0 or later. That's a quick turnaround worth recognising.",
+    "[long pause] [serious] Out on the network edge, the fixes are missing: Netcore NBR200V2 firmware 1 point 3 point 241127 point 071246 has six flaws with public exploits, covering command injection and buffer overflows, with the worst rated ten. The vendor hasn't replied and there's no patch, so remove web and diagnostic access from untrusted networks, confine management to a trusted V-LAN and schedule replacement. [calm] Same replacement conversation for D-Link DIR-868L firmware 2 point 01b05: CVE-2026-94089 is a ten-rated stack overflow through the login handler's id and password arguments, remotely reachable without authentication, with a public exploit. No patched firmware is named; block outside access to its web interface.",
+    "[confident] I'd deal with an installed malicious package before ordinary patch scheduling. If either router's exposed, don't wait for a vendor reply before restricting access. [cheerful] Hope Monday treats you kindly. five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-94089",
+      "CVE-2026-94097",
+      "CVE-2026-94095",
+      "CVE-2026-94096",
+      "CVE-2026-94099",
+      "CVE-2026-94100",
+      "CVE-2026-94101"
+    ],
+    "news": [
+      {
+        "id": "f9a825f4-7d9d-4399-9f07-9a8fb73a181e",
+        "url": "https://www.bleepingcomputer.com/news/security/malicious-npm-packages-evade-install-script-defenses-at-runtime/",
+        "title": "Malicious npm packages evade install-script defenses at runtime",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "5fd9dfdb-1eb8-43dc-86d3-24b8a21f2981",
+        "url": "https://www.bleepingcomputer.com/news/security/researchers-escape-openai-codex-sandbox-to-run-commands-on-host/",
+        "title": "Researchers escape OpenAI Codex sandbox to run commands on host",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "70d1cba7-9a81-4ec3-86b8-7146fd577097",
+        "url": "https://arstechnica.com/security/2026/09/an-undercover-google-analyst-infiltrated-a-notorious-supply-chain-hacking-gang/",
+        "title": "An undercover Google analyst infiltrated a notorious supply-chain hacking gang",
+        "source": "Ars Technica security"
+      }
+    ]
+  }
+}
