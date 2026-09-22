@@ -1,0 +1,122 @@
+{
+  "day": "2026-09-22",
+  "title": "Fake LastPass installer turns signed driver against security tools",
+  "overview": "A fake LastPass download uses a Microsoft-attested driver to disable endpoint protection before stealing passwords. New evidence expands the Chrome and Windows exploit-kit campaign, while exploited Zyxel switches and a public WordPress exploit need attention. Clop's ransom payers also face a fresh exposure threat.",
+  "duration_s": 393,
+  "chars": 5070,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-22.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-22.md",
+  "paragraphs": [
+    "[cheerful] Good morning, it's 5:22 AM. Tuesday, the twenty-second of September, twenty twenty-six.",
+    "[short pause] [serious] Windows trusted the signature. The driver then started killing the security software. A fake LastPass Authenticator page on GitHub, pushed high into search results, has been serving an installer that disables a hundred and forty-five antivirus and endpoint security processes before running the Rapuncel stealer. LastPass itself wasn't breached; its name was the bait, alongside at least forty other brands impersonated by the campaign.",
+    "[curious] The download puts a renamed copy of Microsoft's debugger beside a malicious D-L-L, which the debugger loads. That loader gets SYSTEM privileges and installs a Microsoft-attested kernel driver under the guise of an NVIDIA component. Underneath, it's CnCrypt's CcProtect driver, already catalogued by LOLDrivers. Renaming it dropped detections from seven engines to zero. [serious] Delphos found neither file on Microsoft's hash-based blocklist, and at the September seventeenth disclosure, the driver still wasn't blocked. Microsoft said its behaviour didn't meet its definition of a vulnerability because it wasn't a Microsoft component. [confident] That distinction doesn't help the person whose protection has just been switched off. A trusted signature isn't a clean bill of health.",
+    "[calm] Hunt for the NvFsFilter service and nvfsflt64 dot sys under Windows, System32, drivers; signing details naming Henan Dafeng Software or CnCrypt are another lead. Watch for driver loads followed by security processes dying. The malware keeps killing protection that restarts, and reruns the stealer, which takes saved browser passwords and wallet files, as well as account sessions. [serious] If that installer ran, I'd treat the machine as a kernel-level compromise: rebuild it, then change every saved password from a clean device. The genuine app comes from lastpass dot com or the official app stores.",
+    "[short pause] [curious] Borrowing a trusted name also runs through the new evidence on BlueMoon, the Chrome and Windows exploit kit we covered on the tenth. Volexity's now identified a third Chinese actor in its investigation, U-T-A-zero-five-six-five, using the chain on September third and fourth, before its initial reporting. The lures led to lookalike sites serving real content from the organisations they impersonated, with a hidden iframe delivering the exploit. [serious] The changed payload step downloads chrome_cleanup dot e-x-e inside the running process, strips Mark of the Web and launches it through C-O-M, rather than the earlier command-shell route. It drops a newly documented backdoor, CLEANGULP, giving the attacker a shell and file access. I'd hunt for that foothold rather than call this closed after a browser update: MicrosoftIME dot e-x-e under the user's Local AppData, Microsoft, I-M-E directory, and a scheduled task named MicrosoftIME. Use Volexity's new domain indicators to check proxy logs back to September second.",
+    "[long pause] [serious] For something being exploited now, CISA has added CVE-2026-7273 in Zyxel GS1900 switches: an unauthenticated attacker on the local network can turn a crafted web request into operating-system commands through a stack overflow. If you run the GS1900-48HPv2, update beyond firmware 2 point 90, A-B-T-Q point 1, C zero, and move management off user V-LANs; I'd borrow the federal deadline of Thursday, September twenty-fourth. [calm] And Saturday's WordPress Click2Shell warning now has a working server-side code-execution proof of concept from Paulos Yibelo, plus Patchstack's workaround: enabling DISALLOW_FILE_MODS blocks the forced installation. That gives you an interim option if you can't immediately apply 7 point 1 point 1 or your branch's matching security release.",
+    "[short pause] [serious] Meanwhile, Sunday's takeover of Clop's leak site has become extortion: ShinyHunters' eight-figure demand is escalating daily, now demanding the Oracle E-Business Suite campaign proceeds and an apology, with a threat to expose which firms paid and their payment details. If your organisation paid Clop, brief legal and communications now about possible exposure and renewed demands. [curious] And on the question of which threats deserve your morning, VulnCheck counts two hundred and twenty-five CVEs credited to Anthropic or Project Glasswing, but only one confirmed exploited: CVE-2026-26980, a critical S-Q-L injection in Ghost, the publishing platform. Patch Ghost if you host it; rank the rest by reachability and exploitation evidence, not by who—or what—found them.",
+    "[confident] I'd put a machine that ran the fake installer straight into incident response, not the patch queue. For routine change work, Thursday's switch deadline leaves very little room to drift. [cheerful] Hope your Tuesday starts quietly. five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-7273"
+    ],
+    "news": [
+      {
+        "id": "3c83927e-d9e7-42c1-9183-799d0f2899f7",
+        "url": "https://www.theregister.com/security/2026/09/21/anthropic-linked-cves-pile-up-attackers-mostly-shrug/5298018",
+        "title": "Anthropic-linked CVEs pile up, attackers mostly shrug",
+        "source": "The Register security"
+      },
+      {
+        "id": "214aa37a-200a-4e52-8d2a-32a24b0b329a",
+        "url": "https://www.volexity.com/blog/2026/09/21/mind-the-patch-gap-part-2-fake-websites-used-to-deploy-chrome-windows-0-day-exploits/",
+        "title": "Mind the (Patch) Gap, Part 2: Fake Websites Used to Deploy Chrome & Windows 0-Day Exploits",
+        "source": "Volexity"
+      },
+      {
+        "id": "779203a9-1a38-47ed-a127-7a23613fedfc",
+        "url": "https://www.darkreading.com/cyberattacks-data-breaches/shinyhunters-hacked-clop-what-about-clops-victims",
+        "title": "ShinyHunters Hacked Clop. Now What About Clop's Victims?",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "4601b4e0-1fcc-48c6-b6ce-4aae7495eb65",
+        "url": "https://www.bleepingcomputer.com/news/security/wordpress-click2shell-flaw-lets-hackers-execute-php-on-the-server/",
+        "title": "WordPress Click2Shell flaw lets hackers execute PHP on the server",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "66192a1e-6a24-465b-bc7e-6d2f0449692c",
+        "url": "https://thehackernews.com/2026/09/fake-lastpass-authenticator-installer.html",
+        "title": "Fake LastPass Authenticator Installer Abuses Microsoft-Signed Driver to Kill Antivirus and EDR",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "d05926aa-2d4d-451c-88e1-a00529357844",
+        "url": "https://www.securityweek.com/fake-lastpass-installers-push-kernel-level-edr-killer-rapuncel-stealer/",
+        "title": "Fake LastPass Installers Push Kernel-Level EDR Killer, ‘Rapuncel’ Stealer",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "7134c025-30dc-412b-b750-66560029ce90",
+        "url": "https://thehackernews.com/2026/09/weekly-recap-cisco-0-day-ai-agent-rce.html",
+        "title": "⚡ Weekly Recap: Cisco 0-Day, AI Agent RCE, ClickFix Attacks, ClickFix Surge, and Browser Hijacks",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "76793fac-9fe4-4b8f-9498-84fd1a929adb",
+        "url": "https://www.malwarebytes.com/blog/ai/2026/09/geminis-breach-of-real-companies-exposes-an-ai-guardrail-problem",
+        "title": "Gemini’s breach of real companies exposes an AI guardrail problem",
+        "source": "Malwarebytes Labs"
+      },
+      {
+        "id": "618e2a5f-627f-493f-ab49-ff5fd3bf1f33",
+        "url": "https://therecord.media/shinyhunters-clop-cyberattack-website",
+        "title": "ShinyHunters cybercrime gang takes over Cl0p ransomware site, demands extortion payment",
+        "source": "The Record"
+      },
+      {
+        "id": "4d7803e0-47cd-43f8-b113-c2622bd35249",
+        "url": "https://www.theregister.com/cyber-crime/2026/09/21/clop-gets-a-taste-of-its-own-medicine-after-shinyhunters-hijack-leak-site/5297702",
+        "title": "Clop gets a taste of its own medicine after ShinyHunters hijack leak site",
+        "source": "The Register security"
+      },
+      {
+        "id": "be8c7dbb-c6be-4c94-a49f-e19028d04b6f",
+        "url": "https://therecord.media/gemini-google-cyber-breach",
+        "title": "Google says Gemini breached three companies during security test",
+        "source": "The Record"
+      },
+      {
+        "id": "449d0641-bc0b-493e-9f8c-9bb2754dbdd1",
+        "url": "https://www.infosecurity-magazine.com/news/shinyhunters-claim-hack-of-clop/",
+        "title": "ShinyHunters Claim Hack of Rival Ransomware Gang Clop",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "9e013a97-fca9-4f7c-8950-084832039ca8",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/09/21/cisa-adds-one-known-exploited-vulnerability-catalog",
+        "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "5b2f4343-ef3c-47c5-94f1-fac5928cbde2",
+        "url": "https://www.malwarebytes.com/blog/news/2026/09/shinyhunters-hacks-rival-extortion-gang-and-takes-over-its-dark-web-site",
+        "title": "ShinyHunters hacks rival extortion gang and takes over its dark web site",
+        "source": "Malwarebytes Labs"
+      },
+      {
+        "id": "c19d2b8d-2bfb-4e75-9459-3f070cde26e2",
+        "url": "https://www.securityweek.com/google-confirms-gemini-ai-breached-three-firms/",
+        "title": "Google Confirms Gemini AI Breached Three Firms",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "13126161-70e0-408c-9a3a-ee33a4498081",
+        "url": "https://www.malwarebytes.com/blog/news/2026/09/a-week-in-security-september-14-september-20",
+        "title": "A week in security (September 14 – September 20)",
+        "source": "Malwarebytes Labs"
+      }
+    ]
+  }
+}
