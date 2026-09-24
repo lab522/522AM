@@ -1,0 +1,91 @@
+{
+  "day": "2026-09-24",
+  "title": "WordPress payloads land as hosting and edge flaws escalate",
+  "overview": "Attackers are now writing shell-command files through the WordPress core flaw, while a separate cPanel bug lets hosting customers take over an entire server. F5's exploited APM flaw has a public exploit chain, and Check Point has confirmed attacks against Spark customers.",
+  "duration_s": 336,
+  "chars": 4591,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-24.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-24.md",
+  "paragraphs": [
+    "[cheerful] Good morning, it's 5:22 AM. Thursday, the twenty-fourth of September, twenty twenty-six.",
+    "[short pause] [serious] Yesterday's WordPress warning now has files landing on disk. Patchstack says attacks against CVE-2026-87902 began at seventeen forty-four U-T-C on Tuesday, less than five hours after the patch. Today, traffic has risen tenfold, and reconnaissance has become payload delivery. Some files merely mark a host as exploitable; others execute a shell command when accessed. That's the change: not somebody checking your door, but leaving something behind it.",
+    "[curious] The useful new detail is how the include becomes a write. Attackers abuse pearcmd dot P-H-P, switching its config-show command to config-create to write content they control. It needs PHP's register underscore argc underscore argv setting enabled, alongside a readable target file and a top-level directory beginning page-hyphen in the active parent or child theme. The official PHP Docker image is affected, as is default cPanel running PHP before 8 point 5. [calm] In request logs, look for double-encoded traversal in pagename alongside a valid page underscore I-D. Check slash tmp and slash var slash tmp for unexpected P-H-P files, including poc87902 dot P-H-P and names beginning luci underscore or zeta underscore. Patchstack has attacking addresses to block. [confident] If you're applying yesterday's fix now, I'd make that a compromise check as well as an upgrade. A successful update doesn't explain a file already sitting there.",
+    "And cPanel has a separate problem that doesn't need a vulnerable WordPress site. [serious] Its calendar and contacts service lets a logged-in hosting customer run code as root through CVE-2026-87899. On shared hosting, that means control of the server carrying everyone else's sites. Versions 120 onwards are affected. Researcher Ali Mustafa also found a local cross-account calendar-reading flaw; separately, WP Toolkit lets a logged-in customer modify other accounts' databases. cPanel hasn't said precisely which modifications are possible. [calm] There's no known exploitation disclosed, but no temporary workaround either.",
+    "[confident] I'd put the hosting-panel update ahead of routine site maintenance. For cPanel and W-H-M, the fixed builds are 11 point 134 point 0 point 57 or 11 point 136 point 0 point 41, depending on your branch. The other targets are 11 point 138 point 0 point 8, or W-P Squared 11 point 138 point 1 point 11; later builds are covered too. Upgrade through W-H-M's Upgrade to Latest Version. That also repairs existing calendar and contact permissions. [serious] Don't stop there: WP Toolkit is a separate package and needs its own update to 6 point 11 point 3 or later.",
+    "[long pause] [serious] From hosting control to the network edge: the F5 exploit chain we didn't have yesterday is now public. watchTowr has published a working unauthenticated heap-overflow-to-code-execution chain for BIG-IP A-P-M. An oversized Bearer header sent to slash f5-oauth2 slash v1 slash userinfo overflows a buffer; the fix adds the missing size check. [curious] The clever, unpleasant part comes afterwards. When S-E-Linux blocked direct execution, the researchers appended a command to the tmm dot finish hook, which runs when T-M-M crashes. Shadowserver sees more than fourteen thousand seven hundred A-P-M fingerprints, though that's not a count of vulnerable configurations.",
+    "[calm] If you can't install F5's engineering hotfix yet, ask F5 Support for its iRule mitigation. CISA's instruction is to apply that first for forensic triage, then patch. New hunting guidance includes repeated failed UserInfo requests in slash var slash log slash apm, especially ten or more from one address in a short period, and suspicious commands in the audit log. [serious] And Check Point now confirms attacks on Spark customers beginning September twelfth: supported gateways need LivePatch Take twenty-six or their release's fixed Jumbo Hotfix, while Spark needs the advisory's fixed builds. Verify the installed updates with cpinfo hyphen y, C-P-updates.",
+    "[confident] I'd give the hosting changes a window with someone checking for evidence alongside the upgrade. For the edge appliances, keep that forensic work moving rather than treating a completed patch job as an all-clear. [cheerful] Hope Thursday gives you a quiet stretch to get it done.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [],
+    "news": [
+      {
+        "id": "ea849840-f54f-4be6-b659-ff5f55d9d315",
+        "url": "https://labs.watchtowr.com/is-this-a-joke-in-the-auth-header-f5-big-ip-unauth-heap-overflow-to-rce-cve-2026-94127/",
+        "title": "Is This A Joke? In The Auth Header? (F5 BIG-IP UnAuth Heap-Overflow to RCE CVE-2026-94127)",
+        "source": "watchTowr Labs"
+      },
+      {
+        "id": "ab71f235-6f6a-41cd-ac50-6853ca8bbaa2",
+        "url": "https://www.bleepingcomputer.com/news/security/check-point-warns-of-hackers-exploiting-security-gateway-vpn-rce-flaw/",
+        "title": "Check Point warns of hackers exploiting Security Gateway VPN RCE flaw",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "d36a2780-15b1-43bd-97a1-189e54a809df",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-start-exploiting-critical-wordpress-flaw-for-code-execution/",
+        "title": "Hackers start exploiting critical WordPress flaw for code execution",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "d3c76178-f1bd-403b-9089-ba087fe24253",
+        "url": "https://www.theregister.com/security/2026/09/23/someones-attacking-a-critical-0-day-rce-in-f5-big-ip-apm/5298659",
+        "title": "Someone's attacking a critical 0-day RCE in F5 BIG-IP APM",
+        "source": "The Register security"
+      },
+      {
+        "id": "ecd49a91-dbcc-43e2-a88e-4fa63e31cec1",
+        "url": "https://www.bleepingcomputer.com/news/security/infratrust-report-warns-network-management-systems-under-attack/",
+        "title": "InfraTrust report warns network management systems under attack",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "77a48b3e-640e-4597-b7e8-5b5bb5b27464",
+        "url": "https://thehackernews.com/2026/09/new-cpanel-flaw-lets-hosting-account_0272795595.html",
+        "title": "New cPanel Flaw Lets a Hosting Account Run Code as Root, Take Full Server Control",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "779c5fb3-62d1-485b-ab1b-d3c0bb025f90",
+        "url": "https://www.rapid7.com/blog/post/etr-cve-2026-94127-critical-unauthenticated-rce-in-f5-big-ip-apm",
+        "title": "CVE-2026-94127: Critical Unauthenticated RCE in F5 BIG-IP APM",
+        "source": "Rapid7"
+      },
+      {
+        "id": "fc2f34f6-8d14-4408-aba3-f68d30d26fbb",
+        "url": "https://thehackernews.com/2026/09/f5-patches-critical-big-ip-apm-zero-day.html",
+        "title": "F5 Patches Critical BIG-IP APM Zero-Day Exploited for Unauthenticated RCE on OAuth Servers",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "36be35b8-0c40-439a-b072-c7d2ebd82fa1",
+        "url": "https://www.securityweek.com/critical-f5-big-ip-vulnerability-exploited-as-zero-day/",
+        "title": "Critical F5 BIG-IP Vulnerability Exploited as Zero-Day",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "60f71373-a241-4da5-9450-d2723e2b8a41",
+        "url": "https://www.bleepingcomputer.com/news/security/f5-warns-of-big-ip-apm-remote-code-execution-zero-day-exploited-in-attacks/",
+        "title": "F5 patches BIG-IP APM zero-day flaw exploited in RCE attacks",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "06f98b80-8998-4367-b182-8c1c24a2e069",
+        "url": "https://www.securityweek.com/check-point-patches-exploited-management-server-zero-day/",
+        "title": "Check Point Patches Exploited Management Server Zero-Day",
+        "source": "SecurityWeek"
+      }
+    ]
+  }
+}
