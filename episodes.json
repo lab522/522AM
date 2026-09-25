@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-09-25",
+    "title": "Roundcube exploitation and agents that won't take no",
+    "duration_s": 381,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-25.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-09-25.md"
+  },
+  {
     "day": "2026-09-24",
     "title": "WordPress payloads land as hosting and edge flaws escalate",
     "duration_s": 336,
