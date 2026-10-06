@@ -1,0 +1,421 @@
+{
+  "day": "2026-10-06",
+  "title": "Denmark's registry breach and another NetScaler emergency",
+  "overview": "Denmark discloses population-register access affecting 8.8 million people, while the FBI confirms arrests after its employee-data breach. Another exploited NetScaler flaw leads a crowded patch queue, alongside FortiMail, Zammad and Cisco SD-WAN Manager.",
+  "duration_s": 968,
+  "chars": 13652,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-06.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-06.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Tuesday, the sixth of October, twenty twenty-six, covering the past seven days.",
+    "An account belonging to a company has opened the door to Denmark's population register. Unauthorised parties accessed names and addresses, along with personal identification numbers, for about eight point eight million people, including the deceased. The digitalisation ministry disclosed it yesterday. What bothers me is the reach of that company account: access through a business relationship can expose people who've never dealt with that business. If you administer access to population data, I'd check what each company account can retrieve, not just whether its login works.",
+    "And the FBI's employee-data breach now has consequences on both sides of the fence. The bureau has removed an Accenture contractor over an alleged patch failure linked to the ShinyHunters intrusion, which stole personal details of thousands of employees. It also confirms multiple arrests. Alleged member Saif al-Din Khader was reportedly detained in Jordan and is said to be cooperating; that's not a conviction.",
+    "Elsewhere, Nikkei says an employee email account was compromised, potentially exposing journalistic sources. Arizona's state court system suffered a phishing-led attack after an employee followed a malicious link. Report Fraud says annual account-takeover revenue rose four hundred and seventeen per cent, prompting police to urge passkey adoption. That's a much more useful response than asking everyone to become permanently suspicious of every message.",
+    "But some messages are built on relationships. Chinese-linked group TA419 has been impersonating US officials and cultivating AI policy experts at think tanks and universities, as well as legal organisations. SecurityWeek's coverage looks at detecting social engineering during the live conversation, questioning how much evidence supports awareness training. The interesting question is whether a control can interrupt the deception before the person has to recognise it.",
+    "Extortion brings a different sort of relationship problem: an affiliate of The Gentlemen ransomware service ran a parallel leak site while extorting roughly two dozen victims, diverting money from its own operator. Apparently even criminals need supplier assurance. Ukraine's largest grocer, ATB, confirms an attack after an extortion demand appeared on its website; ransomware at the University of Illinois Chicago's College of Medicine involved information theft.",
+    "Healthcare's other cases need different labels. Nueva EPS in Colombia allegedly faces a fifteen-million-dollar demand; the hack remains an allegation. Russian researchers attribute a quiet two-year intrusion into a Russian healthcare network to the Belarusian Cyber Partisans. And Italy has fined IQVIA seven million euros over inadequate anonymisation that could have exposed roughly one million patients to identification. That last one isn't an intrusion: it's a failure in how data was handled.",
+    "Back to the courts, a former infrastructure engineer received thirty-two months in prison for locking more than three thousand devices at an industrial employer headquartered in New Jersey. The alleged developer of Ploutus ATM-jackpotting malware has also appeared in a US court following arrest. Away from cyber, the NCA and Border Force seized twenty-five inflatable boats at East Midlands Airport, destined for cross-Channel people smugglers.",
+    "On compromised devices, ClingSTUN is turning Linux-based IoT kit into persistent proxy nodes. It carries exploits for twenty-four known flaws and uses legitimate public STUN servers to obscure communications. In a separate telecoms campaign affecting South Korea and Taiwan, Rapid7 found new BPFDoor and BPF Rekoobe variants, alongside AVERAT, with backdoor traffic masquerading as email. South Korea's financial regulator has meanwhile held an emergency meeting over bank attacks; suggestions of AI involvement remain suspicions.",
+    "The desktop trick worth noticing is ClickFix carrying its payload in browser cache, then persuading someone to execute it, sidestepping Windows Run limits. Huntress separately describes behavioural detection and disruption of ClickFix, claiming intervention in under a second. That's a vendor claim, not a guarantee, but watching execution rather than waiting for a downloaded file fits the problem.",
+    "And agents are giving defenders more execution to watch. New research into agents from Google and others points to structural weaknesses around MCP, the protocol connecting agents to tools, that can lead to database exfiltration. Wikimedia now says OpenAI agents tried to edit pages and compromise a notes tool, adding resource pressure on already stretched platforms. OpenAI is separately preparing invisible text watermarks for ChatGPT and Codex in the EU. Attribution isn't containment.",
+    "The discovery pipeline is feeling that pressure too. Google has temporarily stopped accepting product-vulnerability submissions through its open-source rewards programme amid invalid automated submissions, rather than shutting every bounty programme. Debian's latest kernel security update lists one thousand three hundred and thirteen CVEs. I'd judge the update by the kernels actually deployed, not the intimidating length of its reading list.",
+    "At the research end, PortSwigger has demonstrated larger-token exfiltration using overlapping fragments. Pwn2Own Ireland is in Cork with more than sixty entries and its largest phone field yet. The week's wider coverage also flags AI coding leaks and Spectre version two; there aren't fresh operational details here to turn those headlines into patch instructions.",
+    "For the people doing that work, CISA is retaining cyber pay incentives but narrowing eligibility by job series. Dark Reading's reader poll puts the pace of AI-driven attacks among defenders' concerns, while Computer Weekly argues for tested supplier commitments rather than paper assurances. Proposed anti-Flock legislation could also constrain automated number-plate readers. On the tooling side, Wiz has updated Service Catalog discovery and governance; tenfold's free Community Edition, for organisations below one hundred and fifty users, adds shared-content governance and real-time event auditing.",
+    "Which brings us to changes with a much shorter deadline. Citrix has patched a third exploited NetScaler zero-day in less than a week. CVE-2026-88779 is a memory-buffer flaw reachable without authentication that can cause denial of service, not a disclosed appliance takeover. Citrix says the newly observed issue is separate from the preceding vulnerabilities. US and Australian authorities have warned, and CISA's federal deadline is tomorrow, October seventh.",
+    "For standard NetScaler ADC and Gateway branches, the stated fixes are 14 point 1 dash 73 point 41 and 13 point 1 dash 64 point 28. ADC also has a 13 point 1 dash 37 point 282 threshold; FIPS builds need their own advisory check. The affected-build listings conflict at one boundary, so confirm the exact edition rather than treating a similar-looking number as clearance. I'd do that check before closing any change raised for last week's Citrix trouble.",
+    "The other federal deadlines have already passed. Zammad, the helpdesk platform, has an exploited session-hijacking flaw, CVE-2026-102489, that reaches code execution as its service account on the affected six-series releases starting at 6 point 3 point 0. Published descriptions disagree over whether 6 point 5 point 4 is included, so don't assume that build is safe. The flaw is also present from 7 point 0 point 0 through 7 point 1 point 3, but described as unexploitable under those environment conditions.",
+    "That service account matters because Zammad's separately exploited CVE-2026-102490 lets the local zammad user become root. The description includes all versions, even the latest alpha, without naming a safe release. Both federal deadlines were yesterday. If you run Zammad, get a confirmed remediation position from the vendor; a guessed upgrade target isn't good enough for this pair.",
+    "On the mail gateway, exploited FortiMail path traversal lets an unauthenticated attacker write arbitrary files through crafted HTTP or HTTPS requests. CVE-2026-104286 affects 7 point 2 point 0 through 7 point 2 point 9, and 7 point 4 point 0 through 7 point 4 point 8. It also covers 7 point 6 through 7 point 6 point 6, plus 8 point 0 through 8 point 0 point 1. Get Fortinet's branch-specific fix; no fixed builds are named here. The federal deadline was Sunday.",
+    "An even more direct administrative takeover affects Cisco Catalyst SD-WAN Manager, the control system for the wide-area network. CVE-2026-76504 mishandles URI encoding, letting a crafted API request bypass authentication and obtain admin privileges. Upgrade the relevant branch to 20 point 9 point 10 point 1 or 20 point 12 point 8 point 2; the later fixes are 20 point 15 point 6 point 1 and 20 point 18 point 4 point 1. For 26 point 1, use 26 point 1 point 2 point 1. Version 26 point 2 is also listed as affected without a fixed build. Its federal deadline was Saturday.",
+    "And Apple's exploited file-processing flaw, CVE-2026-86950, can execute code when a malicious file is processed. Apple describes sophisticated targeting of specific individuals on iOS before version twenty-seven. Install iOS or iPadOS 26 point 7 point 1; on Macs, the fixes are Sequoia 15 point 8 point 1 and Tahoe 26 point 7 point 1. The federal deadline was Friday.",
+    "Moving from confirmed exploitation to urgent exposure, Rejetto HFS servers are being actively scanned for CVE-2026-61500. A weak signing key enables forged sessions and account takeover, potentially reaching remote code execution. Scanning isn't proof of successful compromise, but I'd check exposed HFS deployments against the vendor's current remediation now.",
+    "For backup infrastructure, AhsayCBS through 10 point 3 point 2 has an unauthenticated command injection in its Replication Receiver. The random parameter reaches an operating-system command; a public exploit exists. CVE-2026-105134 scores ten, and the fix is 10 point 3 point 4. On a server holding backups, that's an especially unpleasant place to leave command execution available.",
+    "The larger collaboration platforms need attention too. Atlassian has warned across eight self-hosted Data Center products about unauthenticated access to specific known files inside their web application roots. That's not a claim that every file on the host is readable; follow each product's patch advisory. Microsoft has issued out-of-band Exchange updates for CVE-2026-96940, which can let authenticated attackers read other users' mailboxes under certain conditions. And Dell urges an immediate System Update CLI patch for a flaw that can grant root. Fixed build numbers weren't provided for those notices.",
+    "Back at the agent-to-tool boundary, pi-llm-wiki through 0 point 11 point 7 lets a low-privileged authenticated user inject commands through the URL supplied to its wiki_capture_source MCP tool. A public exploit exists; install 0 point 11 point 8. AiSOC's endpoint-response integration has a related but particularly sharp edge: unescaped parameters become CrowdStrike Real Time Response commands, allowing authenticated users to execute as SYSTEM or root on managed endpoints, with user interaction required. Versions from 7 point 2 point 0 before 12 point 0 point 0 are affected; upgrade to 12 point 0 point 0.",
+    "In Amazon SageMaker Unified Studio, a project contributor can craft a connection property that reaches a shell during Studio Space startup validation. That can execute commands in another member's Space and expose their temporary execution-role credentials. Update SageMaker Distribution's two-series to 2 point 14 point 12, or its three-series to 3 point 9 point 12. The four-series fixes are 4 point 0 point 11 and 4 point 1 point 11; later branches need 4 point 2 point 8, 4 point 3 point 5, or 4 point 4 point 3.",
+    "On smaller network kit, Totolink A3002MU firmware 1 point 0 point 0, build B20230403 dot 1455, has a publicly disclosed, unauthenticated remote stack overflow in its QoS rule handler. No fix is named; restrict access to that interface while seeking remediation. Ziroom ZHOME A0101 firmware 1 point 0 point 1 point 0 has command injection in its syslog settings and time-zone handling, with another in the ping URL parameter. These require high privileges, but public exploits exist and the vendor hasn't responded. Zyxel also has an advisory for SSID-field command injection affecting certain customer-premises devices, including fibre ONTs and wireless extenders; check the model-specific notice.",
+    "A claimed full guest-to-host escape in Linux KVM deserves watching, but it's a researcher's claim here, without confirmed affected versions or a fix. And the Mozilla notices circulating are historical, not new October patches: Firefox 94 and 97, alongside ESR 91 point 7. The Thunderbird advisories concern 91 point 3 and 91 point 4 point 1, plus 91 point 6. Don't mistake those old fixed versions for today's upgrade targets.",
+    "I'd put the actively exploited management systems ahead of the speculative KVM escape, and make sure the latest NetScaler change actually addresses the latest issue. For anything without a clear safe build, keep the remediation task open until the vendor supplies one. Hope Tuesday gives you enough breathing room to finish the changes that matter.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-88779",
+      "CVE-2026-102489",
+      "CVE-2026-102490",
+      "CVE-2026-104286",
+      "CVE-2026-76504",
+      "CVE-2026-86950",
+      "CVE-2026-102792",
+      "CVE-2026-102793",
+      "CVE-2026-102794",
+      "CVE-2026-105134",
+      "CVE-2026-102911",
+      "CVE-2026-103056",
+      "CVE-2026-104019",
+      "CVE-2026-105285"
+    ],
+    "news": [
+      {
+        "id": "03f9da6c-efd0-4e6f-8a15-87ce5c556461",
+        "url": "https://www.infosecurity-magazine.com/news/police-urge-passkey-surge/",
+        "title": "Police Urge Passkey Use After Surge in Cybercrime Profits",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "5aef0a69-18e5-424a-b4ea-ac2243f1b3f9",
+        "url": "https://www.nationalcrimeagency.gov.uk/news/boats-destined-for-people-smugglers-seized-at-east-midlands-airport",
+        "title": "Boats destined for people smugglers seized at East Midlands Airport",
+        "source": "National Crime Agency"
+      },
+      {
+        "id": "2e59256e-e961-446d-9ce1-dbf548dc68ba",
+        "url": "https://www.securityweek.com/social-engineering-detection-moves-into-the-live-conversation/",
+        "title": "Social Engineering Detection Moves Into the Live Conversation",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "80409ef2-e994-4312-9909-a085cf0ed0e8",
+        "url": "https://www.infosecurity-magazine.com/news/affiliate-doublecrosses-raas/",
+        "title": "Ransomware Affiliate Double-Crosses RaaS Operator to Steal Victim Funds",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "c00cd18c-401c-46bc-8246-0a44b33f3e49",
+        "url": "https://www.bleepingcomputer.com/news/security/engineer-sentenced-for-locking-thousands-of-devices-on-employer-network/",
+        "title": "Engineer sentenced for locking over 3,000 devices on employer network",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "ff7c3598-0ac5-43d8-8baa-c8d6e76fd84f",
+        "url": "https://thehackernews.com/2026/10/critical-atlassian-flaw-lets.html",
+        "title": "Critical Atlassian Flaw Lets Unauthenticated Attackers Read Known Files Across 8 Products",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "0423e715-1815-4331-848e-ed679a801f3d",
+        "url": "https://thehackernews.com/2026/10/fbi-removes-accenture-contractor-after.html",
+        "title": "FBI Removes Accenture Contractor After Patch Failure Led to ShinyHunters Breach",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "ad4eede3-f99b-44a1-b0c0-502d9e86efae",
+        "url": "https://thehackernews.com/2026/10/denmark-says-attackers-accessed-cpr.html",
+        "title": "Denmark Says Attackers Accessed CPR Data for 8.8 Million People via Company Account",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "3db86f6e-9eba-454b-bf3a-59dfdd4a92df",
+        "url": "https://thehackernews.com/2026/10/clickfix-smuggles-payloads-through.html",
+        "title": "ClickFix Smuggles Payloads Through Browser Cache to Bypass Windows Run Limits",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "58b24140-1faf-486c-9420-ae7a698675a5",
+        "url": "https://www.theregister.com/security/2026/10/06/atlassian-warns-of-critical-file-access-flaw-in-its-datacenter-products/5301284",
+        "title": "Atlassian warns of critical file access flaw in its datacenter products",
+        "source": "The Register security"
+      },
+      {
+        "id": "a4af5589-9b8c-45d2-ae86-59826794d669",
+        "url": "https://www.theregister.com/offbeat/2026/10/06/security-researcher-claims-to-they-found-kvm-guest-host-escape-flaw/5301267",
+        "title": "Security researcher claims to they found KVM guest-host escape flaw",
+        "source": "The Register security"
+      },
+      {
+        "id": "9835fd62-714a-40a3-8803-3d974175de26",
+        "url": "https://www.zyxel.com/global/en/support/security-advisories/zyxel-security-advisory-for-command-injection-vulnerability-in-the-wifi-ssid-field-of-certain-dsl-ethernet-cpe-fiber-onts-and-wireless-extenders-10-06-2026",
+        "title": "Zyxel security advisory for command injection vulnerability in the WiFi SSID field of certain DSL/Ethernet CPE, fiber ONTs, and Wireless Extenders",
+        "source": "Zyxel advisories"
+      },
+      {
+        "id": "ab95c00d-4f05-49e0-9f60-9bcd8bf6333d",
+        "url": "https://cyberscoop.com/citrix-netscaler-third-exploited-zero-day-vulnerability/",
+        "title": "Citrix discloses third actively exploited NetScaler zero-day in less than a week",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "ad22236f-b56b-4dad-b260-0a058bda5a63",
+        "url": "https://databreaches.net/2026/10/05/cisa-to-keep-cyber-pay-incentives-but-less-staff-will-qualify/",
+        "title": "CISA to keep cyber pay incentives, but less staff will qualify",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "576e52c3-ef4e-464c-a6b3-9748ea7f28d8",
+        "url": "https://www.bleepingcomputer.com/news/artificial-intelligence/openai-is-adding-invisible-watermarks-to-chatgpt-and-codex-text-in-the-eu/",
+        "title": "OpenAI is adding invisible watermarks to ChatGPT and Codex text in the EU",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "27ec22ca-e045-46f8-a746-53266df6d5ce",
+        "url": "https://arstechnica.com/security/2026/10/vulnerability-in-agents-from-google-and-others-exposes-structural-flaw-in-mcp/",
+        "title": "Vulnerability in agents from Google and others exposes structural flaw in MCP",
+        "source": "Ars Technica security"
+      },
+      {
+        "id": "ac882950-b3d6-4abc-86c5-38c18d17f0ce",
+        "url": "https://therecord.media/wikimedia-foundation-openai-agents-report",
+        "title": "Wikimedia Foundation: OpenAI agents tried to edit pages and compromise notes tool",
+        "source": "The Record"
+      },
+      {
+        "id": "20baecc6-0c31-40d3-8cfc-f01cb79dbf92",
+        "url": "https://www.darkreading.com/iot/clingstun-vulnerable-iot-devices-proxy-nodes",
+        "title": "ClingSTUN Turns Vulnerable IoT Devices Into Proxy Nodes",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "1459523a-ffb9-4c38-aaca-38ba00f068f1",
+        "url": "https://www.theregister.com/security/2026/10/05/citrix-netscaler-security-snafus-get-even-worse-amid-more-0-day-reports/5301232",
+        "title": "Citrix NetScaler security snafus get even worse amid more 0-day reports",
+        "source": "The Register security"
+      },
+      {
+        "id": "ea6a0e95-ac0e-4080-8e57-2d8b931f5dce",
+        "url": "https://www.bleepingcomputer.com/news/security/rejetto-hfs-servers-now-actively-scanned-for-critical-rce-flaw/",
+        "title": "Rejetto HFS servers now actively scanned for critical RCE flaw",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "b03ca7b4-cdac-467b-885a-281487d009c2",
+        "url": "https://therecord.media/alleged-shinyhunters-member-detained-jordan-fbi",
+        "title": "Alleged ShinyHunters member reportedly detained in Jordan, assisting law enforcement",
+        "source": "The Record"
+      },
+      {
+        "id": "97ac8407-fd73-4dcb-a542-753938debb00",
+        "url": "https://www.thezdi.com/blog/2026/10/5/pwn2own-ireland-2026-the-full-schedule",
+        "title": "Pwn2Own Ireland 2026 - The Full Schedule",
+        "source": "Zero Day Initiative blog"
+      },
+      {
+        "id": "d2dc4f0e-7d26-4ba3-82cc-489da22f3ce0",
+        "url": "https://www.theregister.com/security/2026/10/05/fbi-confirms-multiple-arrests-related-to-shinyhunters-hack/5301178",
+        "title": "FBI confirms 'multiple' arrests related to ShinyHunters hack",
+        "source": "The Register security"
+      },
+      {
+        "id": "426bea77-0111-4fb9-b011-fead07b35fd1",
+        "url": "https://therecord.media/us-australia-warn-of-latest-citrix-vulnerability",
+        "title": "US, Australia warn of latest Citrix vulnerability after NetScaler advisory",
+        "source": "The Record"
+      },
+      {
+        "id": "bfb7e391-bb46-44ca-a8d4-f5871c87acff",
+        "url": "https://www.bleepingcomputer.com/news/security/iqvia-fined-78-million-for-failing-to-properly-anonymize-health-data/",
+        "title": "IQVIA fined $7.8 million for failing to properly anonymize health data",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "c03e8273-7813-479b-9751-de076296bbf4",
+        "url": "https://therecord.media/atb-ukraine-cyberattack-ransomware",
+        "title": "Ukraine grocery chain ATB confirms cyberattack as hackers threaten to leak data",
+        "source": "The Record"
+      },
+      {
+        "id": "e381fdd2-fe33-4b16-901c-eca4809922d8",
+        "url": "https://thehackernews.com/2026/10/microsoft-exchange-flaw-lets.html",
+        "title": "Microsoft Exchange Flaw Lets Authenticated Attackers Read Other Users' Mailboxes",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "e1a6b333-61b2-49b4-b934-6de91f254044",
+        "url": "https://www.wiz.io/blog/wiz-service-catalog-updates",
+        "title": "What’s New in Wiz Service Catalog: Smarter Discovery, Governance, and Service-Level Context",
+        "source": "Wiz"
+      },
+      {
+        "id": "79b2d33f-a1e0-4d52-b4fd-29d3990d9b34",
+        "url": "https://www.darkreading.com/cyberattacks-data-breaches/chinese-actor-impersonates-us-officials-cyber-espionage",
+        "title": "Chinese Hackers Impersonate US Officials for AI Cyber Espionage",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "e89fb363-4125-4961-88ef-ca6c158e311e",
+        "url": "https://www.theregister.com/os-platforms/2026/10/05/debians-latest-kernel-security-update-has-1313-reasons-to-patch/5301124",
+        "title": "Debian's latest kernel security update has 1,313 reasons to patch",
+        "source": "The Register security"
+      },
+      {
+        "id": "2e827101-940c-41c4-93df-62d47cc61359",
+        "url": "https://therecord.media/ransomware-university-illinois-chicago",
+        "title": "University of Illinois Chicago affected by ransomware attack on medical school",
+        "source": "The Record"
+      },
+      {
+        "id": "336ac10d-29dc-428d-b963-47cfde1bcd85",
+        "url": "https://www.bleepingcomputer.com/news/security/denmark-population-registry-data-breach-affects-88-million-people/",
+        "title": "Denmark population registry data breach affects 8.8 million people",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "d10c186c-5da9-45a6-9c34-863a3ec06b1f",
+        "url": "https://portswigger.net/research/smashing-the-token-limit",
+        "title": "Smashing the token limit with overlapping fragments",
+        "source": "PortSwigger research"
+      },
+      {
+        "id": "725b2da7-7a46-485e-98b5-835601fa76b4",
+        "url": "https://www.malwarebytes.com/blog/news/2026/10/google-pauses-open-source-bug-bounty-program-after-rise-in-ai-submissions",
+        "title": "Google pauses open source bug bounty program after rise in AI submissions",
+        "source": "Malwarebytes Labs"
+      },
+      {
+        "id": "a70820a3-bb5e-426f-ad30-74e2181fd227",
+        "url": "https://techcrunch.com/2026/10/05/hackers-steal-8-million-citizens-records-from-danish-government-database/",
+        "title": "Hackers steal 8 million citizens’ records from Danish government database",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "890e9396-b833-4b23-a81e-ed64b2beaf2e",
+        "url": "https://www.bleepingcomputer.com/news/security/new-dell-system-update-flaw-lets-hackers-gain-root-privileges/",
+        "title": "New Dell System Update flaw lets hackers gain root privileges",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "c74b033a-c417-4b56-9e38-bd2c89fdd5f7",
+        "url": "https://databreaches.net/2026/10/05/nueva-eps-colombias-largest-regional-healthcare-promoting-entity-has-allegedly-been-hacked/",
+        "title": "Nueva EPS, Colombia’s largest regional healthcare promoting entity has allegedly been hacked",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "821c9cd7-cc2b-4bf0-b143-cff6293890d6",
+        "url": "https://www.cybersecuritydive.com/news/citrix-patch-third-exploited-flaw-netscaler/832128/",
+        "title": "Citrix issues patch for third exploited flaw in NetScaler",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "606679f3-cf2a-4825-8016-9e88a0701a7e",
+        "url": "https://www.infosecurity-magazine.com/news/clingstun-backdoor-unpatched-iot/",
+        "title": "ClingSTUN Malware Turns Unpatched IoT Devices Into Proxy Nodes",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "a78836c7-78c8-4fb6-a153-7d99771afcc0",
+        "url": "https://www.securityweek.com/google-narrows-open-source-bug-bounty-amid-wave-of-invalid-automated-reports/",
+        "title": "Google Narrows Open Source Bug Bounty Amid Wave of Invalid Automated Reports",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "ec2aa006-986d-4094-8945-9f535fd216a4",
+        "url": "https://www.bleepingcomputer.com/news/security/south-korea-probes-bank-breaches-amid-suspected-ai-powered-attacks/",
+        "title": "South Korea probes bank breaches amid suspected AI-powered attacks",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "64882b81-8ba3-4605-87e8-e5ee9b71e3e7",
+        "url": "https://thehackernews.com/2026/10/weekly-recap-netscaler-and-fortimail-0.html",
+        "title": "⚡ Weekly Recap: NetScaler and FortiMail 0-Days, AI Coding Leaks, Spectre v2 and Ransomware Arrests",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "bab848eb-de2c-4897-97f0-5abbb37e064c",
+        "url": "https://www.malwarebytes.com/blog/news/2026/10/proposed-anti-flock-bills-could-spell-trouble-for-license-plate-readers",
+        "title": "Proposed anti-Flock bills could spell trouble for license plate readers",
+        "source": "Malwarebytes Labs"
+      },
+      {
+        "id": "2b2849c7-b486-462c-a497-87100afe409b",
+        "url": "https://www.infosecurity-magazine.com/news/smtp-linux-backdoors-network-edge/",
+        "title": "New Stealthy Linux Backdoors Target Telecoms, Masquerade as Email Traffic",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "242fd066-b6df-48d4-88ba-ad0354d063ec",
+        "url": "https://www.huntress.com/blog/fix-for-clickfix",
+        "title": "How Huntress Detects and Responds to a ClickFix Attack",
+        "source": "Huntress"
+      },
+      {
+        "id": "55ec7d0c-6453-4773-86c6-935f6cdc9b5c",
+        "url": "https://research.checkpoint.com/2026/5th-october-threat-intelligence-report/",
+        "title": "5th October – Threat Intelligence Report",
+        "source": "Check Point Research"
+      },
+      {
+        "id": "f875f4f9-584c-4516-9e99-d7c42d0b8a8a",
+        "url": "https://therecord.media/belarusian-hacktivists-two-years-Russian-healthcare-network",
+        "title": "Belarusian hacktivists spent two years inside Russian healthcare network, researchers say",
+        "source": "The Record"
+      },
+      {
+        "id": "22ea2018-a99b-40c8-b1fd-857ca4eb64ba",
+        "url": "https://www.bleepingcomputer.com/news/security/tenfold-ce-our-free-identity-governance-tool-just-got-2-new-features/",
+        "title": "tenfold CE: Our free Identity Governance tool just got 2 new features",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "12c77a50-1bc9-4179-aa74-0a8685ee0a4e",
+        "url": "https://www.infosecurity-magazine.com/news/citrix-netscaler-zero-day/",
+        "title": "Citrix NetScaler Targeted Via New Zero Day",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "5828855c-18b4-4c5a-b2ca-8bc340688dae",
+        "url": "https://therecord.media/nikkei-cyberattack-japan-data",
+        "title": "Japanese media group Nikkei discloses cyberattack targeting journalistic sources",
+        "source": "The Record"
+      },
+      {
+        "id": "f076603d-60f0-4add-b646-79bfd2611f25",
+        "url": "https://www.bleepingcomputer.com/news/security/suspected-dev-of-ploutus-atm-malware-appears-in-us-court-after-arrest/",
+        "title": "Alleged dev of Ploutus ATM malware appears in US court after arrest",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "7e3a525d-69e6-4c64-b0ad-e0de989e922f",
+        "url": "https://www.darkreading.com/cyber-risk/ai-attacks-security-strategies",
+        "title": "Need for Speed: AI-Driven Attacks Are Changing Security Strategies",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "f4ac0e09-d4e1-47d2-b755-8747b4f4bb78",
+        "url": "https://www.securityweek.com/linux-backdoor-abuses-stun-protocol-exploits-dozens-of-flaws/",
+        "title": "Linux Backdoor Abuses STUN Protocol, Exploits Dozens of Flaws",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "43a91e91-57bd-462d-bb1e-b064d3142033",
+        "url": "https://www.computerweekly.com/opinion/Supply-chain-cyber-resilience-from-paper-promises-to-operational-reality",
+        "title": "Supply chain cyber resilience: from paper promises to operational reality",
+        "source": "Computer Weekly security"
+      },
+      {
+        "id": "e385da31-4c72-4bbe-9e36-e553ec2251e1",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2021-48/",
+        "title": "MFSA 2021-48 Security Vulnerabilities fixed in Firefox 94",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "6c9c5a6c-9cf1-40f6-8ab6-e7c2653305e2",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2022-06/",
+        "title": "MFSA 2022-06 Security Vulnerabilities fixed in Thunderbird 91.6",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "04f38854-2a2a-4e1d-8422-4e0142579dfa",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2022-11/",
+        "title": "MFSA 2022-11 Security Vulnerabilities fixed in Firefox ESR 91.7",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a6b94050-5dcd-4f26-af1b-7d2b54a9886c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2021-50/",
+        "title": "MFSA 2021-50 Security Vulnerabilities fixed in Thunderbird 91.3",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "36ba3c1c-4b42-4eae-8454-ee0edd5e8550",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2021-55/",
+        "title": "MFSA 2021-55 Security Vulnerabilities fixed in Thunderbird 91.4.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "80e8fe5c-a85a-4007-b4b7-e6a9bdbf438a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2022-04/",
+        "title": "MFSA 2022-04 Security Vulnerabilities fixed in Firefox 97",
+        "source": "Mozilla security advisories"
+      }
+    ]
+  }
+}
