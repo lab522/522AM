@@ -1,0 +1,192 @@
+{
+  "day": "2026-10-07",
+  "title": "ASOS's app becomes a ransom note",
+  "overview": "Attackers used ASOS's official notifications to deliver an extortion demand, but their Snowflake claim remains unproven. WordPress plugin attacks are planting persistent backdoors, while fresh warnings cover Fortinet accounts and iPhone inactivity protection.",
+  "duration_s": 330,
+  "chars": 4830,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-07.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-07.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Wednesday, the seventh of October, twenty twenty-six.",
+    "An official shopping-app notification ought to be the boring bit of your morning. Yesterday, ASOS customers got “ASOS HACKED”, followed by a demand that the retailer engage or have its data leaked. The link went to a Telegram channel belonging to a previously unseen crew calling itself the Xuanye Group. Someone had turned the retailer's own notification channel into a ransom note.",
+    "ASOS confirms an unauthorised notification went out around ten, and says names and contact details may have been accessed, but it doesn't believe passwords or payment-card information were affected. It immediately restricted access to its third-party notification platforms. Shares fell more than ten per cent.",
+    "The attackers claim they'd fully compromised ASOS's Snowflake instance. Snowflake says it's found no compromise of its platform, and the group hasn't published samples. Malwarebytes points to ASOS's described use of Simon AI, which runs on Snowflake, alongside Braze for notifications. That isn't proof of the route in. What bothers me is the borrowed credibility: the message arrived through the real app, even if its claim was nonsense.",
+    "The NCSC says ASOS customers should assume they're affected even without receiving the alert. Don't follow its link or engage on Telegram; change your ASOS password and anywhere you've reused it, and watch for phishing riding the news. If you run Snowflake, review authentication and audit logs, and require MFA on every tenant. I'd also audit which marketing services can message customers, then rotate those services' credentials. Those integrations hold rather more power than the word “marketing” suggests.",
+    "And borrowed trust is doing damage inside WordPress, too. Patchstack has found limited, active exploitation of stored XSS in Ninja Forms, the form builder, and WPC Product Bundles for WooCommerce. The same JavaScript, served from imgcdn1 dot com, points to one actor.",
+    "The payload sits in form submissions or order data until a logged-in administrator views it. Then it runs in that session, fetches administrative nonces and uses WordPress's own functions to install a backdoor masquerading as WP Smart Thumbnails, version 1 point 2 point 4, from MediaPress Labs. It also creates administrator access, including an account hidden from the user list and its totals.",
+    "Move Ninja Forms from 3 point 15 point 3 or older to 3 point 15 point 4 or later; WPC Product Bundles needs 8 point 6 point 7 or later. Then investigate. Removing the fake thumbnails plugin isn't enough: separate auxiliary plugins, with backdated timestamps, preserve hidden access and a secret URL that logs in as the site's oldest administrator. Hunt those alongside the payload domain. I'd check accounts outside the dashboard; a reassuring user count is part of the trick.",
+    "From hidden administrators to owners being locked out: the FBI and Secret Service warn that FortiBleed remains active against Fortinet firewall and VPN credentials, giving ransomware affiliates a foothold. Remove internet administration where possible, reset credentials and require MFA; review account changes and logs for lateral movement, enable secure credential storage, and send the agencies any attacker indicators.",
+    "And don't assume a device will secure itself on schedule: 404Media says a cyber-weapons manufacturer is exploiting an iOS flaw to bypass the seventy-two-hour inactivity reboot, with no fix named. For high-risk iPhones, power down manually before they're out of your hands, and keep iOS current.",
+    "Not every fresh alert means fresh exploitation, though: yesterday's Mozilla archive backfill has widened to dozens of Firefox, ESR and Thunderbird advisories from twenty twenty and twenty twenty-one. Treat the flood as an inventory prompt for stranded old installations, not evidence of a new attack.",
+    "But republication can still carry an outstanding job: CISA has republished Hitachi Energy's REB500 advisory, covering two six point five libexpat flaws in the protection relay's IEC 61850 functionality, allowing authenticated denial of service and sometimes exploitable memory corruption. Upgrade 8 point 3 point 3 point 1 and earlier to 8 point 3 point 4 point 0, isolate the relay from the internet and business networks, and check the separately republished Asset Suite and SOI advisories if you run them.",
+    "I'd give the WordPress work enough time for an investigation, not just an update. And I'd find out who owns those customer-messaging credentials before an incident makes the introductions. Hope Wednesday treats you kindly.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [],
+    "news": [
+      {
+        "id": "0a44953a-f7b8-4222-b422-9457b82c58c0",
+        "url": "https://cyberscoop.com/fortibleed-fortinet-vpn-ransomware-fbi-warning/",
+        "title": "Alert: FortiBleed remains active campaign, can lock out users or lead to ransomware attacks",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "48bf0bd3-1fb7-47ae-b8be-96b5d391a933",
+        "url": "https://www.bleepingcomputer.com/news/security/ninja-forms-plugin-flaw-exploited-to-hack-wordpress-sites/",
+        "title": "Ninja Forms plugin flaw exploited to hack WordPress sites",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "c3527969-1922-471d-9d81-14a8070fde7b",
+        "url": "https://www.bleepingcomputer.com/news/security/asos-confirms-data-breach-after-hacked-in-app-notifications/",
+        "title": "ASOS confirms data breach after “HACKED” in-app notifications",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "9ef3dfcf-362d-4d94-8601-5844d112c282",
+        "url": "https://www.malwarebytes.com/blog/news/2026/10/asos-hackers-send-push-notifications-to-customers",
+        "title": "ASOS “hackers” send push notifications to customers",
+        "source": "Malwarebytes Labs"
+      },
+      {
+        "id": "c2e159af-13fb-468b-b19f-08dd36b26dfb",
+        "url": "https://www.computerweekly.com/news/366651685/Asos-app-users-receive-threatening-messages-after-hack",
+        "title": "Asos app users receive threatening messages after hack",
+        "source": "Computer Weekly security"
+      },
+      {
+        "id": "0ca0c26b-ef56-41cb-b263-3ff5a683c654",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2021-15/",
+        "title": "MFSA 2021-15 Security Vulnerabilities fixed in Firefox ESR 78.10",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3895d05a-ddc6-4aa1-bb83-fb089bc44484",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2021-14/",
+        "title": "MFSA 2021-14 Security Vulnerabilities fixed in Thunderbird 78.10",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "45cb84d8-0dd0-4057-99ad-b6d577a320f9",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-46/",
+        "title": "MFSA 2020-46 Security Vulnerabilities fixed in Firefox ESR 78.4",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "55cd5ffd-b6db-45c7-be45-eed11f5c542f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-47/",
+        "title": "MFSA 2020-47 Security Vulnerabilities fixed in Thunderbird 78.4",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b182ba9a-6108-4cdf-bc29-d1a8c5108dfb",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2021-01/",
+        "title": "MFSA 2021-01 Security Vulnerabilities fixed in Firefox 84.0.2, Firefox for Android 84.1.3, and Firefox ESR 78.6.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c01d7921-ecc7-43b8-a51f-f9517beb6c65",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2021-02/",
+        "title": "MFSA 2021-02 Security Vulnerabilities fixed in Thunderbird 78.6.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9691511c-9628-44ca-8c89-bef012fd9a9c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2021-42/",
+        "title": "MFSA 2021-42 Security Vulnerabilities fixed in Thunderbird 78.14",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9871371b-f862-4e72-bd0a-faeae2d1d3dc",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2021-40/",
+        "title": "MFSA 2021-40 Security Vulnerabilities fixed in Firefox ESR 91.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "ff674343-a771-44e9-bb6a-892d09fcac82",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2021-26/",
+        "title": "MFSA 2021-26 Security Vulnerabilities fixed in Thunderbird 78.11",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9643374e-b33b-4e9d-bfa2-8004e63d6772",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2021-41/",
+        "title": "MFSA 2021-41 Security Vulnerabilities fixed in Thunderbird 91.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "18f2d68a-f028-4ac1-9653-8c23ddbb5d99",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2021-39/",
+        "title": "MFSA 2021-39 Security Vulnerabilities fixed in Firefox ESR 78.14",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "44831390-9fc0-45bb-8ab8-844a6eb4a455",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2021-16/",
+        "title": "MFSA 2021-16 Security Vulnerabilities fixed in Firefox 88",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "6d315a0c-716a-459a-b8d4-72f073697b77",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2021-24/",
+        "title": "MFSA 2021-24 Security Vulnerabilities fixed in Firefox ESR 78.11",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "895db7be-bd38-4dab-ab26-01fa7b9451e7",
+        "url": "https://databreaches.net/2026/10/06/asos-customers-receive-hack-notification-threatening-leak/",
+        "title": "ASOS customers receive ‘hack’ notification threatening leak",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "beb031cc-0a9e-4a20-98fc-342b8ce58a13",
+        "url": "https://www.ncsc.gov.uk/news/incident-affecting-asos-customers",
+        "title": "Incident affecting ASOS customers",
+        "source": "NCSC"
+      },
+      {
+        "id": "fc74fc2c-b860-4379-b452-00aa18df7e45",
+        "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-279-05",
+        "title": "Hitachi Energy REB500",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "02b437d8-b5b1-4353-83e8-f2720daaed56",
+        "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-279-03",
+        "title": "Hitachi Energy Asset Suite",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "ca85599c-2023-44cc-b727-9ec7e1761633",
+        "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-279-04",
+        "title": "Hitachi Energy SOI",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "1c2378f5-111f-4c0d-9052-8028da53ae7d",
+        "url": "https://www.theregister.com/security/2026/10/06/asos-app-delivers-a-data-leak-threat-instead-of-fast-fashion/5301332",
+        "title": "Asos app delivers a data leak threat instead of fast fashion",
+        "source": "The Register security"
+      },
+      {
+        "id": "13b4abc3-d65b-4b92-8759-c32cc0b2e7cc",
+        "url": "https://www.infosecurity-magazine.com/news/asos-customers-message-suspected/",
+        "title": "ASOS Customers Receive Bizarre “Hacked” Message Amid Suspected Snowflake Compromise",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "6409cf82-e229-440a-87a2-139fb9af2121",
+        "url": "https://www.schneier.com/blog/archives/2026/10/possible-vulnerability-in-apples-automatic-reboot.html",
+        "title": "Possible Vulnerability in Apple’s Automatic Reboot",
+        "source": "Schneier on Security"
+      },
+      {
+        "id": "2ea22b72-5a19-43f7-9659-79966360da20",
+        "url": "https://therecord.media/asos-push-notification-apparently-sent-by-hackers",
+        "title": "Shares in British clothing company ASOS dive after hackers apparently send push notification",
+        "source": "The Record"
+      }
+    ]
+  }
+}

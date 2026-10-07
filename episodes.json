@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-10-07",
+    "title": "ASOS's app becomes a ransom note",
+    "duration_s": 330,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-07.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-07.md"
+  },
+  {
     "day": "2026-10-06",
     "title": "NetScaler needs patching again, and lawful access bites",
     "duration_s": 433,
