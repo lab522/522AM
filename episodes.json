@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-10-08",
+    "title": "Two hours from Atlassian proof to exploit attempts",
+    "duration_s": 401,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-08.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-08.md"
+  },
+  {
     "day": "2026-10-07",
     "title": "ASOS's app becomes a ransom note",
     "duration_s": 330,

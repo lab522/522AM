@@ -1,0 +1,145 @@
+{
+  "day": "2026-10-08",
+  "title": "Two hours from Atlassian proof to exploit attempts",
+  "overview": "Atlassian exploit attempts follow public research within two hours, while SonicWall issues another maximum-severity gateway fix. Also: a poetry-controlled mining botnet, hijacked domain registries, malicious npm packages and fresh details in the ShinyHunters investigation.",
+  "duration_s": 401,
+  "chars": 5794,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-08.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-08.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Thursday, the eighth of October, twenty twenty-six.",
+    "That Atlassian patch from Tuesday's show has become an emergency job. Previdian logged fifteen exploit attempts from three addresses within two hours of watchTowr publishing its research on CVE-2026-21589. SANS then saw the same exploit URLs coming from thirteen Digital Ocean addresses. These are honeypot observations, not a count of compromised customers, but the earlier reassurance about no exploitation evidence has been overtaken.",
+    "There's now a public Python proof of concept, and a Nuclei template makes scanning easy to automate. The revealing bit is how double colons become forward slashes in Atlassian's shared web-resource library, turning a resource request into file traversal. It can't escape the web application's directory or list its contents. Sounds limiting, until watchTowr reads crowd dot properties from Crowd-integrated Jira, retrieves plaintext credentials and uses them to add a Jira administrator. That's the difference between reading a file and owning the workflow.",
+    "Rapid7 now says patch outside the normal cycle. I'd take that advice, especially where Crowd supplies SSO. Apply Monday's fixed releases; if you can't, take the instance off the internet or use Atlassian's published filtering rules. Decode access logs up to twice and look for traversal sequences, including double colons. Rotate secrets from any files found to have been read. watchTowr also has a free scanner for checking instances.",
+    "And another edge system needs attention even if you patched it last month. SonicWall's SMA1000 remote-access gateways have a ten point zero pre-authentication SSRF in WorkPlace, their user portal. An alternate access path lets an outsider make the appliance issue requests on their behalf, reaching internal functions and performing unauthorised operations.",
+    "CVE-2026-102255 is the third maximum-severity, no-login WorkPlace SSRF fixed this year; the earlier rounds were exploited as zero-days. SonicWall says there's no evidence of exploitation this time. Small relief. September's fixes still need this hotfix: move the twelve point four branch to 12 point 4 point 3 dash 03670 or later, or the twelve point five branch to 12 point 5 point 0 dash 03082 or later, through MySonicWall. Installation restarts the appliance, and there's no listed workaround. The release also fixes authenticated flaws, including command injection. SMA 100 and firewall SSL-VPN aren't affected.",
+    "Those gateways aren't the only machines being recruited from the internet. Black Lotus Labs says PoeLLM has compromised more than three thousand four hundred servers since April, targeting exposed AI infrastructure and other services. Victims mine cryptocurrency, then become scanners and exploit launchpads themselves.",
+    "The command server's address comes from a poem on GitHub. The malware extracts four words and maps them to numbers using its own dictionary; changing the verse changes the destination without replacing the malware. Eleven edits so far. Clever indirection, and a thoroughly miserable use for poetry.",
+    "LiteLLM and Ollama deployments are among the targets; so are the Gotenberg PDF converter and self-hosted Git platform Gitea, along with Ivanti Sentry gateways. Infected hosts scan ports three thousand and four thousand, attempting a LiteLLM flaw that researchers say can be chained into unauthenticated code execution. Update affected services and restrict external access to trusted addresses. I'd check Black Lotus Labs' published indicators as well: closing the public door doesn't evict a miner already inside.",
+    "From a trusted host carrying instructions to trusted DNS carrying lies: attackers compromised the dot gh and dot sl registries, along with dot as, altered authoritative records and obtained unauthorised certificates for Google and others. The twelve identified Google certificates are revoked, but if you own names under those suffixes, check Certificate Transparency logs for unexpected issuance and monitor your whole portfolio, including parked domains.",
+    "Package trust took another knock: researchers linked eight malicious npm packages, with more than forty thousand downloads, to MALFEX, delivering Windows stealers and remote access malware. Check lockfiles and caches against the published package names—function-flag and function-color are still live—and treat machines that installed one as compromised, including rotating developer tokens.",
+    "And Tuesday's ShinyHunters arrests now have a named extortion target: Krebs identifies Jeppesen ForeFlight, Boeing's former aviation-navigation business, with sources warning of potential safety-sensitive data theft, although the company says it saw no impact. Malwarebytes also says the gang is bypassing Mandiant's suggested PeopleSoft firewall rules using URL encoding, so apply Oracle's fix for CVE-2026-35273 rather than relying on the rules.",
+    "Which makes a final finding particularly uncomfortable: ReversingLabs examined an unnamed shipping network appliance and found nine KEV-listed flaws, plus a cleartext private key shared across deployments. With the EU Cyber Resilience Act's exploited-vulnerability reporting duties already live, ask vendors for evidence from the actual shipped binary, tied to its version and hash—not just a compliance promise.",
+    "I'd get the emergency change owner involved now, rather than leave an urgent ticket waiting for someone to notice it. And give the log review an owner too; it shouldn't disappear behind a successful installation message. Hope Thursday treats you kindly.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [],
+    "news": [
+      {
+        "id": "ffd71eec-51a0-4966-acbd-d885aaf393a4",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-hijack-google-domains-after-breaching-cctld-registries/",
+        "title": "Hackers hijack Google domains after breaching ccTLD registries",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "5b5b0759-2eed-4b58-a1bb-fe01fa22740f",
+        "url": "https://www.theregister.com/security/2026/10/07/attackers-hijacked-top-level-domains-minted-fake-security-certs-for-google-and-other-orgs/5301718",
+        "title": "Attackers hijacked top-level domains, minted fake security certs for Google and other orgs",
+        "source": "The Register security"
+      },
+      {
+        "id": "cc081d02-04e8-48b6-9a4d-465808388a2e",
+        "url": "https://thehackernews.com/2026/10/attackers-hijack-gh-sl-and-as.html",
+        "title": "Attackers Hijack .gh, .sl, and .as Registries to Obtain Certificates for Google Domains",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "4c3361a1-b08b-4cd6-97a5-ea49f9177926",
+        "url": "https://thehackernews.com/2026/10/eight-malicious-npm-packages-downloaded.html",
+        "title": "Eight Malicious npm Packages Downloaded 40,767 Times Deliver Overlord RAT and Stealer",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "754f5898-7821-4173-b71d-f510ea51ae99",
+        "url": "https://thehackernews.com/2026/10/sonicwall-patches-cvss-100-pre.html",
+        "title": "SonicWall Patches CVSS 10.0 Pre-Authentication SSRF Flaw in SMA1000 Appliances",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "2c76e11e-9b5d-46bc-b8e0-e5c46b4e92a1",
+        "url": "https://www.theregister.com/security/2026/10/07/poetry-is-the-new-ai-security-threat-as-poellm-malware-infects-3k-servers/5301672",
+        "title": "Poetry is the new AI security threat as PoeLLM malware infects 3K+ servers",
+        "source": "The Register security"
+      },
+      {
+        "id": "cacd8c29-77b8-4eea-8e78-b6e726229365",
+        "url": "https://www.reversinglabs.com/blog/cra-compliance-will-be-judged-by-the-binary-you-ship",
+        "title": "CRA compliance will be judged by the binary you ship",
+        "source": "ReversingLabs"
+      },
+      {
+        "id": "2feaab2b-83b9-44f3-bf83-31a986d054d6",
+        "url": "https://thehackernews.com/2026/10/poellm-malware-infects-3400-servers-to.html",
+        "title": "PoeLLM Malware Infects 3,400+ Servers to Expand Crypto Mining Botnet",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "6e538cac-0a6d-4371-98d3-f9d6736049ef",
+        "url": "https://www.bleepingcomputer.com/news/security/poellm-malware-infects-exposed-ai-servers-in-cryptomining-attacks/",
+        "title": "PoeLLM malware infects exposed AI servers in cryptomining attacks",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "422c5d0b-b133-4881-a3af-22c284620e0f",
+        "url": "https://cyberscoop.com/poellm-malware-botnet-poem-lumen-black-lotus-labs/",
+        "title": "PoeLLM malware has assembled a sweeping botnet, taking technical cues from a poem",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "64cc04ae-22b3-4653-8328-976582d4a7fb",
+        "url": "https://isc.sans.edu/diary/rss/33406",
+        "title": "Scans for Atlassian vulnerablity (CVE-2026-21589), (Wed, Oct 7th)",
+        "source": "SANS ISC"
+      },
+      {
+        "id": "9b93f200-8e6a-4380-8aea-aa39f2b8babb",
+        "url": "https://krebsonsecurity.com/2026/10/shinyhunters-extorted-boeing-spin-off-prior-to-arrests/",
+        "title": "ShinyHunters Extorted Boeing Spin-off Prior to Arrests",
+        "source": "Krebs on Security"
+      },
+      {
+        "id": "1d5716c7-f369-43ea-ae13-499b0cc96e73",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-exploit-critical-atlassian-flaw-after-public-poc-release/",
+        "title": "Hackers exploit critical Atlassian flaw after public PoC release",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "6ee5cf4e-c1ea-4686-8757-dbbbe3108817",
+        "url": "https://www.rapid7.com/blog/post/etr-cve-2026-21589-critical-unauthenticated-arbitrary-file-access-in-atlassian-products",
+        "title": "CVE-2026-21589: Critical unauthenticated arbitrary file access in Atlassian products",
+        "source": "Rapid7"
+      },
+      {
+        "id": "60097461-cc46-44fd-bef7-850b26d58adf",
+        "url": "https://thehackernews.com/2026/10/atlassian-data-center-flaw-draws.html",
+        "title": "Atlassian Data Center Flaw Draws Exploitation Attempts Within Two Hours of Public Details",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "8ade66c9-8870-4566-bbb9-0bb8862cda30",
+        "url": "https://www.bleepingcomputer.com/news/security/sonicwall-warns-of-max-severity-ssrf-flaw-in-sma1000-gateways/",
+        "title": "SonicWall warns of max severity SSRF flaw in SMA1000 gateways",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "f803c680-9733-4c44-945a-9ce9d5e27d31",
+        "url": "https://www.malwarebytes.com/blog/news/2026/10/another-shinyhunters-suspect-arrested",
+        "title": "Another ShinyHunters suspect arrested",
+        "source": "Malwarebytes Labs"
+      },
+      {
+        "id": "62253b26-210e-4ce6-b012-a8b3fa59dd0a",
+        "url": "https://cert.europa.eu/publications/security-advisories/2026-015/",
+        "title": "2026-015: Critical Vulnerability in Multiple Atlassian Products",
+        "source": "CERT-EU advisories"
+      },
+      {
+        "id": "f2c4ce89-dba0-43c7-bf0a-6a1ab0a661c9",
+        "url": "https://www.securityweek.com/atlassian-patches-critical-vulnerability-affecting-8-products/",
+        "title": "Atlassian Patches Critical Vulnerability Affecting 8 Products",
+        "source": "SecurityWeek"
+      }
+    ]
+  }
+}
