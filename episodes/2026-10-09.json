@@ -1,0 +1,489 @@
+{
+  "day": "2026-10-09",
+  "title": "FBI seizes Flax Typhoon tools, Cisco patches Nexus takeover",
+  "overview": "Seven governments warn about Flax Typhoon as the FBI seizes domains behind its hacking tools. Cisco patches remote takeover flaws in Nexus switches, Atlassian exploitation widens, and a compromised Tensorlake package carries a dangerous credential-revocation trap.",
+  "duration_s": 308,
+  "chars": 4379,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-09.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-09.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Friday, the ninth of October, twenty twenty-six.",
+    "The scanner used against a South Carolina power company has lost its domains to the FBI. Seven domains were seized, supporting MicroScan and FishHub, tools operated by China-based Integrity Technology Group for Flax Typhoon. Seven governments, including the UK, issued a joint warning alongside the seizure. Court documents describe successful intrusions into organisations MicroScan had scanned. Not just reconnaissance, then.",
+    "MicroScan is a Python web application firing more than thirteen hundred testing scripts through a Mirai-based botnet. The actors also spray passwords at Exchange; once inside, they disguise SoftEther VPN as conhost dot exe or dllhost dot exe, and use DCSync to steal credentials. FishHub handles spear-phishing and data theft, with a portal that lets third parties read stolen mail without entering the victims' accounts. That's an unpleasantly convenient service.",
+    "I'd treat the seizure as disruption, not eviction. Patch the advisory's eight exploited flaws: five have just entered CISA's KEV catalogue, with US federal agencies due to fix them by Sunday. Listed fixes include ProFTPD 1 point 3 point 5a and ONLYOFFICE Document Server 5 point 6 point 3. For Strapi, it's 4 point 8 point 0; Struts branch fixes are 2 point 3 point 20 point 3, 2 point 3 point 24 point 3 or 2 point 3 point 28 point 1. BIND fixes are 9 point 9 point 7 dash P2 or 9 point 10 point 2 dash P3. Check for unexpected Active Directory replication too: patching doesn't recover stolen credentials.",
+    "From old flaws still earning their keep to new ones with a useful escape hatch: Cisco has fixed five critical NX-OS flaws that can give an unauthenticated remote attacker root on Nexus data centre switches, or force a reload. Crafted requests or packets reach validation failures, but only with the relevant optional feature active. NX-API is one route; the others involve NGOAM or MPLS OAM, with additional configuration requirements for some bugs.",
+    "Nexus 3000 and 9000 switches in standalone mode are the concern; Nexus 7000 and 9000 in ACI mode aren't affected by these five. Cisco knows of no exploitation. I'd check enabled features before booking a reboot: disabling an unused affected feature removes that route in. Use Cisco's Software Checker for the fixed release, or its temporary Live Protect shields while arranging the upgrade.",
+    "The wider batch also covers APIC and Meraki, plus a publicly disclosed Finesse SSRF. Cisco License On-Prem needs version 10 dash 202609, with no workaround; older Smart Software Manager-branded releases won't get patches, so those need migration.",
+    "That's the batch without known exploitation; yesterday's Atlassian story has moved the other way, with Previdian now counting a hundred and ninety attempts from thirty-two addresses across ten countries. VulnCheck has added the flaw to its exploited list after activity targeting Bamboo Data Center, though CISA still hasn't listed it. Meanwhile, at Pwn2Own Ireland, day two brought forty-five unique zero-days, and Ikotas Labs took three hundred thousand dollars for a Pixel 10 exploit chain on day three. Those targets were fully patched; there aren't fixes to install yet, and vendors have ninety days before disclosure.",
+    "A rather less welcome delivery arrived through npm: tensorlake, the TypeScript SDK for Tensorlake's cloud services, carried the Shai-Hulud credential-stealing worm in version 0 point 5 point 144. If it was installed, disable the malicious token monitor before revoking GitHub credentials—revocation can trigger deletion of the user's home directory—then rebuild from a trusted source, move to 0 point 5 point 145 and rotate exposed secrets. And not every alarming arrival is new: Mozilla's advisory backfill now reaches twenty nineteen and twenty twenty, with roughly sixty more old pages. No new patch job if your browsers and mail clients are current.",
+    "Before the weekend, I'd make sure any Tensorlake cleanup instructions include that revocation trap. And give Sunday's KEV deadline a real change window, not just a date on a ticket. Hope Friday leaves you a quiet evening.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2015-3306",
+      "CVE-2015-5477",
+      "CVE-2016-3081",
+      "CVE-2021-3199",
+      "CVE-2023-22894"
+    ],
+    "news": [
+      {
+        "id": "f69ff7f4-e44f-4a79-a310-f3d7aae6acae",
+        "url": "https://www.theregister.com/security/2026/10/08/us-disrupts-chinese-hacking-tools-as-7-govts-warn-of-prc-spies-stealing-sensitive-data-worldwide/5302107",
+        "title": "US disrupts Chinese hacking tools as 7 govts warn of PRC spies stealing sensitive data worldwide",
+        "source": "The Register security"
+      },
+      {
+        "id": "f4aa7104-1da2-4b12-9692-dd3f6a09d73b",
+        "url": "https://www.bleepingcomputer.com/news/security/fbi-disrupts-chinese-hacking-tools-used-to-breach-critical-infrastructure/",
+        "title": "FBI disrupts Chinese hacking tools used to breach critical infrastructure",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "27d86f22-1345-4e6d-8d24-9ca153882a5a",
+        "url": "https://cyberscoop.com/doj-fbi-seize-flax-typhoon-hacking-tools-microscan-fishhub/",
+        "title": "DOJ, FBI seize Flax Typhoon-linked hacking tools Microscan, FishHub",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "303bd9f8-2657-4fbf-b9f8-b8320fe74dc4",
+        "url": "https://therecord.media/flax-typhoon-china-tools-integrity-tech-international-takedown",
+        "title": "International coalition seizes tools used by cyber firm behind Flax Typhoon",
+        "source": "The Record"
+      },
+      {
+        "id": "c2794326-e7bf-4b64-aea6-224962d36344",
+        "url": "https://horizon3.ai/attack-research/vulnerabilities/cve-2026-102489/",
+        "title": "CVE-2026-102489 | Technical Details",
+        "source": "Horizon3"
+      },
+      {
+        "id": "85e4bf01-3a85-4141-b540-05cc6d1dcd96",
+        "url": "https://thehackernews.com/2026/10/fbi-says-china-linked-hackers-ran.html",
+        "title": "FBI Says China-Linked Hackers Ran Portal Giving Third Parties Access to Stolen Emails",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "f9c638ec-f648-47a2-91ab-cd46ec75f94f",
+        "url": "https://www.theregister.com/security/2026/10/08/shai-hulud-worm-makes-jump-to-ai-infrastructure-with-tensorlake-compromise/5302054",
+        "title": "Shai-Hulud worm makes jump to AI infrastructure with Tensorlake compromise",
+        "source": "The Register security"
+      },
+      {
+        "id": "513fed0d-9d16-48ed-a165-61822f94ffe2",
+        "url": "https://www.securityweek.com/cisco-patches-a-dozen-critical-vulnerabilities/",
+        "title": "Cisco Patches a Dozen Critical Vulnerabilities",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "6f33b96b-f8e1-4a4e-9208-e7150020ff25",
+        "url": "https://www.bleepingcomputer.com/news/security/cisco-warns-of-critical-flaws-allowing-nexus-switch-takeover/",
+        "title": "Cisco warns of critical flaws allowing Nexus switch takeover",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "f589eca0-dda0-4f13-a821-d1c584f95c38",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-38/",
+        "title": "MFSA 2019-38 Security Vulnerabilities fixed in - Thunderbird 68.3",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f5167481-6080-4cdb-9f3a-f9f6e34fad33",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-01/",
+        "title": "MFSA 2020-01 Security Vulnerabilities fixed in Firefox 72",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "ec846751-485a-40bc-9c4e-525fae093128",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-29/",
+        "title": "MFSA 2019-29 Security vulnerabilities fixed in - Thunderbird 60.9",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e875cb12-dfa4-418f-9207-133336de483e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-02/",
+        "title": "MFSA 2020-02 Security Vulnerabilities fixed in Firefox ESR 68.4",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e62a58e6-879e-40d0-8d16-62afb88c8c39",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-21/",
+        "title": "MFSA 2019-21 Security vulnerabilities fixed in Firefox 68",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d502589d-6c17-42c8-83d6-3086f3bff9c3",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-06/",
+        "title": "MFSA 2020-06 Security Vulnerabilities fixed in Firefox ESR 68.5",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d2991c7b-67ed-43c1-9160-641992c782f1",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-37/",
+        "title": "MFSA 2019-37 Security Vulnerabilities fixed in - Firefox ESR 68.3",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "bffafd56-e769-4e2c-81f9-b275c41d868e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-30/",
+        "title": "MFSA 2019-30 Security vulnerabilities fixed in - Thunderbird 68.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a40f6e53-16db-44ed-87fb-da3c24563422",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-08/",
+        "title": "MFSA 2020-08 Security Vulnerabilities fixed in Firefox 74",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "99b6a2e9-4b51-417e-bbe0-212ff29cc874",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-23/",
+        "title": "MFSA 2019-23 Security vulnerabilities fixed in Thunderbird 60.8",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "990592ff-0148-4c02-869a-387c5513f844",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-34/",
+        "title": "MFSA 2019-34 Security vulnerabilities fixed in - Firefox 70",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "84d5e60c-4cfb-4872-849a-8510c04fcfb8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-10/",
+        "title": "MFSA 2020-10 Security Vulnerabilities fixed in Thunderbird 68.6",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "836ef4b4-db3d-4802-8e50-8868ed854867",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-35/",
+        "title": "MFSA 2019-35 Security vulnerabilities fixed in - Thunderbird 68.2",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7d9df894-e9c5-48a7-afa7-d823942a1874",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-31/",
+        "title": "MFSA 2019-31 Security vulnerabilities fixed in Firefox 69.0.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "78123cb8-6ee1-41d5-b6dc-c4cda1b37851",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-11/",
+        "title": "MFSA 2020-11 Security Vulnerabilities fixed in Firefox 74.0.1 and Firefox ESR 68.6.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "6995de5d-6d2f-4307-bc63-c45b6c00f45f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-27/",
+        "title": "MFSA 2019-27 Security vulnerabilities fixed in Firefox ESR 60.9",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5fe5f964-fbf1-4674-a645-004969f6e3e7",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-04/",
+        "title": "MFSA 2020-04 Security Vulnerabilities fixed in Thunderbird 68.4.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5ad5d11d-1a60-4311-940f-0ae2270d2941",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-07/",
+        "title": "MFSA 2020-07 Security Vulnerabilities fixed in Thunderbird 68.5",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "472ee68a-2a37-469a-bd0e-1d94fe0d6877",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-26/",
+        "title": "MFSA 2019-26 Security vulnerabilities fixed in Firefox ESR 68.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "4444628e-3074-4145-9ed8-6269e175dc0c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-33/",
+        "title": "MFSA 2019-33 Security vulnerabilities fixed in - Firefox ESR 68.2",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3e6e873a-ff6c-43dd-a4ce-fcd0ecaf97b4",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-03/",
+        "title": "MFSA 2020-03 Security Vulnerabilities fixed in Firefox 72.0.1 and Firefox ESR 68.4.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3ccead49-d5c1-4137-8f3e-21ab7b1bf258",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-24/",
+        "title": "MFSA 2019-24 Stored passwords in 'Saved Logins' can be copied without master password entry",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "390ea708-bbb4-4405-83df-a2f6be667611",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-32/",
+        "title": "MFSA 2019-32 Security vulnerabilities fixed in - Thunderbird 68.1.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "35e2999b-3c83-4593-b05a-8131ede68221",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-22/",
+        "title": "MFSA 2019-22 Security vulnerabilities fixed in Firefox ESR 60.8",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "2d319589-c755-4d84-91d4-522c29ec8347",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-28/",
+        "title": "MFSA 2019-28 Security vulnerabilities fixed in Thunderbird 68",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "2b8e3309-a6c4-4a43-8b66-cb953cb09806",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-09/",
+        "title": "MFSA 2020-09 Security Vulnerabilities fixed in Firefox ESR 68.6",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "164e179d-cda3-4a21-9fb5-7c0516a1efab",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-36/",
+        "title": "MFSA 2019-36 Security Vulnerabilities fixed in - Firefox 71",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "08cfdb2f-46f0-4bc4-b0ea-6018cfa24f0c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-25/",
+        "title": "MFSA 2019-25 Security vulnerabilities fixed in Firefox 69",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "08a660a4-a6e0-4167-a427-0c6f42ea2a36",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-12/",
+        "title": "MFSA 2020-12 Security Vulnerabilities fixed in Firefox 75",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0273d0ac-bf67-4301-8119-744620b8272d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-05/",
+        "title": "MFSA 2020-05 Security Vulnerabilities fixed in Firefox 73",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "27d30cd9-d333-4b97-a837-9d8c29351357",
+        "url": "https://www.securityweek.com/attackers-target-critical-atlassian-vulnerability-within-hours-of-poc-publication/",
+        "title": "Attackers Target Critical Atlassian Vulnerability Within Hours of PoC Publication",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "e0435973-99f2-454a-a87e-620c3cd1c341",
+        "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-281a",
+        "title": "Chinese Government-linked Cyber Threat Actors Combine Automated and Hands-on Hacking Tools to Steal Sensitive Data",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "cc628fc5-be56-4937-889a-ba92168332c0",
+        "url": "https://www.ncsc.gov.uk/news/china-linked-actors-called-out-by-uk-and-international-partners-for-targeting-sensitive-data",
+        "title": "China-linked malicious actors called out by UK and international partners for targeting sensitive data globally",
+        "source": "NCSC"
+      },
+      {
+        "id": "36808e27-67f1-476d-945d-ec8d23393bcc",
+        "url": "https://www.thezdi.com/blog/2026/10/8/pwn2own-ireland-2026-day-three-results-amp-master-of-pwn",
+        "title": "Pwn2Own Ireland 2026 - Day Three Results & Master of Pwn",
+        "source": "Zero Day Initiative blog"
+      },
+      {
+        "id": "cece7abc-3158-4016-a9e0-6715eec44d76",
+        "url": "https://www.infosecurity-magazine.com/news/critical-vulnerability-atlassian/",
+        "title": "Critical Flaw in Multiple Atlassian Products Exploited in the Wild",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "f263091f-45c0-40f3-bac4-6f1e9c8a2c28",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-38/",
+        "title": "MFSA 2020-38 Security Vulnerabilities fixed in Firefox ESR 78.2",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e426a116-7773-488e-b30e-e096a0a13b33",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-28/",
+        "title": "MFSA 2020-28 Security Vulnerabilities fixed in Firefox 78.0.2",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "de76e685-a925-4206-95cb-4d09a22e2ab2",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-19/",
+        "title": "MFSA 2020-19 Security Vulnerabilities fixed in Firefox for iOS 26",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d97173a0-0afc-4c7f-8eb5-5486870de96c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-17/",
+        "title": "MFSA 2020-17 Security Vulnerabilities fixed in Firefox ESR 68.8",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "cd0931a7-613e-448b-8429-16638ddc5064",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-34/",
+        "title": "MFSA 2020-34 Security Vulnerabilities fixed in Firefox for iOS 28",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c6f7fe98-f13e-4650-8db8-fe91d8bb4f72",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-20/",
+        "title": "MFSA 2020-20 Security Vulnerabilities fixed in Firefox 77",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c35d8e87-6184-407d-aec7-bedc00c1bbe9",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-22/",
+        "title": "MFSA 2020-22 Security Vulnerabilities fixed in Thunderbird 68.9.0",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "be9c0d82-b2cc-4c75-ab3f-431f74551814",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-31/",
+        "title": "MFSA 2020-31 Security Vulnerabilities fixed in Firefox ESR 68.11",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "bb350406-4f6a-4ff6-898b-7dfd48fac4ca",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-23/",
+        "title": "MFSA 2020-23 Security Vulnerabilities fixed in Firefox for iOS 27",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9f644efe-9498-490a-9e3f-16d12952824c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-27/",
+        "title": "MFSA 2020-27 Security Vulnerabilities fixed in Firefox for Android 68.10.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9ecfa944-41a8-4d78-a93d-1496e35afbb8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-21/",
+        "title": "MFSA 2020-21 Security Vulnerabilities fixed in Firefox ESR 68.9",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9a4738d2-2135-4d15-9249-0e4426612d5c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-26/",
+        "title": "MFSA 2020-26 Security Vulnerabilities fixed in Thunderbird 68.10.0",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "91aa015a-c404-430c-8dfa-a206f5594cd3",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-39/",
+        "title": "MFSA 2020-39 Security Vulnerabilities fixed in Firefox for Android 80",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "68620e2a-990d-4e0b-931b-16a6294c7baf",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-37/",
+        "title": "MFSA 2020-37 Security Vulnerabilities fixed in Firefox ESR 68.12",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5aacc47b-4961-4379-b9c0-c766f62ae53a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-41/",
+        "title": "MFSA 2020-41 Security Vulnerabilities fixed in Thunderbird 78.2",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3db50a38-15e9-4d28-819b-2196f8415a7c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-15/",
+        "title": "MFSA 2020-15 Security Vulnerabilities fixed in Firefox for iOS 25",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "39188c90-c63c-487d-a0e6-7df3175c04c2",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-24/",
+        "title": "MFSA 2020-24 Security Vulnerabilities fixed in Firefox 78",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "31321366-72c2-4a06-8967-be047b276b0d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-30/",
+        "title": "MFSA 2020-30 Security Vulnerabilities fixed in Firefox 79",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "2415cd4b-50ca-4c2f-bbc7-133979bcd260",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-40/",
+        "title": "MFSA 2020-40 Security Vulnerabilities fixed in Thunderbird 68.12",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "22da1fba-39f2-45ae-b7bb-dd61867b9d14",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-33/",
+        "title": "MFSA 2020-33 Security Vulnerabilities fixed in Thunderbird 78.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1fff1ee4-8941-4a6d-8843-b9fd74e75630",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-18/",
+        "title": "MFSA 2020-18 Security Vulnerabilities fixed in Thunderbird 68.8.0",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1e28b82b-86f8-416c-b23f-d730709309cd",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-35/",
+        "title": "MFSA 2020-35 Security Vulnerabilities fixed in Thunderbird 68.11",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1bb8dc39-1110-455e-9c28-934099ff4c06",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-13/",
+        "title": "MFSA 2020-13 Security Vulnerabilities fixed in Firefox ESR 68.7",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "18ac4fd8-5fab-4713-abeb-7d5122c4a0d4",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-16/",
+        "title": "MFSA 2020-16 Security Vulnerabilities fixed in Firefox 76",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "181b96f5-616b-4053-bd18-ef2b602c9c94",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-42/",
+        "title": "MFSA 2020-42 Security Vulnerabilities fixed in Firefox 81",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0939ffad-0d1f-4ede-a89c-79d6b201a975",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-32/",
+        "title": "MFSA 2020-32 Security Vulnerabilities fixed in Firefox ESR 78.1",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0896731a-4507-4b8c-a9be-d2d819dd8715",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-36/",
+        "title": "MFSA 2020-36 Security Vulnerabilities fixed in Firefox 80",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "04a28d3f-48f7-47f2-83ca-7d9375abdeea",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-29/",
+        "title": "MFSA 2020-29 Security Vulnerabilities fixed in Thunderbird 78",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "049ce752-36e3-4cb1-b38b-337a80b67bf0",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-25/",
+        "title": "MFSA 2020-25 Security Vulnerabilities fixed in Firefox ESR 68.10",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0102edb8-2bd7-49f3-a9a5-18e15f1cd2f0",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-14/",
+        "title": "MFSA 2020-14 Security Vulnerabilities fixed in Thunderbird 68.7.0",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3f75406b-2f24-4721-ab7c-23d098d31dfe",
+        "url": "https://www.bleepingcomputer.com/news/security/samsung-galaxy-s26-hacked-three-more-times-at-pwn2own-ireland/",
+        "title": "Samsung Galaxy S26 hacked three more times at Pwn2Own Ireland",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "7fcf8052-011f-429f-8200-2d0c447a876e",
+        "url": "https://thehackernews.com/2026/10/tensorlake-npm-package-compromised-to.html",
+        "title": "Tensorlake npm Package Compromised to Deliver Shai-Hulud Credential-Stealing Worm",
+        "source": "The Hacker News"
+      }
+    ]
+  }
+}

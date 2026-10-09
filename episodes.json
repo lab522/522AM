@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-10-09",
+    "title": "FBI seizes Flax Typhoon tools, Cisco patches Nexus takeover",
+    "duration_s": 308,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-09.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-09.md"
+  },
+  {
     "day": "2026-10-08",
     "title": "Two hours from Atlassian proof to exploit attempts",
     "duration_s": 401,
