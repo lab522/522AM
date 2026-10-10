@@ -1,0 +1,100 @@
+{
+  "day": "2026-10-10",
+  "title": "Ahsay backup servers breached, NetScaler needs another patch",
+  "overview": "Attackers are chaining unpatched AhsayCBS flaws to take over backup servers, while NetScaler needs another upgrade for SAML deployments. Fake GitHub security workflows are stealing CI secrets, and exploitation attempts have now reached SonicWall's newly patched SMA1000 flaw.",
+  "duration_s": 377,
+  "chars": 5347,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-10.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-10.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Saturday, the tenth of October, twenty twenty-six.",
+    "Your backup console is the way in this morning. Attackers are chaining two unpatched flaws in AhsayCBS, the central backup management platform used by service providers, to get remote code execution without logging in. Huntress saw attacks begin on Wednesday and counted at least five organisations hit. The nasty detail: the vulnerability records say version 10 point 3 point 4 fixes it. Huntress tested that latest release and found it vulnerable too. There's no patch.",
+    "A random token passes the Replication Receiver API's authentication check; command injection then lets the attacker configure a malicious receiver and plant a JSP webshell in the application's served directory, running as System. That's control of the backup host, not merely stolen compute. XMRig arrives disguised as edge dot exe, with persistence through a service called MicrosoftEdgeUpdateSvc. A PowerShell script stops mining when Task Manager opens. Very considerate of it.",
+    "I'd restrict the management web interface before doing anything else: trusted IP addresses only, or a VPN. Don't let that claimed fixed version close the ticket. Huntress has indicators and four Sigma rules; check the served application directory for webshells, and investigate that Edge-named service. One intrusion also brought the vulnerable WinRing0x64 driver into TEMP for kernel-level access. If compromise is confirmed, restore the whole host from a known-safe backup: removing the miner doesn't account for other backdoors.",
+    "At least the next edge appliance has a fix, though NetScaler administrators could reasonably ask for a weekend off. Since Tuesday's coverage, a fourth critical flaw has landed: CVE-2026-107406, a nine point five memory overflow giving remote code execution or a crash in SAML deployments. Citrix says it knows of no unmitigated exploits. That's different from the earlier scramble, but appliances patched to the fourth of October level still need upgrading.",
+    "Check whether customer-managed ADC or Gateway acts as a SAML identity provider or service provider; some recent builds are affected only in the identity-provider role. The fixed releases are 14 point 1 dash 73 point 46 and 13 point 1 dash 64 point 29. For 14 point 1 FIPS, it's 73 point 46 too; for 13 point 1 FIPS and NDcPP, it's 13 point 1 point 37 point 283. Secure Private Access Hybrid deployments using NetScaler need the upgrade as well.",
+    "And a trusted identity is doing the damage in GitHub, where hijacked maintainer accounts are committing a workflow called Security Audit under their owners' names. Socket counts more than five hundred accounts pushing it into tens of thousands of repositories since Wednesday. Any push can trigger it. It collects accessible CI secrets and searches the entire git history for credentials, including ones deleted from the current tree, then sends the haul over plain HTTP.",
+    "The name would almost be funny if it weren't running with your secrets. Check every repository, including forks, for security-audit dot yml or github_actions_security dot yml committed since the thirty-first of August. If found, treat it as compromise: revoke the hijacked GitHub credential and rotate every secret the workflow could reach. Remove the workflow from all branches, and hunt CI logs for HTTP traffic to 193 dot 32 dot 204 dot 199. No malicious package releases using the stolen publishing credentials have been identified so far.",
+    "From stolen credentials to access without any: AnyPwn is now a public working exploit giving pre-authentication root on AnyDesk Linux, before anyone approves the connection. Update to at least 8 point 0 point 3, or restrict TCP port seven thousand and seventy; June's fix was described merely as a crash bug, which rather undersold it. And there's a new chapter in the PaperCut patch saga: watchTowr details another authentication bypass in 26 point 0 point 4 dash PO build 76508, chained with a newly discovered code-execution flaw to restore unauthenticated access. Make sure NG or MF reaches 26 point 0 point 5, and keep it off the public internet while moving.",
+    "Away from servers, the P7 DarkSword iOS exploit-kit variant adds on-device keychain and crypto-wallet theft, with two-way command communication and a smaller footprint. Move managed iPhones out of its targeted iOS 18 point 4 to 18 point 7 band onto a current release. And back at the perimeter, Thursday's SonicWall position has changed: Previdian has detected SMA1000 exploitation attempts, though it hasn't established whether they'd succeed, and SonicWall's advisory still doesn't flag active exploitation. Install the hotfix today and hunt backwards for crafted OPTIONS requests to WorkPlace Extraweb that reach the appliance's loopback CouchDB service, invoking underscore rewrite with an admin colon admin Basic Authorization header.",
+    "I'd put an exposed Ahsay console ahead of the rest of the Saturday queue. And I'd check actual installed NetScaler builds, rather than trusting that this week's completed change means the job's finished. Hope the rest of your morning stays quiet.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [],
+    "news": [
+      {
+        "id": "77982c87-4ee2-49fc-8af2-028034ae8c4d",
+        "url": "https://thehackernews.com/2026/10/credential-stealing-github-actions.html",
+        "title": "Credential-Stealing GitHub Actions Workflows Planted in Tens of Thousands of Repositories",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "9e6103b2-716f-42c7-9147-167eb89b0c53",
+        "url": "https://labs.watchtowr.com/death-by-a-thousand-papercuts-papercut-pre-auth-rce-chain-and-patch-bypasses-wt-2026-0141-0144-cve-2026-82077-cve-2026-82078-cve-2026-81578/",
+        "title": "Death By A Thousand PaperCuts (PaperCut Pre-Auth RCE Chain and Patch Bypasses WT-2026-0141-0144/CVE-2026-82077/CVE-2026-82078/CVE-2026-81578)",
+        "source": "watchTowr Labs"
+      },
+      {
+        "id": "60c29ac9-02a6-46cd-a39b-1977636f7bb3",
+        "url": "https://www.bleepingcomputer.com/news/security/unpatched-ahsaycbs-flaws-exploited-to-deploy-webshells-mine-crypto/",
+        "title": "Unpatched AhsayCBS flaws exploited to deploy webshells, mine crypto",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "e459bd76-319a-487f-9c70-df981a836079",
+        "url": "https://thehackernews.com/2026/10/p7-darksword-ios-exploit-kit-adds.html",
+        "title": "P7 DarkSword iOS Exploit Kit Adds Crypto Wallet Data Theft and Remote Commands",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "6c4ea056-e893-4bec-8588-8dd001a96593",
+        "url": "https://thehackernews.com/2026/10/researchers-publish-working-exploit-for.html",
+        "title": "Researchers Publish Working Exploit for Pre-Auth AnyDesk Linux Flaw That Gives Root Access",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "1f3f8193-ff27-4b4c-a7ec-c16742535522",
+        "url": "https://thehackernews.com/2026/10/attackers-exploit-ahsaycbs-flaws-to.html",
+        "title": "Attackers Exploit AhsayCBS Flaws to Deploy XMRig Miners Disguised as Microsoft Edge",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "d8bdbfb4-ae78-4c60-b819-1e11f64ad3dd",
+        "url": "https://www.bleepingcomputer.com/news/security/max-severity-sonicwall-sma1000-flaw-now-exploited-in-attacks/",
+        "title": "Max severity SonicWall SMA1000 flaw now exploited in attacks",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "7077176c-b0e8-4b8d-a53c-3257988f4455",
+        "url": "https://www.theregister.com/security/2026/10/09/citrix-gives-netscaler-admins-another-critical-reason-to-patch/5302212",
+        "title": "Citrix gives NetScaler admins another critical reason to patch",
+        "source": "The Register security"
+      },
+      {
+        "id": "cccf89e7-b9ee-462d-8059-9e482b7f7862",
+        "url": "https://www.securityweek.com/unpatched-ahsaycbs-vulnerabilities-exploited-in-the-wild/",
+        "title": "Unpatched AhsayCBS Vulnerabilities Exploited in the Wild",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "79a81e9d-e61e-4eba-8e83-338bbebb95b8",
+        "url": "https://www.bleepingcomputer.com/news/security/citrix-warns-admins-to-patch-new-netscaler-rce-flaw-immediately/",
+        "title": "Citrix warns admins to patch new NetScaler RCE flaw immediately",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "0ca8443b-5510-411d-b881-9e5cd508b280",
+        "url": "https://thehackernews.com/2026/10/citrix-patches-critical-netscaler-flaw.html",
+        "title": "Citrix Patches Critical NetScaler Flaw That Could Enable RCE in SAML Deployments",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "2be34aa5-b930-442c-a811-1805953f717f",
+        "url": "https://www.securityweek.com/citrix-urges-immediate-patching-of-critical-netscaler-vulnerability/",
+        "title": "Citrix Urges Immediate Patching of Critical NetScaler Vulnerability",
+        "source": "SecurityWeek"
+      }
+    ]
+  }
+}
