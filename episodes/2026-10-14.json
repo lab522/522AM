@@ -1,0 +1,857 @@
+{
+  "day": "2026-10-14",
+  "title": "Ivanti's delayed fix becomes an attacker's route to root",
+  "overview": "Attackers chained three Ivanti Connect Secure flaws to take over fully patched VPN appliances. Microsoft's record Patch Tuesday and a Linux vhost escape demand attention, alongside refrigeration attacks and flaws affecting PDF processing and container publishing.",
+  "duration_s": 398,
+  "chars": 5609,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-14.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-14.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Wednesday, the fourteenth of October, twenty twenty-six, covering the two days since Monday.",
+    "Ivanti found part of a Connect Secure flaw in June, put a fix into July's release, and was still backporting it when attackers got to work. Volexity found a fully patched VPN appliance taken over without a login. Root on the box handling remote access, followed by stolen LDAP credentials and a hunt for LAPS passwords. What bugs me is that gap: a scheduled fix in one branch wasn't protection for customers on another.",
+    "The chain is clever. A header tricks the login handler into routing requests to protected scripts; a file-write bug then saves a Perl script disguised as a ZIP, briefly enough for another request to execute it before deletion. Finally, a privileged broker trusts configuration data it shouldn't and runs commands as root. The actor re-exploited the appliance for every command rather than leaving a web shell, and tampered with logs. Ivanti tracks the first two bugs as CVE-2026-104935; they're fixed, but the privilege escalation isn't yet.",
+    "Patch Connect Secure urgently to the appropriate fixed release: 22 point 8 R2 point 5 or 25 point 1 point 1 point 2; the other fixed releases are 25 point 1 point 3 point 0 and 25 point 1 point 3 point 1. The 22 point 7 R2 point 14 branch and earlier aren't affected. CISA's federal deadline is Friday, the sixteenth. Don't take a clean Integrity Checker result as clearance: it can miss the in-memory activity. Use network and memory forensics, including hunts for an X-DSCGI-PATH header that doesn't match the requested path.",
+    "That Friday deadline follows us into Windows. The change ticket we talked about on Saturday now has Microsoft's biggest monthly release attached: one thousand four hundred and thirteen CVEs. The immediate one is CVE-2026-96951, an exploited Windows Shell command-injection flaw that bypasses Mark of the Web warnings. A victim still has to open the crafted file, delivered by email or instant message. Prioritise that update across affected Windows systems; Server 2012 gets no patch, though 2012 R2 does. Then tackle the five Outlook preview-pane code-execution flaws, each scored nine point eight, and ZDI's fifty-nine wormable bugs. The Outlook ones don't need the recipient to open the message. I'd use that distinction to order deployment, rather than let the enormous total turn everything into equally urgent noise.",
+    "And on Linux, the worrying distinction is who can open a vhost device. Vhost handles guest traffic through the kernel; Vghost, CVE-2026-74580, lets a local user with device access become root. Its mapping cache survives changes to a live queue's addresses or size, so new addresses get handled using stale mappings without bounds checks. No lucky timing required. It reaches back to kernel 4 point 11, and working demonstrations are public, though there's no public sign of exploitation. A narrower guest-to-host path needs a virtual IOMMU with iommu_platform enabled and vhost in device-IOTLB mode; it can hijack the host's QEMU process. Install your vendor's fixed kernel and reboot. Until then, restrict access to the vhost-net and vhost-vsock device nodes, but that doesn't stop the guest escape. Ubuntu 24 point 04 and 26 point 04 fixes were still in progress yesterday.",
+    "From virtual machines to very physical losses: Sunday's French supermarket attack spoiled food, with CERT-FR naming Danfoss AK-SC and AK-SM controllers alongside Dixell and Copeland xweb systems. Get those controllers off the public internet and restrict remote access through a corporate VPN or APN gateway; patching alone doesn't make public exposure safe. Back in the server queue, a crafted PDF can trigger code execution in Ghostscript through CVE-2026-39919: upgrade to 10 point 08 point 0 or a verified backport, including rebuilt container images. If you can't patch, block PDF uploads and disable PDF rendering in ImageMagick; WordPress operators should check with their host. Alongside that, Adobe has fixed one hundred and forty vulnerabilities across ten products. I'd put Commerce and ColdFusion ahead of the desktop applications because they're server-side.",
+    "Rebuilding images also means trusting the registry: Docker Hub fixed a two-year-old flaw where converting an account into an organisation transferred its tokens to the nominated owner without changing their secrets, allowing another user to alter images under that owner's identity. Docker found no evidence of exploitation and deactivated identified transferred tokens except those owners asked to retain; there's nothing to install, but check Personal access tokens for unfamiliar entries and revoke them. While you're separating real work from alerts, Mozilla's advisory backfill has now reached twenty fifteen and twenty sixteen. Those Firefox fixes aren't new: correct your feed's date handling if it treats them that way. And a genuine new boundary problem: AIR research says agents could exploit certificate validation in Vercel Sandbox to send data outside approved networks. Don't treat an approved egress destination as proof data stayed inside; watch for Vercel's fix.",
+    "I'd give exposed Connect Secure appliances an emergency change and a separate investigation, not just a patch ticket. For virtualisation hosts, check that the fixed kernel is actually running after the reboot. Have a good Wednesday.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-104935",
+      "CVE-2026-96951"
+    ],
+    "news": [
+      {
+        "id": "dd46c638-1001-4cd2-bbdf-12a2c6603b1f",
+        "url": "https://www.infosecurity-magazine.com/news/french-supermarket-hack-more/",
+        "title": "French Supermarket Cyber-Attack Impacts More Refrigeration Controllers",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "e4b66658-82f8-4fef-97b2-35da4f13f3c5",
+        "url": "https://www.infosecurity-magazine.com/news/microsoft-patch-tuesday-record-1/",
+        "title": "Microsoft Breaks Patch Tuesday Record Again with 1400+ CVEs",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "c1c22a66-1650-4c21-a4d4-ca1f90e539ea",
+        "url": "https://thehackernews.com/2026/10/ai-found-linux-kernel-flaw-gives-local.html",
+        "title": "AI-Found Linux Kernel Flaw Gives Local Users Root, and Can Break a Guest Out to the Host",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "9b3b7051-3125-4c2f-9e41-9b7c47b64859",
+        "url": "https://www.securityweek.com/citrix-fortinet-ivanti-patch-29-vulnerabilities-across-their-products/",
+        "title": "Citrix, Fortinet, Ivanti Patch 29 Vulnerabilities Across Their Products",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "88d4a85c-acf7-4391-ac25-90ef0c998b13",
+        "url": "https://www.securityweek.com/microsoft-patches-record-1413-vulnerabilities-including-exploited-windows-zero-day/",
+        "title": "Microsoft Patches Record 1,413 Vulnerabilities, Including Exploited Windows Zero-Day",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "53e1de02-224f-4e48-9854-60f43e266a5c",
+        "url": "https://thehackernews.com/2026/10/microsoft-patches-record-1413-flaws.html",
+        "title": "Microsoft Patches Record 1,413 Flaws, Including Exploited Windows Shell Bug",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "0c57608b-4538-412e-8dcb-fe6c53e2804e",
+        "url": "https://www.jpcert.or.jp/english/at/2026/at260031.html",
+        "title": "Security Alert: Microsoft Releases October 2026 Security Updates",
+        "source": "JPCERT"
+      },
+      {
+        "id": "e7c6b2d2-4bd3-4639-b07c-ba00d51ebf5c",
+        "url": "https://krebsonsecurity.com/2026/10/microsoft-patches-more-than-1400-security-flaws/",
+        "title": "Microsoft Patches More Than 1,400 Security Flaws",
+        "source": "Krebs on Security"
+      },
+      {
+        "id": "1aa80476-b3ef-4b3a-8b6e-9725c5d74974",
+        "url": "https://www.darkreading.com/vulnerabilities-threats/zero-days-microsoft-october-patch-tuesday",
+        "title": "Zero-Days Lurk in Microsoft's Overgrown October Patch Tuesday",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "1c597ba6-a8b5-4340-bdf6-db9db53282e4",
+        "url": "https://cyberscoop.com/ivanti-connect-secure-zero-day-actively-exploited/",
+        "title": "Ivanti misses opportunity to fix vulnerability before attackers got to work and made it a zero-day",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "9793e5ac-6ccc-42a7-9bf8-eae3b38fafc9",
+        "url": "https://www.rapid7.com/blog/post/em-patch-tuesday-october-2026",
+        "title": "Patch Tuesday - October 2026",
+        "source": "Rapid7"
+      },
+      {
+        "id": "773d3053-f9b3-4537-b8b7-a708ea23df3f",
+        "url": "https://www.bleepingcomputer.com/news/security/ghostscript-flaw-lets-hackers-hijack-servers-via-pdf-uploads/",
+        "title": "Ghostscript flaw lets hackers hijack servers via PDF uploads",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "787a7ac3-92fa-469b-a7c7-4f4fa26b09da",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-99/",
+        "title": "MFSA 2015-99 Site attribute spoofing on Android by pasting URL with unknown scheme",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1c67bf35-d76e-4b0e-b95f-175eded693b9",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-126/",
+        "title": "MFSA 2015-126 Crash when accessing HTML tables with accessibility tools on OS X",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c94dff64-a573-4586-8233-f788edf7abaa",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-112/",
+        "title": "MFSA 2015-112 Vulnerabilities found through code inspection",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c6dd52b7-ae6d-43e0-a24d-4349085a8038",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-125/",
+        "title": "MFSA 2015-125 XSS attack through intents on Firefox for Android",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "4c740189-7a25-4d57-80ac-8f0a73233afb",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-101/",
+        "title": "MFSA 2015-101 Buffer overflow in libvpx while parsing vp9 format video",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "59903ce5-64a1-41d3-ac9a-dafc84e0e10f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-105/",
+        "title": "MFSA 2015-105 Buffer overflow while decoding WebM video",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f9ec2446-55eb-4cc5-a879-414740057778",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-124/",
+        "title": "MFSA 2015-124 Android intents can be used on Firefox for Android to open privileged files",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "ff75cfdf-a2aa-4dbf-a7d7-80dab0dc4fae",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-104/",
+        "title": "MFSA 2015-104 Use-after-free with shared workers and IndexedDB",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c8558a71-2607-4293-85dd-5dc18f5ceade",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-115/",
+        "title": "MFSA 2015-115 Cross-origin restriction bypass using Fetch",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "6a77b169-a12a-4f40-922f-d2facb56b35a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-107/",
+        "title": "MFSA 2015-107 Out-of-bounds read during 2D canvas display on Linux 16-bit color depth systems",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "cadf3af2-99c4-4a85-ba44-c21c9033030b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-97/",
+        "title": "MFSA 2015-97 Memory leak in mozTCPSocket to servers",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "05595362-8f04-41c3-9b23-3d7ad8ec66b0",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-108/",
+        "title": "MFSA 2015-108 Scripted proxies can access inner window",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1b31e1e7-4353-4751-956c-67077ce1ceb5",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-116/",
+        "title": "MFSA 2015-116 Miscellaneous memory safety hazards (rv:42.0 / rv:38.4)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "00e41c6c-8552-49d8-a220-9c633acab6d2",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-123/",
+        "title": "MFSA 2015-123 Buffer overflow during image interactions in canvas",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1233f617-21b6-4055-9416-a56c82f86615",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-103/",
+        "title": "MFSA 2015-103 URL spoofing in reader mode",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3cc4ff07-e20e-402e-a2f9-75cb23456698",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-98/",
+        "title": "MFSA 2015-98 Out of bounds read in QCMS library with ICC V4 profile attributes",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "edf69890-9316-4a5a-8553-332d3bd33b12",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-109/",
+        "title": "MFSA 2015-109 JavaScript immutable property enforcement can be bypassed",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c704294b-8815-4fc9-ad36-0f7d6f1312b3",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-106/",
+        "title": "MFSA 2015-106 Use-after-free while manipulating HTML media content",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "593118dc-9444-4efd-9110-2749b93c7c01",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-111/",
+        "title": "MFSA 2015-111 Errors in the handling of CORS preflight request headers",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5e23552a-d4fa-4da6-9fb2-1ac04e88f669",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-114/",
+        "title": "MFSA 2015-114 Information disclosure via the High Resolution Time API",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c2f10235-be08-4115-be6a-736a33592ff4",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-110/",
+        "title": "MFSA 2015-110 Dragging and dropping images exposes final URL after redirects",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b987655a-d2c4-4b8e-970c-b29cc5c11bba",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-121/",
+        "title": "MFSA 2015-121 Disabling scripts in Add-on SDK panels has no effect",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5a86b234-5d04-49c6-be2d-14b4e737388b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-102/",
+        "title": "MFSA 2015-102 Crash when using debugger with SavedStacks in JavaScript",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "14212710-1481-425f-a5cd-4aba2b46616a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-117/",
+        "title": "MFSA 2015-117 Information disclosure through NTLM authentication",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7e9cacb7-b2d8-401a-a379-636245c95558",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-113/",
+        "title": "MFSA 2015-113 Memory safety errors in libGLES in the ANGLE graphics library",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "58673d32-f0ea-4b4b-b0a9-d54363af72be",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-122/",
+        "title": "MFSA 2015-122 Trailing whitespace in IP address hostnames can bypass same-origin policy",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e134aba0-f0a7-49a2-8d7b-d5f0a6b03c50",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-118/",
+        "title": "MFSA 2015-118 CSP bypass due to permissive Reader mode whitelist",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d529225e-0497-47c4-84cc-98ca14633a8f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-119/",
+        "title": "MFSA 2015-119 Firefox for Android addressbar can be removed after fullscreen mode",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "64dde493-c4e1-412d-a3cd-4d1e84179311",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-100/",
+        "title": "MFSA 2015-100 Arbitrary file manipulation by local user through Mozilla updater",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1cad49e0-f821-4801-994e-e4fc9f754bf5",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-120/",
+        "title": "MFSA 2015-120 Reading sensitive profile files through local HTML file on Android",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7eed13d3-866e-4f2a-aff4-fa2c64b32541",
+        "url": "https://blog.talosintelligence.com/microsoft-patch-tuesday-for-october-2026/",
+        "title": "Microsoft Patch Tuesday for October 2026 — Snort rules and prominent vulnerabilities",
+        "source": "Cisco Talos"
+      },
+      {
+        "id": "52452537-068d-4d4b-bd73-cd4e883bda5a",
+        "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-october-2026-patch-tuesday-fixes-1-411-flaws-3-zero-days/",
+        "title": "Microsoft October 2026 Patch Tuesday fixes 1,411 flaws, 3 zero-days",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "93bc6086-4098-44dd-9c03-59fe09b3fee5",
+        "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-releases-windows-10-kb5126657-extended-security-update/",
+        "title": "Microsoft releases Windows 10 KB5126657 extended security update",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "7e6a09a7-5f5d-42a7-a8f3-cf3f8934466a",
+        "url": "https://www.thezdi.com/blog/2026/10/13/the-october-2026-security-update-review",
+        "title": "The October 2026 Security Update Review",
+        "source": "Zero Day Initiative blog"
+      },
+      {
+        "id": "3abd1a7f-2f7d-41ed-afb8-c478853a4ce3",
+        "url": "https://isc.sans.edu/diary/rss/33422",
+        "title": "October 2026 Microsoft Patch Tuesday, (Tue, Oct 13th)",
+        "source": "SANS ISC"
+      },
+      {
+        "id": "358fc22b-bf41-4ae7-8286-33972faf07e1",
+        "url": "https://www.securityweek.com/ivanti-zero-day-chain-gave-attackers-root-access-to-fully-patched-vpn/",
+        "title": "Ivanti Zero-Day Chain Gave Attackers Root Access to Fully Patched VPN",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "71f3ba2a-0621-4c6e-a5f0-91ca4db0bce7",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-140/",
+        "title": "MFSA 2015-140 Cross-origin information leak through web workers error events",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f939735e-c36f-4f1a-917d-7cd2d42f2593",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-147/",
+        "title": "MFSA 2015-147 Integer underflow and buffer overflow processing MP4 metadata in libstagefright",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "bbab2002-9d6a-4e4e-acdc-53565cd01511",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-139/",
+        "title": "MFSA 2015-139 Integer overflow allocating extremely large textures",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3972c31e-afdf-4c20-b0b4-bfdabe76a7e8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-151/",
+        "title": "MFSA 2015-151 Lockscreen delay bypass in Firefox OS",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "af294222-aade-49b7-b5e0-d17d28559cdf",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-153/",
+        "title": "MFSA 2015-153 HTML injection in homescreen app bypassing DOM sanitizer",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "8f561080-983e-4ced-b575-e706ccdef10f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-148/",
+        "title": "MFSA 2015-148 Privilege escalation vulnerabilities in WebExtension APIs",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d4a93c2b-2b2f-47a5-ade1-83f3d65746a5",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-150/",
+        "title": "MFSA 2015-150 MD5 signatures accepted within TLS 1.2 ServerKeyExchange in server signature",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "97aa19ae-504a-4d82-808f-66ba6ea8a91d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-137/",
+        "title": "MFSA 2015-137 Firefox allows for control characters to be set in cookies",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5e544227-661d-46e0-ab0c-9d8609b47937",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-146/",
+        "title": "MFSA 2015-146 Integer overflow in MP4 playback in 64-bit versions",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7e937ee5-b0ae-4cd3-b4b1-498c27cb7e41",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-01/",
+        "title": "MFSA 2016-01 Miscellaneous memory safety hazards (rv:44.0 / rv:38.6)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3181698f-4bb8-4418-92d0-7672c3f42fdc",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-142/",
+        "title": "MFSA 2015-142 DOS due to malformed frames in HTTP/2",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "4db76363-18a6-4fa3-a3d8-98812c742f85",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-149/",
+        "title": "MFSA 2015-149 Cross-site reading attack through data and view-source URIs",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "6e12ad9e-4019-4d7f-b38e-93dc292ded01",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-133/",
+        "title": "MFSA 2015-133 NSS and NSPR memory corruption issues",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f6806e9b-4e34-4faf-a75e-0351b66d9639",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-145/",
+        "title": "MFSA 2015-145 Underflow through code inspection",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "856de234-ed5a-4ccf-86f8-3d1ef9dccc73",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-135/",
+        "title": "MFSA 2015-135 Crash with JavaScript variable assignment with unboxed objects",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "31c60612-1891-42c1-91ba-43ca2f76d8b8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-152/",
+        "title": "MFSA 2015-152 Lockscreen passcode bypass due to race condition",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5a36c5ab-b349-4cf0-afc9-ed44bce472a8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-144/",
+        "title": "MFSA 2015-144 Buffer overflows found through code inspection",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "4535c937-9551-4d0b-9c21-abde8ca55cb0",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-132/",
+        "title": "MFSA 2015-132 Mixed content WebSocket policy bypass through workers",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5d92d671-516b-4008-8b0b-0c2272d31362",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-136/",
+        "title": "MFSA 2015-136 Same-origin policy violation using performance.getEntries and history navigation",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "279f77ac-854d-4852-91b9-d9f39e15129c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-127/",
+        "title": "MFSA 2015-127 CORS preflight is bypassed when non-standard Content-Type headers are received",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "894cc6ad-93b8-4225-beb5-e0a541cc4a98",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-129/",
+        "title": "MFSA 2015-129 Certain escaped characters in host of Location-header are being treated as non-escaped",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "30853001-0cc1-4b9e-8a3d-714f37ff5d1a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-131/",
+        "title": "MFSA 2015-131 Vulnerabilities found through code inspection",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "828eeeba-277e-4127-855d-e11e27f773db",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-138/",
+        "title": "MFSA 2015-138 Use-after-free in WebRTC when datachannel is used after being destroyed",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "6c90a695-2fcf-4e0a-84a4-a8e83adbb7d9",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-130/",
+        "title": "MFSA 2015-130 JavaScript garbage collection crash with Java applet",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "fe212dce-89e0-4f62-a5d5-a75ffdd2d584",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-134/",
+        "title": "MFSA 2015-134 Miscellaneous memory safety hazards (rv:43.0 / rv:38.5)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "8abb1f8a-d688-4dbf-a750-35ba2bc3cce8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-128/",
+        "title": "MFSA 2015-128 Memory corruption in libjar through zip files",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "316679f8-a94d-4415-b6e6-b71d68e39a02",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-141/",
+        "title": "MFSA 2015-141 Hash in data URI is incorrectly parsed",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "54819698-3cc5-4f89-a430-b33403b071c9",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2015-143/",
+        "title": "MFSA 2015-143 Linux file chooser crashes on malformed images due to flaws in Jasper library",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "6ee5008c-47d6-4b86-a441-cb4482c2c9bb",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-02/",
+        "title": "MFSA 2016-02 Out of Memory crash when parsing GIF format images",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d57f0939-705e-4549-81d4-830995a7805c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-11/",
+        "title": "MFSA 2016-11 Application Reputation service disabled in Firefox 43",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b2223891-4687-49cd-b324-33626f40fb43",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-19/",
+        "title": "MFSA 2016-19 Linux video memory DOS with Intel drivers",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "65f2b091-b49a-44c6-ab69-b42dcea3b039",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-08/",
+        "title": "MFSA 2016-08 Delay following click events in file download dialog too short on OS X",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7f8080a6-f2c0-4e9e-ab65-b5bcad52d9eb",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-23/",
+        "title": "MFSA 2016-23 Use-after-free in HTML5 string parser",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3e394170-83f7-4aed-877e-215fe8e638e8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-17/",
+        "title": "MFSA 2016-17 Local file overwriting and potential privilege escalation through CSP reports",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "bf6c000d-8049-4457-afad-e508f2caa391",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-21/",
+        "title": "MFSA 2016-21 Displayed page address can be overridden",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3f545ee5-aab6-443d-b12c-cf9884ad5602",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-14/",
+        "title": "MFSA 2016-14 Vulnerabilities in Graphite 2",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "65c2b8a1-1fce-4fa3-ba25-877365d30b71",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-30/",
+        "title": "MFSA 2016-30 Buffer overflow in Brotli decompression",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "457982d3-b750-4d0d-a603-91a8b23476f0",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-24/",
+        "title": "MFSA 2016-24 Use-after-free in SetBody",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "255a6767-31bc-481e-bbbe-be83c6d14c14",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-06/",
+        "title": "MFSA 2016-06 Missing delay following user click events in protocol handler dialog",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "dc477bd4-ce12-4144-9374-1f60e2677188",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-22/",
+        "title": "MFSA 2016-22 Service Worker Manager out-of-bounds read in Service Worker Manager",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "6d249f88-3328-4254-a513-1dcdb332b956",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-05/",
+        "title": "MFSA 2016-05 Addressbar spoofing through stored data url shortcuts on Firefox for Android",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "377ebb55-6189-4141-b5ba-4032e37ce024",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-10/",
+        "title": "MFSA 2016-10 Unsafe memory manipulation found through code inspection",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "127bf88a-dc75-4143-9042-26f426a01a1b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-09/",
+        "title": "MFSA 2016-09 Addressbar spoofing attacks",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "4494335e-d196-4fe1-8833-af0c1f7be5f8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-04/",
+        "title": "MFSA 2016-04 Firefox allows for control characters to be set in cookie names",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1a704078-96fd-4c41-9799-e5c57f524273",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-20/",
+        "title": "MFSA 2016-20 Memory leak in libstagefright when deleting an array during MP4 processing",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "8b660e62-92e3-4b63-b5ab-cf4c6b059e6d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-18/",
+        "title": "MFSA 2016-18 CSP reports fail to strip location information for embedded iframe pages",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "513361ca-0033-46b0-8cf9-07aa370d076a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-07/",
+        "title": "MFSA 2016-07 Errors in mp_div and mp_exptmod cryptographic functions in NSS",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "84ce25d3-5bd2-4fd6-9e0e-2a5ef4da3d8f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-28/",
+        "title": "MFSA 2016-28 Addressbar spoofing though history navigation and Location protocol property",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d23c143f-7145-4278-811e-2b4a7b581c43",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-27/",
+        "title": "MFSA 2016-27 Use-after-free during XML transformations",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0eb13bc6-cfcd-4c56-aad3-5f123222bf89",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-13/",
+        "title": "MFSA 2016-13 Same-origin-policy violation using Service Workers with plugins",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b2d3ee18-3dce-4221-962c-1eaac52a9f65",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-12/",
+        "title": "MFSA 2016-12 Lightweight themes on Firefox for Android do not verify a secure connection",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0668a1d7-b64f-4ec0-a610-d7ea6e1e500d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-03/",
+        "title": "MFSA 2016-03 Buffer overflow in WebGL after out of memory allocation",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "6722f971-89f5-4ffd-aba1-ee8434e2c3fa",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-29/",
+        "title": "MFSA 2016-29 Same-origin policy violation using performance.getEntries and history navigation with session restore",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "35774339-e395-4a9d-863b-db54a5aba01d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-26/",
+        "title": "MFSA 2016-26 Memory corruption when modifying a file being read by FileReader",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "95814389-3947-4f32-9bd6-4afe8c1b2bcd",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-16/",
+        "title": "MFSA 2016-16 Miscellaneous memory safety hazards (rv:45.0 / rv:38.7)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "ec8ae944-b6cc-4945-854c-bfeac6dd0038",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-25/",
+        "title": "MFSA 2016-25 Use-after-free when using multiple WebRTC data channels",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9ad5810b-9534-43a9-bb04-f381b0643716",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-15/",
+        "title": "MFSA 2016-15 Use-after-free in NSS during SSL connections in low memory",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "24dfcd81-aa40-4501-94dd-2cee1db71401",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-31/",
+        "title": "MFSA 2016-31 Memory corruption with malicious NPAPI plugin",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "dcaf42a4-2bc2-4758-a7b0-6d957a73a435",
+        "url": "https://thehackernews.com/2026/10/docker-fixes-critical-two-year-old-hub.html",
+        "title": "Docker Fixes Critical Two-Year-Old Hub Flaw That Let One User Push Images as Another",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "c292e1b5-8b37-4ef3-90ff-e1b3060f663d",
+        "url": "https://www.bleepingcomputer.com/news/microsoft/windows-11-kb5127648-and-kb5126653-cumulative-updates-released/",
+        "title": "Windows 11 KB5127648 & KB5126653 cumulative updates released",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "ed55bb2a-953a-425b-b13c-a878ba60a3a9",
+        "url": "https://thehackernews.com/2026/10/attacker-chains-three-ivanti-connect.html",
+        "title": "Attacker Chains Three Ivanti Connect Secure Zero-Days for Root Access, Only Two Patched So Far",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "294114d7-d53a-45b1-a2d7-c3aef725b07d",
+        "url": "https://www.computerweekly.com/news/366652119/Microsoft-CVE-volumes-on-relentless-upward-trajectory",
+        "title": "Microsoft CVE volumes on relentless upward trajectory",
+        "source": "Computer Weekly security"
+      },
+      {
+        "id": "6f854b50-a5ee-407e-bfa5-ee63d25d5928",
+        "url": "https://www.securityweek.com/adobe-patches-140-vulnerabilities-across-10-products/",
+        "title": "Adobe Patches 140 Vulnerabilities Across 10 Products",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "d95edfd6-ea3f-4511-beff-2d2ab542073c",
+        "url": "https://www.rapid7.com/blog/post/etr-ivanti-connect-secure-zero-day-exploited-in-the-wild-cve-2026-104935",
+        "title": "Ivanti Connect Secure zero-day exploited in the wild (CVE-2026-104935)",
+        "source": "Rapid7"
+      },
+      {
+        "id": "61ca111b-6369-43e4-b9b9-f8784557241d",
+        "url": "https://therecord.media/sandbox-vulnerability-gives-rogue-ai-agents-path-out",
+        "title": "Sandbox vulnerability gives rogue AI agents a path to escape and leak data, research says",
+        "source": "The Record"
+      },
+      {
+        "id": "f4397808-9543-4bfe-9c77-61aa0c2fadfe",
+        "url": "https://www.bleepingcomputer.com/news/security/ivanti-warns-of-connect-secure-zero-day-exploited-in-attacks/",
+        "title": "Ivanti warns of Connect Secure zero-day exploited in attacks",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "c07f6b6a-7431-49d5-aebb-bb368aaa2cb4",
+        "url": "https://www.volexity.com/blog/2026/10/13/a-series-of-unauthenticated-events-chained-exploitation-of-ivanti-connect-secure-zero-days/",
+        "title": "A Series of Unauthenticated Events: Chained Exploitation of Ivanti Connect Secure Zero-Days",
+        "source": "Volexity"
+      },
+      {
+        "id": "34f8f6c5-9f82-4346-9a6e-754eb7e144d5",
+        "url": "https://www.bleepingcomputer.com/news/security/docker-hub-flaw-let-attackers-impersonate-users-tamper-with-images/",
+        "title": "Docker Hub flaw let attackers impersonate users, tamper with images",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "32c6a026-5a92-4b3d-ac17-c3731c5a0580",
+        "url": "https://www.cybersecuritydive.com/news/refrigeration-france-cyber/832858/",
+        "title": "Dangerous flaws in refrigeration equipment were disclosed months before retail attacks",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "a0870ff0-2b59-4569-b150-e06fb0df0743",
+        "url": "https://www.ivanti.com/blog/october-2026-security-update",
+        "title": "October 2026 Security Update",
+        "source": "Ivanti advisories"
+      },
+      {
+        "id": "f9e88d89-d6e7-40a6-b69f-28c1b732b3ae",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-41/",
+        "title": "MFSA 2016-41 Content provider permission bypass allows malicious application to access data",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "baf9d9f8-18f1-4f7f-854c-1e1bfbd1c64d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-56/",
+        "title": "MFSA 2016-56 Use-after-free when textures are used in WebGL operations after recycle pool destruction",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "93813655-9de4-430d-beb1-1dc83ecfbfef",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-55/",
+        "title": "MFSA 2016-55 File overwrite and privilege escalation through Mozilla Windows updater",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e0c9b295-e959-48da-9ded-1bdc1b393aec",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-32/",
+        "title": "MFSA 2016-32 WebRTC and LibVPX vulnerabilities found through code inspection",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f069289e-b78e-42db-936c-249af4c627b8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-33/",
+        "title": "MFSA 2016-33 Use-after-free in GetStaticInstance in WebRTC",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1fde8f1b-1b41-4133-92b5-dee81a2444ca",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-53/",
+        "title": "MFSA 2016-53 Out-of-bounds write with WebGL shader",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f7c2e1d0-5a78-448f-8c9e-ed3b47795397",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-36/",
+        "title": "MFSA 2016-36 Use-after-free during processing of DER encoded keys in NSS",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "75b8470c-ad82-460e-9e36-f6ebf6576b4b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-58/",
+        "title": "MFSA 2016-58 Entering fullscreen and persistent pointerlock without user permission",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "bbffdba3-1fa2-4896-a01a-871699fd68f2",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-34/",
+        "title": "MFSA 2016-34 Out-of-bounds read in HTML parser following a failed allocation",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "076cd752-efa7-4f1d-a195-11d9e1b68b05",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-61/",
+        "title": "MFSA 2016-61 Network Security Services (NSS) vulnerabilities",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5c8aff18-1f3e-48c1-b17e-7ad0051c5baa",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-60/",
+        "title": "MFSA 2016-60 Java applets bypass CSP protections",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3f00c234-19fe-4ffc-b850-b7157d31eb91",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-37/",
+        "title": "MFSA 2016-37 Font vulnerabilities in the Graphite 2 library",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d9dfdfcf-50f3-4bf6-8b1c-4a9effa6e3a3",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-35/",
+        "title": "MFSA 2016-35 Buffer overflow during ASN.1 decoding in NSS",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1b73be0a-adb1-4c4e-9fd6-54c1213aa35d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-43/",
+        "title": "MFSA 2016-43 Disclosure of user actions through JavaScript with motion and orientation sensors",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3157082e-0f23-495e-a3b5-b5d98bb72a2e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-42/",
+        "title": "MFSA 2016-42 Use-after-free and buffer overflow in Service Workers",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5b7717e7-2811-495a-8745-a4d9548c180a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-54/",
+        "title": "MFSA 2016-54 Partial same-origin-policy through setting location.host through data URI",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "4175ca4d-d1cf-4303-a2dd-42eab9bc028c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-45/",
+        "title": "MFSA 2016-45 CSP not applied to pages sent with multipart/x-mixed-replace",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7b0f4441-5090-450b-b2f7-edc528d08230",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-39/",
+        "title": "MFSA 2016-39 Miscellaneous memory safety hazards (rv:46.0 / rv:45.1 / rv:38.8)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e15afcab-ca04-4187-a665-ce49a4e8aab8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-40/",
+        "title": "MFSA 2016-40 Privilege escalation through file deletion by Maintenance Service updater",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b9c8a162-4da4-4a51-a783-7e0a0aca6ef3",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2016-59/",
+        "title": "MFSA 2016-59 Information disclosure of disabled plugins through CSS pseudo-classes",
+        "source": "Mozilla security advisories"
+      }
+    ]
+  }
+}

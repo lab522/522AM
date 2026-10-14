@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-10-14",
+    "title": "Ivanti's delayed fix becomes an attacker's route to root",
+    "duration_s": 398,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-14.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-14.md"
+  },
+  {
     "day": "2026-10-12",
     "title": "AI agents move factory machinery; contractor malware threatens karaoke records",
     "duration_s": 284,
