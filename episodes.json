@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-10-15",
+    "title": "Cisco's mail scanner becomes an attacker's route to root",
+    "duration_s": 382,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-15.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-15.md"
+  },
+  {
     "day": "2026-10-14",
     "title": "Ivanti's delayed fix becomes an attacker's route to root",
     "duration_s": 398,

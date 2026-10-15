@@ -1,0 +1,231 @@
+{
+  "day": "2026-10-15",
+  "title": "Cisco's mail scanner becomes an attacker's route to root",
+  "overview": "Cisco and Palo Alto Networks are patching actively exploited flaws that hand attackers root on security appliances. There are fresh fixes for AhsayCBS and curl, while a Nextcloud app needs updating or removing: disabling it isn't enough.",
+  "duration_s": 382,
+  "chars": 5266,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-15.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-15.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Thursday, the fifteenth of October, twenty twenty-six.",
+    "An email attachment can now give its sender root on the Cisco appliance meant to catch malicious attachments. Secure Email Gateway has its second confirmed exploited flaw in a month, CVE-2026-76519, scored nine point eight. Path traversal in Advanced Malware Protection lets an unauthenticated sender write arbitrary files and execute commands on the underlying operating system. The gateway only needs to process the mail.",
+    "Physical and virtual gateways are exposed on vulnerable AsyncOS releases when File Reputation is enabled and assigned to a mail policy, with Content Scanner Tools older than 25 point 3 point 0 point 5525. There's a mercifully short route to protection: run contentscannerupdate at the CLI, then use contentscannerstatus to confirm that version or later. No upgrade or restart needed for that scanner update. I'd take that option before waiting for a maintenance window.",
+    "The AsyncOS fixes are 15 point 5 point 5-014 and 16 point 5 point 0-780; the 16 point 0 branch must migrate. There are no workarounds, and CISA's federal deadline is Saturday. Search system_logs for “System Security” on every cluster member, then cross-check network logs: root lets attackers hide evidence. Preserve forensics before upgrading a compromised instance, because upgrading destroys logs and forensic data. Compromised virtual appliances need rebuilding on a fixed release with renewed credentials.",
+    "That same Saturday deadline now applies to Palo Alto Networks, though here attackers need credentials and access to the management interface. CVE-2026-0322 is code injection giving them root on PAN-OS firewalls, with exploitation already observed. PA-Series and VM-Series are affected, along with Panorama appliances; Cloud NGFW and Prisma Access aren't.",
+    "Fixed builds include 12 point 2 point 4 and 12 point 1 point 10-h2. On older branches, use 11 point 2 point 13-h3, 11 point 1 point 16-h3 or 10 point 2 point 18-h12. Unsupported releases need moving to a supported fixed version. There's no workaround; restricting management access to trusted internal addresses reduces exposure, but doesn't fix it. Palo Alto calls exploitation “very limited”. I'd still put an externally reachable management interface straight into the emergency queue.",
+    "And yesterday's Ivanti story now has a crowd: Previdian counted one hundred and five exploitation attempts from fifty IP addresses, while Shadowserver sees over five thousand six hundred exposed Connect Secure hosts. CISA now urges immediate patching across the board and has published rebuild-and-rotate instructions for compromised instances, covering passwords as well as certificates and other credentials. The cost of stolen appliance secrets comes through in Unit 42's PEERSTITCH investigation: attackers exploited a central FortiManager, stole configurations and keys for more than five hundred managed firewalls, then returned through VPN access and planted a memory-resident implant. Check for rogue localhost device registrations and suspicious dot-tm archives; rotate credentials and certificates held in affected managed configurations.",
+    "From gateways to backup servers, there's finally a fix for the AhsayCBS chain we covered on Saturday: apply 10 point 3 point 4 point 45 for version ten, or 9 point 15 point 2 point 70 for version nine, and reboot; versions seven and eight must first move to 9 point 15 point 0 point 0. Earlier attempted fixes were incomplete, a public proof of concept is now available, and both flaws have a Saturday federal deadline. Meanwhile, attackers have planted web shells through Nextcloud's optional Collabora Online — Built-in CODE Server app: update it to 26 point 4 point 303 or remove it, because disabling it doesn't help. The fix arrived in September but the advisory only yesterday; that delay bothers me, and I'd check for shx-star-dot-php shells under apps slash richdocumentscode.",
+    "The client can be the target too: a hostile server receiving an HTTP/2 upload can corrupt memory in curl and libcurl 8 point 12 point 0 through 8 point 22 point 0. Upgrade to 8 point 23 point 0; code-execution demonstration material is public, though no attacks are reported.",
+    "On the disruption side, Microsoft and Health-ISAC have seized domains supporting YAM Store and the CoGUI and Iron Man phishing services, behind more than a billion messages since January. Check tenants for an unprovisioned PnP Management Shell service principal, and restrict device-code authentication. Back on exposed servers, Rapid7 has published an unauthenticated SQL injection in Channel Software's WebAlliance eCommerce after the vendor didn't reply; it can expose sensitive data, and there's no fix. Block slash preapproval dot asmx at the reverse proxy or WAF, and check SQL Server logs for WAITFOR DELAY patterns.",
+    "I'd get the mail-gateway scanner change moving immediately. If you find compromise, preserve the evidence before the upgrade wipes away your chance to understand it. Have a good Thursday.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-0322",
+      "CVE-2026-105133",
+      "CVE-2026-105134",
+      "CVE-2026-76519"
+    ],
+    "news": [
+      {
+        "id": "cbc15584-68c2-4643-a9b2-0d5401320b36",
+        "url": "https://horizon3.ai/attack-research/vulnerabilities/cve-2026-105133-and-cve-2026-105134/",
+        "title": "CVE-2026-105133 and CVE-2026-105134 | AhsayCBS Authentication Bypass and Remote Code Execution Vulnerabilities",
+        "source": "Horizon3"
+      },
+      {
+        "id": "a3a8a868-bdfa-45d5-8f91-117ed37be0fe",
+        "url": "https://www.bleepingcomputer.com/news/security/palo-alto-networks-warns-of-pan-os-rce-flaw-exploited-in-attacks/",
+        "title": "Palo Alto Networks warns of PAN-OS RCE flaw exploited in attacks",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "e3b0a79c-dfaf-45e6-b311-fc6844e71895",
+        "url": "https://unit42.paloaltonetworks.com/fortimanager-cve-2024-47575-peerstitch-malware/",
+        "title": "Unit 42 Uncovers PEERSTITCH, a Stealthy FortiGate Implant",
+        "source": "Unit 42"
+      },
+      {
+        "id": "cb193820-0bed-47da-b379-5fc37a08daa5",
+        "url": "https://www.theregister.com/security/2026/10/14/cisco-make-me-root-email-bug-exploited-as-a-0-day-by-unknown-crims/5303168",
+        "title": "Cisco make-me-root email bug exploited as a 0-day by unknown crims",
+        "source": "The Register security"
+      },
+      {
+        "id": "2d9fb877-2698-4ba9-8525-204b53e0fa2b",
+        "url": "https://www.darkreading.com/vulnerabilities-threats/ivanti-ics-zero-day-attacks-vendor-patching",
+        "title": "Ivanti ICS Zero-Day Attacks Highlight Vendor Patching Hurdles",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "268617e7-e4f5-41fd-83ec-6cddd9cba659",
+        "url": "https://www.darkreading.com/cyberattacks-data-breaches/yam-store-phishing-network-behind-billion-messages",
+        "title": "Yam Store: The Phishing Network Behind a Billion Messages",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "f7e1836a-f918-477e-8b21-619b682569ca",
+        "url": "https://thehackernews.com/2026/10/cisco-warns-of-active-attacks.html",
+        "title": "Cisco Warns of Active Attacks Exploiting New Critical Secure Email Gateway Vulnerability",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "339fceb6-17de-489d-bf30-3a72f7d361f6",
+        "url": "https://cyberscoop.com/microsoft-patch-tuesday-october-2026/",
+        "title": "Microsoft drops an actively exploited zero-day among record high of 1,413 vulnerabilities",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "8c61b1fb-46d0-4657-b8a3-aa9c3b003b5b",
+        "url": "https://thehackernews.com/2026/10/hackers-backdoor-nextcloud-servers.html",
+        "title": "Hackers Backdoor Nextcloud Servers Through Critical Flaw in Collabora’s Built-in CODE App",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "dc3d37c2-6703-43ac-b06b-10136a7bb08b",
+        "url": "https://www.bleepingcomputer.com/news/security/cisco-patches-actively-exploited-secure-email-gateway-zero-day/",
+        "title": "Cisco patches new Secure Email Gateway zero-day exploited in attacks",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "b4c38c53-77b9-4e6a-8ab8-dccd900e5ca8",
+        "url": "https://www.theregister.com/security/2026/10/14/ivanti-patches-connect-secure-zero-day-after-researchers-confirm-in-the-wild-attacks/5303095",
+        "title": "Ivanti patches Connect Secure zero-day after researchers confirm in-the-wild attacks",
+        "source": "The Register security"
+      },
+      {
+        "id": "385997d4-b858-4b1a-850a-3a03e18e2635",
+        "url": "https://thehackernews.com/2026/10/microsoft-disrupts-3-phishing-kits.html",
+        "title": "Microsoft Disrupts 3 Phishing Kits Linked to Over 1 Billion Scam Messages",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "0d655558-2635-4756-8308-66675b3023f9",
+        "url": "https://horizon3.ai/attack-research/attack-blogs/ahsaycbs-cve-2026-105133-cve-2026-105134-technical-analysis/",
+        "title": "AhsayCBS Deep-Dive: Auth Bypass to RCE",
+        "source": "Horizon3"
+      },
+      {
+        "id": "018ab6f4-22e7-4675-9452-f9952a9f3a96",
+        "url": "https://security.paloaltonetworks.com/CVE-2026-0322",
+        "title": "CVE-2026-0322 PAN-OS: Authenticated Remote Code Execution (RCE) in the Management Interface (Severity: HIGH)",
+        "source": "Palo Alto Networks advisories"
+      },
+      {
+        "id": "f455ddcb-aab5-43a2-b66b-faa8ff614d58",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-esa-afw-zqYJkjxp?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Secure%20Email%20Gateway%20Arbitrary%20File%20Write%20Vulnerability%26vs_k=1",
+        "title": "Cisco Secure Email Gateway Arbitrary File Write Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "735365b5-18d8-42fd-99d7-f7776fd32471",
+        "url": "https://www.cybersecuritydive.com/news/hacker-ivanti-connect-secure-chained-exploitation/832983/",
+        "title": "Hacker targets Ivanti Connect Secure in chained exploitation",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "37036a1f-6ec0-4ae3-8d8c-0f9b19e47874",
+        "url": "https://www.cybersecuritydive.com/news/phishing-marketplace-takedown-microsoft-health-isac/832965/",
+        "title": "Microsoft, Health-ISAC and partners take down popular phishing kit services",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "2aaf00f6-4f79-4223-a5bb-58bf3624709a",
+        "url": "https://therecord.media/microsoft-takes-down-3-major-chinese-phishing-platforms",
+        "title": "Microsoft takes down 3 major phishing platforms used by Chinese cybercriminals",
+        "source": "The Record"
+      },
+      {
+        "id": "c41ee16f-a6f7-42cf-b3d5-019ac83677a5",
+        "url": "https://www.bleepingcomputer.com/news/security/global-takedown-hits-network-behind-1-billion-phishing-messages/",
+        "title": "Global takedown hits network behind 1 billion phishing messages",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "3496bdbd-5034-4532-a995-c24b45ce7e8c",
+        "url": "https://cyberscoop.com/microsoft-disrupts-chinese-language-phishing-kit-ecosystem/",
+        "title": "Microsoft and partners disrupt vast Chinese-language phishing kit ecosystem",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "35d13f64-118b-46e5-afed-f90988541229",
+        "url": "https://www.microsoft.com/en-us/security/blog/2026/10/14/the-hidden-network-inside-the-phishing-infrastructure-ecosystem-powering-global-cybercrime/",
+        "title": "The hidden network: Inside the phishing infrastructure ecosystem powering global cybercrime",
+        "source": "Microsoft Security Blog"
+      },
+      {
+        "id": "15070138-9abe-4132-8885-4964e9d8b37b",
+        "url": "https://www.securityweek.com/microsoft-disrupts-chinese-language-phishing-market-behind-1b-messages/",
+        "title": "Microsoft Disrupts Chinese-Language Phishing Market Behind 1B+ Messages",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "84a6eeec-e7b5-44ae-b039-391743c3a076",
+        "url": "https://www.bleepingcomputer.com/news/security/cisa-warns-admins-to-immediately-fix-ivanti-flaw-exploited-as-zero-day/",
+        "title": "CISA warns admins to immediately fix Ivanti flaw exploited as zero-day",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "50c278b2-9639-4579-ac15-78aa705110bb",
+        "url": "https://www.rapid7.com/blog/post/ve-unauthenticated-sql-injection-in-channel-software-weballiance-ecommerce",
+        "title": "Unauthenticated SQL Injection In Channel Software WebAlliance eCommerce",
+        "source": "Rapid7"
+      },
+      {
+        "id": "9481298f-0823-4f13-96e3-8f332c3c9b50",
+        "url": "https://therecord.media/new-ivanti-microsoft-bugs-exploitation",
+        "title": "CISA warns of new Ivanti bug being exploited as latest Patch Tuesday breaks records",
+        "source": "The Record"
+      },
+      {
+        "id": "2f925122-69b2-44da-9f2e-5ca329600b39",
+        "url": "https://thehackernews.com/2026/10/cisa-urges-immediate-ivanti-connect.html",
+        "title": "CISA Urges Immediate Ivanti Connect Secure Updates as Honeypots Log 105 Exploit Attempts",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "0955dde5-9304-4881-a382-b7434dabdaf5",
+        "url": "https://thehackernews.com/2026/10/curl-patches-http2-upload-flaw-after.html",
+        "title": "curl Patches HTTP/2 Upload Flaw After PoC Demonstrates Client-Side Code Execution",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "dc63d1a5-6623-42c2-9f0d-e5f31f36c014",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/10/14/cisa-adds-four-known-exploited-vulnerabilities-catalog",
+        "title": "CISA Adds Four Known Exploited Vulnerabilities to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "5400ea89-f7c3-464d-884a-8f44e9abfc37",
+        "url": "https://www.malwarebytes.com/blog/bugs/2026/10/update-windows-record-patch-tuesday-fixes-flaw-already-under-attack",
+        "title": "Update Windows: Record Patch Tuesday fixes flaw already under attack",
+        "source": "Malwarebytes Labs"
+      },
+      {
+        "id": "e4b66658-82f8-4fef-97b2-35da4f13f3c5",
+        "url": "https://www.infosecurity-magazine.com/news/microsoft-patch-tuesday-record-1/",
+        "title": "Microsoft Breaks Patch Tuesday Record Again with 1400+ CVEs",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "9b3b7051-3125-4c2f-9e41-9b7c47b64859",
+        "url": "https://www.securityweek.com/citrix-fortinet-ivanti-patch-29-vulnerabilities-across-their-products/",
+        "title": "Citrix, Fortinet, Ivanti Patch 29 Vulnerabilities Across Their Products",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "88d4a85c-acf7-4391-ac25-90ef0c998b13",
+        "url": "https://www.securityweek.com/microsoft-patches-record-1413-vulnerabilities-including-exploited-windows-zero-day/",
+        "title": "Microsoft Patches Record 1,413 Vulnerabilities, Including Exploited Windows Zero-Day",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "53e1de02-224f-4e48-9854-60f43e266a5c",
+        "url": "https://thehackernews.com/2026/10/microsoft-patches-record-1413-flaws.html",
+        "title": "Microsoft Patches Record 1,413 Flaws, Including Exploited Windows Shell Bug",
+        "source": "The Hacker News"
+      }
+    ]
+  }
+}
