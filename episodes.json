@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-10-16",
+    "title": "BeyondTrust zero-day turned remote support into a root foothold",
+    "duration_s": 376,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-16.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-16.md"
+  },
+  {
     "day": "2026-10-15",
     "title": "Cisco's mail scanner becomes an attacker's route to root",
     "duration_s": 382,

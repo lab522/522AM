@@ -1,0 +1,141 @@
+{
+  "day": "2026-10-16",
+  "title": "BeyondTrust zero-day turned remote support into a root foothold",
+  "overview": "Chinese espionage attackers rooted BeyondTrust Remote Support appliances and stole their credential vaults before yesterday's patch. Citizen Lab traces zero-click spyware to targeted adverts, while fresh exploitation and patch updates affect Langflow, remote-access systems and NGINX.",
+  "duration_s": 376,
+  "chars": 5273,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-16.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-16.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Friday, the sixteenth of October, twenty twenty-six.",
+    "The box your IT team uses to reach staff desktops has been somebody else's way in since August. Mandiant found ARMORY CASTLE, a suspected Chinese espionage actor, exploiting BeyondTrust Remote Support appliances during an incident response investigation. Formerly Bomgar, it's the broker for remote support sessions — and the credentials behind them. BeyondTrust patched the arbitrary file upload flaw, CVE-2026-102764, yesterday. The attackers had already taken root and dumped the credential vault, then moved into downstream endpoints.",
+    "Eleven minutes after an upload request, the SAWFLY PHP web shell appeared in the site's public web root. Without its secret parameter, it returns a perfectly dull four-oh-four. That's a nasty little disguise. The attackers also left a root-owned SUID shell at slash usr slash bin slash dbus-authd, and startup persistence that restores passwordless sudo through configuration resets. They deleted logs too. Apply BeyondTrust's patches now; Mandiant expects wider exploitation after disclosure. I'd treat an appliance exposed since August as a compromise investigation, not just a patch job. Hunt for mangoapi dot php in the Laravel public web root, and the zz-root-persist startup script. Check logs on the encrypted partition holding slash home, including unexpected Jump Item permission changes to Administrator. Rotate every credential the appliance stored or brokered.",
+    "That foothold needed an exposed appliance. The next one needed an advert to appear. Citizen Lab says its AdFection investigation provides the first technical confirmation of mercenary spyware delivered through targeted advertising, infecting at least forty-five Al Jazeera devices in twenty twenty-four and twenty twenty-five. It identifies adtech firm Discover-Tech as a bridge to spyware vendors including Candiru. On rendering, the ad sends the device's advertising ID and IP address to a server; only a matching target gets attack code back. Everyone else gets nothing. That's what makes this so unpleasant: the ad network can inspect an innocent response while the intended victim gets spyware. Citizen Lab recovered spyware, but not the exploit. Google has cut Discover-Tech's exchange access, and IAB Europe has removed it. Block mtrtb dot com and hunt for connections from its ad servers onwards to Candiru screening infrastructure, then command-and-control. For staff likely to be targeted, deploy ad blocking and reset mobile advertising IDs; the much wider advertising footprint isn't evidence of wider infection.",
+    "Back on servers, attackers are hammering Langflow, the AI workflow builder: Previdian counted one thousand four hundred and twenty-three honeypot attempts against authenticated code execution flaw CVE-2026-105740, with payloads trying to steal application secrets. Upgrade installations before 1 point 9 point 0, disable auto-login, and treat a successful hit as full server compromise requiring secret rotation. And there's now an explanation for yesterday's Ivanti bypass: Horizon3 says Connect Secure checks authentication against the requested URL, but an attacker-controlled X-DSCGI-PATH header chooses the script that actually runs. Chained with the wu dot cgi upload flaw, code executes before the handler deletes it; hunt external requests carrying that header, and Horizon3 now has a NodeZero Rapid Response test.",
+    "Staying with remote access, ReliaQuest says Qilin and Settra ransomware crews are exploiting CVE-2026-0257 in PAN-OS GlobalProtect and Prisma Access — a separate flaw from yesterday's management-interface problem. Upgrade affected deployments and terminate active GlobalProtect sessions afterwards; patching alone may leave established access intact. Away from VPNs, the French refrigeration clean-up is measurable now: exposed StoreView panels fell seventy-one per cent in three days, with patched and unpatched versions disappearing alike — operators are disconnecting them. Keep those controllers off the public internet, update AK-SM 800A to 4 point 3 point 1 or later, and treat end-of-life AK-SM 800 and AK-SC 355 as unfixable; CERT-FR says a factory reset isn't enough.",
+    "For the software patch queue, CISA has now added the Atlassian file-access flaw, CVE-2026-21589, to KEV, moving beyond the exploitation listing we mentioned last Friday. Federal agencies have until Sunday, the eighteenth; outstanding self-managed Data Center updates shouldn't wait. And NGINX has fixed five flaws, including a TLS bug that may skip client-certificate checks: upgrade stable to 1 point 30 point 6 or mainline to 1 point 31 point 7. Neither vendor reports attacks, but NGINX calls all five medium while F5 rates the memory bugs critical — I'd make the patch decision on what the server exposes, not the reassuring adjective.",
+    "I'd put BeyondTrust ahead of the routine maintenance queue today. Keep the investigation open after patching: stolen vault credentials don't expire because the appliance is fixed. Have a good Friday.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-21589"
+    ],
+    "news": [
+      {
+        "id": "bcb48c11-217a-4f26-9224-27212ec30141",
+        "url": "https://cloud.google.com/blog/topics/threat-intelligence/armory-castle-exploits-beyondtrust",
+        "title": "ARMORY CASTLE Exploits BeyondTrust",
+        "source": "Google Threat Intelligence"
+      },
+      {
+        "id": "de46e2aa-dc5c-4b14-8e01-27c92df56043",
+        "url": "https://arstechnica.com/security/2026/10/targeted-ads-delivered-0-click-exploits-to-install-mercenary-malware/",
+        "title": "Targeted ads delivered 0-click exploits to install mercenary malware",
+        "source": "Ars Technica security"
+      },
+      {
+        "id": "041f6a58-a4af-4fe6-a929-75f57a81c6c4",
+        "url": "https://www.theregister.com/security/2026/10/15/researchers-warned-attackers-could-defrost-the-food-months-before-french-supermarkets-got-hit/5303425",
+        "title": "Researchers warned attackers could 'defrost the food' months before French supermarkets got hit",
+        "source": "The Register security"
+      },
+      {
+        "id": "fa6d4a1e-9210-4665-b77a-60adceab2490",
+        "url": "https://therecord.media/spyware-citizen-lab-advertising",
+        "title": "Zero-click spyware infecting devices through online ads, researchers say",
+        "source": "The Record"
+      },
+      {
+        "id": "080eb6c4-a451-4c48-90bc-59e9c6efc82f",
+        "url": "https://thehackernews.com/2026/10/threatsday-adobe-rce-dns-wallet-theft.html",
+        "title": "ThreatsDay: Adobe RCE, DNS Wallet Theft, NVIDIA Container Escape, Self-Healing Backdoor + 23 More",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "17021e69-3e93-4725-a895-9e2689c55319",
+        "url": "https://horizon3.ai/attack-research/vulnerabilities/cve-2026-104935/",
+        "title": "CVE-2026-104935 | Ivanti Connect Secure Authentication Bypass and Remote Code Execution Vulnerability",
+        "source": "Horizon3"
+      },
+      {
+        "id": "7242a667-adc5-42b8-b50d-f09290cb005d",
+        "url": "https://thehackernews.com/2026/10/citizen-lab-traces-zero-click-candiru.html",
+        "title": "Citizen Lab Traces Zero-Click Candiru Spyware Infections at Al Jazeera to Targeted Online Ads",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "d14a4b70-c720-40cf-932d-5a2efc6fa32a",
+        "url": "https://www.cybersecuritydive.com/news/thousands-refrigerator-devices-exposed-french-cyberattack/833117/",
+        "title": "Thousands of refrigerator devices remain exposed following French cyberattack",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "c942a4b6-b0f0-46c2-a3d4-6230edd8905b",
+        "url": "https://www.theregister.com/security/2026/10/15/spyware-vendors-found-a-way-to-make-targeted-ads-even-worse/5303334",
+        "title": "Spyware vendors found a way to make targeted ads even worse",
+        "source": "The Register security"
+      },
+      {
+        "id": "50acf417-687b-44b0-865f-d030a1a05bc7",
+        "url": "https://www.infosecurity-magazine.com/news/france-expose-danfoss-controllers/",
+        "title": "France: Internet-Exposed Danfoss Controllers Drop 71% After Cyber-Attack",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "2e66e556-4d13-4af7-b8f3-f289e61ea035",
+        "url": "https://thehackernews.com/2026/10/nginx-fixes-5-flaws-including-possible.html",
+        "title": "NGINX Fixes 5 Flaws, Including Possible RCE and a TLS Bug That May Skip Client-Cert Checks",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "f1d0f268-89ef-438d-addb-e52d2d5313c5",
+        "url": "https://www.securityweek.com/supermarket-refrigeration-attack-widens-to-copeland-dixell-controllers/",
+        "title": "Supermarket Refrigeration Attack Widens to Copeland, Dixell Controllers",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "c59f7bf8-2fb9-434e-be33-e64e922bc0d7",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/10/15/cisa-adds-one-known-exploited-vulnerability-catalog",
+        "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "990ce945-2936-4059-b6cd-d5f1040400e8",
+        "url": "https://techcrunch.com/2026/10/15/citizen-lab-says-governments-are-abusing-online-ads-to-hack-people-with-zero-click-spyware/",
+        "title": "Citizen Lab says governments are abusing online ads to hack people with ‘zero-click’ spyware",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "3d7e7a17-cb0a-410c-87ff-9361f6b4d2f8",
+        "url": "https://cyberscoop.com/adfection-zero-click-spyware-discover-tech/",
+        "title": "AdFection: How mercenary spyware invades victims’ devices through targeted advertising",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "0043ddcf-2123-42cc-b64c-710901a24cc7",
+        "url": "https://www.wired.com/story/nightmare-scenario-zero-click-spyware-is-infecting-phones-via-targeted-ads/",
+        "title": "‘Nightmare Scenario’: Zero-Click Spyware Is Infecting Phones via Targeted Ads",
+        "source": "Wired security"
+      },
+      {
+        "id": "821b49dd-e3a4-43f9-973a-732f1a0ede8e",
+        "url": "https://thehackernews.com/2026/10/langflows-critical-authenticated-rce.html",
+        "title": "Langflow's Critical Authenticated RCE Flaw Targeted in 1,423 Honeypot Exploit Attempts",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "faa9a1cd-7556-4721-b30a-4dad258c9584",
+        "url": "https://www.darkreading.com/ics-ot-security/eu-grocers-unpatched-fridge-firmware",
+        "title": "EU Grocers Pay a Steep Price for Unpatched Fridge Firmware",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "a243d915-ff38-4e8f-a526-616a94e7a51f",
+        "url": "https://thehackernews.com/2026/10/ahsaycbs-flaws-exploited-to-deploy-web.html",
+        "title": "AhsayCBS Flaws Exploited to Deploy Web Shells Get New Fixes After Incomplete Patches",
+        "source": "The Hacker News"
+      }
+    ]
+  }
+}
