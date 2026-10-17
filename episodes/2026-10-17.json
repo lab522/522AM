@@ -1,0 +1,160 @@
+{
+  "day": "2026-10-17",
+  "title": "AOMEI's five-minute updates left lasting backdoors",
+  "overview": "Attackers briefly altered AOMEI's own update servers to deliver backdoors, then restored genuine files. BeyondTrust and Fortinet now have Monday federal patch deadlines, while new NetScaler findings change the order of incident response. There are also urgent application fixes and a nationwide US bankruptcy-notice outage.",
+  "duration_s": 374,
+  "chars": 5093,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-17.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-17.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Saturday, the seventeenth of October, twenty twenty-six.",
+    "Five minutes was enough to turn a backup tool into a backdoor delivery service. Google Threat Intelligence and Mandiant, alongside ManageEngine's threat lab, have detailed tampering with AOMEI's own update servers between April and July. Backupper is Windows backup and disk-cloning software; it trusts two unsigned text files telling it what to download and run. The download's checksum lives in the same unsigned instructions. Change both, and the checksum proves precisely nothing useful.",
+    "Attackers tracked as UNC7017 changed those files for five to ten minutes, then restored them. Clients polling inside a window received the CROSSROAD downloader and SHINYROAD backdoor; everyone else got genuine files. A signed Radmin binary loaded the malicious DLL. That's a clever way to make the next investigator's download look reassuringly clean. AOMEI says it corrected its servers in July, but ManageEngine hasn't independently confirmed containment, and that doesn't clean infected endpoints. If you run Backupper or AnyViewer, hunt across April to July: look for the RadminComponentRuntime scheduled task and unexpected execution from Backupper's HTML pop-up folder. Preserve cached files and check what network logs show at the original alert time. Google has YARA rules; ManageEngine has Sigma rules. I'd reopen dismissed alerts here. Even current Backupper 8 point 5 point 0 has no changelog entry announcing stronger update verification.",
+    "And on fixes that need checking, a correction to yesterday's BeyondTrust timing: the Remote Support patch shipped on the eighth of October, not at disclosure; SaaS was patched by the ninth. CISA has now added CVE-2026-102764 to KEV, with Monday the nineteenth as the federal deadline. For self-hosted Remote Support, apply BT26-05-RS to versions 24 point 3 point 1 through 26 point 2 point 3; older builds need upgrading first. Self-hosted Privileged Remote Access shares the affected code and needs its own patch too. Shadowserver sees more than fourteen hundred exposed Remote Support instances, though that isn't a count of vulnerable machines. Check the installed patch rather than the closed change ticket, and restrict the administrative interfaces to trusted networks.",
+    "That Monday federal deadline also now applies to the Fortinet flaw behind PEERSTITCH, CVE-2025-61624, patched back in April: fixed FortiOS branches start at 7 point 4 point 10 or 7 point 6 point 5; FortiPAM needs 1 point 7 point 1, FortiProxy 7 point 4 point 12 or 7 point 6 point 5, and FortiSwitchManager 7 point 0 point 7. Meanwhile, Zscaler has shown how attackers exploit NetScaler's previously mentioned CVE-2026-88771, unauthenticated command execution requiring no optional features: they stage payloads in HTTP access logs using User-Agent values beginning INDEX colon followed by Base64. Snapshot and collect forensic evidence before upgrading, because CISA warns updates can erase visibility; use Zscaler's published hunt instructions afterwards.",
+    "Away from gateways, the Commerce part of Wednesday's Adobe batch now has a sharper warning: Sansec calls CVE-2026-103849 BlockStrap, found four potential paths to arbitrary PHP execution within twenty-four hours, and expects mass attacks, though none have been seen. I'd move that ahead of Adobe's thirty-day priority: apply the twenty twenty-six October release or isolated patch, not just a plain Composer install, and retain September's VULN-39341 hotfix. For another application with a working exploit, Rapid7's GitLab CI/CD regex-overflow proof of concept runs commands as the git operating-system account, but requires an attacker to push malicious project content before the unauthenticated lint request. Patch self-managed CE and EE for CVE-2026-97229 to 19 point 4 point 2, or the branch fixes 19 point 3 point 5 and 19 point 2 point 8.",
+    "There's no patch for the next interruption: a cybersecurity incident at BAE Systems has stopped paper and electronic bankruptcy notices for every US federal bankruptcy court since the ninth of October, with no restoration estimate. If you support a bankruptcy practice, arrange alternative notice checks; filings remain open and registered attorneys' electronic filing notifications still work. Back in the deployment queue, Microsoft's Thursday follow-up adds more than thirty fixes, including two dozen Office remote-code-execution flaws, six reachable through the Preview Pane; Microsoft says none has been exploited as a zero-day. Add these to October's rollout, including the updated Mac Office builds, and pick up the ASP.NET Core fixes alongside Identity Web and MSAL for Node.js.",
+    "I'd give the on-call team room for evidence collection before the emergency upgrades. Keep those two jobs on the same ticket so neither disappears at handover. Have a good Saturday.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2025-61624",
+      "CVE-2026-102764"
+    ],
+    "news": [
+      {
+        "id": "b3f98f4c-b31a-4c2e-9580-32abd7b274d7",
+        "url": "https://www.zscaler.com/blogs/security-research/cve-2026-88771-inside-exploitation-critical-netscaler-rce-vulnerability",
+        "title": "CVE-2026-88771: Inside the Exploitation of a Critical NetScaler RCE Vulnerability",
+        "source": "Zscaler ThreatLabz"
+      },
+      {
+        "id": "ca5cddda-fef6-4ba4-a671-06c1a48863c3",
+        "url": "https://www.darkreading.com/endpoint-security/beyondtrust-remote-support-exploited-edge-bugs",
+        "title": "BeyondTrust Remote Support Zero-Day Continues Trend of Exploited Edge Bugs",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "806a9305-0d29-46e7-b67e-7950fdea7726",
+        "url": "https://www.bleepingcomputer.com/news/security/critical-blockstrap-flaw-lets-hackers-run-code-on-magento-servers/",
+        "title": "Critical BlockStrap flaw lets hackers run code on Magento servers",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "c517d76d-9e06-4087-a7ff-0e202dc74e9f",
+        "url": "https://cyberscoop.com/china-espionage-attacks-beyondtrust-zero-day-armory-castle/",
+        "title": "Prolific Chinese espionage group exploits BeyondTrust zero-day",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "bf16e8af-4dea-40fd-a953-d91cafad838c",
+        "url": "https://thehackernews.com/2026/10/attackers-tampered-with-aomei.html",
+        "title": "Attackers Tampered with AOMEI Backupper's Update Servers for Minutes to Deliver a Backdoor",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "5ca59da6-7b45-4225-9a97-40ba36db3fae",
+        "url": "https://cyberscoop.com/bae-systems-cybersecurity-incident-us-bankruptcy-courts/",
+        "title": "Cybersecurity incident at BAE Systems disrupts US bankruptcy court system",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "012fb7cf-4e98-4479-8311-b5eb0c4f3854",
+        "url": "https://www.cybersecuritydive.com/news/china-espionage-beyondtrust-zero-day-hacker/833240/",
+        "title": "China-nexus espionage actor targets BeyondTrust support tool in zero-day campaign",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "40aeec7d-1a9a-48ac-8091-8ed4ed9802a0",
+        "url": "https://cloud.google.com/blog/topics/threat-intelligence/investigating-ephemeral-supply-chain-tampering",
+        "title": "Investigating Ephemeral Supply Chain Tampering",
+        "source": "Google Threat Intelligence"
+      },
+      {
+        "id": "5be55beb-7328-412f-bf2d-f0b308b64f64",
+        "url": "https://www.rapid7.com/blog/post/ra-gitlab-ci-cd-regex-integer-overflow-technical-analysis-cve-2026-97229",
+        "title": "Rapid7 Analysis: GitLab CI/CD Regex Integer Overflow (CVE-2026-97229)",
+        "source": "Rapid7"
+      },
+      {
+        "id": "c9752c45-d73d-4323-b2a8-98be6ac24b29",
+        "url": "https://www.theregister.com/security/2026/10/16/attack-on-bae-managed-system-disrupts-us-bankruptcy-courts/5303487",
+        "title": "Attack on BAE-managed system disrupts US bankruptcy courts",
+        "source": "The Register security"
+      },
+      {
+        "id": "6a04d7fb-a22b-493a-83ba-fda058f3e313",
+        "url": "https://therecord.media/beyond-trust-cyberattack-china",
+        "title": "Suspected Chinese espionage attackers abusing BeyondTrust IT support zero-day",
+        "source": "The Record"
+      },
+      {
+        "id": "c3f4fc87-e899-44f8-9662-fc02b3b97945",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/10/16/cisa-adds-two-known-exploited-vulnerabilities-catalog",
+        "title": "CISA Adds Two Known Exploited Vulnerabilities to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "9a7d3765-9335-406f-b028-0a336c370858",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/10/16/cisa-urges-patching-critical-vulnerability-beyondtrust-remote-support",
+        "title": "CISA Urges Patching Critical Vulnerability in BeyondTrust Remote Support",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "aae72c2b-fd16-42de-971f-a9f9f4555cf3",
+        "url": "https://www.securityweek.com/bae-systems-security-incident-stalls-notices-from-us-bankruptcy-courts/",
+        "title": "BAE Systems Security Incident Stalls Notices From US Bankruptcy Courts",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "f79b9b39-e694-4089-ab15-6db99e7e4a46",
+        "url": "https://www.securityweek.com/chinese-apt-exploited-beyondtrust-vulnerability-as-zero-day/",
+        "title": "Chinese APT Exploited BeyondTrust Vulnerability as Zero-Day",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "06fbeba3-f12d-4117-a4eb-7695b8150090",
+        "url": "https://www.infosecurity-magazine.com/news/china-actor-beyondtrust-flaw-google/",
+        "title": "China Espionage Actor Actively Targeting Critical BeyondTrust Flaw, Google Warns",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "30e7091a-96ee-4cfe-bd0e-96cd3b58528b",
+        "url": "https://www.infosecurity-magazine.com/news/cyber-incident-bae-us-bankruptcy/",
+        "title": "Cyber Incident at BAE Systems Disrupts US Federal Bankruptcy Noticing",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "d3f7b69e-e3c2-40d2-aa77-126bb6aca5e0",
+        "url": "https://www.securityweek.com/microsoft-patches-two-dozen-rce-flaws-in-office/",
+        "title": "Microsoft Patches Two Dozen RCE Flaws in Office",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "fb3cc0d0-2bfb-4e27-8e1b-abe87244f432",
+        "url": "https://www.bleepingcomputer.com/news/security/bae-systems-cyberattack-disrupts-us-federal-court-operations/",
+        "title": "BAE Systems cyberattack disrupts US federal court operations",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "dfd0292d-c02c-4296-a770-4d800d1f8a59",
+        "url": "https://thehackernews.com/2026/10/china-linked-hackers-exploited.html",
+        "title": "China-Linked Hackers Exploited BeyondTrust Zero-Day to Take Over Remote Support Servers",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "344c5c3d-6193-429e-bd10-908382311a34",
+        "url": "https://www.bleepingcomputer.com/news/security/beyondtrust-patches-zero-day-exploited-in-attacks-since-august/",
+        "title": "BeyondTrust patches zero-day exploited in attacks since August",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "ae8436b7-bb2f-4d7e-bb96-1cdd5c31427e",
+        "url": "https://thehackernews.com/2026/10/attackers-exploit-fortios-flaw-to.html",
+        "title": "PEERSTITCH Malware Deployed via FortiOS Flaw Bypasses Checks on Tagged VPN Sessions",
+        "source": "The Hacker News"
+      }
+    ]
+  }
+}

@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-10-17",
+    "title": "AOMEI's five-minute updates left lasting backdoors",
+    "duration_s": 374,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-17.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-17.md"
+  },
+  {
     "day": "2026-10-16",
     "title": "BeyondTrust zero-day turned remote support into a root foothold",
     "duration_s": 376,
