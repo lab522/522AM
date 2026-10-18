@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-10-18",
+    "title": "One backup secret opens Microsoft 365 tenants",
+    "duration_s": 356,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-18.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-18.md"
+  },
+  {
     "day": "2026-10-17",
     "title": "AOMEI's five-minute updates left lasting backdoors",
     "duration_s": 374,

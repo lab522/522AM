@@ -1,0 +1,66 @@
+{
+  "day": "2026-10-18",
+  "title": "One backup secret opens Microsoft 365 tenants",
+  "overview": "Attackers used ConnectWise Cloud Backup's application credential to sign in to 173 Microsoft 365 tenants. MALFEX has a new npm loader, Drupal needs urgent updates, and a US breach settlement holds an IT supplier liable alongside its customer.",
+  "duration_s": 356,
+  "chars": 5259,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-18.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-18.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Sunday, the eighteenth of October, twenty twenty-six.",
+    "The backup application signed in, and Microsoft 365 let it. Attackers have ConnectWise Cloud Backup's own credential, and Huntress has confirmed unauthorised sign-ins across a hundred and seventy-three partner and customer tenants. Every tenant that consented to the application is potentially exposed. Formerly SkyKick, the service backs up cloud mail and files for managed service providers. That means broad permissions already granted, now inherited by whoever holds the secret. No user login took place, so MFA had nothing to challenge.",
+    "Microsoft calls this an active supply-chain attack. Activity began on Thursday, with a script moving through tenants in sorted identifier order, seconds apart. Huntress saw ConnectWise service principals assign themselves directory roles in nearly fifty tenants. In one, the attacker reached Global Administrator and added secrets to other applications in about five minutes. That's the bit I'd worry about: access planted elsewhere won't disappear just because the original door closes.",
+    "ConnectWise shut customer access to Cloud Backup yesterday, with no restoration time, and says it has no indicators that partner backup data was compromised. That's not an all-clear for Microsoft 365. Disable the implicated applications until ConnectWise confirms all credentials have been reset; older tenants may call them SkyKick Cloud Manager. Check Entra's service-principal sign-in logs, especially for one forty-four dot one seventy-two dot sixty-four dot one twenty-eight. Audit application secrets and certificates added since the thirteenth, removing unauthorised additions, and check for directory-role changes by ConnectWise or SkyKick apps. Enable Microsoft Graph activity logs and review OAuth grants. Revoking user sessions won't end application access, and disabling the app only stops new tokens: existing ones can last another ninety minutes.",
+    "And while that trusted application is being disabled, another keeps returning under fresh packaging. The MALFEX npm campaign we covered earlier this month now has imgdecode, with nine hundred and seventy-nine downloads and version 1 point 0 point 3 still live. SafeDep found a nine-line JavaScript wrapper loading a compiled Windows addon. Require the package from a Windows console and it fetches banner dot jpg from GitHub, decrypts it, then injects shellcode into dllhost dot exe. A very small source review can miss a very large problem.",
+    "The operator has been replacing removed packages within hours; imgdecode now stands alone, without its earlier imgbundle dependency. If a Windows developer or build host installed it or the earlier MALFEX chain, treat that host as potentially compromised. Isolate it and check persistence, including the MicrosoftEdgeUpdateService scheduled task and a Registry Run key. Rotate exposed credentials; if wallet seed phrases were stored there, move the funds to new wallets.",
+    "From malicious dependencies to legitimate modules that open an attack path: Drupal has fixed two critical remote-code-execution flaws, and its security team warns exploits could appear within hours or days. Neither is reachable through core alone, but contributed modules or custom code can expose them, including paths needing no authentication. One affects core's Field UI; the other affects Entity List, a contributed module for building entity lists without Views. Exploitation isn't known yet. I'd use that head start, rather than spend Sunday proving every module combination safe.",
+    "For core, the Drupal ten fix is 10 point 6 point 19. On eleven, use 11 point 3 point 19 or 11 point 4 point 10, and update Entity List to 3 point 0 point 10. Drupal twelve pre-releases before beta two are affected too; older unsupported branches get no fix. If you can't upgrade, Drupal calls uninstalling Field UI an effective mitigation. Don't assume Drupal Steward covers every possible attack.",
+    "On the WordPress side, seven flaws span six plugins, led by nine point eight PHP object injection in LearnPress through 4 point 4 point 10, where checkout-email input eventually reaches unserialisation. No fixed releases are named: check vendors for confirmed fixes, otherwise deactivate and remove affected plugins, including WP Booking System through 2 point 1 point 0 point 3, whose booking notification emails are readable without authentication.",
+    "And responsibility for somebody else's software has a financial edge today: New York and Connecticut secured two point seven million dollars from Boston Children's Health Physicians and its IT provider, XTIUM, over a twenty twenty-four breach, holding both liable. The settlement requires a corrective action plan; if you supply IT services, read that alongside the data-security obligations in your client contracts.",
+    "I'd put the ConnectWise tenant checks ahead of the routine Sunday queue. Keep the incident open until you've checked what access the attacker left behind, not just what you've disabled. Have a good Sunday.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-104736",
+      "CVE-2026-92798",
+      "CVE-2026-108123",
+      "CVE-2026-111110",
+      "CVE-2026-100316",
+      "CVE-2026-103899",
+      "CVE-2026-96660"
+    ],
+    "news": [
+      {
+        "id": "39ad5af9-2e4d-4849-a535-52f9d12fb786",
+        "url": "https://databreaches.net/2026/10/17/ny-ag-james-and-ct-ag-tong-secure-2-7-million-from-boston-childrens-health-physicians-and-xtium-for-2024-data-breach/",
+        "title": "NY AG James and CT AG Tong Secure $2.7 Million from Boston Children’s Health Physicians and XTIUM for 2024 Data Breach",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "066b9b5b-50b7-4986-bc68-382f86033c38",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-breach-microsoft-365-tenants-via-connectwise-supply-chain-attack/",
+        "title": "Hackers breach Microsoft 365 tenants via ConnectWise supply-chain attack",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "10445db1-15cb-4637-b1c2-7821f1cb9a43",
+        "url": "https://www.bleepingcomputer.com/news/security/drupal-patches-critical-rce-flaws-warns-exploits-may-emerge-soon/",
+        "title": "Drupal patches critical RCE flaws, warns exploits may emerge soon",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "813ef214-7f02-4df4-8d70-e4e58a862edb",
+        "url": "https://thehackernews.com/2026/10/malfex-npm-package-imgdecode-hides.html",
+        "title": "MALFEX npm Package 'imgdecode' Hides Shellcode Loader in Windows Native Addon",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "02e99182-7acb-4a48-a3cc-69c06cb6964a",
+        "url": "https://thehackernews.com/2026/10/hackers-use-compromised-connectwise.html",
+        "title": "Hackers Use Compromised ConnectWise Credential to Sign In to 173 Microsoft 365 Tenants",
+        "source": "The Hacker News"
+      }
+    ]
+  }
+}
