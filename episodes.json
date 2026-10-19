@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-10-19",
+    "title": "SiteGuard's statistics function becomes a route to root",
+    "duration_s": 312,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-19.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-19.md"
+  },
+  {
     "day": "2026-10-18",
     "title": "One backup secret opens Microsoft 365 tenants",
     "duration_s": 356,
