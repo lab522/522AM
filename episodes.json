@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-10-20",
+    "title": "Plex2Shell turns media servers into somebody else's proxy",
+    "duration_s": 437,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-20.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-20.md"
+  },
+  {
     "day": "2026-10-19",
     "title": "SiteGuard's statistics function becomes a route to root",
     "duration_s": 312,
