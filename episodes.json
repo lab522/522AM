@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-10-22",
+    "title": "PHP attacks predate disclosure; GitLab needs another patch",
+    "duration_s": 368,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-22.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-22.md"
+  },
+  {
     "day": "2026-10-21",
     "title": "PHP patches race the leak; certificate trust needs rebuilding",
     "duration_s": 422,

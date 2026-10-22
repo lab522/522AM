@@ -1,0 +1,334 @@
+{
+  "day": "2026-10-22",
+  "title": "PHP attacks predate disclosure; GitLab needs another patch",
+  "overview": "PHP's emergency fixes are out, with AWS finding an exploit attempt four days before disclosure. GitLab needs another urgent update, while a poisoned LiteLLM release puts credentials at risk and Microsoft names the actor behind the ConnectWise compromise.",
+  "duration_s": 368,
+  "chars": 5190,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-22.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-22.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Thursday, the twenty-second of October, twenty twenty-six.",
+    "The PHP fixes landed yesterday, and the waiting-for-attacks part is over. AWS found an exploit attempt from the seventeenth of October, four days before disclosure, and says PHP2Shell is now broadly exploited. How that actor got the information is still unclear. The mechanism's public now: out-of-memory handling corrupts partially initialised memory, while stale state lets a worker reach memory freed after an earlier request. Together they allow code execution as the web worker, or theft of secrets from its memory. Apache mod_php is the highest-risk deployment: the attack gets in before application code runs.",
+    "Update the PHP runtime to 8 point 5 point 12, 8 point 4 point 27, 8 point 3 point 36 or 8 point 2 point 35, then restart the services and long-running workers. Updating WordPress doesn't do that job. Distribution packages may carry backported fixes; check their changelog. Source backports cover 7 point 4, 8 point 0 and 8 point 1; otherwise get a vendor fix or disconnect. I'd also look backwards, particularly for unusual multipart requests followed by memory-limit errors or repeated HTTP five-hundreds. Hundreds of sites were pulled offline as a precaution. Cortex Xpanse counts over twenty-two point six million exposed instances; Talos reckons roughly half the vulnerable systems will never be patched. And PHP blames Chainguard for shipping fixed images six hours early; its chief executive says attacks were already happening and he'd do it again. That argument won't repair a server.",
+    "Nor does last week's patch settle the GitLab job. There's a different integer overflow in its Onigmo regular-expression compiler, reaching self-managed CE and EE all the way back to 7 point 0. CVE-2026-110264 scores ten and can allow unauthenticated code execution under conditions GitLab hasn't spelled out. That's the frustrating bit: you can't confidently rule yourself out by configuration. No workaround, no public proof of concept, and no known attacks. The fixed releases are 19 point 5 point 1, 19 point 4 point 3, 19 point 3 point 6, 19 point 2 point 9, 19 point 1 point 9, 19 point 0 point 10 and 18 point 11 point 13. Single-node upgrades to the fixed 19 point 4 and 19 point 3 releases need downtime for database changes; GitLab.com is already covered.",
+    "Another server worth moving up the queue: Cisco's Expressway communications gateway has an unauthenticated database-service flaw giving attackers root, alongside information-disclosure and hardening fixes. Follow Cisco's first-fixed-release table; there's no workaround, and older trains need migration. But for LiteLLM, the AI model proxy, the new release was the danger: 1 point 107 point 0 on PyPI and Docker carried a credential stealer and a daemon fetching Python to execute, after stolen GitHub CLI OAuth tokens compromised release approvals. Pin 1 point 106 point 2 by digest, and rotate every secret reachable from affected hosts using a clean machine.",
+    "That trusted-supplier problem has a new attribution at ConnectWise: Microsoft names China-state aligned Storm-0940, using the agentic pentest framework ARTEX against more than two thousand two hundred and fifty tenants, with privileged cloud access achieved in under three hours in several attacks. Phased restoration began Wednesday; keep connections disabled until restoration instructions arrive, and review service-principal sign-ins for unexpected credential or privilege changes.",
+    "Credentials were also being caught on the wire: attackers used Ebury-compromised servers to hijack more than three hundred Tor exit relays in early October, redirecting SSH through password-interception servers. If you accepted an unfamiliar or changed host key over Tor during that window, change the password and check the destination server for Ebury; key-based authentication isn't relayable this way. Back on the endpoint, Chrome 156 brings three hundred and fifty-three security fixes, six critical, with no exploitation mentioned by Google. Push it out and get browsers restarted; an update waiting for a restart isn't finished.",
+    "And a browser restart won't resolve the disruption at Onamae Desktop Cloud, GMO Internet's Japanese VPS service: attackers installed malware on up to twenty-six thousand seven hundred and thirty-nine customer servers, with shutdowns under way across all plans and no restart date. Treat stored secrets as compromised and rotate them; GMO says it won't request passwords or card details by email or phone. One smaller follow-up before you tackle that queue: Mozilla's archive replay has rolled further back into twenty thirteen and twenty fourteen. Those seven republished memory-safety batches aren't new patch work.",
+    "I'd put the runtime owner straight onto PHP, with someone else checking for activity before the fix. And if LiteLLM's poisoned release ran, don't let a rollback stand in for secret rotation. Have a good Thursday.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-110264"
+    ],
+    "news": [
+      {
+        "id": "2756f896-2e41-486c-b507-b6770ff1a954",
+        "url": "https://www.wired.com/story/hackers-exploited-the-php-vulnerabilities-days-before-they-were-patched/",
+        "title": "Hackers Exploited the PHP Vulnerabilities Days Before They Were Patched",
+        "source": "Wired security"
+      },
+      {
+        "id": "dadb3bc6-18cf-48ed-a6e8-94f346d1ca16",
+        "url": "https://www.wordfence.com/blog/2026/10/critical-php-update-wordpress-vulnerabilities-testing/",
+        "title": "Why It’s Urgent to Update PHP on Your WordPress Site: Two Critical PHP Vulnerabilities and What Our Testing Found",
+        "source": "Wordfence"
+      },
+      {
+        "id": "0455979e-6951-48d2-a88e-75a704d1b07e",
+        "url": "https://www.theregister.com/security/2026/10/22/php-blames-supply-chain-security-biz-chainguard-for-putting-huge-chunks-of-the-web-at-risk/5304611",
+        "title": "PHP blames supply chain security biz Chainguard for putting huge chunks of the web at risk",
+        "source": "The Register security"
+      },
+      {
+        "id": "7bf0a910-2a8b-4d1d-983c-8a5b7d13a80d",
+        "url": "https://www.zscaler.com/blogs/security-research/cve-2026-109618-and-cve-2026-109619-php-vulnerable-unauthenticated-rce",
+        "title": "CVE-2026-109618 and CVE-2026-109619: PHP Vulnerable to Unauthenticated RCE Attacks",
+        "source": "Zscaler ThreatLabz"
+      },
+      {
+        "id": "6c72492c-7bec-4eab-8927-23e97340a118",
+        "url": "https://cyberscoop.com/microsoft-attributes-connectwise-supply-chain-attack-china-storm-0940/",
+        "title": "Microsoft pins ConnectWise supply-chain attack to China-state aligned threat group",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "336e15c0-7f51-43ae-968c-f364f5eed41e",
+        "url": "https://www.bleepingcomputer.com/news/security/japans-onamae-desktop-cloud-hacked-up-to-27-000-servers-affected/",
+        "title": "Japan's Onamae Desktop Cloud hacked, up to 27,000 servers affected",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "e0661583-aa8f-4d3d-89b0-43eee67f5acf",
+        "url": "https://blog.talosintelligence.com/compromised-intermediate-certificates/",
+        "title": "Compromised eMudhra intermediate certificates",
+        "source": "Cisco Talos"
+      },
+      {
+        "id": "864ed09f-f594-4a25-9f77-eb29b4d04c1c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2014-01/",
+        "title": "MFSA 2014-01 Miscellaneous memory safety hazards (rv:27.0 / rv:24.3)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "00f8cd1b-518d-4b1b-a6db-1ebe4aff759f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2013-104/",
+        "title": "MFSA 2013-104 Miscellaneous memory safety hazards (rv:26.0 / rv:24.2)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a041360d-f34e-4f64-bc3a-d18d07035011",
+        "url": "https://www.darkreading.com/application-security/php2shell-bugs-red-alert-security-industry",
+        "title": "'PHP2Shell' Bugs Signal Red Alert for Security Industry",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "3fb5e024-f33d-436c-bb6a-a18e030219e3",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-php-october26-Jj384Daq?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Vulnerabilities%20in%20PHP%20Affecting%20Cisco%20Products:%20October%202026%26vs_k=1",
+        "title": "Vulnerabilities in PHP Affecting Cisco Products: October 2026",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "14cc36ff-de46-4236-8688-f6d7bb4de7ae",
+        "url": "https://thehackernews.com/2026/10/critical-gitlab-flaw-cvss-100-could.html",
+        "title": "Critical GitLab Flaw (CVSS 10.0) Could Allow Unauthenticated RCE Across 12 Years of Releases",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "b9ebd294-a2d2-4a50-8d76-faf0412bc1fb",
+        "url": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+        "title": "AI-driven, large-scale nation-state campaign using ARTEX enables supply chain compromise",
+        "source": "Microsoft Security Blog"
+      },
+      {
+        "id": "5156edb2-2b1a-4918-8d0d-788c71f649d4",
+        "url": "https://www.theregister.com/security/2026/10/21/litellm-supply-chain-attack-hoovers-up-passwords-and-secrets/5304548",
+        "title": "LiteLLM supply chain attack hoovers up passwords and secrets",
+        "source": "The Register security"
+      },
+      {
+        "id": "439689cb-3f4d-48c2-917b-d68d054771e2",
+        "url": "https://thehackernews.com/2026/10/litellm-compromised-in-supply-chain.html",
+        "title": "LiteLLM Compromised in Supply Chain Attack Delivering Credential Stealer and Backdoor",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "ac798910-de48-4631-abcf-965d89c0d702",
+        "url": "https://techcrunch.com/2026/10/21/php-armageddon-openai-googles-wiz-find-ancient-holes-panicking-the-internet/",
+        "title": "PHP armageddon: OpenAI, Google’s Wiz find ancient holes, panicking the internet",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "700122ad-ce03-42aa-861d-0557b0faa312",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2014-34/",
+        "title": "MFSA 2014-34 Miscellaneous memory safety hazards (rv:29.0 / rv:24.5)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d849b71e-d12f-4ec3-ac78-128f6c8765d9",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2014-15/",
+        "title": "MFSA 2014-15 Miscellaneous memory safety hazards (rv:28.0 / rv:24.4)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "56cf3fc3-80a4-4df0-abc4-9599245c76d8",
+        "url": "https://therecord.media/php-foundation-statement-critical-vulnerabilities",
+        "title": "PHP says AI review of critical bugs first sparked alarm in August, but signs surfaced in 2024",
+        "source": "The Record"
+      },
+      {
+        "id": "bdd92cfc-4a8f-4ba6-a48c-70696fd1ba22",
+        "url": "https://www.securityweek.com/php2shell-patches-land-as-first-exploitation-attempts-hit-sensors/",
+        "title": "PHP2Shell Patches Land as First Exploitation Attempts Hit Sensors",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "f03d5628-0ece-478f-9854-8331b02e1260",
+        "url": "https://www.wordfence.com/blog/2026/10/psa-php-security-updates-available-for-two-critical-vulnerabilities-update-now/",
+        "title": "PSA: PHP Security Updates Available for Two Critical Vulnerabilities, Update Now",
+        "source": "Wordfence"
+      },
+      {
+        "id": "e016a8df-8ae1-4e30-99af-d5ad6195c8d0",
+        "url": "https://www.malwarebytes.com/blog/bugs/2026/10/php2shell-why-websites-are-going-offline-for-emergency-security-updates",
+        "title": "PHP2Shell: Why websites are going offline for emergency security updates",
+        "source": "Malwarebytes Labs"
+      },
+      {
+        "id": "93a6e55e-0fc9-41b6-a12d-0690f80bfad6",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-expressway-inf-disc-vvYqgSTS?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Expressway%20Series%20Information%20Disclosure%20Vulnerability%26vs_k=1",
+        "title": "Cisco Expressway Series Information Disclosure Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "ad5b7abb-bbcc-43a1-9851-b4f3d086919d",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-vcs-static-cred-hr7EWZ8t?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Expressway%20Series%20Remote%20Code%20Execution%20Vulnerability%26vs_k=1",
+        "title": "Cisco Expressway Series Remote Code Execution Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "125a280c-1b8c-4ef9-8431-3da670b27b2c",
+        "url": "https://security.paloaltonetworks.com/CVE-2026-109618",
+        "title": "CVE-2026-109618 Impact of Critical Vulnerabilities in PHP (CVE-2026-109618, CVE-2026-109619) on Palo Alto Networks Products (Severity: HIGH)",
+        "source": "Palo Alto Networks advisories"
+      },
+      {
+        "id": "27f509a6-2654-49ac-bd53-2c1bfda034d3",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-exwy-hardening-FhcqBVcs?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Expressway%20Series%20Security%20Hardening%20Release:%20October%202026%26vs_k=1",
+        "title": "Cisco Expressway Series Security Hardening Release: October 2026",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "98c4cbb1-6d7e-49c2-8665-db5127d4ae5a",
+        "url": "https://krebsonsecurity.com/2026/10/widespread-php-flaw-may-cause-many-site-outages-today/",
+        "title": "Widespread PHP Flaw May Cause Many Site Outages Today",
+        "source": "Krebs on Security"
+      },
+      {
+        "id": "cf44d5df-bc6d-4f7b-800c-ddd6cae1abc0",
+        "url": "https://www.rapid7.com/blog/post/etr-cve-2026-109618-and-cve-2026-109619-critical-unauthenticated-remote-code-execution-in-php",
+        "title": "CVE-2026-109618 and CVE-2026-109619: Critical Unauthenticated Remote Code Execution in PHP",
+        "source": "Rapid7"
+      },
+      {
+        "id": "1a2b045f-93a0-4bc7-8ad5-5307a90d6e54",
+        "url": "https://securelist.com/tr/php2shell-critical-vulnerabilities-in-php/121596/",
+        "title": "Critical RCE vulnerabilities in PHP (CVE-2026-109618, CVE-2026-109619)",
+        "source": "Securelist"
+      },
+      {
+        "id": "9fc28ed4-bd16-40aa-a5d0-d2f9b3819f24",
+        "url": "https://blog.talosintelligence.com/two-critical-rces-in-php-core/",
+        "title": "Two critical RCEs in PHP core",
+        "source": "Cisco Talos"
+      },
+      {
+        "id": "eac8009c-bb89-4196-9d89-b06659e7987a",
+        "url": "https://www.theregister.com/security/2026/10/21/php-devs-publish-critical-bug-fix-as-site-owners-warned-pull-em-offline-if-youre-unpatched/5304519",
+        "title": "PHP devs publish critical bug fix as site owners warned: Pull 'em offline if you're unpatched",
+        "source": "The Register security"
+      },
+      {
+        "id": "a8213da8-c018-4723-9e3b-91c8a4381971",
+        "url": "https://horizon3.ai/attack-research/vulnerabilities/cve-2026-109618-cve-2026-109619/",
+        "title": "CVE-2026-109618 / CVE-2026-109619 | PHP Core Remote Code Execution Vulnerabilities (PHP2Shell)",
+        "source": "Horizon3"
+      },
+      {
+        "id": "bf3ddaba-d396-498c-95a8-9e98714c4b34",
+        "url": "https://www.wired.com/story/this-is-not-a-drill-2-php-vulnerabilities-are-setting-the-internet-on-fire/",
+        "title": "‘This Is Not a Drill’: Critical PHP Vulnerabilities Are Setting the Internet on Fire",
+        "source": "Wired security"
+      },
+      {
+        "id": "8d2879dd-1c42-4450-8edf-40c90f0544ef",
+        "url": "https://therecord.media/php-script-vulnerabilities-warnings",
+        "title": "Hundreds of websites taken offline as concern grows over two PHP vulnerabilities",
+        "source": "The Record"
+      },
+      {
+        "id": "b2a251ac-6630-47e8-97ea-ef327d90565f",
+        "url": "https://www.cybersecuritydive.com/news/php-website-vulnerabilities/833580/",
+        "title": "Critical PHP vulnerabilities expose vast majority of websites to potential compromise",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "39ff4be7-4dae-42b2-9319-1c2090d5958d",
+        "url": "https://www.bleepingcomputer.com/news/security/php-ships-emergency-patches-for-critical-php2shell-flaws/",
+        "title": "PHP ships emergency patches for critical PHP2Shell flaws",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "7b893aec-f1ec-4f44-93f0-f8c67531c618",
+        "url": "https://www.computerweekly.com/news/366652446/Critical-PHP-flaws-puts-millions-of-websites-at-risk-of-takeover",
+        "title": "What to do as critical PHP flaws puts millions of websites at risk",
+        "source": "Computer Weekly security"
+      },
+      {
+        "id": "93f173d2-fb14-47e5-9b4d-5b37d84f4915",
+        "url": "https://thehackernews.com/2026/10/php-issues-emergency-patches-for-two.html",
+        "title": "PHP Issues Emergency Patches for Two Critical PHP2Shell RCE Flaws as Exploit Attempts Emerge",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "8921dd8f-80c1-4a98-aba0-d208a5d233c0",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2014-48/",
+        "title": "MFSA 2014-48 Miscellaneous memory safety hazards (rv:30.0 / rv:24.6)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "fcbd96db-1884-4f65-879d-a990013880f6",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2014-67/",
+        "title": "MFSA 2014-67 Miscellaneous memory safety hazards (rv:32.0 / rv:31.1 / rv:24.8)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d70823c8-ef8d-4abf-a28a-0109d5b59615",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2014-56/",
+        "title": "MFSA 2014-56 Miscellaneous memory safety hazards (rv:31.0 / rv:24.7)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "2612c41a-a630-4ea7-9289-a8f5cb434a24",
+        "url": "https://www.wiz.io/blog/litellm-compromised-steals-credentials",
+        "title": "LiteLLM Compromised, Steals Credentials",
+        "source": "Wiz"
+      },
+      {
+        "id": "81f66607-5806-4929-9c3b-679ecf8e540f",
+        "url": "https://unit42.paloaltonetworks.com/cve-2026-109618-cve-2026-109619/",
+        "title": "Threat Brief: Critical Vulnerabilities in PHP: CVE-2026-109618, CVE-2026-109619",
+        "source": "Unit 42"
+      },
+      {
+        "id": "3cc345cb-5244-45a9-a690-57758d85e56f",
+        "url": "https://cyberscoop.com/php-emergency-patches-php2shell-vulnerabilities/",
+        "title": "Prepare yourselves: PHP to release emergency fixes for 2 critical vulnerabilities",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "932fc1e8-d174-45f0-bb23-40528c7edba8",
+        "url": "https://www.wiz.io/blog/php2shell-php-rce",
+        "title": "PHP2Shell: AI uncovers critical RCE vulnerabilities affecting 70% of the Internet",
+        "source": "Wiz"
+      },
+      {
+        "id": "bbbbd1fd-58a4-453c-8918-8d1a54972733",
+        "url": "https://www.securityweek.com/memory-bugs-account-for-most-of-chromes-353-new-security-fixes/",
+        "title": "Memory Bugs Account for Most of Chrome’s 353 New Security Fixes",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "10008ed8-f892-4397-b5b8-31a43549bedb",
+        "url": "https://isc.sans.edu/diary/rss/33440",
+        "title": "Critical PHP Vulnerability (CVE-2026-109618, CVE-2026-109619) [infocon yellow], (Wed, Oct 21st)",
+        "source": "SANS ISC"
+      },
+      {
+        "id": "c410dbf5-8e7b-4cf2-9532-965b02d3c2c9",
+        "url": "https://www.ncsc.gov.uk/news/critical-security-issue-affecting-php",
+        "title": "Critical security issue affecting PHP",
+        "source": "NCSC"
+      },
+      {
+        "id": "5add0249-32de-418b-b1b9-3065e2a0eb94",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/10/21/critical-vulnerabilities-php-require-immediate-patching",
+        "title": "Critical Vulnerabilities in PHP Require Immediate Patching",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "5f1cbd9f-dc77-4214-8a21-0d9fc46bbb51",
+        "url": "https://thehackernews.com/2026/10/php2shell-what-actually-protects-you.html",
+        "title": "PHP2Shell: What Actually Protects You Before the 14:00 UTC PHP RCE Patch, and What Doesn't",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "adeb235f-a0ee-419b-8ee7-2648c6ac9d25",
+        "url": "https://thehackernews.com/2026/10/attackers-hijacked-over-300-tor-exit.html",
+        "title": "Attackers Hijacked Over 300 Tor Exit Relays to Intercept SSH Connections",
+        "source": "The Hacker News"
+      }
+    ]
+  }
+}
