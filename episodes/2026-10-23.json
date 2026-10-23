@@ -1,0 +1,207 @@
+{
+  "day": "2026-10-23",
+  "title": "PHP beats ASLR; VeloCloud and Railway need action",
+  "overview": "PHP2Shell now has a demonstrated ASLR bypass, while dozens of UK government services remain unavailable. An exploited VeloCloud flaw needs another upgrade, Railway users need to rotate secrets, and Chrome’s approaching certificate distrust deadline needs attention.",
+  "duration_s": 396,
+  "chars": 5456,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-23.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-23.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Friday, the twenty-third of October, twenty twenty-six.",
+    "PHP2Shell has cleared another hurdle: VulnCheck says its exploit defeats ASLR on x86-64 under PHP's recommended production configuration. It chained a memory leak into code execution on PHP 8 point 4 point 26 with display_errors switched off. So that comforting production setting isn't a shield. The exploit's restricted to paying intelligence customers; its ARM64 work doesn't yet achieve code execution.",
+    "CrowdStrike's testing adds an unpleasantly concrete result: one unauthenticated POST makes an Apache mod_php worker launch a shell and run an attacker-chosen command. Cloudflare's attempt count is into the millions, while Infrawatch puts patching at barely six per cent of visible instances. I'd check the runtime bundled inside someone else's product, not just the PHP estate you knowingly bought.",
+    "And we now have government outage numbers: thirty-two UK services unavailable, four partially unavailable, with no confirmed central-government compromise. Keep that distinction: Horizon3 has validated exploitation with preconditions it's still characterising, while Dataminr reports no known compromises. CERT/CC's new advisory, VU number seven six three four eight eight, gives interim settings where patching can't happen yet. After remediation, verify the fixed build is actually serving requests. The NCSC also wants a hunt for backdoors planted before the fix.",
+    "That same distinction between repaired and clean matters for VeloCloud Orchestrator, the console controlling SD-WAN networks across multiple sites. Arista says attackers are exploiting CVE-2026-114625, a SQL injection that takes even an Enterprise Read Only login up to superuser operator, with possible impact on the host itself. Read-only to operator. That's quite a promotion. It's the third exploited zero-day since late July, and September's fixes don't cover it. On-premises systems need 5 point 2 point 3 point 18, or 6 point 1 point 3 point 10; the fixed 6 point 4 build is 6 point 4 point 2 point 12. Hosted and Dedicated are patched. Until you upgrade, restrict the web interface to trusted administrative networks and review administrator activity for surprises.",
+    "But sometimes the access comes from the platform holding your secrets. Railway, which runs developers' applications and databases, says an intruder may have accessed encrypted environment variables and obtained some decrypted contents. It says only a subset of users is affected, but every user should rotate secrets. That's the instruction I'd follow, rather than waiting for a personal notification. Revoke upstream API keys and replace the credentials stored there, including private registry credentials. Railway invalidated its own API tokens and paused deployments; builds are returning, with queues remaining. Researcher Taylor Monahan says wallets whose private keys were stored there have already been drained. How the variables were decrypted remains undisclosed. Railway suspects attacks targeting AI inference providers; a post-mortem is promised.",
+    "Away from stolen credentials, there's a door that doesn't even require one: ZDI has disclosed two remote-code-execution flaws in KSMBD, Linux's in-kernel SMB server, with no mainline fix; one is unauthenticated. Check whether ksmbd is loaded, unload it if unnecessary, or keep SMB away from untrusted networks pending a stable-tree fix. And on certificate trust, eMudhra is quitting the global TLS business altogether; Chrome removes emSign ECC Root CA - G3 on the morning of the twenty-seventh of October, Pacific time. Inventory that chain and reissue under another Chrome-trusted hierarchy before then: most affected certificates came through ACME, which won't automatically replace them outside their renewal window.",
+    "Keeping a valid certificate won't keep an HTTP/3 service standing, though: FoxIO has released proof-of-concept code for QPACK denial-of-service flaws that can crash servers from one connection. Fixes include quic-go 0 point 57 point 0 and Cloudflare quiche 0 point 29 point 3, alongside lsquic 4 point 9 point 0 and Wireshark 4 point 6 point 2 or 4 point 4 point 12; Bun, Rust's h3 and aioquic were unpatched at disclosure, so keep Bun's HTTP/3 server unexposed, disable HTTP/3 in mitmproxy and set max_field_section_size in h3. Meanwhile, Oracle's quarterly update brings one thousand two hundred and ninety-five fixes: prioritise internet-facing Fusion Middleware and E-Business Suite, with no exploitation flagged for this batch. Its separate Java alert addresses the eMudhra weak-key incident, and the next monthly security update is November the seventeenth.",
+    "And patching reaches below the operating system too: Kaspersky found BlackX, a BlackLotus-like UEFI bootkit, targeting Central Asian diplomatic agencies after attackers had already gained administrator privileges. Apply Microsoft's Baton Drop fixes and Secure Boot revocations: the attackers exploit CVE-2022-21894 to install their own Machine Owner Keys and manipulate Secure Boot.",
+    "I'd give the urgent changes named owners before the Friday queue gets crowded. And I'd want evidence that each change reached production, not just a closed ticket. Have a good Friday.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [],
+    "news": [
+      {
+        "id": "66c636c0-88ba-4efe-ac0d-3420cbc170e8",
+        "url": "https://www.wordfence.com/blog/2026/10/attacks-on-php2shell-continue-but-no-known-compromises-as-a-result-yet/",
+        "title": "Attacks on PHP2Shell Continue, But No Known Compromises as a Result Yet",
+        "source": "Wordfence"
+      },
+      {
+        "id": "c88b02a2-b599-4024-b6ea-dee8ee6231c6",
+        "url": "https://kb.cert.org/vuls/id/763488",
+        "title": "VU#763488: Memory corruption vulnerabilities in PHP",
+        "source": "CERT/CC"
+      },
+      {
+        "id": "42051b19-85c6-4119-8739-781e04fa06ab",
+        "url": "https://www.bleepingcomputer.com/news/security/railway-warns-devs-to-rotate-secrets-after-potential-breach/",
+        "title": "Railway warns devs to rotate secrets after potential breach",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "8e29fb32-f456-4bae-814e-db1fd919724e",
+        "url": "https://www.theregister.com/security/2026/10/22/php2shell-exploit-bypasses-protections-designed-to-stop-remote-code-execution/5304883",
+        "title": "PHP2Shell exploit bypasses protections designed to stop remote code execution",
+        "source": "The Register security"
+      },
+      {
+        "id": "89d502b3-501c-47d3-bf27-789a2455cf15",
+        "url": "https://arstechnica.com/security/2026/10/disgraced-emudhra-drops-out-of-tls-business-following-certificate-debacle/",
+        "title": "Disgraced eMudhra drops out of TLS business following certificate debacle",
+        "source": "Ars Technica security"
+      },
+      {
+        "id": "e9f7a8bf-1df9-413f-9259-b00503f7fb97",
+        "url": "https://thehackernews.com/2026/10/arista-warns-of-critical-velocloud-sql.html",
+        "title": "Arista Warns of Critical VeloCloud SQL Injection Zero-Day Exploited in Attacks",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "be437d3a-c768-423f-bb5d-53661431110a",
+        "url": "https://horizon3.ai/attack-research/attack-blogs/php2shell-exposure-exploitability/",
+        "title": "PHP2Shell Exposure Depends on More Than Whether You Use PHP",
+        "source": "Horizon3"
+      },
+      {
+        "id": "29b97357-9497-4029-a69c-383696fab35e",
+        "url": "https://therecord.media/indian-tech-company-announces-withdrawal-certificate-business-incident",
+        "title": "Indian tech company eMudhra announces withdrawal from certificate business after security incident",
+        "source": "The Record"
+      },
+      {
+        "id": "7e9e8399-caa1-4db6-9cd7-e757e7fadf0b",
+        "url": "https://thehackernews.com/2026/10/emudhra-to-exit-global-ssltls-business.html",
+        "title": "eMudhra to Exit Global SSL/TLS Business After 8 Intermediate CA Keys Found Easily Guessable",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "e2cc6907-e89a-4361-bc3e-f11cfe5a078f",
+        "url": "https://www.bleepingcomputer.com/news/security/arista-patches-new-velocloud-orchestrator-zero-day-exploited-in-attacks/",
+        "title": "Arista patches new VeloCloud Orchestrator zero-day exploited in attacks",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "9b5d2390-ec17-490d-b9ad-635832e7fe31",
+        "url": "https://unit42.paloaltonetworks.com/emudhra-certificate-compromise/",
+        "title": "EMudhra Intermediate CA Certificates Compromised",
+        "source": "Unit 42"
+      },
+      {
+        "id": "0a4282e8-255a-4d1a-8afb-ea29f4be1201",
+        "url": "https://thehackernews.com/2026/10/two-cvss-90-linux-ksmbd-rce-flaws.html",
+        "title": "Two CVSS 9.0 Linux KSMBD RCE Flaws Disclosed on Public Mailing Lists Before Kernel Fixes",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "a6eff5a7-edc4-40db-84c4-3445582ea9ad",
+        "url": "https://www.theregister.com/security/2026/10/22/disgraced-indian-cert-issuer-leaves-the-cert-issuing-business/5304848",
+        "title": "Disgraced Indian cert issuer leaves the cert issuing business",
+        "source": "The Register security"
+      },
+      {
+        "id": "5569a385-b364-490c-8017-ef7a4e8d90cc",
+        "url": "https://www.computerweekly.com/news/366652674/Botched-PHP2Shell-disclosure-revealed-as-panic-continues",
+        "title": "Botched PHP2Shell disclosure revealed as panic continues",
+        "source": "Computer Weekly security"
+      },
+      {
+        "id": "c06cfa66-dcda-47e0-8733-7cf629584a62",
+        "url": "https://www.theregister.com/security/2026/10/22/php2shell-puts-dozens-of-uk-government-services-out-of-service/5304840",
+        "title": "PHP2Shell puts dozens of UK government services out of service",
+        "source": "The Register security"
+      },
+      {
+        "id": "a93986ce-f88c-440a-a38c-da1f708b0d37",
+        "url": "https://arstechnica.com/security/2026/10/hackers-got-a-four-day-head-start-on-epic-php2shell-vulnerability/",
+        "title": "Hackers got a four-day head start on epic PHP2Shell vulnerability",
+        "source": "Ars Technica security"
+      },
+      {
+        "id": "9e213231-2afc-40de-b6c5-eb86906c4271",
+        "url": "https://cyberscoop.com/emudhra-shuts-down-certificate-business-weak-private-keys/",
+        "title": "eMudhra kills its certificate business after researchers cracked its private keys in under a second",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "bcdb1959-339b-46ba-adf2-bea276827f58",
+        "url": "https://techcrunch.com/2026/10/22/developer-platform-railway-urges-all-users-to-revoke-secret-keys-after-cyberattack/",
+        "title": "Developer platform Railway urges ‘all users’ to revoke secret keys after cyberattack",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "0c5382f4-520b-400f-bb5d-4b5cf628a4b3",
+        "url": "https://www.schneier.com/blog/archives/2026/10/new-serious-php-vulnerabilities-released-and-patched.html",
+        "title": "New Serious PHP Vulnerabilities Released and Patched",
+        "source": "Schneier on Security"
+      },
+      {
+        "id": "09689b27-ffe1-42ef-8105-fb88f8ca2470",
+        "url": "https://www.bleepingcomputer.com/news/security/amazon-says-php2shell-exploitation-began-4-days-before-patches/",
+        "title": "Amazon says PHP2Shell exploitation began 4 days before patches",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "a456141c-0b03-4885-ace7-01881ac811fc",
+        "url": "https://www.securityweek.com/tech-and-security-companies-respond-to-php2shell-vulnerabilities/",
+        "title": "Tech and Security Companies Respond to PHP2Shell Vulnerabilities",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "b7c3449e-5112-4812-9ebe-d487cf1087c9",
+        "url": "https://www.theregister.com/cyber-crime/2026/10/22/hackers-pile-on-php2shell-as-aws-reveals-attacks-began-before-disclosure/5304749",
+        "title": "Hackers pile on PHP2Shell as AWS reveals attacks began before disclosure",
+        "source": "The Register security"
+      },
+      {
+        "id": "f55a9e07-82cb-4040-8d20-85b732aa9b1a",
+        "url": "https://thehackernews.com/2026/10/railway-says-intruder-may-have-accessed.html",
+        "title": "Railway Says Intruder May Have Accessed Customer Secrets, Urges Credential Rotation",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "11c03c77-28c4-448b-a9d0-4ade6a1782a1",
+        "url": "https://www.infosecurity-magazine.com/news/php2shell-exploitation-attempt/",
+        "title": "PHP2Shell Exploitation Attempt Detected by Amazon Four Days Before Vulnerability Disclosure",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "93e4d496-3776-4f02-9258-aa84b437a25f",
+        "url": "https://www.securityweek.com/php2shell-exploitation-started-days-before-patches/",
+        "title": "PHP2Shell Exploitation Started Days Before Patches",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "0d866c8c-29c5-409a-959f-0cde39ec374c",
+        "url": "https://www.securityweek.com/oracle-patches-over-1200-vulnerabilities-with-october-2026-cpu/",
+        "title": "Oracle Patches Over 1,200 Vulnerabilities With October 2026 CPU",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "4f3b7784-37a2-4fd6-b896-25dec5d4f0a5",
+        "url": "https://thehackernews.com/2026/10/new-qpack-flaws-can-crash-http3-servers.html",
+        "title": "New QPACK Flaws Can Crash HTTP/3 Servers, Trigger Up to 4,000-Fold Memory Amplification",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "03bb21d2-b790-4908-bf88-3e03e17afe6f",
+        "url": "https://www.theregister.com/security/2026/10/22/certification-authority-emudhra-defends-its-laughably-weak-private-keys/5304647",
+        "title": "Certification authority eMudhra defends its laughably weak private keys",
+        "source": "The Register security"
+      },
+      {
+        "id": "7b121c67-a2bc-4f8f-8eff-6f40b438f612",
+        "url": "https://thehackernews.com/2026/10/someone-tried-to-exploit-php2shell-4.html",
+        "title": "Someone Tried to Exploit PHP2Shell 4 Days Before the Vulnerabilities Were Publicly Disclosed",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "a679ba51-fa8c-4d2c-b341-e40b15450915",
+        "url": "https://securelist.com/uefi-bootkit-blackx/121539/",
+        "title": "How APT41 revived the BlackLotus bootkit to attack diplomatic organizations in Central Asia",
+        "source": "Securelist"
+      }
+    ]
+  }
+}

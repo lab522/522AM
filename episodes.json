@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-10-23",
+    "title": "PHP beats ASLR; VeloCloud and Railway need action",
+    "duration_s": 396,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-23.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-23.md"
+  },
+  {
     "day": "2026-10-22",
     "title": "PHP attacks predate disclosure; GitLab needs another patch",
     "duration_s": 368,
