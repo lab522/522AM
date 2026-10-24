@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-10-24",
+    "title": "PHP's workaround stays; Aruba's management plane needs patching",
+    "duration_s": 356,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-24.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-24.md"
+  },
+  {
     "day": "2026-10-23",
     "title": "PHP beats ASLR; VeloCloud and Railway need action",
     "duration_s": 396,

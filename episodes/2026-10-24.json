@@ -1,0 +1,150 @@
+{
+  "day": "2026-10-24",
+  "title": "PHP's workaround stays; Aruba's management plane needs patching",
+  "overview": "PHP has a third code-execution flaw but no emergency fix, while HPE patches eight maximum-severity ArubaOS vulnerabilities. Monday deadlines arrive for two exploited flaws, and new research tracks ransomware automation and theft of developer credentials.",
+  "duration_s": 356,
+  "chars": 5119,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-24.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-24.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Saturday, the twenty-fourth of October, twenty twenty-six.",
+    "Keep that PHP workaround switched on. A third code-execution flaw, CVE-2026-115560, now has a reserved identifier and an informational advisory, but the fix is waiting for the next regular release. This one needs a peculiar application sequence: configure session.serialize_handler as php_binary or php_serialize, then switch it to php using ini_set before session_start, with upload progress enabled. The PHP Foundation says it doesn't expect that combination in practical use. Fair enough, but SANS also warns there's apparently a bypass for the current fixes. I'd leave session.upload_progress.enabled set to zero until the next update; if you've already done that, leave it alone.",
+    "The exploitation picture has become less alarming, not more: Sophos has retracted its successful-exploitation claim, and attempts to deliver the Potassium Mirai variant failed. There still isn't a publicly confirmed compromise. SANS has returned Infocon to green, and neither original PHP2Shell CVE was in KEV as of Friday morning. That's welcome, but the patching figures aren't: Qualys counted a hundred and ninety-nine thousand instances patched within twelve hours, against forty-four million unpatched on supported branches. Another hundred and ten million were running end-of-life versions. Censys separately puts vulnerable services above thirty-four point four million. Those are different measurements, not numbers to add together.",
+    "And there's a more straightforward patch decision on the wireless management plane. HPE has released seventy-two ArubaOS fixes, including eight maximum-severity flaws affecting AOS-8 and AOS-10. These are the operating systems behind Aruba's enterprise wireless infrastructure, where a compromised controller can put a whole campus network within reach. The bugs include authentication bypasses and unauthenticated injection paths that can end in code execution. No user interaction needed. HPE hasn't found public exploit code or evidence of exploitation, but I'd put this ahead of routine weekend maintenance. Apply its updates for affected releases; while arranging that, restrict CLI and web management to a dedicated administrative network with firewall controls. Don't leave the management plane generally reachable.",
+    "From network management to application dependencies: Pillow, Python's image library, can execute operating-system commands through an attacker-controlled EPS filename, and version 13 point 0 point 0 fixes that alongside other image-processing flaws. Upgrade bundled copies too, but watch the catch: Pillow 13 drops Python 3 point 10, so those deployments need Python 3 point 11 or newer.",
+    "Meanwhile, yesterday's VeloCloud warning now has a deadline: CISA added the Orchestrator flaw to KEV, with US agencies required to fix it by Monday, the twenty-sixth; Arista also says deployments are exposed by default, with no configuration that prevents the exposure. The same Monday deadline now applies to the exploited Nextcloud Collabora Online Built-in CODE Server flaw: update that app to 26 point 4 point 303 or remove it, with CISA identifying proxy.php while CODE isn't running as the trigger.",
+    "Those deadlines sit alongside fresh evidence of what stolen edge access becomes: Group-IB and NyxLab link more than seventy thousand exposed credentials and LDAP dumps to the actor k0t, exploiting FortiWeb and PAN-OS flaws. Check those patches, then rotate the local administrator and LDAP bind credentials held on the appliances. And SOCRadar found an exposed server containing ransomware affiliates' AI-agent intrusion records, showing actual use of SimpleHelp and FortiClient flaws, with cPanel/WHM also exploited. Patch those products against the identified flaws; what catches my eye is that one reused password unlocked access across their victim's platforms, so replacing it with another shared password wouldn't solve much.",
+    "Back inside the application runtime, Imperva's Node2Shell demonstration achieved code execution through crafted Brotli data on the official Node.js 24 point 22 point 0 Linux arm64 image; version 24 point 22 point 1 rejected it, and no exploitation in the wild has been reported. Update bundled Node binaries as well as installations: inbound WAF rules won't cover malicious Brotli responses your application fetches itself.",
+    "And the credentials beside those developer tools are targets too: Check Point has spotted Aokigahara stealing AI-tool authentication files alongside Git and cloud credentials. Treat an infected developer workstation as a credential breach, rotate its secrets from a clean machine, and hunt for unexpected reads of those authentication files.",
+    "I'd get the Aruba changes moving while checking that nobody's removed the PHP mitigation. Keep Monday's KEV deadlines in view if they apply to you. Hope you get a quiet Saturday.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-110447",
+      "CVE-2026-114625"
+    ],
+    "news": [
+      {
+        "id": "625e1c2c-3b1f-4760-b35e-8b058f35da44",
+        "url": "https://isc.sans.edu/diary/rss/33452",
+        "title": "(Reliable)? php2shell exploitability, (Fri, Oct 23rd)",
+        "source": "SANS ISC"
+      },
+      {
+        "id": "61dd09cf-d723-455b-93e4-13cffb90a411",
+        "url": "https://www.theregister.com/security/2026/10/23/theres-a-third-php2shell-bug-but-it-wont-get-an-emergency-fix/5305208",
+        "title": "There's a third PHP2Shell bug, but it won't get an emergency fix",
+        "source": "The Register security"
+      },
+      {
+        "id": "d4d8f916-4c72-45fe-b11c-9dbc5c888e5e",
+        "url": "https://www.darkreading.com/application-security/exposed-php2shell-cyber-experts-advice",
+        "title": "Exposed to PHP2Shell? Cyber Experts Weigh in With Advice",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "da6d45ef-4bae-4cc5-88f4-20c21de4f83c",
+        "url": "https://thehackernews.com/2026/10/exposed-infrastructure-reveals-how.html",
+        "title": "Exposed Infrastructure Reveals How Ransomware Affiliates Used AI Agents to Execute Intrusions",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "e4ed6811-b94c-4182-a267-fcfa10ba5459",
+        "url": "https://www.cybersecuritydive.com/news/php-exploitation-slower-than-expected/833855/",
+        "title": "PHP exploitation moves at slower-than-expected pace, but millions remain at risk",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "1aec457a-4e22-4f63-ba49-4e000ce75582",
+        "url": "https://www.bleepingcomputer.com/news/security/php-shares-mitigation-for-new-and-unpatched-rce-vulnerability/",
+        "title": "PHP shares mitigation for new RCE vulnerability with no patch",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "fb4f5dfe-4a29-47be-a373-78c19d78f7df",
+        "url": "https://thehackernews.com/2026/10/hackers-breach-enterprise-firewalls-and.html",
+        "title": "Hackers Breach Enterprise Firewalls and VPNs, Exposing Over 70,000 Credentials",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "d237da2e-5f5b-4a9a-bdc7-4b1a8038d370",
+        "url": "https://isc.sans.edu/diary/rss/33450",
+        "title": "PHP Vulnerability Wrap-Up, (Fri, Oct 23rd)",
+        "source": "SANS ISC"
+      },
+      {
+        "id": "bb95357e-a438-4601-8ec8-6aacba91e84a",
+        "url": "https://research.checkpoint.com/2026/infostealer-riding-the-ai-train/",
+        "title": "Infostealer riding the AI Train",
+        "source": "Check Point Research"
+      },
+      {
+        "id": "05b775d9-ae1a-41d1-a60d-8e62370171f6",
+        "url": "https://www.bleepingcomputer.com/news/security/hpe-patches-eight-max-severity-rce-and-auth-bypass-aos-flaws/",
+        "title": "HPE patches eight max severity RCE and auth bypass AOS flaws",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "62835f09-d4d2-4812-aa3f-4e650f6cf00a",
+        "url": "https://www.securityweek.com/mirai-botnet-operators-join-php2shell-attacks-as-aslr-bypass-exploits-emerge/",
+        "title": "Mirai Botnet Operators Join PHP2Shell Attacks as ASLR Bypass Exploits Emerge",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "2b9a854b-212b-4761-8d25-455acf191269",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/10/23/cisa-adds-one-known-exploited-vulnerability-catalog",
+        "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "bb9f5099-8833-414f-ad57-5d13388635da",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/10/23/cisa-adds-one-known-exploited-vulnerability-catalog-0",
+        "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "8ee90e85-6abb-41f9-b759-a5d42ba6b94a",
+        "url": "https://thehackernews.com/2026/10/urgent-php-warns-of-another-unpatched.html",
+        "title": "URGENT - PHP Warns of Another Unpatched RCE Two Days After Emergency PHP2Shell Patches",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "4a533161-aead-424b-a022-12f875f820ce",
+        "url": "https://www.draytek.co.uk/support/security-advisories/kb-advisory-php2shell-oct2026",
+        "title": "23/10/2026 - PHP2Shell / CVE-2026-109618 and CVE-2026-109619",
+        "source": "DrayTek UK advisories"
+      },
+      {
+        "id": "d406c9b3-dbb6-42e6-a7b4-d10cb1d28e7c",
+        "url": "https://www.securityweek.com/attackers-exploit-third-velocloud-orchestrator-zero-day-in-four-months/",
+        "title": "Attackers Exploit Third VeloCloud Orchestrator Zero-Day in Four Months",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "607a62a8-169c-4cf1-8ec6-8de18ac87c78",
+        "url": "https://thehackernews.com/2026/10/critical-flaw-in-pythons-popular-pillow.html",
+        "title": "Critical Flaw in Python’s Popular Pillow Image Library Allows Code Execution via a Crafted Image",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "71226f60-b9ed-45cc-a7e3-e36db4a1311d",
+        "url": "https://thehackernews.com/2026/10/researchers-demonstrate-node2shell-rce.html",
+        "title": "Researchers Demonstrate Node2Shell RCE Exploit on Node.js Build Using Crafted Brotli Data",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "5e72f6ec-022b-49b0-ad6c-1f8f7f74934b",
+        "url": "https://thehackernews.com/2026/10/php2shell-exploit-attempts-hit-millions.html",
+        "title": "PHP2Shell Exploit Attempts Hit Millions as Attackers Try to Deploy Mirai Malware",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "37b8ae93-cfaa-45fd-8dc4-5048156d7d90",
+        "url": "https://therecord.media/php-php2shell-exploitation-attempts-pocs",
+        "title": "Reports of PHP bug exploitation attempts grow as experts downplay viability of exploits",
+        "source": "The Record"
+      }
+    ]
+  }
+}
