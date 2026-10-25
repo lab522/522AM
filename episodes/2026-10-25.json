@@ -1,0 +1,68 @@
+{
+  "day": "2026-10-25",
+  "title": "LiteLLM’s unrevoked key; Brotli fixes reach beyond Node",
+  "overview": "LiteLLM traces its poisoned release to a master key leaked in May and never revoked. Brotli fixes now reach beyond Node.js, while PHP compromise claims and fully patched BlackX victims change the response picture. There’s also a fresh batch of critical WordPress plugin flaws.",
+  "duration_s": 320,
+  "chars": 4516,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-25.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-25.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Sunday, the twenty-fifth of October, twenty twenty-six.",
+    "That poisoned LiteLLM release we covered on Thursday now has an entry point: the project's own master key, published in a public repository in May and never revoked. The commit was force-pushed away. The credential wasn't. On the tenth of October, an attacker used it to extract an unscoped GitHub CLI OAuth token belonging to the organisation owner, opening every repository. So the earlier theory about tokens leaking through internal logs is out.",
+    "Socket recovered harvesting workflows from deleted, short-lived ci-tmp branches: they stole two maintainers' tokens alongside provider keys and database credentials. And LiteLLM admits release approval had just been relaxed from a device-locked account to any two engineers. With their tokens stolen, that wasn't much of a second opinion. The cleanup detail I'd act on first comes from Microsoft: malicious Python startup files sit outside the application directory, so removing LiteLLM alone can leave them behind. If you installed the poisoned 1 point 107 point 0 release, hunt those files separately and rotate every credential reachable from the host. Re-pull affected container images now the tags point to verified clean copies, and check logs for webhook dot site destinations and litellm dot dev slash healthcheck.",
+    "And there's another dependency where updating the obvious package won't finish the job. Yesterday's Brotli problem reaches beyond Node.js: each product bundling Google's decoder needs its own update. Bun, the JavaScript runtime, is fixed in 1 point 4 point 4. Python needs Brotli 1 point 2 point 1 or brotlicffi 1 point 2 point 1 point 0. Here's the nasty catch: merely installing those Python packages makes common HTTP clients decode Brotli responses automatically. Dependabot won't flag them because GitHub's advisory lists no affected package. If you can't update, uninstall those bindings.",
+    "For Envoy proxies with Brotli decompression enabled, fixed releases are 1 point 40 point 0, 1 point 39 point 3, 1 point 38 point 6, 1 point 37 point 8 and 1 point 36 point 12. Its service-mesh neighbour Istio needs 1 point 31 point 2, 1 point 30 point 6 or 1 point 29 point 9. Google's C library fixes are 1 point 0 point 10, 1 point 1 point 1 and 1 point 2 point 1; cdxgen needs 13 point 5 point 0 or 12 point 8 point 9. Rebuild images and restart. What bugs me is that the fix had been sitting in Brotli's source since February, without anyone recognising its security significance.",
+    "From bundled libraries to website plugins: six new critical WordPress flaws include an administrator-login bypass in asVereinbase, fixed in 1 point 1 point 8, and object injection through stored comments in Prime Mover through 2 point 2 point 1. Other affected ranges are Paytium through 5 point 0 point 5 for object injection, Newsletters through 4 point 18 point 1 for object and SQL injection, and Product Filter by WBW through 3 point 4 point 6 for blind SQL injection; move beyond those ranges to confirmed fixes, or deactivate and remove them until fixes are available. And underneath those sites, the PHP exploitation picture has changed: TechCrunch cites Palo Alto Networks and Trail of Bits reporting confirmed compromises and post-exploit activity, while the PHP Foundation still says it hasn't seen successful exploitation. The origin story also confirms AI-assisted discovery and weaponisation by Calif, with independent AI-assisted findings from OpenAI and Wiz; operationally, finish patching affected runtimes, including bundled copies, and hunt for footholds dating from before the fixes.",
+    "But patch status alone isn't the whole answer: Kaspersky says every BlackX victim ran fully patched Windows, with attribution now pointing to APT41 at medium confidence. The missing step was manual Secure Boot revocation, so follow Microsoft's Baton Drop instructions to trigger it and blocklist Windows Production PCA 2011; that certificate's expiry doesn't stop vulnerable binaries loading.",
+    "I'd give the LiteLLM cleanup a separate owner from the package rollback, so those startup files don't fall between jobs. And I'd ask for evidence that Secure Boot revocations actually ran, rather than another green patching dashboard. Hope you get a peaceful Sunday.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-115806",
+      "CVE-2026-114196",
+      "CVE-2026-94075",
+      "CVE-2026-111402",
+      "CVE-2026-112866",
+      "CVE-2026-110956"
+    ],
+    "news": [
+      {
+        "id": "ed5562c4-929a-4f0b-930e-0ce3f0c07883",
+        "url": "https://techcrunch.com/2026/10/24/will-ai-expose-the-rickety-infrastructure-of-the-internet/",
+        "title": "Will AI expose the rickety infrastructure of the internet?",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "ddd0c079-f8f3-4fd7-a135-dd3a5f8dd3b9",
+        "url": "https://techcrunch.com/2026/10/24/php-ocalypse-how-two-critical-web-bugs-almost-broke-the-internet/",
+        "title": "PHP-ocalypse: How two critical web bugs almost broke the internet",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "739e866a-4c25-4889-88a3-bc4e64971a31",
+        "url": "https://www.bleepingcomputer.com/news/security/blackx-uefi-bootkit-exploits-baton-drop-flaw-to-bypass-secure-boot/",
+        "title": "BlackX UEFI bootkit exploits Baton Drop flaw to bypass Secure Boot",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "5128c0ac-9c46-4324-84c9-d62dde2ec428",
+        "url": "https://www.wired.com/story/kernel-panic-the-php-meltdown-shows-how-ai-makes-bugs-more-exploitable/",
+        "title": "The PHP Meltdown Shows How AI Makes Bugs More Exploitable",
+        "source": "Wired security"
+      },
+      {
+        "id": "5b01bb51-1aa7-4b36-bf68-b603a775c32c",
+        "url": "https://thehackernews.com/2026/10/leaked-litellm-master-key-let-attackers.html",
+        "title": "Leaked LiteLLM Master Key Let Attackers Steal GitHub Tokens and Hijack Release Pipeline",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "6c5b0438-9544-415d-9049-7e68a0bbf1ba",
+        "url": "https://thehackernews.com/2026/10/brotli-decoder-flaw-behind-nodejs-rce.html",
+        "title": "Brotli Decoder Flaw Behind Node.js RCE Also Affects Bun, Python and Other Widely Used Software",
+        "source": "The Hacker News"
+      }
+    ]
+  }
+}
