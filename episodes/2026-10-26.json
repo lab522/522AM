@@ -1,0 +1,60 @@
+{
+  "day": "2026-10-26",
+  "title": "Gheist raids private repos; PHP compromise claim retracted",
+  "overview": "Gheist uses stolen GitHub tokens to dump secrets through Actions logs, while poisoned instruction files turn coding agents against their owners. Unit 42 walks back a PHP2Shell compromise claim, and an unconfirmed Tailscale SSH escalation warrants checking access rules.",
+  "duration_s": 390,
+  "chars": 5616,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-26.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-26.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Monday, the twenty-sixth of October, twenty twenty-six.",
+    "Another stolen-token campaign on GitHub, but separate from yesterday's LiteLLM breach. Wiz calls it Gheist: more than thirteen thousand five hundred planted branches across more than eight hundred and fifty compromised accounts. It pushes a sync-check workflow into every repository a stolen token can reach, then makes Actions print the secrets into its own log.",
+    "GitHub masks secrets when they appear verbatim. Encode them in base thirty-two and the mask misses them. The attacker downloads the log through GitHub's API, then deletes the run seconds later. No attacker domain to block. Setting the workflow's permissions to empty doesn't restrict its access to secrets, either, and a newer version reaches environment-scoped production credentials. That's the bit I'd check before trusting a reassuring-looking workflow.",
+    "There's a useful divide here: GitHub's approval hold stopped every public run Wiz checked. It doesn't cover private repositories or Enterprise Server, where Wiz saw successful exploitation and follow-on activity, including AWS Secrets Manager enumeration. Hunt for ci-sync- branches with six-character suffixes, adding .github/workflows/sync-check.yml with the message 'ci: sync config'. Look for runs deleted within a minute and the gheist user agent. Don't approve held sync-check runs. Revoke the pushing tokens and rotate every secret available to affected repositories, including environment secrets. If a self-hosted runner ran one of those branches, treat the host and its instance role as compromised. For OIDC, check cloud logs for role assumptions whose subject contains a ci-sync- branch.",
+    "And a file doesn't need to be a workflow to borrow your tools. Forever Security found a malicious AGENTS.md in a customer's Downloads folder, where a coding agent was running. The agent read it as instructions and tried to install the malicious npm package function-color. Researchers reproduced instruction-file poisoning against Codex; a related CLAUDE.md test redirected Claude Code's API traffic, exposed its OAuth token and let the researcher's server send back code-executing tool calls.",
+    "The uncomfortable detail is that a web page could silently download the instruction file into Downloads. There's no patch coming: loading those instructions is intended behaviour. I'd call that a trust boundary disguised as a folder choice. Start agents in the specific project root, not Downloads or your home directory, and review unfamiliar instruction files. Keep approval prompts and sandboxing enabled. If an agent ran from Downloads, treat the box as suspect: check for function-color and rotate agent OAuth tokens.",
+    "From instructions that really did steer an agent to an attack claim that needs correcting: yesterday we cited confirmed PHP2Shell compromises. Unit 42 has now withdrawn its attribution of the European government agency's initial access to those PHP flaws. The post-compromise activity stands; the claimed way in doesn't. That distinction matters.",
+    "Meanwhile, CYFIRMA describes twenty-one compromised nodes probing two hundred and sixteen hosts, with moderate-confidence links to the Lazarus ecosystem. The nodes get dropped when blocked, so threshold alerts may miss the campaign. Arctic Wolf links some reported attacks to the Potassium botnet. Qualys and Ox Security put more than ninety-nine per cent of vulnerable PHP servers still unpatched, and seventy-three per cent of internet PHP assets vulnerable; Bitsight counts nearly thirty-seven million exposed PHP-related systems overall. Those aren't interchangeable populations.",
+    "For hunting, ReliaQuest has published a sequence correlating PHP and Apache logs with system logs. Defused Cyber sees GlobalProtect honeypot probes from 204 dot 76 dot 203 dot 7; watch for the upload-progress marker p2s-rider. One narrower mitigation update: for CVE-2026-115560, applications that never change the serialisation handler at runtime can leave session upload progress enabled.",
+    "And uncertainty matters just as much on the private network. A researcher at Cyberdione Labs says Tailworm can turn one compromised Tailscale device into root on other servers its SSH rules permit it to reach. Tailscale is the mesh VPN joining your machines; headscale is its self-hosted control-plane alternative. The lab tested Tailscale 1 point 104 point 2 and headscale 0 point 29 point 5.",
+    "The claimed mechanism uses allowed SSH port forwarding to make the root-level Tailscale process reach a privileged socket. But Tailscale hasn't confirmed the technical claims, nobody else has reproduced them, and the proof of concept isn't public. No fixed version yet. I wouldn't call it a proven worm.",
+    "If you allow Tailscale SSH forwarding, disable it per rule on the hosted service and narrow broad grants to individual source-to-destination pairs. The researcher says headscale 0 point 29 point 5 can't disable forwarding. Remove app-connector permissions and serve forwards to Unix sockets; enable node-key expiry. Delete compromised devices through the control plane: reimaging won't revoke copied keys.",
+    "I'd put a named owner on the private-repository hunt before the Monday queue takes over. And keep the Tailscale question open for vendor confirmation, rather than treating either silence or a dramatic headline as an answer. Hope your Monday starts quietly.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [],
+    "news": [
+      {
+        "id": "cab608ca-234a-487c-bba2-005aa73a53cf",
+        "url": "https://news.risky.biz/risky-bulletin-while-everyone-was-looking-at-php-another-rce-is-wrecking-whats-left-of-the-internet/",
+        "title": "Risky Bulletin: While everyone was looking at PHP, another RCE is wrecking what's left of the internet",
+        "source": "Risky Business News"
+      },
+      {
+        "id": "428e0184-625a-49fc-bdee-958d5095ad3b",
+        "url": "https://www.wiz.io/blog/gheist-attempted-scaled-abuse-of-stolen-github-tokens-stumbles",
+        "title": "Gheist: Attempted Scaled Abuse of Stolen GitHub Tokens Stumbles",
+        "source": "Wiz"
+      },
+      {
+        "id": "10102d0e-a4cd-4b42-bd23-3bf5d68d547a",
+        "url": "https://thehackernews.com/2026/10/unpatched-tailscale-ssh-flaws-could-let.html",
+        "title": "Unpatched Tailscale SSH Flaws Could Let a Hacked Device Reach Root on Other Servers",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "3ad246dd-8237-4b46-beae-1f3a0ba58277",
+        "url": "https://thehackernews.com/2026/10/php2shell-exploitation-hits-government.html",
+        "title": "PHP2Shell Exploitation Hits Government Entity Amid Global Scanning and Signs of AI-Assisted Hacking",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "2c9b7e04-3209-4894-993d-a8582c4449dd",
+        "url": "https://www.bleepingcomputer.com/news/security/ai-coding-agents-hijacked-using-agentsmd-file-in-downloads-folder/",
+        "title": "AI coding agents hijacked using AGENTS.md file in Downloads folder",
+        "source": "BleepingComputer"
+      }
+    ]
+  }
+}
