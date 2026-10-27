@@ -1,0 +1,189 @@
+{
+  "day": "2026-10-27",
+  "title": "PHP2Shell enters KEV; Brotli rebuilds widen the patch queue",
+  "overview": "Confirmed PHP2Shell exploitation brings a federal patch deadline and industrial-product advisories. Brotli fixes reach .NET and Windows PHP, while active campaigns target online shops, Dahua cameras and developer repositories. Older iPhones also get an already-exploited flaw fixed.",
+  "duration_s": 391,
+  "chars": 5199,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-27.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-27.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Tuesday, the twenty-seventh of October, twenty twenty-six.",
+    "There's now solid exploitation evidence for PHP2Shell, separate from the government-agency attribution withdrawn yesterday. Perplexity's honeypots caught thirty-five working shells from two addresses on Saturday. CISA has added CVE-2026-109618 and CVE-2026-109619 to KEV, with Thursday, the twenty-ninth, as the fix deadline for US agencies. I'd treat that as a ceiling, not a booking slot.",
+    "The captured chain used four stages against PHP 8 point 4 point 26 under Apache mod_php: exhaust memory, then leak it, before executing a shell command. That traffic matches the public proof of concept for the first flaw; no second-stage download was observed. The application framework doesn't protect you from a bug underneath it. Patch to 8 point 5 point 12 or 8 point 4 point 27; on older branches, 8 point 3 point 36 or 8 point 2 point 35.",
+    "And check the PHP inside appliances. Industrial vendors now have product advisories: Schneider's Security Expert fix is 1 point 48 point 4 point 0; Belden's NetModule NRSW has no patch, so disable its web interface. Infrawatch counts about nineteen per cent patched globally, with the UK at a quarter. A pentester also bypassed ASLR on a live target for a two-thousand-dollar Bitcoin prize. Weaponisation demonstrated, not automation at scale. Hunt for unexplained worker crashes alongside unusual multipart requests.",
+    "That PHP patch queue now has a Windows wrinkle: the Brotli follow-up. The rebuilt packages need the dash-one suffix, carrying Brotli 1 point 2 point 1. Same PHP versions, but php dash v won't distinguish them; check the filename and SHA-256. That's an irritatingly easy way to declare victory one rebuild early. cURL automatic decompression reaches the flaw, and Guzzle enables it by default.",
+    "Microsoft's emergency fixes are .NET 8 point 0 point 33 and 9 point 0 point 22, or 10 point 0 point 14 and .NET 11 Release Candidate 3. Exposure requires opting into Brotli processing, including HTTP decompression. Restart applications after updating; self-contained builds and container images need rebuilding. Visual Studio and PowerShell have updates too. There's still no reported malicious exploitation.",
+    "For PAN-OS, the exposed dataplane needs both Brotli inspection and TLS decryption enabled; 10 point 2 and 11 point 1 aren't affected, nor is Panorama. Hotfixes are scheduled from today through Friday. Until yours lands, run set system setting brotli-encoding disable. One hotfix generally covers PHP and Brotli, but 11 point 2 point 10 dash h sixteen covers only PHP; h seventeen covers both. And the reach keeps widening: JFrog demonstrated an FFmpeg path through libjxl using a JPEG XL image, while Apache Arrow faces denial of service. Fortinet's still investigating FortiOS. With this much emergency noise, the actual enabled feature matters more than another nickname.",
+    "Away from patch availability and into active intrusions, Sansec counts nine hundred and fifty-three infected shops, mostly Magento, whose cms_block loader screens out scanners and serves code to real shoppers; the final payload hasn't been captured. Audit cms_block and cms_page alongside administrator accounts: a fully patched store was reached through a rogue admin, so patch status isn't clearance.",
+    "That persistence problem extends to cameras: CERT-UA warns of compromised Dahua devices with unauthorised accounts, so disable Easy4IP cloud access where unnecessary and update firmware. Hunt.io says rogue accounts and recovery codes can survive password changes and most factory resets, though it hasn't linked these cases to its earlier campaign.",
+    "And for developers, JFrog says the testmetest npm worm armed forty-two GitHub repositories, hiding roughly thirteen-megabyte payloads that code search won't return. Check repository files and execution hooks directly, and isolate affected machines before rotating credentials from a clean device: revoking the stolen GitHub token can trigger a home-directory wiper.",
+    "For a more straightforward patch job, Apple's three hundred and four fixes include the already-exploited CoreGraphics flaw, CVE-2026-86950, now fixed on the older line in iOS and iPadOS 18 point 7 point 11. Prioritise those devices; none of the newly disclosed flaws is marked exploited.",
+    "But a convincing support chat needs no software flaw: Arctic Wolf describes hundreds of cases where an inbox flood precedes fake IT support on Teams, persuading victims to grant remote access, with related activity ending in Chaos ransomware. Restrict external chats to approved partner domains and investigate that pairing even without suspicious URLs; meanwhile, Mozilla's archive replay has merely reached MFSA 2013-76 and 2013-93.",
+    "I'd give the appliance patch queue an owner before the morning handover. For Windows PHP, ask for the package filename as evidence of completion, rather than another reassuring version screenshot. Hope your Tuesday starts quietly.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-109618",
+      "CVE-2026-109619"
+    ],
+    "news": [
+      {
+        "id": "d3704867-0854-4e54-a392-81b86218474a",
+        "url": "https://cyberscoop.com/brotli-critical-vulnerability-decompression-library-node2shell-broccoli2shell/",
+        "title": "Experts temper emergency-level alarms over critical Brotli defect",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "df03de78-32d9-4545-95cb-9b590b213131",
+        "url": "https://isc.sans.edu/diary/rss/33458",
+        "title": "Apple Patches for October 2026, (Mon, Oct 26th)",
+        "source": "SANS ISC"
+      },
+      {
+        "id": "87503507-d3b1-43d0-884d-425da653707b",
+        "url": "https://www.theregister.com/security/2026/10/26/worm-armed-42-github-repos-by-hiding-a-payload-too-big-to-fail/5305570",
+        "title": "Worm armed 42 GitHub repos by hiding a payload too big to fail",
+        "source": "The Register security"
+      },
+      {
+        "id": "1cc34b95-85a5-4813-ad7f-1bdf0791f6b3",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2013-76/",
+        "title": "MFSA 2013-76 Miscellaneous memory safety hazards (rv:24.0 / rv:17.0.9)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "08a76520-6d41-4a14-b19a-0aa563a131e1",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2013-93/",
+        "title": "MFSA 2013-93 Miscellaneous memory safety hazards (rv:25.0 / rv:24.1 / rv:17.0.10)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "8785f117-0df7-4a2d-bf9b-2c6110e71537",
+        "url": "https://security.paloaltonetworks.com/CVE-2026-111497",
+        "title": "CVE-2026-111497 Portfolio Status: Impact of Brotli Vulnerability (CVE-2026-111497) on Palo Alto Networks Products (Severity: CRITICAL)",
+        "source": "Palo Alto Networks advisories"
+      },
+      {
+        "id": "241fa712-f51f-4e30-9a43-8bd59f95cbce",
+        "url": "https://thehackernews.com/2026/10/hackers-infect-953-online-stores-with.html",
+        "title": "Hackers Infect 953 Online Stores With Scanner-Evading JavaScript, Mostly on Magento",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "83bf3e96-38be-4af7-84ad-192297620568",
+        "url": "https://www.theregister.com/security/2026/10/26/microsoft-releases-emergency-net-security-fixes-for-google-brotli-bug/5305515",
+        "title": "Microsoft releases emergency .NET security fixes for Google Brotli bug",
+        "source": "The Register security"
+      },
+      {
+        "id": "b367d276-60ca-4261-b082-704e18924b2d",
+        "url": "https://thehackernews.com/2026/10/php-issues-second-windows-security.html",
+        "title": "PHP Issues Second Windows Security Update in Five Days to Fix Brotli Code Execution Flaw",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "8b42bf19-e01d-4e1b-adce-f7f64c894839",
+        "url": "https://www.rapid7.com/blog/post/etr-cve-2026-111497-critical-out-of-bounds-write-in-the-node-js-brotli-decoder",
+        "title": "CVE-2026-111497: Critical out-of-bounds write in the Node.js Brotli decoder",
+        "source": "Rapid7"
+      },
+      {
+        "id": "219f9b73-f3bc-4598-a377-78bb1a1cc75c",
+        "url": "https://www.computerweekly.com/news/366652698/EU-makes-progress-towards-PHP-patching-UK-lags-behind",
+        "title": "EU makes progress towards PHP patching, UK lags behind",
+        "source": "Computer Weekly security"
+      },
+      {
+        "id": "134da9b3-8250-4156-84d5-65e74d51cd4a",
+        "url": "https://www.bleepingcomputer.com/news/security/critical-http2shell-brotli-vulnerability-triggers-emergency-patches/",
+        "title": "Critical 'HTTP2Shell' Brotli vulnerability triggers emergency patches",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "8b1e1993-2a28-45ef-bca6-65e8a501910c",
+        "url": "https://www.theregister.com/security/2026/10/26/uk-pentester-killa-claims-2k-bitcoin-prize-in-php2shell-capture-the-flag-contest/5305429",
+        "title": "UK pentester 'killa' claims $2K Bitcoin prize in PHP2Shell capture-the-flag contest",
+        "source": "The Register security"
+      },
+      {
+        "id": "60d5c2fa-7fdb-4394-937e-4e7f022bd69e",
+        "url": "https://thehackernews.com/2026/10/attackers-use-microsoft-teams-it.html",
+        "title": "Attackers Use Microsoft Teams IT Support Scams to Deploy Malware and Ransomware",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "ba0c0eba-3dd9-460e-82a8-db65720130a6",
+        "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-releases-emergency-net-patches-for-critical-brotli-flaw/",
+        "title": "Microsoft releases emergency .NET patches for critical Brotli flaw",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "ba1307c7-3844-4fe4-98d9-29ddc7b90954",
+        "url": "https://www.securityweek.com/industrial-vendors-check-products-for-php2shell-vulnerabilities/",
+        "title": "Industrial Vendors Check Products for PHP2Shell Vulnerabilities",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "f1065586-d3f4-464c-884c-585684abbb49",
+        "url": "https://therecord.media/ukraine-cert-ua-warning-chinese-dahua-cameras-hacked",
+        "title": "Ukraine warns hackers are exploiting Chinese-made Dahua surveillance cameras",
+        "source": "The Record"
+      },
+      {
+        "id": "606759af-848b-4588-a5d5-26d3121305dd",
+        "url": "https://www.securityweek.com/php2shell-exploitation-moves-from-probes-to-working-shells/",
+        "title": "PHP2Shell Exploitation Moves From Probes to Working Shells",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "7fb9832a-faa2-4db4-9e62-13aff09c5b93",
+        "url": "https://www.securityweek.com/953-online-stores-infected-in-long-lasting-malware-campaign/",
+        "title": "953 Online Stores Infected in Long-Lasting Malware Campaign",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "c71839a0-f2eb-4b8b-bffb-5ef115d94827",
+        "url": "https://www.infosecurity-magazine.com/news/microsoft-patch-update-net-flaw/",
+        "title": "Microsoft Issues Emergency Patch Update for Critical .NET Buffer Overflow Flaw",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "1bdddeb2-23f7-47a7-a796-34d97a16e60b",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/10/26/cisa-adds-two-known-exploited-vulnerabilities-catalog",
+        "title": "CISA Adds Two Known Exploited Vulnerabilities to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "5833e509-0306-41c0-afec-f437a2b4584e",
+        "url": "https://www.securityweek.com/node2shell-brotli-flaw-triggers-patching-across-microsoft-node-js-python-packages/",
+        "title": "Node2Shell: Brotli Flaw Triggers Patching Across Microsoft, Node.js, Python Packages",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "639dbe4b-47fc-47b4-9ec0-d5c847cf7304",
+        "url": "https://www.bleepingcomputer.com/news/security/php2shell-security-flaws-now-sucessfully-exploited-in-the-wild/",
+        "title": "PHP2Shell security flaws now sucessfully exploited in the wild",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "2fa66931-10eb-4326-b5a1-bd587b9afef0",
+        "url": "https://www.infosecurity-magazine.com/news/php-publishes-mitigation-advice/",
+        "title": "PHP Publishes Mitigation Advice for New RCE Flaw",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "d56070f6-c351-4b40-85af-2b46dfd09bff",
+        "url": "https://www.theregister.com/security/2026/10/26/partner-content-no-login-no-app-code-no-warning-what-next/5305336",
+        "title": "PHP2Shell: No login, no app code, no warning. What next?",
+        "source": "The Register security"
+      },
+      {
+        "id": "856c0b9f-4fb4-4ee4-a8c2-f386c74ed966",
+        "url": "https://fortiguard.fortinet.com/psirt/FG-IR-26-187",
+        "title": "Multiple Node.js CVEs",
+        "source": "FortiGuard PSIRT"
+      }
+    ]
+  }
+}
