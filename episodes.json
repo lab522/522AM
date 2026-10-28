@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-10-28",
+    "title": "UEFI disclosure race; PHP telemetry sharpens the patch picture",
+    "duration_s": 314,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-28.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-28.md"
+  },
+  {
     "day": "2026-10-27",
     "title": "PHP2Shell enters KEV; Brotli rebuilds widen the patch queue",
     "duration_s": 391,

@@ -1,0 +1,188 @@
+{
+  "day": "2026-10-28",
+  "title": "UEFI disclosure race; PHP telemetry sharpens the patch picture",
+  "overview": "A sixteen-year-old firmware flaw exposes servers during network boot, with patch code already public ahead of coordinated disclosure. PHP2Shell telemetry shows uneven exploit success, while Tailscale offers a mitigation and PeopleSoft defenders get a new persistence check.",
+  "duration_s": 314,
+  "chars": 4662,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-28.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-28.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Wednesday, the twenty-eighth of October, twenty twenty-six.",
+    "Someone on your provisioning network could take over a server before its operating system starts. CVE-2026-97631 is a sixteen-year-old buffer overflow in TianoCore EDK II, the reference code behind most server vendors' UEFI firmware. It's rated nine point five, and the disclosure has gone sideways: researchers had arranged to keep it private until January, but AMI published a fix in a public pull request last month. TianoCore issued an advisory last week. What bugs me is the head start that gives exploit writers while customers wait for vendor firmware.",
+    "During PXE boot, the driver listens for ICMP errors and copies them into a five-hundred-and-four-byte field. Both its IPv4 and IPv6 handlers get the bounds wrong: a longer message can overwrite adjacent memory with attacker-controlled bytes. A unicast packet can be enough, giving code execution before Secure Boot and TPM-backed attestation can protect the boot. But it's not an internet entry point: the attacker needs local-network control during boot, and addresses have to be guessed for the particular firmware build. One payload won't work across a mixed fleet. Exploitation isn't known.",
+    "I'd chase server and motherboard BIOS updates now, and book the reboots. Until they arrive, switch off unnecessary PXE boot and restrict access to machines while they're provisioning. The small mercy: it's a firmware fix, without Secure Boot keys or revocations to untangle. Home and small-office users aren't affected; unsupported server hardware may never get a fix.",
+    "From a disclosure ahead of schedule to a patch deadline nearly upon us: tomorrow's PHP2Shell deadline now comes with a more useful picture of exploit reliability. Wiz saw memory exhaustion succeed in every captured attempt, but the heap leak failed every time. Consecutive requests have to reach the same Apache child process. That's a real constraint, not clearance: Wiz explicitly says its results don't contradict the successful exploitation we covered yesterday.",
+    "Delft's lab has counted over fifty thousand exploitation requests from more than six hundred addresses, and AWS saw attempts on the seventeenth, four days before disclosure. CISA also clarifies that KEV can cover attempted exploitation. Meanwhile, Wiz says fewer than fifty-three per cent of initially affected organisations remain vulnerable; Infrawatch's separate host count is now about twenty per cent patched, up roughly thirty-one thousand in a day. Zyxel says no products it currently sells are affected. I'd keep the patch booking, not trade it for an argument about honeypots.",
+    "And successful exploitation doesn't always leave the artefact you're hunting: ZDI says the single PeopleSoft CVE actually covers three bugs, with request forgery passing a client check through its default localhost entry. If compromise preceded patching, check docroot slash envmetadata slash data slash environment for unexpected XML files: deserialisation on restart provides another route to code execution, without a JSP web shell. Moving from persistence to prevention, Tailscale now calls Tailworm serious and says most fixes are in public code, but Tuesday's update still had no numbered release despite a promised end-of-day client. Until that client lands, set TS_SSH_DISABLE_FORWARDING=1 in the tailscaled service environment and restart it; forwarding stops, but Tailscale SSH stays available.",
+    "The cost of losing that control was painfully concrete in New Mexico: Monday's cyber incident diverted ambulances from the state's only Level I trauma centre for about two hours, though hospitals and clinics resumed on Tuesday. The new BYOD gang's claim of thirty-six thousand compromised machines is unverified and conflicts with UNM's statement that core systems weren't penetrated; staff received phone alerts to unplug desktops, a shutdown communication drill worth rehearsing. At the opposite end of the urgency scale, Mozilla's archive replay has now reached backwards into twenty twelve, with eleven more old memory-safety batches. Widen archive suppression beyond twenty thirteen, or yesterday's filter will miss today's noise.",
+    "I'd get a firmware availability answer from the server vendors before the morning disappears. And check that the Tailscale mitigation survives a service restart while you wait for the release. Hope your Wednesday gives you room to get ahead.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [],
+    "news": [
+      {
+        "id": "80706548-0525-4f8e-bb50-edd6fa043235",
+        "url": "https://www.zyxel.com/global/en/support/security-advisories/zyxel-statement-for-php-core-rce-vulnerabilities-cve-2026-109618-and-cve-2026-109619-10-28-2026",
+        "title": "Zyxel statement for PHP core RCE vulnerabilities (CVE-2026-109618 and CVE-2026-109619)",
+        "source": "Zyxel advisories"
+      },
+      {
+        "id": "7a4ab2f0-575e-478e-9c0e-e024d87c4192",
+        "url": "https://www.bleepingcomputer.com/news/security/unm-health-ransomware-attack-disrupts-patient-care-surgeries/",
+        "title": "UNM Health ransomware attack disrupts patient care, surgeries",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "472cf87b-901f-42ce-bf08-dc976c44c1e9",
+        "url": "https://arstechnica.com/security/2026/10/code-execution-flaw-in-uefi-firmware-threatens-most-servers-on-planet-earth/",
+        "title": "Code-execution flaw in UEFI firmware threatens most servers on planet Earth",
+        "source": "Ars Technica security"
+      },
+      {
+        "id": "9fef01f3-9e24-4890-8810-03eee4392ba9",
+        "url": "https://databreaches.net/2026/10/27/cyberattack-forces-university-of-new-mexico-health-to-divert-ambulances-cancel-appointments/",
+        "title": "Cyberattack forces University of New Mexico Health to divert ambulances, cancel appointments",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "7a581049-b6b4-4016-b08c-9d12995c0a99",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-57/",
+        "title": "MFSA 2012-57 Miscellaneous memory safety hazards (rv:15.0/ rv:10.0.7)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "4d659026-3ced-4e2e-9177-2785566b222b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-34/",
+        "title": "MFSA 2012-34 Miscellaneous memory safety hazards (rv:13.0/ rv:10.0.5)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "67587368-dd1a-4851-bd41-45f154aa8761",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-42/",
+        "title": "MFSA 2012-42 Miscellaneous memory safety hazards (rv:14.0/ rv:10.0.6)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "60d07ce0-51ea-44e8-a5b3-5ab4356383e5",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-88/",
+        "title": "MFSA 2012-88 Miscellaneous memory safety hazards (rv:16.0.1)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d05ac7d0-1568-4193-82aa-a474c3136fb3",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-74/",
+        "title": "MFSA 2012-74 Miscellaneous memory safety hazards (rv:16.0/ rv:10.0.8)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "24ea6dba-8ee3-4523-a8d1-09851d3418fb",
+        "url": "https://www.infosecurity-magazine.com/news/cyber-unmhealth-surgeries/",
+        "title": "Cyber Incident Forces UNM Health to Cancel Surgeries, Divert Ambulances",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "261cdc09-cc1a-44a9-b422-244b171ad4c0",
+        "url": "https://www.thezdi.com/blog/2026/10/20/cve-2026-35273-ssrf-to-rce-in-oracle-peoplesoft",
+        "title": "CVE-2026-35273: SSRF to RCE in Oracle PeopleSoft",
+        "source": "Zero Day Initiative blog"
+      },
+      {
+        "id": "a7045c15-acdb-448e-aeb4-a119d290b22b",
+        "url": "https://www.theregister.com/cyber-crime/2026/10/27/day-2-of-canceled-classes-at-university-of-new-mexico-after-health-sciences-center-cyberattack/5305690",
+        "title": "Day 2 of canceled classes at University of New Mexico after Health Sciences Center cyberattack",
+        "source": "The Register security"
+      },
+      {
+        "id": "60e4e8ac-caa9-4bf6-a6f7-5cbb9820bfe5",
+        "url": "https://www.cybersecuritydive.com/news/cisa-security-researchers-exploitation-php-flaws/872886/",
+        "title": "CISA, security researchers confirm successful exploitation of PHP flaws",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "0b0f7a76-2887-4b02-b019-f37c12d4c7fd",
+        "url": "https://www.securityweek.com/tailscale-rushes-patches-after-uncoordinated-disclosure-of-tailworm-flaws/",
+        "title": "Tailscale Rushes Patches After Uncoordinated Disclosure of ‘Tailworm’ Flaws",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "0df830bb-fa99-4d48-adde-f1dca002bcf9",
+        "url": "https://therecord.media/university-of-new-mexico-hospital-diverts-cyber-incident",
+        "title": "University of New Mexico hospital diverts ambulances after cyberattack",
+        "source": "The Record"
+      },
+      {
+        "id": "9e2938c7-ebd8-4e65-87aa-573a28b5160b",
+        "url": "https://www.theregister.com/cyber-crime/2026/10/27/cisa-confirms-php2shell-under-attack-as-researchers-clock-successful-exploits/5305681",
+        "title": "CISA confirms PHP2Shell under attack as researchers clock successful exploits",
+        "source": "The Register security"
+      },
+      {
+        "id": "67fa6fb7-ff32-441e-a2b3-607ba162def6",
+        "url": "https://techcrunch.com/2026/10/27/us-government-says-hackers-are-now-exploiting-critical-php-web-bugs/",
+        "title": "US government says hackers are now exploiting critical PHP web bugs",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "e96669d1-9277-4295-a82f-3659ef16cb62",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2013-01/",
+        "title": "MFSA 2013-01 Miscellaneous memory safety hazards (rv:18.0/ rv:10.0.12 / rv:17.0.2)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "bee17368-f03f-4edf-924e-d52adb0fa6aa",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-91/",
+        "title": "MFSA 2012-91 Miscellaneous memory safety hazards (rv:17.0/ rv:10.0.11)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "93511852-bf37-4fbf-b460-f1ecec91eb33",
+        "url": "https://www.computerweekly.com/news/366652834/PHP2Shell-US-updates-Kev-catalogue-as-exploits-spread",
+        "title": "PHP2Shell: US updates Kev catalogue as exploits spread",
+        "source": "Computer Weekly security"
+      },
+      {
+        "id": "bd4da9e9-41b3-484c-81e0-b50e4ccb6077",
+        "url": "https://www.bleepingcomputer.com/news/security/tailscale-warns-of-serious-ssh-flaws-allowing-root-privilege-escalation/",
+        "title": "Tailscale warns of SSH flaws allowing root privilege escalation",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "84c73e1f-f7b6-4023-ab05-3c7a79a4a83b",
+        "url": "https://www.wiz.io/blog/php2shell-exploitation-so-far",
+        "title": "PHP2Shell: Exploitation Attempts and Remediation Trends",
+        "source": "Wiz"
+      },
+      {
+        "id": "713453bd-2a33-427d-b056-f90948fc1f72",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2013-30/",
+        "title": "MFSA 2013-30 Miscellaneous memory safety hazards (rv:20.0 / rv:17.0.5)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "da7a412b-6cb3-49e0-80ae-3b03235d452f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2013-21/",
+        "title": "MFSA 2013-21 Miscellaneous memory safety hazards (rv:19.0 / rv:17.0.3)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "ec7c1e5a-df4f-42e5-8c03-30e449973a21",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2013-41/",
+        "title": "MFSA 2013-41 Miscellaneous memory safety hazards (rv:21.0 / rv:17.0.6)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "03e640b1-df52-42dc-b44d-9770287ca6a1",
+        "url": "https://therecord.media/php-vulnerabilities-cisa-kev",
+        "title": "CISA warns of PHP bug exploitation attempts, gives federal agencies days to patch",
+        "source": "The Record"
+      },
+      {
+        "id": "beb18936-7f2e-4a93-9156-f5606b2a5b45",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2013-49/",
+        "title": "MFSA 2013-49 Miscellaneous memory safety hazards (rv:22.0 / rv:17.0.7)",
+        "source": "Mozilla security advisories"
+      }
+    ]
+  }
+}
