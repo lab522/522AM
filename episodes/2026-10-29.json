@@ -1,0 +1,341 @@
+{
+  "day": "2026-10-29",
+  "title": "Silent Train targets controllers; PHP2Shell roots firewalls",
+  "overview": "Volt Typhoon's Silent Train links management-plane intrusions across hundreds of victims, while a completed PHP2Shell chain has rooted firewalls. New exploitation deadlines join the patch queue, and Tailscale's awaited release has landed.",
+  "duration_s": 361,
+  "chars": 5116,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-29.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-29.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Thursday, the twenty-ninth of October, twenty twenty-six.",
+    "The VeloCloud attacks we covered on Saturday now have an actor behind them: Lumen's Black Lotus Labs ties them to Volt Typhoon's Silent Train. Hundreds of victims have been notified, including telecoms and critical infrastructure operators. Four confirmed zero-day campaigns reached VeloCloud Orchestrator and Cisco Catalyst SD-WAN Controller, as well as Versa Director and N-able N-central. A suspected Quest KACE zero-day may have affected more than thirty victims too.",
+    "Silent Train rotates through compromised devices, chaining overseas relays to a US exit point. Sessions average about four hours; replacing the chain takes under two minutes. That's what worries me about relying on yesterday's blocked addresses. The prize is the management system, with its trusted route into downstream customers.",
+    "And Cisco Talos has shown what stays behind. After an authentication bypass, the KeyDrift implant puts PolyFlame inside vdaemon through modified runit scripts, giving command execution. LittleFilch hooks SSL_read to harvest what Talos assesses is IPsec key material. Patch those management platforms and remove their internet-facing administrative access, but don't stop at patching: on Cisco controllers, hunt modified runit scripts and libdssl.so, along with /var/tmp/vdaemon.bin. Keep central logs long enough to investigate the access that preceded the update.",
+    "That same management-plane prize is where PHP2Shell has now delivered a complete chain. Dream says a suspected China-linked actor used a custom, non-public build against firewall consoles running PHP 8 point 0 point 30, then Fragnesia to reach root. Twenty-five servers were compromised, including three at a US government-affiliated organisation. The vendor isn't named. That's an awkward gap for anyone trying to find their exposure.",
+    "The console's high memory limit helped the PHP memory-corruption stages succeed. A reverse SSH tunnel then reached internal firewall management, where the attacker decrypted an LDAP service-account password and went after Active Directory. Dream says twenty-two other firewalls still carry web shells, and a tunnel is likely still running. It also found AI development tools on the attack infrastructure; the stolen credentials matter rather more to me. Pull exposed firewall management interfaces off the internet and investigate persistence. Fragnesia, CVE-2026-46300, entered KEV yesterday with an October thirty-first federal deadline; VMware ESX's insufficient-logging flaw entered alongside it, but its deadline is November eleventh. Wordfence still has no confirmed WordPress compromises.",
+    "The deadline queue has moved beyond PHP too: Node2Shell is now in KEV, due November tenth for federal civilian agencies, with three sensor networks seeing attempts, although ELLIO's captured final stage failed fifty tests. Broadcom's affected SDDC Manager still awaits patches, so use its workarounds; newly fixed releases include Bun 1 point 4 point 4 and brotli4j 1 point 24 point 0. And the Oracle E-Business Suite SQL injection now has exploratory exploits hitting Defused's decoys, without confirmed successful compromise. Apply October's Critical Patch Update, or remove /OA_HTML/AppsTCFServer from the EBS URL firewall allowlist while restricting the web tier.",
+    "For shop operators, PolyShell has also entered KEV, with a November tenth federal deadline for the Adobe Commerce and Magento flaw. Patch it, and check CMS blocks for the loader before calling the store clean.",
+    "At least one wait in the patch queue is over: Tailscale 1 point 104 point 4 has landed, and SSH forwarding now runs as the logged-in user rather than root. Update SSH servers; headscale 0 point 29 point 5 still doesn't resolve the reported issues, so keep forwarding disabled there. Less cheerful news for backup operators: four critical flaws affect Dell PowerProtect Data Domain and its Management Center, including unauthenticated root command execution and privileged-account creation; credential exposure is another route in, while the Management Center bypass could reach other managed systems. Upgrade the Feature Release line to 8 point 9 point 0 point 0, LTS twenty twenty-four to 7 point 13 point 1 point 90, LTS twenty twenty-five to 8 point 3 point 1 point 50, or LTS twenty twenty-six to 8 point 6 point 1 point 30.",
+    "And to keep that real patch work visible, Mozilla's archive replay has added thirty more advisories, now including individual bugs rather than just memory-safety batches. Widen archive suppression down to MFSA 2012-03; these were fixed in twenty twelve, not overnight.",
+    "I'd put exposed management consoles ahead of the rest of the morning's queue. And where a patch has already gone on, I'd want evidence that the controller hasn't kept an unwanted passenger. Hope your Thursday leaves you some breathing room.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-41709",
+      "CVE-2026-46300",
+      "CVE-2026-86400",
+      "CVE-2026-86384",
+      "CVE-2026-86397",
+      "CVE-2026-90717"
+    ],
+    "news": [
+      {
+        "id": "4e7afbab-7fba-4f0b-92af-896784e34180",
+        "url": "https://blog.talosintelligence.com/uat-11473-keydrift/",
+        "title": "Inside KeyDrift: Analyzing historical UAT-11473 activity on Cisco SD-WAN",
+        "source": "Cisco Talos"
+      },
+      {
+        "id": "79956efe-f45b-4554-92eb-84cea775b20a",
+        "url": "https://www.theregister.com/security/2026/10/28/oracle-celebrates-end-of-cybersecurity-awareness-month-with-quadruple-trouble/5306121",
+        "title": "Oracle celebrates end of Cybersecurity Awareness Month with quadruple trouble",
+        "source": "The Register security"
+      },
+      {
+        "id": "d435b197-709c-46af-9b4d-b3c7ca13a54a",
+        "url": "https://www.wordfence.com/blog/2026/10/php2shell-update-still-no-confirmed-wordpress-compromises-and-answers-to-the-questions-were-hearing-most/",
+        "title": "PHP2Shell Update: Still No Confirmed WordPress Compromises, and Answers to the Questions We’re Hearing Most",
+        "source": "Wordfence"
+      },
+      {
+        "id": "27208289-0ddd-420f-b8fa-790204c2bf4f",
+        "url": "https://thehackernews.com/2026/10/volt-typhoon-used-covert-silent-train.html",
+        "title": "Volt Typhoon Used Covert Silent Train Network in Four Zero-Day Exploitation Campaigns",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "fec91d44-87c6-4724-82ac-2164735ebb84",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-17/",
+        "title": "MFSA 2012-17 Crash when accessing keyframe cssText after dynamic modification",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "fb599613-b1a1-47c2-8730-530a7ea923d0",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-13/",
+        "title": "MFSA 2012-13 XSS with Drag and Drop and Javascript: URL",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f8d8c94c-e715-4e2c-b2eb-e3b66c553522",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-29/",
+        "title": "MFSA 2012-29 Potential XSS through ISO-2022-KR/ISO-2022-CN decoding issues",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f77b10a1-da1d-4dc4-a369-42f3caaada3c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-04/",
+        "title": "MFSA 2012-04 Child nodes from nsDOMAttribute still accessible after removal of nodes",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "ec72cfb5-1893-4c56-8c22-18252a5ff0b6",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-26/",
+        "title": "MFSA 2012-26 WebGL.drawElements may read illegal video memory due to FindMaxUshortElement error",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "ec5f3deb-9570-438a-9054-247929ace60b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-16/",
+        "title": "MFSA 2012-16 Escalation of privilege with Javascript: URL as home page",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e6082b44-ad06-42ed-9205-4abb9f4fe207",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-08/",
+        "title": "MFSA 2012-08 Crash with malformed embedded XSLT stylesheets",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "dd3a6aea-26e9-4f4e-8c30-d279ca982b25",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-15/",
+        "title": "MFSA 2012-15 XSS with multiple Content Security Policy headers",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c62fef45-c8b4-42e6-ab61-2404015a3624",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-19/",
+        "title": "MFSA 2012-19 Miscellaneous memory safety hazards (rv:11.0/ rv:10.0.3 / rv:1.9.2.28)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c2e21374-972c-441e-af9e-0489dbede126",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-24/",
+        "title": "MFSA 2012-24 Potential XSS via multibyte content processing errors",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b1cb9e50-81e9-4c75-b5df-1477596819bd",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-11/",
+        "title": "MFSA 2012-11 libpng integer overflow",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a52fd5c6-556c-4991-b48e-b071a5f13de2",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-32/",
+        "title": "MFSA 2012-32 HTTP Redirections and remote content can be read by javascript errors",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9c0de4ae-d648-4cd9-a76e-37caa78786ae",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-27/",
+        "title": "MFSA 2012-27 Page load short-circuit can lead to XSS",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "8648055a-b321-47fa-a57e-32789336dc81",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-31/",
+        "title": "MFSA 2012-31 Off-by-one error in OpenType Sanitizer",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7cd2e3c4-c39b-49b9-ae9a-b631ad4e4c9a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-23/",
+        "title": "MFSA 2012-23 Invalid frees causes heap corruption in gfxImageSurface",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "75a01d37-3247-4305-bb62-68b94504fd57",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-30/",
+        "title": "MFSA 2012-30 Crash with WebGL content using textImage2D",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "73be87cd-95c5-48ab-bca8-e5a78673d837",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-20/",
+        "title": "MFSA 2012-20 Miscellaneous memory safety hazards (rv:12.0/ rv:10.0.4)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "720bbf8a-9527-45c7-adc6-6098d9bd318c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-09/",
+        "title": "MFSA 2012-09 Firefox Recovery Key.html is saved with unsafe permission",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "6f3e3a29-1a30-4bb2-8b4d-4977cddc12f1",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-03/",
+        "title": "MFSA 2012-03 element exposed across domains via name attribute",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "6562d3fa-3875-4e20-9b42-e4ce418a7001",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-10/",
+        "title": "MFSA 2012-10 use after free in nsXBLDocumentInfo::ReadPrototypeBindings",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5e425682-0d1e-4686-b6e4-ce2b6a31e79d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-18/",
+        "title": "MFSA 2012-18 window.fullScreen writeable by untrusted content",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5c83e40e-fe98-4035-bc16-c588ca123bbe",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-21/",
+        "title": "MFSA 2012-21 Multiple security flaws fixed in FreeType v2.4.9",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5a7177b8-788d-4cc4-956a-a0fc8f2826f0",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-07/",
+        "title": "MFSA 2012-07 Potential Memory Corruption When Decoding Ogg Vorbis files",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "41bf3c0a-0338-4787-bfde-824b21a06c3d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-28/",
+        "title": "MFSA 2012-28 Ambiguous IPv6 in Origin headers may bypass webserver access restrictions",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3ff24a3d-e5db-4e6f-a041-b66c5fc1e20e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-12/",
+        "title": "MFSA 2012-12 Use-after-free in shlwapi.dll",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "2f0a6232-ab61-472c-b9ca-a8b15b17dc6b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-22/",
+        "title": "MFSA 2012-22 use-after-free in IDBKeyRange",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "2c24d8ad-651d-4fcc-bad9-86d172928e37",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-25/",
+        "title": "MFSA 2012-25 Potential memory corruption during font rendering using cairo-dwrite",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0c45953b-f6bb-4480-bd34-6ff49c02d170",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-05/",
+        "title": "MFSA 2012-05 Frame scripts calling into untrusted objects bypass security checks",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "01fe758e-7c2c-456e-8aa4-87d40df22eff",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-06/",
+        "title": "MFSA 2012-06 Uninitialized memory appended when encoding icon images may cause information disclosure",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "017d4568-37ed-4679-ae22-0792b82955b4",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-14/",
+        "title": "MFSA 2012-14 SVG issues found with Address Sanitizer",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "90e616e0-e216-471e-ae6f-23471bdcfac7",
+        "url": "https://www.zscaler.com/blogs/security-research/cve-2026-111497-node2shell-http2shell-vulnerability-may-allow-rce",
+        "title": "CVE-2026-111497: Node2Shell / HTTP2Shell Vulnerability May Allow RCE",
+        "source": "Zscaler ThreatLabz"
+      },
+      {
+        "id": "918be531-9984-4146-9642-13cb806a6215",
+        "url": "https://thehackernews.com/2026/10/php2shell-attack-roots-25-servers.html",
+        "title": "PHP2Shell Attack Roots 25 Servers, Breaches U.S. Government-Affiliated Network",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "6beb401a-f216-4366-ac01-46f10d31c988",
+        "url": "https://www.bleepingcomputer.com/news/security/volt-typhoon-hides-zero-day-attacks-using-silent-train-framework/",
+        "title": "Volt Typhoon hides zero-day attacks using 'Silent Train' framework",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "3e15d97d-68b9-4dea-a406-0ffca6acee56",
+        "url": "https://cyberscoop.com/volt-typhoon-silent-train-covert-ephemeral-network-black-lotus-labs/",
+        "title": "Researchers uncover Volt Typhoon’s covert, ephemeral network",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "3dcfd08c-bbb2-47a4-bab9-4049b260db06",
+        "url": "https://www.bleepingcomputer.com/news/security/infratrust-report-warns-of-exploited-flaws-in-critical-network-infrastructure/",
+        "title": "InfraTrust report warns of exploited flaws in critical network infrastructure",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "07489387-66a4-4861-89b1-d13a4c8107a5",
+        "url": "https://www.bleepingcomputer.com/news/security/even-after-php2shell-blast-radius-matters-more-than-a-cvss-score/",
+        "title": "Even after PHP2Shell, blast radius matters more than a CVSS score",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "478b3432-a7c2-49b5-85b9-796309276d5e",
+        "url": "https://www.rapid7.com/blog/post/pt-insightgovcloud-supports-bod-22-01-compliance",
+        "title": "How Rapid7 InsightGovCloud Supports BOD 22-01 Compliance",
+        "source": "Rapid7"
+      },
+      {
+        "id": "c56c3aed-6e65-4551-a901-d6879156960d",
+        "url": "https://thehackernews.com/2026/10/hackers-target-critical-oracle-e.html",
+        "title": "Hackers Target Critical Oracle E-Business Suite RCE Flaw Days After Security Patch",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "79cd3935-a5c5-4eb6-9824-bfb5b6bce590",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-now-scanning-systems-for-recently-patched-oracle-flaw/",
+        "title": "Hackers now scanning systems for recently-patched Oracle flaw",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "44896c1f-9a89-4eb3-8240-16e01c714c45",
+        "url": "https://www.securityweek.com/china-linked-hackers-exploit-php2shell-to-root-firewalls/",
+        "title": "China-Linked Hackers Exploit PHP2Shell to Root Firewalls",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "06bad69d-4ad4-4ffb-a9e1-2ea15f6180bb",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/10/28/cisa-adds-two-known-exploited-vulnerabilities-catalog",
+        "title": "CISA Adds Two Known Exploited Vulnerabilities to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "a967a196-88e9-42bc-a7bb-850d56a3d241",
+        "url": "https://www.bleepingcomputer.com/news/security/cisa-warns-of-hackers-now-exploiting-critical-node2shell-flaw/",
+        "title": "CISA warns of hackers now exploiting critical Node2Shell flaw",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "10a5aa80-d3ba-4840-b5e9-4cfa0551d14d",
+        "url": "https://www.securityweek.com/hackers-start-probing-fresh-oracle-ebs-vulnerability/",
+        "title": "Hackers Start Probing Fresh Oracle EBS Vulnerability",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "e24a7a3c-9dd0-456a-9aeb-c2384f9ade80",
+        "url": "https://www.securityweek.com/cisa-warns-of-node2shell-exploitation-as-honeypots-log-attack-attempts/",
+        "title": "CISA Warns of Node2Shell Exploitation as Honeypots Log Attack Attempts",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "5b85ce65-4c32-4e1a-a6b8-1328061f5133",
+        "url": "https://thehackernews.com/2026/10/tailscale-patches-ssh-flaws-that-could.html",
+        "title": "Tailscale Patches SSH Flaws That Could Let Hacked Devices Gain Root Access on Other Servers",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "7a2657a9-d509-4ac6-bf3e-e105b23d4f07",
+        "url": "https://thehackernews.com/2026/10/shinyhunters-exploited-oracle.html",
+        "title": "ShinyHunters-Exploited Oracle PeopleSoft Zero-Day Turns Out to Be Three Chained Flaws",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "456736de-04ad-4e0a-b73c-204790821b39",
+        "url": "https://thehackernews.com/2026/10/adobe-commerce-polyshell-attacks-breach.html",
+        "title": "Adobe Commerce PolyShell Attacks Breach Hundreds of Stores as Brotli Exploit Traffic Emerges",
+        "source": "The Hacker News"
+      }
+    ]
+  }
+}

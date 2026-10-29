@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-10-29",
+    "title": "Silent Train targets controllers; PHP2Shell roots firewalls",
+    "duration_s": 361,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-29.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-29.md"
+  },
+  {
     "day": "2026-10-28",
     "title": "UEFI disclosure race; PHP telemetry sharpens the patch picture",
     "duration_s": 314,
