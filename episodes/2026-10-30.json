@@ -1,0 +1,194 @@
+{
+  "day": "2026-10-30",
+  "title": "Cisco VPN crashes; Palo Alto named in PHP2Shell attacks",
+  "overview": "Cisco patches an actively exploited firewall VPN flaw, while Palo Alto confirms its management interfaces were the unnamed PHP2Shell targets. GitLab needs attention beyond its own upgrade, and Binance investigates billions at risk after a laptop compromise.",
+  "duration_s": 384,
+  "chars": 5477,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-30.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-30.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Friday, the thirtieth of October, twenty twenty-six.",
+    "There's a second Cisco front open, separate from yesterday's controller attacks: attackers can reboot ASA and FTD firewalls through the remote-access SSL VPN service. CVE-2026-76418 needs secondary authentication configured on a tunnel group, but it doesn't need a successful login. A crafted connection request reaches the faulty logic and the firewall reloads. Staff access goes with it.",
+    "Cisco fixed it on Wednesday after finding active exploitation this month. There's no named actor and no published indicators; CISA's federal patch deadline is Sunday, November first. Shadowserver sees more than fifty-one thousand exposed ASA SSL VPN devices, though that's not a count of vulnerable boxes. I'd put this ahead of the weekend changes: a login page doing its intended job is enough exposure if that configuration is present.",
+    "Fixed releases are available for both products; examples are ASA 9 point 22 point 3 point 200 and FTD 7 point 6 point 7. Use Cisco's release table for your branch. There are no workarounds. Cisco does describe configuration changes that remove the condition, but warns they weaken remote-access security and recommends upgrading instead. Check every tunnel group for secondary authentication, including DefaultWEBVPNGroup; don't assume the default group's harmless.",
+    "And yesterday's unnamed firewall vendor now has a name: Palo Alto Networks. It confirms PHP2Shell attacks against internet-exposed PAN-OS management interfaces, with Unit forty-two independently verifying Dream's tooling and results. GreyNoise separately counts at least six successful exploitations. The newly described chain reaches a persistent root web shell in under fifteen minutes; the clever bit is forcing a predictable PHP memory layout, then using a stale session identifier to leak a library address.",
+    "At least we can now turn an unnamed exposure into a patch job. Fixes include PAN-OS 12 point 2 point 4-h1 and 12 point 1 point 10-h3; consult the branch-specific advisory because some hotfixes still have future release dates. The exposure includes dataplane interfaces with management profiles attached. Where a fix isn't available, Palo Alto describes routing management traffic through a dataplane port with inbound decryption and threat prevention enabled.",
+    "That gap between updating the application and fixing what's underneath has caught GitLab too: Alpine Linux rebuilt its server and reset passwords after exploit attempts, without finding proof they succeeded; CVE-2026-97229 now has a November first federal deadline. Self-built installations and images with separate Ruby need that patched too—to 3 point 3 point 13 or 3 point 4 point 12, with 4 point 0 point 9 fixing the newer branch—while Ruby 3 point 2 gets no fix; users of the alpinelinux/gitlab image should pull 19 point 3 point 6 again.",
+    "For another internet-facing application, WordPress 7 point 1 point 4 fixes an unauthenticated race in the core update process that can become code execution, and Wordfence has already detected attempts. Update today, and verify automatic updates actually landed. Beneath the applications, CVE-2026-98432 is a Linux TCP connection-setup race that reads freed memory; Anthropic says its model produced an unauthenticated remote-root exploit against servers with a multipath TCP listener. Install your distribution's fixed kernel where available, but Ubuntu and RHEL still had none yesterday, and no vendor offers a mitigation.",
+    "Away from patching, Binance halted trading and transfers after a DevOps laptop compromise led into production service containers, raising its estimate of assets at risk to six point three billion dollars and promising to cover customer losses. I'd trace which laptops can authorise money-moving operations from those containers; Binance also warns against unofficial messages and account-information requests.",
+    "Identity data offers a different route to the next victim: Distributed Denial of Secrets published searchable records on more than forty-one thousand DHS staff and contractors, allegedly taken from the department's Okta SSO environment, before takedown efforts began. Okta says its own systems weren't compromised; limit directory exports and warn affected staff about impersonation built around their work details. And Cisco Talos has seen NIK C2 in the wild, a Windows implant that can steal credentials and use a victim's OpenAI key to pay for AI queries—the intrusion comes with a bill. Remove OPENAI_API_KEY where it isn't needed, and investigate unexplained usage before rotating exposed keys.",
+    "Back in the planned-change queue, Veeam's Microsoft three-sixty-five backup fixes address cross-tenant access and code execution, while Juniper's Session Smart fixes include unauthenticated command execution; prioritise those ahead of Adobe Campaign Classic's update. None has reported exploitation, so normal change windows apply, and Juniper separately says Junos isn't exploitable through the PHP2Shell bugs.",
+    "I'd get an owner and a completion time against the Sunday deadlines before everyone disappears for the weekend. For fixes still promised rather than shipped, keep the advisory watch running. Hope your Friday finishes on time.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-76418",
+      "CVE-2026-97229"
+    ],
+    "news": [
+      {
+        "id": "cabc9eeb-52b3-4147-bbf4-798e4573d21c",
+        "url": "https://www.theregister.com/security/2026/10/30/in-the-year-ai-re-wrote-the-infosec-rulebook-its-comforting-to-know-crypto-exchanges-still-have-bad-security/5306539",
+        "title": "In the year AI re-wrote the infosec rulebook, it’s comforting to know crypto exchanges still have bad security",
+        "source": "The Register security"
+      },
+      {
+        "id": "1742b46c-f312-4c9f-be0d-0a450267f647",
+        "url": "https://www.bleepingcomputer.com/news/security/binance-probes-potential-58-billion-crypto-theft-hack/",
+        "title": "Binance probes potential $5.8 billion crypto-theft hack",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "750b65bb-5144-4a5b-82df-2395b11d4b09",
+        "url": "https://techcrunch.com/2026/10/29/binance-pauses-withdrawals-as-hackers-suspected-of-stealing-billions-in-crypto/",
+        "title": "Binance pauses withdrawals as hackers suspected of stealing billions in crypto",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "84649947-b895-4f1d-bd31-7c5bd60a95e2",
+        "url": "https://www.wordfence.com/blog/2026/10/wordpress-7-1-4-security-release-rce/",
+        "title": "WordPress 7.1.4 Patches Unauthenticated Upgrade-Window RCE; Exploitation Attempts Detected After Release",
+        "source": "Wordfence"
+      },
+      {
+        "id": "6712e539-06fc-493b-998c-075a03dbd255",
+        "url": "https://cyberscoop.com/dhs-employee-breach-icepick-database-takedown/",
+        "title": "Leaked DHS employee archive, Icepick, faces challenges to stay online",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "4ad3d2e1-e5d9-4841-91b7-1d0ab6a6408b",
+        "url": "https://therecord.media/php2shell-successful-exploitation-reports-emerge",
+        "title": "Limited reports of PHP bug exploitation emerge",
+        "source": "The Record"
+      },
+      {
+        "id": "bfa51025-6505-427a-945f-d497c1a9b1b2",
+        "url": "https://databreaches.net/2026/10/29/dhs-personnel-leak-exposes-contact-details-and-sensitive-job-information/",
+        "title": "DHS personnel leak exposes contact details and sensitive job information",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "a7f1098f-1639-4e46-99f1-fea0c17b8144",
+        "url": "https://www.theregister.com/security/2026/10/29/suspected-chinese-attackers-built-a-custom-php2shell-exploit-and-rooted-25-servers/5306456",
+        "title": "Suspected Chinese attackers built a custom PHP2Shell exploit and rooted 25 servers",
+        "source": "The Register security"
+      },
+      {
+        "id": "2974ee74-1035-4144-bf2d-80e96a05221b",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-exploit-cisco-sd-wan-flaw-to-deploy-custom-keydrift-malware/",
+        "title": "Hackers exploit Cisco SD-WAN flaw to deploy custom KeyDrift malware",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "199c9728-d5e9-4386-ac85-cc4becbb9883",
+        "url": "https://thehackernews.com/2026/10/linux-kernel-tcp-flaw-with-98-cvss.html",
+        "title": "Linux Kernel TCP Flaw With 9.8 CVSS Score Affects Ubuntu, Red Hat and Other Distributions",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "fc8c2782-0d7d-4ee5-bbb2-e1d1674f95aa",
+        "url": "https://censys.com/blog/same-vulnerability-different-numbers/",
+        "title": "Censys takes census of the Internet like no one else",
+        "source": "Censys"
+      },
+      {
+        "id": "2f5b6a9b-09e6-4fe2-95da-dbe66fd863b8",
+        "url": "https://www.infosecurity-magazine.com/news/nik-c2-malware-victims-openai-keys/",
+        "title": "NIK C2 Malware Can Use Victims’ OpenAI Keys for AI Queries",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "0fe6d4dc-bdc1-4ce0-9a2e-09cbdc3e0747",
+        "url": "https://www.bleepingcomputer.com/news/security/cisa-warns-of-fragnesia-linux-flaw-chained-in-php2shell-attacks/",
+        "title": "CISA warns of Fragnesia Linux flaw chained in PHP2Shell attacks",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "65fa6e09-0f34-4658-a02e-ddf572c22700",
+        "url": "https://techcrunch.com/2026/10/29/bluesky-blocks-links-to-leaked-dhs-employee-data-as-government-seeks-takedowns/",
+        "title": "Bluesky blocks links to leaked DHS employee data as government seeks takedowns",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "2058d596-e21a-403c-9bca-aaca0e3c0b70",
+        "url": "https://www.securityweek.com/adobe-veeam-juniper-networks-patch-critical-vulnerabilities/",
+        "title": "Adobe, Veeam, Juniper Networks Patch Critical Vulnerabilities",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "04618f0d-a88a-4b36-a46d-7c25f91cbf82",
+        "url": "https://arstechnica.com/security/2026/10/massive-leak-exposes-41000-dhs-workers-and-undercover-ice-agents/",
+        "title": "Massive leak exposes 41,000 DHS workers and undercover ICE agents",
+        "source": "Ars Technica security"
+      },
+      {
+        "id": "7b8d9f69-15ca-4196-8b59-c04598ef00a5",
+        "url": "https://www.securityweek.com/over-41000-dhs-employee-records-leaked-online/",
+        "title": "Over 41,000 DHS Employee Records Leaked Online",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "f27e6e41-28c1-4f61-a720-3db41dadc57a",
+        "url": "https://www.computerweekly.com/opinion/Having-a-PHP-patch-available-does-not-mean-youre-protected",
+        "title": "Having a PHP patch available does not mean you're protected",
+        "source": "Computer Weekly security"
+      },
+      {
+        "id": "72aaae36-c2ba-4f6a-9895-2a372e19710d",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/10/29/cisa-adds-two-known-exploited-vulnerabilities-catalog",
+        "title": "CISA Adds Two Known Exploited Vulnerabilities to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "a11b2e20-66bd-4792-b85d-08a528d3d6f9",
+        "url": "https://www.bleepingcomputer.com/news/security/cisco-warns-of-firewall-zero-day-exploited-to-crash-ssl-vpn-devices/",
+        "title": "New Cisco firewall zero-day exploited to crash SSL VPN devices",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "41e5b6b6-2889-4d70-9283-b90bc8cbbf8b",
+        "url": "https://thehackernews.com/2026/10/cisco-patches-actively-exploited-asa.html",
+        "title": "Cisco Patches Actively Exploited ASA and FTD VPN Flaw That Can Crash Firewalls",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "dc3cc7ee-1205-4522-b81e-16aaf0eda0c5",
+        "url": "https://www.securityweek.com/cisco-sd-wan-zero-day-exploitation-tied-to-volt-typhoons-silent-train-network/",
+        "title": "Cisco SD-WAN Zero-Day Exploitation Tied to Volt Typhoon’s ‘Silent Train’ Network",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "30f4e363-ed66-4baf-8c5f-55b0754ab563",
+        "url": "https://blog.talosintelligence.com/nik-c2-new-ai-enabled-framework/",
+        "title": "NIK C2: The new AI-enabled command-and-control framework",
+        "source": "Cisco Talos"
+      },
+      {
+        "id": "900058b4-4fd6-499e-be33-42d3591f9939",
+        "url": "https://www.securityweek.com/attackers-exploit-second-cisco-firewall-vpn-zero-day-since-august/",
+        "title": "Attackers Exploit Second Cisco Firewall VPN Zero-Day Since August",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "78d4d166-8fd9-419b-a1eb-e299f50f8e28",
+        "url": "https://thehackernews.com/2026/10/attacker-tried-to-exploit-alpine-linuxs.html",
+        "title": "Attacker Tried to Exploit Alpine Linux’s GitLab via CVSS 10.0 Flaw Its Ruby Left Open",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "7fdc5382-fb76-44b1-8ccc-a64585bf78ab",
+        "url": "https://thehackernews.com/2026/10/hackers-exploited-cisco-sd-wan-flaw-to.html",
+        "title": "Hackers Exploited Cisco SD-WAN Flaw to Plant Malware Built to Steal Encryption Keys",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "4f0a6aec-459b-4643-a95a-c5320fa5ec03",
+        "url": "https://thehackernews.com/2026/10/attackers-exploit-php2shell-flaws-in.html",
+        "title": "Attackers Exploit PHP2Shell Flaws in Internet-Exposed Palo Alto Networks Management Interfaces",
+        "source": "The Hacker News"
+      }
+    ]
+  }
+}

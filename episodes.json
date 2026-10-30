@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-10-30",
+    "title": "Cisco VPN crashes; Palo Alto named in PHP2Shell attacks",
+    "duration_s": 384,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-30.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-30.md"
+  },
+  {
     "day": "2026-10-29",
     "title": "Silent Train targets controllers; PHP2Shell roots firewalls",
     "duration_s": 361,
