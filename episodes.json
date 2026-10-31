@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-10-31",
+    "title": "Claude Code backdoor; Drupal shops under attack",
+    "duration_s": 371,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-31.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-31.md"
+  },
+  {
     "day": "2026-10-30",
     "title": "Cisco VPN crashes; Palo Alto named in PHP2Shell attacks",
     "duration_s": 384,

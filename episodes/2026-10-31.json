@@ -1,0 +1,226 @@
+{
+  "day": "2026-10-31",
+  "title": "Claude Code backdoor; Drupal shops under attack",
+  "overview": "A tampered Claude Code extension reached developers through Anthropic's official Cursor marketplace account, leaving persistence that an update won't remove. Drupal shops face active exploitation, while a Linux kernel mitigation arrives and investigators attribute the Binance theft to North Korea.",
+  "duration_s": 371,
+  "chars": 5226,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-31.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-10-31.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Saturday, the thirty-first of October, twenty twenty-six.",
+    "The Claude Code extension in Cursor's marketplace came with an SSH backdoor on Thursday, served from Anthropic's official account. Cursor says at most five thousand users were affected. The versions to find are anthropic.claude-code 2 point 1 point 312 and 2 point 1 point 313; Cursor auto-updates extensions by default. That's a trusted coding assistant arriving with the developer's own access to their workstation. Microsoft says the malicious packages never reached its Visual Studio Marketplace or npm.",
+    "The injected JavaScript ran when the extension loaded, adding an SSH key labelled svc-telemetry and enabling SSH, then opening a reverse tunnel back to the workstation. It also installed startup persistence and sent host reconnaissance to the operator. Cursor says errors and permission requirements blocked SSH access on most macOS and Windows machines. A lucky break, not a clean bill of health.",
+    "Version 2 point 1 point 314 followed, but updating or removing the extension doesn't remove what it wrote elsewhere. I'd treat affected machines as incident-response work, not an extension update: preserve evidence, then inspect authorised-key files and confirm the suspect key against Microsoft's published fingerprint before removing it. Microsoft's cleanup guidance also covers platform-specific startup persistence and tunnel identity files; stop the SSH retry processes too. Where telemetry shows credential access, rotate credentials and revoke sessions from a clean device. What bugs me is the silence: Anthropic told Microsoft its systems weren't compromised, but hasn't publicly notified customers, and nobody's explained how the publishing account was taken over.",
+    "And patching without checking what's already happened isn't enough for Drupal shops either. The new urgent fix is in Commerce Core, the contributed module behind checkout and orders, not Drupal core. CVE-2026-118539 leaves certain routes and entity fields insufficiently protected, letting unauthenticated attackers bypass access checks. Drupal says it's being exploited and could financially affect shop owners; more than forty-two thousand sites run the module. Its upgrade instructions name 3 point 3 point 13 for the three-series branch, or 8.x-2 point 41 for earlier versions. Audit orders for inconsistencies afterwards. I'd put that audit alongside the deployment, because a patched checkout doesn't correct an order somebody's already changed.",
+    "Beyond poisoned tools, there's AI doing the attacking: CrowdStrike says China's state-backed Vapor Panda used the ARTEX agentic penetration-testing framework against more than two hundred organisations, compromising about a hundred and forty sensitive targets in eleven days, with the campaign still active. Watch for bursts of reconnaissance and exploitation against external services, keeping endpoint and identity telemetry connected. And yesterday's WordPress attacks now have a scale: Wordfence blocked sixty-two thousand nine hundred and sixty-nine in twenty-four hours, with attackers polling predictable staging paths to catch an upgrade. Add a hunt for suspicious PHP requests beneath wp-content/upgrade and unfamiliar administrator accounts to the patch work. The exploited-appliance queue has grown too: CISA added Ivanti Connect Secure's root escalation, CVE-2026-111357, and attacker-controlled file upload, CVE-2026-118527, to KEV. Upgrade to 25 point 1 point 1 point 3 or later; the respective federal deadlines are November second and November thirteenth.",
+    "Away from confirmed exploitation, the machine you're helping can turn on you: TeamViewer's CVE-2026-111585 lets a malicious host crash the viewer and potentially execute code on Windows, though no attacks have been reported. Update clients to 15 point 83 or later, and apply the separate Host and Remote Management add-on fixes too; there's no workaround. There's better news for yesterday's Linux kernel gap: CIQ now publishes nftables rules blocking IPv4 TCP packets carrying IP options, and warns that disabling MPTCP alone isn't enough. Use those rules for unpatched hosts while Canonical's fixes remain in progress, and check Go services because Go 1 point 24 onwards enables MPTCP listeners by default on Linux. Finally, from preventing access to limiting what access can spend: TRM puts the Binance theft at about six point three six billion dollars across ten blockchains, mostly moved within twenty minutes, and attributes it to North Korea's TraderTraitor with high confidence; Chainalysis agrees. The Ethereum leg used fifty pre-signed EIP-7702 delegations, so inspect standing production authorisations and require fresh, separate signing for each transfer.",
+    "I'd establish whether those Cursor versions landed before spending the morning on routine changes. Keep the cleanup evidence separate from the update record, and leave someone watching for the outstanding kernel fixes. Hope your Saturday stays quiet.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-111357",
+      "CVE-2026-118527"
+    ],
+    "news": [
+      {
+        "id": "4175eb11-d801-4128-b77b-5bfafc5ef633",
+        "url": "https://www.microsoft.com/en-us/security/blog/2026/10/30/inside-malicious-claude-code-branded-cursor-extension-persistent-ssh-backdoor/",
+        "title": "Inside a malicious Claude Code-branded extension and its persistent SSH backdoor",
+        "source": "Microsoft Security Blog"
+      },
+      {
+        "id": "aa5351ff-c35f-4d0c-b5c0-13ad56c188c8",
+        "url": "https://cyberscoop.com/china-vapor-panda-agentic-ai-artex-campaign-crowdstrike/",
+        "title": "China-backed threat group used agentic AI pentesting tool to compromise 140 sensitive targets in 11 days",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "4384aa5c-3636-4ca8-930f-b9fa8115cd9f",
+        "url": "https://arstechnica.com/security/2026/10/anthropic-vs-code-extension-on-cursor-backdoored-for-nearly-12-hours/",
+        "title": "Anthropic VS code extension on Cursor backdoored for nearly 12 hours",
+        "source": "Ars Technica security"
+      },
+      {
+        "id": "4ab665d9-f683-4c27-a6d7-d85b9f3babb7",
+        "url": "https://www.bleepingcomputer.com/news/security/critical-linux-kernel-flaw-allows-remote-root-attacks-on-mptcp-servers/",
+        "title": "Critical Linux kernel flaw allows remote root attacks on MPTCP servers",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "3e51aeb6-ab5c-451a-a4e5-e36306e824be",
+        "url": "https://www.wired.com/story/trojan-malware-targets-thousands-of-anthropic-claude-developer-systems/",
+        "title": "A Supply Chain Attack Put Malicious Anthropic Claude Extensions on Thousands of Devices",
+        "source": "Wired security"
+      },
+      {
+        "id": "01d75f47-7346-415f-a5e6-ac37832222fb",
+        "url": "https://www.darkreading.com/cyberattacks-data-breaches/devs-trojanized-claude-code-extension-cursor",
+        "title": "Devs Hit by Trojanized Claude Code Extension for Cursor",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "e622af6e-bd6c-4106-bcf3-4ad3906d4ae0",
+        "url": "https://thehackernews.com/2026/10/chinese-hackers-use-ai-powered-artex-to.html",
+        "title": "Chinese Hackers Use AI-Powered ARTEX to Target Over 200 Organizations Worldwide",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "e9e33a52-2edb-4923-86be-1cd9e26f4002",
+        "url": "https://www.theregister.com/cyber-crime/2026/10/30/anthropic-that-claude-code-extension-compromise-couldnt-be-us/5306682",
+        "title": "Anthropic: That Claude Code extension compromise… couldn't be us",
+        "source": "The Register security"
+      },
+      {
+        "id": "e104253b-65b9-47c7-84fa-f6c9e36c91be",
+        "url": "https://thehackernews.com/2026/10/teamviewer-flaw-lets-remote-computers.html",
+        "title": "TeamViewer Flaw Lets Remote Computers Attack Users Who Connect to Control Them",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "b8725f95-e9d7-431a-be7e-07455ec83e4e",
+        "url": "https://www.cybersecuritydive.com/news/palo-alto-networks-firewalls-compromised-chained-attacks-php2shell/873323/",
+        "title": "Palo Alto Networks firewalls compromised in chained attacks using PHP2Shell",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "caa7e63b-1d4c-4cc6-b872-d1fa90983bbd",
+        "url": "https://www.securityweek.com/php2shell-attacks-root-palo-alto-firewalls-but-fail-against-wordpress/",
+        "title": "PHP2Shell Attacks Root Palo Alto Firewalls but Fail Against WordPress",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "c7e207d7-9995-4784-85c9-c9f915dba7ad",
+        "url": "https://www.bleepingcomputer.com/news/security/malicious-claude-code-extension-on-cursor-planted-ssh-backdoors/",
+        "title": "Malicious Claude Code extension on Cursor planted SSH backdoors",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "79ada2e1-38a5-4fc7-aa72-6d99c0e172df",
+        "url": "https://www.cybersecuritydive.com/news/binance-hack-north-korea-cryptocurrency-theft/873304/",
+        "title": "North Korea-linked group steals $6.3B from Binance in largest-ever cryptocurrency hack",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "2917a68b-c010-4845-9de6-5eaffcd113f2",
+        "url": "https://thehackernews.com/2026/10/wordpress-rce-flaw-draws-nearly-63000.html",
+        "title": "WordPress RCE Flaw Draws Nearly 63,000 Attack Attempts in Just 24 Hours",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "2c4f2837-34f6-4450-bc5c-a40c18065471",
+        "url": "https://techcrunch.com/2026/10/30/north-korean-hackers-blamed-for-stealing-record-6-3b-in-binance-breach/",
+        "title": "North Korean hackers blamed for stealing record $6.3B in Binance breach",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "d778f16b-08cb-4620-9573-6f212f1e9836",
+        "url": "https://arstechnica.com/security/2026/10/hackers-steal-6-3-billion-from-binance-in-record-crypto-heist/",
+        "title": "Hackers steal $6.3 billion from Binance in record crypto heist",
+        "source": "Ars Technica security"
+      },
+      {
+        "id": "7c5aaa2a-75c3-4b2f-9ad0-b1f51746339f",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-now-exploiting-max-severity-gitlab-flaw-in-attacks/",
+        "title": "CISA says max severity GitLab flaw now exploited in the wild",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "567365fa-cb97-411a-96a9-8226f4fe80e2",
+        "url": "https://www.malwarebytes.com/blog/news/2026/10/binance-hit-by-largest-ever-crypto-theft-with-6-3-billion-stolen",
+        "title": "Binance hit by largest-ever crypto theft, with $6.3 billion stolen",
+        "source": "Malwarebytes Labs"
+      },
+      {
+        "id": "dbd3a416-b17f-4b0c-9d75-bfd8c4e2d9b9",
+        "url": "https://www.securityweek.com/fresh-wordpress-vulnerability-in-attackers-crosshairs/",
+        "title": "Fresh WordPress Vulnerability in Attackers’ Crosshairs",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "ef99962b-1b6d-4aef-bc48-f12883081c55",
+        "url": "https://www.infosecurity-magazine.com/news/chinese-us-government-chained-php2/",
+        "title": "Chinese Actor Compromises US Government Network Via Chained PHP2Shell Exploit",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "b7e07020-804a-4b50-b417-5ff32df592bc",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/10/30/cisa-adds-two-known-exploited-vulnerabilities-catalog",
+        "title": "CISA Adds Two Known Exploited Vulnerabilities to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "8ce2db0a-bc93-48f6-ace4-801625f9d7f7",
+        "url": "https://www.wired.com/story/the-dollar63-billion-binance-hack-was-pulled-off-in-just-20-minutes/",
+        "title": "The $6.3 Billion Binance Hack Was Pulled Off in Just 20 Minutes",
+        "source": "Wired security"
+      },
+      {
+        "id": "cacba3e7-dd29-46be-b7b3-136fa7c2e700",
+        "url": "https://www.infosecurity-magazine.com/news/binance-record-hack-crypto-heist/",
+        "title": "Binance Hit by Record-Breaking $6.3bn Hack in Largest Cryptocurrency Heist in History",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "c9dfe11f-6e8c-45c9-b92a-82eb843c717b",
+        "url": "https://www.securityweek.com/drupal-commerce-core-vulnerability-exploited-against-online-stores/",
+        "title": "Drupal Commerce Core Vulnerability Exploited Against Online Stores",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "9b463d78-8851-48dd-b594-39e062126865",
+        "url": "https://www.computerweekly.com/news/366653153/North-Korean-elite-hacking-group-steals-636bn-from-Binance",
+        "title": "North Korean ‘elite’ hacking group steals $6.36bn from Binance",
+        "source": "Computer Weekly security"
+      },
+      {
+        "id": "767bf49e-b309-4773-86ce-881d52f4d57e",
+        "url": "https://www.bleepingcomputer.com/news/security/drupal-warns-of-critical-commerce-core-flaw-exploited-in-attacks/",
+        "title": "Drupal warns of critical Commerce Core flaw exploited in attacks",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "050c9d55-fa25-424b-821d-ae4aea2c3fda",
+        "url": "https://www.securityweek.com/max-severity-gitlab-vulnerability-exploited-against-alpine-linux/",
+        "title": "Max-Severity GitLab Vulnerability Exploited Against Alpine Linux",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "2147931b-a48e-4cef-904a-433ec9e89db8",
+        "url": "https://www.bleepingcomputer.com/news/security/binance-links-63-billion-crypto-theft-to-compromised-devops-laptop/",
+        "title": "Binance links $6.3 billion crypto theft to compromised DevOps laptop",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "485acabe-d693-49fe-be2e-721d11823359",
+        "url": "https://thehackernews.com/2026/10/official-claude-code-vs-code-extension.html",
+        "title": "Official Claude Code VS Code Extension Compromised to Install Persistent SSH Backdoor",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "e442cbb8-2c58-4413-99c9-2830e8130dac",
+        "url": "https://www.securityweek.com/teamviewer-flaw-could-let-malicious-hosts-take-over-support-technicians-machines/",
+        "title": "TeamViewer Flaw Could Let Malicious Hosts Take Over Support Technicians’ Machines",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "b365cb21-b678-43d3-b9d5-34fd68803839",
+        "url": "https://www.securityweek.com/6-billion-binance-hack-bears-hallmarks-of-north-koreas-tradertraitor/",
+        "title": "$6 Billion Binance Hack Bears Hallmarks of North Korea’s TraderTraitor",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "4e316c02-c6d3-4cba-b7fd-03f67f79c707",
+        "url": "https://thehackernews.com/2026/10/hackers-actively-exploit-highly.html",
+        "title": "Hackers Actively Exploit Highly Critical Drupal Commerce Core Authorization Bypass Flaw",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "63389f9e-c238-4491-a83a-cf2b1f95e44a",
+        "url": "https://thehackernews.com/2026/10/cisa-adds-actively-exploited-gitlab-rce.html",
+        "title": "CISA Adds Actively Exploited GitLab RCE and Cisco Firewall DoS Flaws to KEV",
+        "source": "The Hacker News"
+      }
+    ]
+  }
+}
