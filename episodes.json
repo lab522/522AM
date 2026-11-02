@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-11-02",
+    "title": "Hijacked monitoring script drains Polymarket; LXD trusts the wrong certificate",
+    "duration_s": 319,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-02.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-02.md"
+  },
+  {
     "day": "2026-11-01",
     "title": "Northflank secrets stolen; malware lets AI rank victims",
     "duration_s": 352,
