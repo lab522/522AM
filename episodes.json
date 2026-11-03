@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-11-03",
+    "title": "Poisoned TV boxes, warming freezers and stolen AI access",
+    "duration_s": 931,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-03.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-03.md"
+  },
+  {
     "day": "2026-11-02",
     "title": "Hijacked monitoring script drains Polymarket; LXD trusts the wrong certificate",
     "duration_s": 319,

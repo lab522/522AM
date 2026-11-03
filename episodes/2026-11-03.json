@@ -1,0 +1,412 @@
+{
+  "day": "2026-11-03",
+  "title": "Poisoned TV boxes, warming freezers and stolen AI access",
+  "overview": "Google disrupts a factory-infected TV-box botnet, while another wave of attacks spoils food in European shops. Stolen AI access brings enormous bills, and active attacks on Node-RED and BTCPay Server lead today's patch priorities.",
+  "duration_s": 931,
+  "chars": 13770,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-03.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-03.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Tuesday, the third of November, twenty twenty-six.",
+    "Supermarket freezers are warming up because somebody remotely changed their settings. A second wave of refrigeration attacks has hit European shops, with Censys identifying affected businesses across six countries, including Ireland and Sweden. Some units reportedly reached fifty degrees Celsius. Food's being thrown away. That's the consequence here, not just an unavailable dashboard. If you manage retail refrigeration, I'd check remote controller access and verify temperatures independently of that interface. A successful login isn't much comfort when the stock's cooking.",
+    "And some connected appliances arrive already working for somebody else. Google and partners, working with Japan's National Police Agency, have disrupted XCPE, a backdoor spread across more than one point three million Android devices, mostly TV boxes, in over two hundred countries. Google says an approved manufacturer deliberately shipped the malware, renting out customers' internet connections and committing advertising fraud. It's banned the manufacturer. The devices were certified, too. What bugs me is that buyers could do the apparently sensible thing and still bring home a criminal proxy. Disrupting the servers doesn't establish that those boxes are now clean.",
+    "That problem of trusting the wrong thing gets rather sharper inside the Pentagon. WIRED's sources say a defence contractor connected a secure centralised system used by multiple intelligence agencies to a personal Claude Code account, causing a security incident. The account boundary matters as much as the tool: permission to use a system isn't permission to hand access to your own agent. Meanwhile, cloud-hosted workflow service Trigger.dev says customers' environment variables may have been exposed. If you use it, establish which secrets were involved and rotate those credentials; deleting a variable won't invalidate a copied key.",
+    "And copied keys can become an astonishing bill. Google's threat intelligence team describes criminals monetising stolen cloud and model access through LLMjacking; separate coverage puts some victims' illicit token charges above a hundred thousand dollars a day. I'd treat unexpected model spending as an incident signal, not leave it in the finance queue. Chinese hackers have also used the open-source ARTEX agentic penetration-testing framework against more than two hundred organisations across fourteen countries. Researchers tracking related espionage campaigns describe automation speeding up the work, rather than some entirely new kind of intrusion.",
+    "Which puts the NCSC's warning in rather immediate company. Its chief warns of an unprecedented rise in attacks as long-tolerated weaknesses become easier to find and exploit at scale; the agency also expects AI-powered attacks against UK critical infrastructure within two years. Dark Reading's criticism of Microsoft's AI risk coverage is worth holding alongside that: government targeting also involves Microsoft vulnerabilities. Don't let the agent steal all the attention from the unpatched service.",
+    "There are consequences on the financial side already. Brazil's Mercado Bitcoin has confirmed a cyberattack, with blockchain security firms tracking more than forty-six million dollars leaving the platform. At Abrigo, the Sageworks risk-management application is back after an outage triggered by what the company calls 'irregular activity', but borrower-facing capabilities remain unavailable. That's a carefully limited description, not confirmation of how anybody got in.",
+    "A couple of developments from yesterday's exchange stories: Polymarket's post-mortem now puts its reimbursement commitment at three point nine million dollars, including compensation for downtime. And Dark Reading's Binance analysis focuses on separation and untested attack paths: how a compromised laptop can reach far beyond its intended boundary. The useful question isn't whether the laptop was trusted. It's what that trust allowed it to reach.",
+    "That reach is painfully visible in healthcare. Attackers behind the University of New Mexico hospital incident have apologised and offered affected patients two thousand five hundred dollars. An offer from criminals isn't compensation delivered. The BYOD gang has separately claimed Michigan State University's recent incident; its posting appears to match the disruption that prompted campus-wide action. Meanwhile, the US health department's civil-rights office has settled its ransomware investigation into Lehigh Valley Health Network, whose BlackCat breach included publication of intimate patient photographs.",
+    "Not every medical-record breach needs ransomware. A second Liverpool hospital is investigating two potential instances of staff accessing records connected with the Southport attack. That's a reason to inspect access to sensitive cases, not merely count failed logins. Elsewhere, Florida's financial-aid website breach may have exposed Social Security numbers and other personal data belonging to four point nine million people; Connecticut's Killingly Public Schools has also notified people of a personal-data incident.",
+    "The disclosures stretch into businesses too. Suntory says personal data concerning around a hundred thousand people leaked. HYBE, the agency behind BTS, says an attack exposed current and former employees' information, including medical records, as well as business-partner data. Hong Kong's privacy watchdog has received breach notifications involving Cathay Pacific and Hong Kong Airlines, alongside Malaysia Airlines. Retailers Yoho Hong Kong and Broadway are also involved in its enquiries.",
+    "And sometimes the route in really is embarrassingly direct. Applebee's has fixed a flaw after researcher Robert Wiggins found a database password embedded in its Android app, with help from AI. Customers' personal information was exposed. A password shipped to every handset isn't a server-side secret. BleepingComputer also highlights how years of retained mobile call and text metadata can expose relationships if breached, while Malwarebytes examines the underground trade in fake reviews. Different businesses, but both reminders that apparently mundane data has a market.",
+    "Some campaigns have rather less commercial motives. Apple has issued mercenary-spyware warnings to users in ninety-nine countries; German lawmakers and a filmmaker are among recipients. The notifications don't identify an attacker. Researchers separately describe Iran-aligned DarkBlinders compromising an Israeli target and an Iraqi Kurdish government cloud environment, while the India-linked BITTER group's PapRAT campaign uses legitimate Windows functionality against organisations in South Asia.",
+    "And attacks on public systems are reaching the public directly. Russia and Ukraine confirmed compromises of emergency-alert apps that broadcast false strike warnings, including nuclear threats; coverage describes the Russian incident as retaliation for the Ukrainian one. Rosstat, Russia's federal statistics agency, also confirms an attack, while an alliance of Belarusian and pro-Ukrainian hackers claims extensive data theft. The theft claim isn't the same thing as the agency confirming it.",
+    "Away from those operations, Ahmad Umar Agha, also known as Th3Pr0, has been sentenced over a hacking conspiracy conducted for the Assad regime after more than a decade as a fugitive. And Wired describes the Capytistas' plans to publish information about homes linked to billionaires, starting with Elon Musk and Tesla's board. That's a stated doxing campaign, not a confirmed breach of every intended target.",
+    "The policy response is moving more slowly: business groups want Congress to put a ten-year renewal of the cyber-threat information-sharing law into the annual defence bill. SecurityWeek counts thirty-seven cybersecurity acquisitions announced in October. For the day's wider reading, Unit 42's intelligence highlights cover espionage and AI-assisted attacks; Check Point has its November second bulletin out. The Hacker News' weekly recap ranges from device-code phishing to Android spyware, and today's SANS Stormcast is also available.",
+    "Which brings us from the wider picture to what needs attention on a running system. Criminals are exploiting a maximum-severity Node-RED vulnerability to deploy a flow that downloads and runs a Linux bot. Node-RED connects services and devices through visual workflows, and it's widely used in operational technology. Once an attacker can make the workflow run their code, the automation host is doing their work. No affected or fixed versions are named here. If you run it, check the current advisory urgently and restrict who can reach the deployment while you establish exposure.",
+    "There's active theft from older BTCPay Server installations too. Its maintainer is urging users of the open-source cryptocurrency payment processor to install the latest release because attackers are draining hot wallets. I'd move that ahead of routine maintenance and check wallet activity, rather than assume updating settles what may already have happened. Those are observed attacks; public exploit code for the next pair raises urgency without proving they're being used.",
+    "Today's WAVLINK disclosures concern a different model: WN551X3-A, firmware M51X3 V251020-WO-182e965. Both score ten point zero and allow remote command injection without authentication. One passes a WireGuard group name into a system command; the other mishandles input in DNS resolution. Public exploits exist, but no fixed firmware is identified. Restrict access to the affected device rather than leave those handlers reachable while waiting for a release.",
+    "For web-facing systems, there's a particularly blunt login bypass in ape-volo-admin, an administrative application framework. Before 3 point 6 point 1, a hardcoded JWT signing key lets an outsider mint an administrator token using the seeded administrator identity. They get full administrative API control. Upgrade to 3 point 6 point 1. And in Control Web Panel, the hosting-management panel, a file parameter in the protected-directory deletion action goes straight into shell execution. Versions before webpanel_version 1 point 16 allow commands in the user-panel context; update that component.",
+    "WordPress operators have two distinct problems to check. Themefic's Ultra Addons for Contact Form 7 through 3 point 5 point 54 lets unauthenticated attackers delete arbitrary server files. Delete the right configuration file and that can become code execution. No fixed version is identified here, so I'd disable the affected plugin pending a verified fix. The s2Member membership plugin through version 260927 also permits code execution, but requires authenticated custom-level access or above: its sanitiser removes literal PHP opening sequences, then later template processing puts a valid opener back together. That's a nasty little undo button on the security check. Again, no fixed release is named.",
+    "For Joomla, Custom Tables before 3 point 7 point 8 allows unauthenticated uploads where a public submission form is exposed. The attacker controls the extension, the file lands in a web-accessible temporary directory, and the response reveals its path. Update to 3 point 7 point 8. Separately, Wordfence examines the critical Brotli flaw's implications for WordPress sites. Fixed Brotli releases preceded Google's October twenty-second disclosure, but there are no version numbers here; check the compression dependency in your stack rather than assuming a WordPress core update covers it.",
+    "Access control also needs attention in WSO2 API Manager. Lower-privileged users can perform administrative operations through its System REST APIs; APIs served through the API Gateway aren't affected. The fixed builds are 3 point 1 point 0 point 347 and 3 point 2 point 0 point 450. For the other affected branches, use 3 point 2 point 1 point 70 or 4 point 0 point 0 point 370; the later fixes are 4 point 1 point 0 point 233 and 4 point 2 point 0 point 173.",
+    "Back in healthcare, INFINITT PACS stores and manages medical images. Its System Manager versions 3 point 0 point 11 point 3 and 3 point 0 point 11 point 5 contain multiple code-execution vulnerabilities. Move to the corresponding 3 point 0 point 12 point 3 or 3 point 0 point 12 point 5 release. At the network edge, Zyxel has an out-of-bounds-write advisory for GS1900 switches, plus a buffer-overflow advisory covering certain access points and FWA7, as well as Security Routers. The model-specific firmware tables matter here; no safe builds are named in today's notices.",
+    "And don't mistake the advisory queue for the whole attack surface. Armadin says eighty-eight per cent of severe findings in its client tests fell outside vendor advisories. That's its tested population, not a universal percentage. Microsoft's analysis of exploited vulnerabilities stresses the mismatch between slow patching and fast exploitation; Censys' vulnerability-response discussion similarly argues that attackers still succeed with simple entry routes. SANS also has a practical diary on recognising Multipath TCP traffic, following attention around a Linux implementation flaw, rather than a patch guide.",
+    "I'd put the actively attacked Node-RED and BTCPay deployments at the front of today's queue. For refrigeration operators, verify the physical temperatures while somebody checks controller access; don't wait for the dashboard to explain itself. Hope Tuesday leaves you a little room to breathe.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-120344",
+      "CVE-2026-120345",
+      "CVE-2026-102435",
+      "CVE-2026-120442",
+      "CVE-2026-77876",
+      "CVE-2026-86596",
+      "CVE-2026-105606",
+      "CVE-2025-11969"
+    ],
+    "news": [
+      {
+        "id": "25a26c3d-24bd-44ce-b684-18ec8b177131",
+        "url": "https://krebsonsecurity.com/2026/11/tech-firms-dismantle-botnet-that-turned-1-3m-tv-boxes-into-proxies/",
+        "title": "Tech Firms Dismantle Botnet That Turned 1.3M TV Boxes Into Proxies",
+        "source": "Krebs on Security"
+      },
+      {
+        "id": "57220621-82a8-4a7e-9169-a8179f9cc4a9",
+        "url": "https://isc.sans.edu/diary/rss/33484",
+        "title": "ISC Stormcast For Tuesday, November 3rd, 2026 https://isc.sans.edu/podcastdetail/10162, (Tue, Nov 3rd)",
+        "source": "SANS ISC"
+      },
+      {
+        "id": "a695208c-e9cd-48d5-96f1-3154148ec55b",
+        "url": "https://www.zyxel.com/global/en/support/security-advisories/zyxel-security-advisory-for-out-of-bounds-write-vulnerability-in-gs1900-series-switches-11-03-2026",
+        "title": "Zyxel security advisory for out-of-bounds write vulnerability in GS1900 series switches",
+        "source": "Zyxel advisories"
+      },
+      {
+        "id": "d693163a-8c54-4f32-960c-5bab76631b62",
+        "url": "https://therecord.media/uk-ncsc-predicts-rise-cyberattacks-coming-months",
+        "title": "UK faces ‘unprecedented rise’ in cyberattacks in coming months, warns cyber chief",
+        "source": "The Record"
+      },
+      {
+        "id": "a61ff35a-0a63-4b33-bdad-77265d0bae55",
+        "url": "https://www.zyxel.com/global/en/support/security-advisories/zyxel-security-advisory-for-buffer-overflow-vulnerability-in-certain-aps-fwa7-and-security-routers-11-03-2026",
+        "title": "Zyxel security advisory for buffer overflow vulnerability in certain APs, FWA7, and Security Routers",
+        "source": "Zyxel advisories"
+      },
+      {
+        "id": "082d39ec-1d2e-4cd0-9c6f-4d531f23deb1",
+        "url": "https://databreaches.net/2026/11/02/syrian-man-sentenced-for-wide-ranging-hacking-conspiracy-conducted-on-behalf-of-the-bashar-al-assad-regime/",
+        "title": "Syrian Man Sentenced for Wide-Ranging Hacking Conspiracy Conducted on Behalf of the Bashar Al Assad Regime",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "2e84a9ac-fd7e-4972-8791-40edf6daa0d1",
+        "url": "https://databreaches.net/2026/11/02/a-defense-contractor-gave-their-personal-ai-agent-access-to-a-secure-pentagon-system/",
+        "title": "A Defense Contractor Gave Their Personal AI Agent Access to a Secure Pentagon System",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "5e53020c-2504-4518-b801-92c14eb911fb",
+        "url": "https://databreaches.net/2026/11/02/hackers-hit-unm-hospital-then-apologize-and-offer-patients-2500-in-a-new-statement-they-reveal-more-about-the-incident/",
+        "title": "Hackers hit UNM hospital, then apologize and offer patients $2,500. In a new statement, they reveal more about the incident.",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "87d262d0-930c-4f74-8348-40645592c02b",
+        "url": "https://databreaches.net/2026/11/02/hhs-office-for-civil-rights-settles-ransomware-investigation-of-lehigh-valley-health-network/",
+        "title": "HHS’ Office for Civil Rights Settles Ransomware Investigation of Lehigh Valley Health Network",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "0b555cd8-7416-4594-a017-d6d151a8671f",
+        "url": "https://databreaches.net/2026/11/02/uk-second-liverpool-hospital-investigates-staff-over-breach-of-southport-attack-patient-records/",
+        "title": "UK: Second Liverpool hospital investigates staff over breach of Southport attack patient records",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "e9c35bf3-cb0f-4ec9-8b9f-2c2db391d1ac",
+        "url": "https://databreaches.net/2026/11/02/supermarket-freezers-across-europe-hit-by-second-suspected-cyber-attack/",
+        "title": "Supermarket freezers across Europe hit by second suspected cyber-attack",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "04945d2e-8113-4e58-aebf-c79fc7c436a5",
+        "url": "https://databreaches.net/2026/11/02/jpn-suntory-holdings-says-personal-data-of-around-100000-people-leaked/",
+        "title": "JPN: Suntory Holdings says personal data of around 100,000 people leaked",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "6082d267-035a-4101-a98b-cedd2297d95f",
+        "url": "https://databreaches.net/2026/11/02/hong-kong-privacy-watchdog-investigates-data-leaks-linked-to-major-airlines-and-retailers/",
+        "title": "Hong Kong privacy watchdog investigates data leaks linked to major airlines and retailers",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "6bd7eba1-a3d6-4d71-84e4-04cb191ea0e4",
+        "url": "https://databreaches.net/2026/11/02/ct-killingly-public-schools-notice-of-data-incident/",
+        "title": "CT: Killingly Public Schools – Notice of Data Incident",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "4ccf69ca-f952-4325-95a3-23f9379b5933",
+        "url": "https://databreaches.net/2026/11/02/kr-hybe-data-breach-exposes-employee-medical-records-financial-details/",
+        "title": "KR: HYBE data breach exposes employee medical records, financial details",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "e313d860-50eb-4b11-bc9b-639c6e377ea0",
+        "url": "https://unit42.paloaltonetworks.com/u42-threat-intelligence-highlights-oct-2026/",
+        "title": "Unit 42 Threat Intelligence Highlights - Nov. 2, 2026",
+        "source": "Unit 42"
+      },
+      {
+        "id": "8a63930f-8f90-415e-a71d-fdff407604c6",
+        "url": "https://www.theregister.com/security/2026/11/02/max-severity-bug-in-widely-used-ot-programming-tool-exploited-to-deliver-linux-malware/5307086",
+        "title": "Max-severity bug in widely used OT programming tool exploited to deliver Linux malware",
+        "source": "The Register security"
+      },
+      {
+        "id": "2ba66490-d34c-4d79-ac53-51fb68d4187e",
+        "url": "https://www.darkreading.com/cyberattacks-data-breaches/binance-hack-test-attack-paths",
+        "title": "One Compromised Laptop, Billions Lost: The Binance Attack-Path Warning",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "06e75e3e-99db-4701-87fe-6b087b92b515",
+        "url": "https://cyberscoop.com/google-disrupts-xcpe-botnet-videostrong-android-devices/",
+        "title": "Google shuts down global botnet running on certified Android devices",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "21fa9da2-4cc3-443c-b627-59d152a28134",
+        "url": "https://therecord.media/mercado-bitcoin-brazil-cryptocurrency-heist",
+        "title": "Largest crypto exchange in Brazil confirms cyberattack as millions flow out of platform",
+        "source": "The Record"
+      },
+      {
+        "id": "5f2d9dd6-7f30-4a8b-85bd-50cb528cd9a0",
+        "url": "https://www.bleepingcomputer.com/news/security/chinese-hackers-use-artex-ai-in-automated-attacks-against-200-orgs/",
+        "title": "Chinese hackers use ARTEX AI in automated attacks against 200 orgs",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "1f964491-7e19-4e34-b84f-67ca2efa4369",
+        "url": "https://cyberscoop.com/business-groups-cisa-2015-renewal-ndaa-cybersecurity/",
+        "title": "Business groups mount fresh campaign for long-term renewal of information sharing law",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "3c40de55-af75-4de0-957d-479549ece6ad",
+        "url": "https://www.microsoft.com/en-us/security/blog/2026/11/02/exploited-vulnerabilities-common-data-driven-analysis-real-world-attacks/",
+        "title": "What exploited vulnerabilities have in common: A data-driven analysis of real-world attacks",
+        "source": "Microsoft Security Blog"
+      },
+      {
+        "id": "b98631cb-17e1-4044-8d82-a686bc5f9712",
+        "url": "https://therecord.media/michigan-state-university-byod-gang-cyber-incident",
+        "title": "Michigan State cyber incident claimed by ransomware gang behind recent hospital attack",
+        "source": "The Record"
+      },
+      {
+        "id": "0628c5cd-a036-41c6-ad96-205c9a1483bc",
+        "url": "https://techcrunch.com/2026/11/02/germany-says-lawmakers-iphones-may-have-been-hacked-with-spyware/",
+        "title": "Germany says lawmakers’ iPhones may have been hacked with spyware",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "051153d5-bc99-4047-b99b-7625c35e1c03",
+        "url": "https://censys.com/blog/european-refrigerator-controller-redux-a-new-wave-of-refrigeration-attacks/",
+        "title": "European Refrigerator Controller Redux: A new wave of refrigeration attacks",
+        "source": "Censys"
+      },
+      {
+        "id": "c35454bb-0df9-41cd-8657-de3ec0ceaf98",
+        "url": "https://www.theregister.com/cyber-crime/2026/11/02/cops-bust-botnet-of-13m-infected-android-tv-boxes/5307045",
+        "title": "Cops bust botnet of 1.3M infected Android TV boxes",
+        "source": "The Register security"
+      },
+      {
+        "id": "0a22ad5c-e270-49b6-9d3b-700813d931fd",
+        "url": "https://www.computerweekly.com/news/366653412/UK-to-face-AI-powered-cyber-attacks-within-two-years-warns-NCSC",
+        "title": "UK to face AI-powered cyber attacks within two years, warns NCSC",
+        "source": "Computer Weekly security"
+      },
+      {
+        "id": "edc16933-4d75-400f-a0be-3b3d4c6effb7",
+        "url": "https://www.bleepingcomputer.com/news/security/fintech-platform-sageworks-taken-offline-after-suspected-cyberattack/",
+        "title": "Fintech platform Sageworks taken offline after suspected cyberattack",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "be1d8b97-493b-46aa-94de-00ba064705f4",
+        "url": "https://www.bleepingcomputer.com/news/security/google-disrupts-million-device-xcpe-android-malware-botnet-bans-tv-box-maker/",
+        "title": "Google disrupts million-device XCPE Android malware botnet, bans TV box maker",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "e91bf5a5-c0c1-4fdd-ab80-9dff43fb1c95",
+        "url": "https://censys.com/blog/thoughts-on-the-vulnpocalypse-php2shell/",
+        "title": "Thoughts on Vulnerability Response in the Era of the Vulnpocalypse and PHP2Shell",
+        "source": "Censys"
+      },
+      {
+        "id": "c839e7ea-c78a-4a65-8497-dd96540ebc71",
+        "url": "https://therecord.media/polymarket-returning-funds-to-customers-after-site-compromise",
+        "title": "Polymarket pledges to give $3.9 million back to victims after site compromise",
+        "source": "The Record"
+      },
+      {
+        "id": "30d774fb-1f5b-4a2e-b40f-bed1d35fc127",
+        "url": "https://www.wired.com/story/anti-oligarchy-activists-plan-to-dox-elon-musk-and-hundreds-of-billionaire-linked-homes/",
+        "title": "Anti-Oligarchy Activists Plan to Dox Elon Musk and Hundreds of Billionaire-Linked Homes",
+        "source": "Wired security"
+      },
+      {
+        "id": "1a352b7c-1699-430c-bbb9-7d0c6491f832",
+        "url": "https://thehackernews.com/2026/11/weekly-recap-critical-cves-linux-ddos.html",
+        "title": "⚡ Weekly Recap: Critical CVEs, Linux DDoS Botnet, Device-Code Phishing, Android Spyware and More",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "b63f543d-0810-4594-9f98-99bbbfa6452b",
+        "url": "https://www.theregister.com/security/2026/11/02/cloud-hosted-ai-workflow-tool-has-environment-variables-snatched-in-security-incident/5306998",
+        "title": "Cloud-hosted AI workflow tool has environment variables snatched in security incident",
+        "source": "The Register security"
+      },
+      {
+        "id": "399f3553-cd3e-4be4-bd51-836a8f1ef5f7",
+        "url": "https://therecord.media/hackers-ukraine-belarus-russia",
+        "title": "Russia's statistics agency confirms cyberattack claimed by Belarusian and Ukrainian hackers",
+        "source": "The Record"
+      },
+      {
+        "id": "5cc78283-aaa7-4149-bfa4-022f49246489",
+        "url": "https://www.theregister.com/security/2026/11/02/token-thieves-costing-companies-100k-per-day-in-illicit-llm-charges/5306967",
+        "title": "Token thieves costing companies $100K+ per day in illicit LLM charges",
+        "source": "The Register security"
+      },
+      {
+        "id": "d631f266-ce7a-4f3e-9352-f8217fdae8fb",
+        "url": "https://research.checkpoint.com/2026/2nd-november-threat-intelligence-report/",
+        "title": "2nd November – Threat Intelligence Report",
+        "source": "Check Point Research"
+      },
+      {
+        "id": "fe117fcc-5b62-4089-a592-57d4cfde413b",
+        "url": "https://thehackernews.com/2026/11/google-disrupts-13-million-device.html",
+        "title": "Google Disrupts 1.3 Million-Device Android Botnet, Says TV Box Maker Sold Criminal Access",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "71597fd3-062a-4b1e-b7f9-9448af68e2e8",
+        "url": "https://www.wordfence.com/blog/2026/11/http2shell-wordpress-brotli/",
+        "title": "HTTP2Shell: What the Critical Brotli Vulnerability Means for WordPress Sites",
+        "source": "Wordfence"
+      },
+      {
+        "id": "8b4f5959-f321-4b11-bfc9-f4ccd9591cfe",
+        "url": "https://kb.cert.org/vuls/id/203719",
+        "title": "VU#203719: INFINITT PACS System Manager Contains Multiple Code Execution Vulnerabilities",
+        "source": "CERT/CC"
+      },
+      {
+        "id": "4577a0de-7e02-46a7-96df-c3720f838b3c",
+        "url": "https://cloud.google.com/blog/topics/threat-intelligence/llmjacking-monetizing-compromised-cloud-models",
+        "title": "The Rise of LLMJacking: How Threat Actors Monetize Compromised Cloud and Model Resources",
+        "source": "Google Threat Intelligence"
+      },
+      {
+        "id": "092c32f1-28b4-4556-8e7c-c03ba1da6a77",
+        "url": "https://www.bleepingcomputer.com/news/security/btcpay-server-warns-of-hot-wallet-thefts-targeting-outdated-instances/",
+        "title": "BTCPay Server warns of hot wallet thefts targeting outdated instances",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "f3369f8e-044f-4aab-ab69-6d153b7cfb7e",
+        "url": "https://www.securityweek.com/cybersecurity-ma-roundup-37-deals-announced-in-october-2026/",
+        "title": "Cybersecurity M&A Roundup: 37 Deals Announced in October 2026",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "487ffd0b-84e8-455f-bfeb-c448dcd2d3bb",
+        "url": "https://www.bleepingcomputer.com/news/security/your-mobile-carrier-stores-your-call-logs-for-years/",
+        "title": "Your Mobile Carrier Stores Your Call Logs for Years",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "5ff85e44-40f5-4509-b078-6332dc01bdcb",
+        "url": "https://www.darkreading.com/cyberattacks-data-breaches/microsoft-ai-cyber-risk-report-miss",
+        "title": "Microsoft's AI Risk Report Misses This Key Detail",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "e5f7a84c-6f43-48f4-bd4d-577a7b824b54",
+        "url": "https://isc.sans.edu/diary/rss/33482",
+        "title": "Mutipath TCP: Use and Detection, (Mon, Nov 2nd)",
+        "source": "SANS ISC"
+      },
+      {
+        "id": "da1bf647-d604-4576-9fc8-ce704437511e",
+        "url": "https://thehackernews.com/2026/11/darkblinders-compromises-israeli-target.html",
+        "title": "DarkBlinders Compromises Israeli Target and Iraqi Kurdish Government Cloud Environment",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "c532488c-8c04-4d02-898f-6b666c4ec93f",
+        "url": "https://www.theregister.com/security/2026/11/02/nuclear-threats-and-street-brawls-russia-ukraine-report-attacks-on-their-emergency-alert-apps/5306901",
+        "title": "Nuclear threats and street brawls: Russia, Ukraine report attacks on their emergency alert apps",
+        "source": "The Register security"
+      },
+      {
+        "id": "209d10b3-cda2-40aa-9b89-45925f58b07d",
+        "url": "https://www.infosecurity-magazine.com/news/armadin-severe-exposures-missed/",
+        "title": "Armadin Tests Find 88% of Severe Flaws Outside Vendor Advisories",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "13269bb0-461e-4a00-a3db-ca9804a45a5b",
+        "url": "https://www.securityweek.com/florida-student-aid-website-hack-puts-data-of-4-9-million-people-at-risk/",
+        "title": "Florida Student Aid Website Hack Puts Data of 4.9 Million People at Risk",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "fbfa7d61-ef77-489f-b080-4c3dbae67bf6",
+        "url": "https://therecord.media/apple-warns-users-99-countries-mercenary-spyware",
+        "title": "Apple warns users in 99 countries of mercenary spyware",
+        "source": "The Record"
+      },
+      {
+        "id": "8cc5bf5c-d35f-4e35-9b2f-15fbea0d8537",
+        "url": "https://therecord.media/ukraine-hackers-russia-alert-system",
+        "title": "Russian and Ukrainian hackers hijack emergency apps to spread fake nuclear attack warnings",
+        "source": "The Record"
+      },
+      {
+        "id": "026e7560-5c3c-45f7-ba37-b7ed3a13dde7",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-disrupt-refrigeration-systems-at-european-supermarkets/",
+        "title": "Hackers disrupt refrigeration systems at European supermarkets",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "9604f8f3-4e0e-4674-8d3e-15cdd71fd781",
+        "url": "https://www.malwarebytes.com/blog/threat-intel/2026/11/5-stars-for-sale-inside-the-underground-fake-review-trade",
+        "title": "5 stars for sale: Inside the underground fake review trade",
+        "source": "Malwarebytes Labs"
+      },
+      {
+        "id": "f5c86d3a-95a2-4fc2-b745-93bc7181ff82",
+        "url": "https://www.malwarebytes.com/blog/news/2026/11/applebees-customer-data-exposed-by-password-left-in-app",
+        "title": "Applebee’s customer data exposed by password left in app",
+        "source": "Malwarebytes Labs"
+      },
+      {
+        "id": "ec05b179-8e65-41c3-9ba2-5bddae1b2f6e",
+        "url": "https://www.computerweekly.com/news/366653380/Cold-chain-cyber-attacks-highlight-lack-of-OT-security-in-retail",
+        "title": "Cold chain cyber attacks highlight lack of OT security in retail",
+        "source": "Computer Weekly security"
+      },
+      {
+        "id": "367d7bee-da91-4c7c-8feb-6b50c37bad2b",
+        "url": "https://www.cybersecuritydive.com/news/agentic-pen-testing-tool-espionage-campaigns/873427/",
+        "title": "Agentic pen-testing tool employed in multiple espionage campaigns around the globe",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "458a3dc2-67a8-497f-910c-7dca721a1310",
+        "url": "https://techcrunch.com/2026/11/02/a-fresh-wave-of-cyberattacks-has-hit-europes-supermarket-refrigerators-destroying-food-across-countries/",
+        "title": "A fresh wave of cyberattacks has hit Europe’s supermarket refrigerators, destroying food across countries",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "90537d74-163d-4f70-ba9c-7867f3af1ab8",
+        "url": "https://www.darkreading.com/cyberattacks-data-breaches/paprat-cyberespionage-campaign-bitter-south-asia",
+        "title": "PapRAT Cyber Espionage Campaign Leaves a 'BITTER' Taste in South Asia",
+        "source": "Dark Reading"
+      }
+    ]
+  }
+}
