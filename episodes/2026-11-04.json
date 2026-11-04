@@ -1,0 +1,486 @@
+{
+  "day": "2026-11-04",
+  "title": "Locked NAS boxes and a poisoned security update",
+  "overview": "Ransomware crews are exploiting old Synology DSM installations, while a hijacked cPGuard update has compromised Linux hosting servers. British refrigeration operators join the attack tally, and there are new fixes and deadlines for previously covered vulnerabilities.",
+  "duration_s": 398,
+  "chars": 5396,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-04.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-04.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Wednesday, the fourth of November, twenty twenty-six.",
+    "The box holding your backups could be the thing that needs rescuing. Synology says attackers are exploiting a DSM vulnerability it patched in December twenty twenty-four, and customers are reporting C3RB3R ransomware leaving files with a dot L-zero-C-K-three-D extension. DSM is the operating system on Synology's NAS appliances, often doing quiet duty as shared storage or a backup destination. I'd check those builds before coffee. A backup you can't read isn't much of an escape route.",
+    "Synology hasn't identified which flaw is being used. Its linked advisory includes a network-reachable code-execution bug in the system plugin daemon, caused by improper output encoding, but that doesn't establish it's the route into these attacks. Once running, the ransomware skips twenty-seven directories and certain system-file types, leaving read-me3 dot txt ransom notes in encrypted directories.",
+    "The minimum fixed builds are quite specific. For DSM 7 point 2 point 2, it's 7 point 2 point 2 dash 72806 dash 1; for 7 point 2 point 1, it's 7 point 2 point 1 dash 69057 dash 6. On 7 point 2, use 7 point 2 dash 64570 dash 4 or later. The older branches need 7 point 1 point 1 dash 42962 dash 7, or 6 point 2 point 4 dash 25556 dash 8. Synology also recommends automatic updates.",
+    "Except, painfully, the next attack arrived through automatic updates. Compromised credentials let an attacker into OpsShield's cPGuard distribution infrastructure on Monday, pushing a malicious script in versions 5 point 88 point 12 through 5 point 88 point 19. That's a security add-on running as root on Linux hosting servers. The script installed a shell and collected password hashes alongside root's database configuration and shell history, uploading the haul to OpsShield's own licensing server. The vendor says two thousand nine hundred and forty-six servers were affected; the attacker retrieved thirty-two server collections, and copied its billing database too.",
+    "Update cPGuard to 5 point 88 point 25 or later, then check its install log for affected versions. What bugs me here is that the fix removes the backdoor and collection directory: their absence afterwards proves nothing. From a trusted environment, reset affected account passwords and rotate exposed secrets, including root's SSH private keys. Removing the collector doesn't recall what it collected.",
+    "And from stolen server access to physical disruption: yesterday's refrigeration attacks now include three British abattoirs and wholesaler Langridge Organic. The abattoirs were reached through Copeland XWEB controllers, and there's now a named weakness: authentication bypass in firmware 1 point 12 point 1 and earlier, with an update available since August. That wait has become expensive. Get exposed controllers off public addresses and update XWEB past that release before restoring protected remote access. Check defrost schedules when reconfiguring affected units. The NCSC spent the night contacting exposed UK organisations and says national impact is minimal so far; Belgium's federal prosecutor has opened an investigation. Investigators haven't established a link with October's French attacks.",
+    "Back on servers, there's movement on the Linux TCP flaw: Red Hat has shipped fixed kernels for RHEL 8, 9 and 10, raising its rating to nine point eight; install them and reboot. Ubuntu's fixes for 22 point 04, 24 point 04 and 26 point 04 remain in the opt-in proposed channel, without a regular-release date. And yesterday's Node-RED story now has a specific fix: for CVE-2026-58115 on Siemens SIMATIC IoT2050 Advanced industrial gateways, update to 4 point 3 point 4 point 1 or later. Attackers are also planting webshells that survive reboot, so inspect deployed flows for unexpected exec nodes or HTTP endpoints.",
+    "For website operators, Saturday's WordPress Core upgrade-window race is now in CISA's exploited catalogue as CVE-2026-119977, with US federal agencies due to fix it by Friday, the sixth of November. The listed range is 4 point 7 through 7 point 1 point 3; move past that and check for compromise during earlier upgrades. There's no patch for the separate CryptoPayment Gateway plugin flaw, which Defused Cyber says attackers are trying to exploit to delete files and extract stored wallet credentials without authentication. Remove affected versions 1 point 2 point 1 through 1 point 2 point 2, then rotate wallet keys and inspect payment settings.",
+    "One thing not to mistake for a fresh emergency: Mozilla's advisory replay has reached twenty eleven, including both DigiNotar certificate notices and advisories for Thunderbird and SeaMonkey as well as Firefox. Widen archive-date suppression through MFSA 2011-03 to 2011-59, plus MFSA 2012-01 and 2012-02; their historical exploitation language isn't evidence of attacks today.",
+    "I'd give the storage checks first attention, while treating any affected cPGuard installation as a credentials incident, not just an update job. Keep an eye on Canonical's regular kernel channel rather than assuming the testing builds have reached everyone. Hope Wednesday gives you a quieter patch window.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-119977"
+    ],
+    "news": [
+      {
+        "id": "b9bb3f58-21bf-4b0d-b4b3-5d86e11185d2",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-hijack-cpguard-autoupdate-to-deploy-backdoor-steal-data/",
+        "title": "Hackers hijack cPGuard autoupdate to deploy backdoor, steal data",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "15d7bf11-301d-4d27-afa4-906bf86fd4f7",
+        "url": "https://www.darkreading.com/ics-ot-security/fresh-european-fridge-attacks-cold-chain-security",
+        "title": "Fresh European Fridge Attacks Put Cold-Chain Security in Focus",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "c53be96a-0fd4-4726-a80b-248fe60d3e8e",
+        "url": "https://wordpress-1685287-6764806.cloudwaysapps.com/2026/11/03/a-defense-contractor-gave-their-personal-ai-agent-access-to-a-secure-pentagon-system/",
+        "title": "A Defense Contractor Gave Their Personal AI Agent Access to a Secure Pentagon System",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "c224c2a8-27e4-44c3-9c2c-4c64b915c39d",
+        "url": "https://therecord.media/british-businesses-caught-in-europe-wide-supermarket-fridge-attacks",
+        "title": "British businesses caught in Europe-wide supermarket fridge attacks",
+        "source": "The Record"
+      },
+      {
+        "id": "976a47a9-d470-4206-abc7-815b2aecce4f",
+        "url": "https://www.cybersecuritydive.com/news/european-authorities-probe-attacks-grocery-refrigerators/873598/",
+        "title": "European authorities probe ongoing attacks targeting grocery refrigerators",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "6eb974ae-e4c4-4a5a-aae8-9e8e36579f4f",
+        "url": "https://thehackernews.com/2026/11/cpguard-update-channel-hijacked-to.html",
+        "title": "cPGuard Update Channel Hijacked to Backdoor Linux Servers and Collect Password Hashes",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "8e9c9cf7-f3f0-41ea-815e-5a53ec5ca344",
+        "url": "https://www.sentinelone.com/labs/defrost-and-disrupt-an-assessment-of-europe-s-refrigeration-attacks/",
+        "title": "Defrost and Disrupt | An Assessment of Europe’s Refrigeration Attacks",
+        "source": "SentinelLabs"
+      },
+      {
+        "id": "e3138c64-7112-464e-a10e-6fadd6644d01",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-29/",
+        "title": "MFSA 2011-29 Security issues addressed in Firefox 6",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d496c371-5eb6-4574-9b29-9d9dd7713e4a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-31/",
+        "title": "MFSA 2011-31 Security issues addressed in Thunderbird 6",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d01ff41f-d67d-4947-ac8f-025d83f8bde1",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-25/",
+        "title": "MFSA 2011-25 Stealing of cross-domain images using WebGL textures",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "cc6981c8-d2cd-40b5-ae1a-fa22b460a5ea",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-12/",
+        "title": "MFSA 2011-12 Miscellaneous memory safety hazards (rv:2.0.1/ 1.9.2.17/ 1.9.1.19)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c5f91426-9e0a-49cd-9805-24e53d76db31",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-15/",
+        "title": "MFSA 2011-15 Escalation of privilege through Java Embedding Plugin",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "bf8b30d6-2921-4271-afd4-4e7fe463e939",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-16/",
+        "title": "MFSA 2011-16 Directory traversal in resource: protocol",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "baae1137-0847-4a8f-bf25-5c15c6cf1a2a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-28/",
+        "title": "MFSA 2011-28 Non-whitelisted site can trigger xpinstall",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a67f690f-20f5-448e-a261-91e20745bb26",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-06/",
+        "title": "MFSA 2011-06 Use-after-free error using Web Workers",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9ec9c4bd-1ce1-4b63-804a-b6dc85d9844d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-24/",
+        "title": "MFSA 2011-24 Cookie isolation error",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9a2abc64-1c3c-4f16-800d-06c9ed8c345a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-14/",
+        "title": "MFSA 2011-14 Information stealing via form history",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "84043f2f-b67b-4c36-86af-ff4d3328a460",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-21/",
+        "title": "MFSA 2011-21 Memory corruption due to multipart/x-mixed-replace images",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "80f6ca6a-be68-4c42-ba8c-80e80fb7096f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-22/",
+        "title": "MFSA 2011-22 Integer overflow and arbitrary code execution in Array.reduceRight()",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "790a6e81-cc93-400e-b91c-966b8de01d02",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-20/",
+        "title": "MFSA 2011-20 Use-after-free vulnerability when viewing XUL document with script disabled",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "72b61190-d100-4da3-9d18-82dd18b32586",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-27/",
+        "title": "MFSA 2011-27 XSS encoding hazard with inline SVG",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "66a01704-7d6e-4cef-9511-ed9f253ce2dd",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-18/",
+        "title": "MFSA 2011-18 XSLT generate-id() function heap address leak",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5f219c38-5251-477f-a375-c5dfe333fa60",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-10/",
+        "title": "MFSA 2011-10 CSRF risk with plugins and 307 redirects",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5aaecf15-9aa6-40ab-b816-16019f897847",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-23/",
+        "title": "MFSA 2011-23 Multiple dangling pointer vulnerabilities",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "56ccf9d0-753d-41aa-92bc-9cc29a88e74d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-17/",
+        "title": "MFSA 2011-17 WebGLES vulnerabilities",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5562cf7f-6e2e-4eb2-8a1d-8aede959bdd7",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-09/",
+        "title": "MFSA 2011-09 Crash caused by corrupted JPEG image",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "4d7ec11b-ba16-4ca1-9062-97fa2d802b6b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-11/",
+        "title": "MFSA 2011-11 Update to HTTPS certificate blacklist",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "473cb191-ca22-47dd-a25a-e79936015917",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-07/",
+        "title": "MFSA 2011-07 Memory corruption during text run construction (Windows)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "46acfc2e-c915-4960-92c3-526c2ee4d546",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-13/",
+        "title": "MFSA 2011-13 Multiple dangling pointer vulnerabilities",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "42a799b9-248f-42dd-8b8d-02f027e51d5e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-30/",
+        "title": "MFSA 2011-30 Security issues addressed in Firefox 3.6.20",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "286ba5d0-1e68-489b-b943-64df1a16e3d9",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-26/",
+        "title": "MFSA 2011-26 Multiple WebGL crashes",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "22805d5e-b682-4e02-b448-44ab7c15a7da",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-05/",
+        "title": "MFSA 2011-05 Buffer overflow in JavaScript atom map",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1b664492-349a-4267-854c-5ed27a40e74e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-08/",
+        "title": "MFSA 2011-08 ParanoidFragmentSink allows javascript: URLs in chrome documents",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "17d47802-dc6e-4626-9e66-a56d351a728e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-03/",
+        "title": "MFSA 2011-03 Use-after-free error in JSON.stringify",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "11f18cb6-e3cd-4065-9a6e-d90a315c7b90",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-32/",
+        "title": "MFSA 2011-32 Security issues addressed in Thunderbird 3.1.12",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0d21a886-6183-421e-bb6b-f08b4453b870",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-04/",
+        "title": "MFSA 2011-04 Buffer overflow in JavaScript upvarMap",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0cb5cb85-78d7-4ccf-a129-947659833e84",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-19/",
+        "title": "MFSA 2011-19 Miscellaneous memory safety hazards (rv:3.0/1.9.2.18)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "ff8b6ad5-bb2a-4282-99d5-2dcf8947e433",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-55/",
+        "title": "MFSA 2011-55 nsSVGValue out-of-bounds access",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "fcc5a4a8-3a52-454e-83de-a33187ed3262",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-49/",
+        "title": "MFSA 2011-49 Memory corruption while profiling using Firebug",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f94379b6-e530-495a-8788-c9753f09250a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-46/",
+        "title": "MFSA 2011-46 loadSubScript unwraps XPCNativeWrapper scope parameter (1.9.2 branch)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f8e066a2-9694-4aee-a5ba-0c00d4453c65",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-40/",
+        "title": "MFSA 2011-40 Code installation through holding down Enter",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f2308301-97bd-4c32-bcc0-008d40d7c7db",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-50/",
+        "title": "MFSA 2011-50 Cross-origin data theft using canvas and Windows D2D",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "be787699-e732-4b59-899c-9cd45d9a486e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-01/",
+        "title": "MFSA 2012-01 Miscellaneous memory safety hazards (rv:10.0/ 1.9.2.26)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "af40459a-6e61-40fe-bc3b-b7e01ef6ad73",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-43/",
+        "title": "MFSA 2011-43 loadSubScript unwraps XPCNativeWrapper scope parameter",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "aa8c62d8-2aa5-4c7d-a008-06ed7e61d331",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-56/",
+        "title": "MFSA 2011-56 Key detection without JavaScript via SVG animation",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a42a8d8c-9490-4943-9346-314480ec02c8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-57/",
+        "title": "MFSA 2011-57 Crash when plugin removes itself on Mac OS X",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a19de525-2c72-476d-9004-267041f72dc6",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-41/",
+        "title": "MFSA 2011-41 Potentially exploitable WebGL crashes",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9d77e62c-5370-45c0-9a59-f9385fed9f60",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-38/",
+        "title": "MFSA 2011-38 XSS via plugins and shadowed window.location object",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9c805590-93d1-46b8-b2d5-18623596834f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-33/",
+        "title": "MFSA 2011-33 Security issues addressed in SeaMonkey 2.3",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "94ffe55b-f2ca-4281-835a-79bbda528084",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-44/",
+        "title": "MFSA 2011-44 Use after free reading OGG headers",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "77609312-95fc-411c-b1ba-2628cd43f414",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-34/",
+        "title": "MFSA 2011-34 Protection against fraudulent DigiNotar certificates",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "76373623-9fd4-40e7-a7b3-e430e417e916",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-47/",
+        "title": "MFSA 2011-47 Potential XSS against sites using Shift-JIS",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "69661726-5b33-495d-9743-a5c05e91198a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-53/",
+        "title": "MFSA 2011-53 Miscellaneous memory safety hazards (rv:9.0)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "684fd281-2c73-4188-b32a-ffa7771755a9",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-51/",
+        "title": "MFSA 2011-51 Cross-origin image theft on Mac with integrated Intel GPU",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5e7d7bc3-5c82-4987-a81a-5a789c333b0a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-59/",
+        "title": "MFSA 2011-59 .jar not treated as executable in Firefox 3.6 on Mac",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "55b554f6-000e-4e8d-89ff-8d23785ef384",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-48/",
+        "title": "MFSA 2011-48 Miscellaneous memory safety hazards (rv:8.0)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "548c42bd-784c-44cb-8364-db29f4b788e5",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-35/",
+        "title": "MFSA 2011-35 Additional protection against fraudulent DigiNotar certificates",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "31c12d38-03db-42b8-a501-b8f6dc190c34",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-52/",
+        "title": "MFSA 2011-52 Code execution via NoWaiverWrapper",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "2c343ed3-e48e-45c5-8208-703eb9b51945",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-37/",
+        "title": "MFSA 2011-37 Integer underflow when using JavaScript RegExp",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "2bc4b345-c820-4a8b-9d91-d45c5fca552b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-54/",
+        "title": "MFSA 2011-54 Potentially exploitable crash in the YARR regular expression library",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "29953695-5f60-4225-a18d-5972a41384ac",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-58/",
+        "title": "MFSA 2011-58 Crash scaling to extreme sizes",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "11e8e12d-5bc6-4d8d-ac04-bc33ec8a2d28",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-36/",
+        "title": "MFSA 2011-36 Miscellaneous memory safety hazards (rv:7.0 / rv:1.9.2.23)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0cd0c286-06d2-47eb-a183-c5f1cc9b9219",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-45/",
+        "title": "MFSA 2011-45 Inferring keystrokes from motion data",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "012b6a6e-9fe2-4331-96c8-a8751517a41f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2012-02/",
+        "title": "MFSA 2012-02 Overly permissive IPv6 literal syntax",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "00880c3f-0fac-4edf-8da4-6c042ee9a10e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-42/",
+        "title": "MFSA 2011-42 Potentially exploitable crash in the YARR regular expression library",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "00860783-97de-4f92-b6ec-ce4e09274a29",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-39/",
+        "title": "MFSA 2011-39 Defense against multiple Location headers due to CRLF Injection",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d81b54d9-2db7-4f57-a287-85bab2744822",
+        "url": "https://www.infosecurity-magazine.com/news/cyber-refrigeration-supermarkets/",
+        "title": "Cyber-Attack on Refrigeration Systems Hits Supermarkets Across Europe",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "caddac54-3b5f-4f12-8402-426b01f80502",
+        "url": "https://www.computerweekly.com/news/366653356/UK-abattoirs-caught-up-in-cyber-attack-against-European-supermarkets",
+        "title": "UK abattoirs caught up in cyber attack against European supermarkets",
+        "source": "Computer Weekly security"
+      },
+      {
+        "id": "a6cb5c30-ee25-40f8-abb7-00a9698e15de",
+        "url": "https://www.securityweek.com/critical-node-red-flaw-exploited-in-attacks/",
+        "title": "Critical Node-RED Flaw Exploited in Attacks",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "c9b7760c-73cc-4275-b341-b3281ff311f6",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/11/03/cisa-adds-one-known-exploited-vulnerability-catalog",
+        "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "f8de0e10-f9c1-4ddd-83a3-0122313a5790",
+        "url": "https://thehackernews.com/2026/11/red-hat-patches-98-rated-linux-tcp-rce.html",
+        "title": "Red Hat Patches 9.8-Rated Linux TCP RCE Flaw While Ubuntu Releases Fixes for Testing",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "4c4dcddd-d440-47a9-be33-78cd947b31bf",
+        "url": "https://www.securityweek.com/over-100-european-stores-hit-as-supermarket-fridge-attacks-resume/",
+        "title": "Over 100 European Stores Hit as Supermarket Fridge Attacks Return",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "e92729f1-110c-4027-a4ff-d8c39ce251cd",
+        "url": "https://thehackernews.com/2026/11/synology-nas-devices-targeted-in.html",
+        "title": "Synology NAS Devices Targeted in Ransomware Attacks Exploiting Patched DSM Flaw",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "4766e479-c3d1-491c-92e0-f7f1516d43dc",
+        "url": "https://thehackernews.com/2026/11/second-wave-of-cyberattacks-hits.html",
+        "title": "New Wave of Refrigeration Cyberattacks Hits Supermarkets Across Europe, Forcing Stores to Pull Food",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "dd43cf58-7656-43e9-9ee4-493f8f254f8d",
+        "url": "https://thehackernews.com/2026/11/attackers-exploit-critical-siemens.html",
+        "title": "Attackers Exploit Critical Siemens IoT2050 Flaw to Plant Remote Command Backdoors",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "71d5085b-367d-44c0-993e-fe4bc6888137",
+        "url": "https://thehackernews.com/2026/11/attackers-target-unpatched.html",
+        "title": "Attackers Target Unpatched CryptoPayment Gateway Flaw That Can Expose Wallet Credentials",
+        "source": "The Hacker News"
+      }
+    ]
+  }
+}
