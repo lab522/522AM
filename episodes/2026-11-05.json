@@ -1,0 +1,416 @@
+{
+  "day": "2026-11-05",
+  "title": "Borrowed trust, stolen billions and root through email",
+  "overview": "Binance describes months of preparation behind its cryptocurrency theft, while supplier compromises expose airlines and enable a French bank heist. Exploited switches, unsafe package downloads and critical mail-gateway flaws give defenders a crowded patch queue.",
+  "duration_s": 949,
+  "chars": 13823,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-05.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-05.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Thursday, the fifth of November, twenty twenty-six.",
+    "The Binance thieves spent months preparing to steal billions in cryptocurrency, according to the exchange, using social engineering alongside novel malware. ReversingLabs is examining TraderTraitor's DevOps toolkit alongside the emerging account of the heist; that isn't, by itself, confirmation of who's responsible. The uncomfortable bit is the preparation time. My read is that defenders need to look well before the transfers when reconstructing this one.",
+    "And at Crédit Mutuel Arkéa, attackers compromised an unnamed supplier and made transfers from the French bank's own account. The suspected loss is an estimated hundred and thirty-three million dollars. Supplier access also connects the airline disclosures: Japan Airlines and Cathay Pacific have reported breaches traced to reservation-platform provider Amadeus, as have Korean Air and Asiana. Singapore Airlines and Malaysia Airlines complete the currently named group.",
+    "That reach beyond the named victim is what Lab 1 has been measuring. Across three hundred and twenty-eight million exposed files from just over two thousand datasets, the median breach contained data linked to five hundred and forty-two other organisations. A useful correction to the comforting thought that somebody else's incident belongs entirely to somebody else.",
+    "Hosting customers have more immediate trouble. DreamHost says attackers exploited its File Manager during a two-month intrusion, stealing FTP and SFTP credentials. Customer files and inboxes were accessed, with webmail sessions exposed too. If you're affected, I'd rotate those transfer credentials and revoke exposed sessions rather than treating the notification as historical paperwork. Over at Russian host Beget, an attack destroyed cloud data and disrupted hundreds of websites; restoration is still under way.",
+    "Schools feature on both sides of the Atlantic. At least three hundred and twenty thousand files stolen from Bristol City Council servers have appeared on the dark web. Iceland's Inna student-information system suffered a breach affecting up to sixteen schools, allowing a student to attempt changes to other pupils' grades and attendance. Separately, a Canadian suspect has been extradited to the US over alleged university cryptomining intrusions dating back to twenty sixteen. Two Canadians are accused, with educational institutions in at least four states affected.",
+    "And the refrigeration attacks have reached France's national blood service. Settings were altered at three sites through an equipment provider, threatening stored blood products. One account puts the temperature setting at a hundred and ten degrees Celsius; that's not evidence that the blood actually reached that temperature. The new concern is clinical stock, not just interrupted business.",
+    "There's a different kind of access problem at the White House: security experts say several staffers have devices running residential proxy services, making their internet addresses available for strangers to rent. That doesn't establish access to government systems, but it does make an address a poor witness for who's behind traffic. Google and partners, meanwhile, have disrupted the XCPE botnet spanning one point three million devices. Google alleges manufacturer Videostrong ran the operation, using backdoored Android set-top boxes and other connected devices as criminal infrastructure.",
+    "Turning trusted distribution into delivery is also behind the NIKKE incident. Its developers confirm tampering with the PC launcher's scripts, distributing remote-access malware capable of stealing credentials and cryptocurrency wallet data. A China-aligned group called SlippyNunchucks used DNS hijacking to turn Sogou input-method promotions into a malware channel.",
+    "And compromised web content is reaching phones. Researchers attribute a watering-hole campaign to APT29, with the Ukrainian Plerdy SEO Tracker analytics service used to deliver previously patched iOS and Android exploits. Compromised sites and fake domains drew visitors into it, including a site celebrating the US Constitution's anniversary. Update affected phones; these weren't previously unknown flaws. Separately, a suspected Russian attack disrupted the Kyiv Independent's website.",
+    "Credentials don't always need malware to escape. A Google Calendar phishing campaign used invitations and trusted redirects to reach fake login pages, stealing corporate Google sessions despite MFA. Vercel is gradually introducing Device Bound Session Credentials to resist stolen-cookie attacks. Gradually matters: don't assume every session already has that protection. Another campaign abuses valid Microsoft Entra ID credentials to reach downstream MSP clients. For providers, the investigation boundary needs to include customer access.",
+    "Password-manager customers have a particularly unpleasant notification. mSeven Software is warning current and former mSecure users after suspicious activity and a reported exposure of an encrypted customer database. It's asking for password changes and two-factor resets. It also says to remove passkeys. What bugs me is the breadth of the instructions without a clear account of whose information was exposed. Follow the vendor's guidance if you're affected, but encryption alone doesn't settle the risk.",
+    "Giving an assistant your credentials isn't a shortcut around that problem. Bank of America is warning customers against handing banking passwords to AI assistants, and says customers bear responsibility for what those agents do, as discussed on Smashing Security. WorkOS and Northflank have disclosed hacks, alongside Trigger.dev, amid attacks harvesting AI access tokens and using AI-assisted offensive tools.",
+    "Even an agent's instructions are becoming advertising space. Researchers found a Codex jailbreak bundle that changes trusted instructions to insert promotions for a third-party AI gateway. That's prompt adware, not merely an irritating answer. Sysdig has added runtime monitoring and controls for AI-agent actions, while a cybersecurity spending survey finds shadow AI remains difficult to oversee despite rising budgets.",
+    "There's work on making the tools more accountable, too. SentinelLabs' VerifiedIDA work examines inspectable, reusable LLM-assisted reverse engineering after finding inaccurate labels and incomplete analysis. Rapid7 has obtained ISO/IEC 42001 certification for its AI management system. Hugging Face chief Clément Delangue puts his probability of AI catastrophe close to zero and argues that closed development concentrates risk; the company's policy chief separately discusses open-source AI's costs and trade-offs. Those are positions in a debate, not measurements of your deployment's safety.",
+    "The policy backdrop has shifted in Washington: Democrats have won control of both congressional chambers, with consequences ahead for CISA and surveillance policy. In a separate insider case, a US government IT specialist with Top Secret clearance has pleaded guilty to transmitting sensitive documents to Ethiopia. Apple, meanwhile, plans moderation of publicly accessible iCloud share links in version 27 point 3 of iOS and iPadOS, with macOS and visionOS included. Public links are the scope here, not a stated scan of every private file.",
+    "A few smaller developments sit around those questions of control. Sentra has raised a hundred and fifty million dollars for agentic data security, while Horizon3 has appointed Chris Wood to lead Australia and New Zealand sales and Vivienne Horsfall to lead Asia-Pacific and Japan growth marketing. Dark Reading makes the case for automating incident-information updates without handing over all communications. Seriously Risky Business's weekly column returns to the cost of cryptocurrency insecurity, and Malwarebytes flags a fake seven-hundred-and-fifty-dollar Apple Cash reward. There's no payout waiting at the end.",
+    "For the patch queue, confirmed exploitation comes first. Zyxel has fixed a GS1900 switch zero-day used to compromise nearly a thousand devices worldwide and steal configuration files and credentials. Get the vendor's fixed firmware for your model and investigate credential exposure, rather than stopping at the upgrade. No build numbers have been given here.",
+    "Apple also has a fresh KEV addition, CVE-2024-27834, with US federal remediation due by the eighteenth of November. An attacker already able to read and write arbitrary memory may bypass Pointer Authentication; this isn't a standalone remote foothold. The fixes are Safari 17 point 5, iOS and iPadOS 17 point 5, or 16 point 7 point 8 on those older branches. For Sonoma it's macOS 14 point 5; tvOS needs 17 point 5 and watchOS 10 point 5. Don't assume the KEV addition establishes a connection to the phone campaign.",
+    "From old fixes to a new trust failure: Debian and Ubuntu have published advisories for an APT flaw that lets someone modifying package downloads substitute their own package after verification, with code then running as root. I'd prioritise the APT security update on affected releases. A successful check is supposed to bind the bytes you install, not give whatever arrives afterwards a free pass.",
+    "Mail gateways have two particularly sharp edges today. SEPPmail Secure Email Gateway before 15 point 1 point 1 has two nine point two flaws, both reachable by unauthenticated senders under specific configurations. With Large File Transfer enabled, attacker-controlled attachment metadata can supply a file path, letting the processing worker disclose or manipulate accessible files. The tested workers ran as root.",
+    "The other SEPPmail flaw evaluates attacker-influenced replacement text as Perl code. An active sender or recipient replacement rule must use message-derived replacement data and match its search condition; then an email can become operating-system commands, again as root in the validated setup. Update to 15 point 1 point 1. That's the one I'd put near the front: mail arriving is the appliance's actual job. Barracuda's Email Security Gateway has a separate authentication bypass and command-injection chain leading to root; check its advisory for the applicable remediation.",
+    "Management software deserves the same attention. SonicWall says two flaws in end-of-life GMS won't be patched; they could expose files or alter database records. Plan retirement or replacement rather than waiting for a release. Cisco UCS Central, which manages UCS server infrastructure, has authenticated remote code execution or information disclosure through its web interface. Cisco's Unified Communications Manager and Session Management Edition have unauthenticated web-interface XSS. Its ISE and ISE Passive Identity Connector have an authorisation bypass allowing an unauthenticated attacker to obtain an endpoint identity certificate. Check the Cisco advisories against your installed releases.",
+    "The application side isn't quiet either. Rails Active Storage's ImageMagick integration can let uploaded images become arbitrary file writes and sensitive-file reads, potentially supporting lateral movement. Check that integration against the Rails advisory. PortSwigger has introduced a scan check for escalating HTTP header injection into CRLF-powered desynchronisation, potentially redirecting unrelated users. And SANS is revisiting vulnerable email CGI scripts and environment-variable leakage: an old bug class, not evidence that the historical CVE is newly exploited.",
+    "On routers, Linksys E5350 firmware 1 point 0 point 00 point 037 has two public exploits against its setup wizard. One feeds ping or traceroute arguments into command execution; the other exposes password-setting functionality without authentication. Both score ten. The vendor hasn't responded, and no fixed release is identified. Restrict access to the management interface and assess replacement if there's no supported remedy.",
+    "The same lack of an identified fix applies to Comfast CF-WR632AX 2 point 6 point 0 point 1, where a multipart filename permits remote path traversal. Edimax BR-6208AC firmware 1 point 32 separately has remote command injection through its goform interface. Both have public exploits and unanswered vendor contact. Don't mistake public exploit availability for confirmed attacks, but don't leave those interfaces broadly reachable while waiting.",
+    "Inside Kubernetes, Kyverno's policy controllers can become the escape route between tenants. Versions 1 point 17 point 0 through those before 1 point 19 point 2 have two nine point nine authorisation flaws. One lets a namespace tenant fabricate a target namespace in a CEL expression, persuading the privileged background controller to overwrite resources elsewhere in the cluster, including Secrets or Deployments.",
+    "The other lets namespace administrators build CleanupPolicy context entries that read cross-namespace Secrets and modify validating webhook configurations using the cleanup controller's service account. The underlying mistake is a context loader built without a policy. Update Kyverno to 1 point 19 point 2; namespace boundaries aren't doing the job you'd expect on affected versions. Rapid7 also has an explainer on CISA's BOD 26-04 risk-based update requirements, useful for teams translating the patch queue into federal obligations.",
+    "I'd separate emergency containment from patch deployment today: retiring an unsupported management system needs an owner, not another reminder in the update queue. And where secrets were exposed, keep recovery open until their replacement is done. Hope Thursday gives you a clean maintenance window.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2024-27834",
+      "CVE-2026-114425",
+      "CVE-2026-114424",
+      "CVE-2026-121932",
+      "CVE-2026-121933",
+      "CVE-2026-122013",
+      "CVE-2026-122051",
+      "CVE-2026-122303",
+      "CVE-2026-122304"
+    ],
+    "news": [
+      {
+        "id": "03e079cc-e034-4c2e-9481-cac06a923e6c",
+        "url": "https://krebsonsecurity.com/2026/11/want-to-rent-an-internet-address-at-the-white-house/",
+        "title": "Want to Rent an Internet Address at the White House?",
+        "source": "Krebs on Security"
+      },
+      {
+        "id": "95d92824-0855-4c5a-a374-17a172de19b5",
+        "url": "https://news.risky.biz/srsly-risky-biz-the-ritual-bitcoin-sacrifices-will-continue-until-security-improves/",
+        "title": "Srsly Risky Biz: The Ritual Bitcoin Sacrifices Will Continue Until Security Improves",
+        "source": "Risky Business News"
+      },
+      {
+        "id": "d9cfd8ea-0c28-472c-98d5-0290b0a7ad72",
+        "url": "https://grahamcluley.com/smashing-security-podcast-491/",
+        "title": "Smashing Security podcast #491: How AI agents are spooking the banks",
+        "source": "Graham Cluley"
+      },
+      {
+        "id": "eff82645-63d1-4010-a123-cc3d1330e47b",
+        "url": "https://cyberscoop.com/democrats-congress-cybersecurity-cisa-ai-priorities/",
+        "title": "What Democratic control of Congress means for cybersecurity",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "98d6f51a-83e5-4554-be7d-34c9a7584632",
+        "url": "https://databreaches.net/2026/11/04/lab-1-warns-breach-data-now-exposes-thousands-more-firms/",
+        "title": "Lab 1 warns breach data now exposes thousands more firms",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "e41256a8-e7ae-4eb8-b572-33ffaaa76c26",
+        "url": "https://databreaches.net/2026/11/04/student-data-breach-affects-up-to-16-icelandic-schools/",
+        "title": "Student Data Breach Affects Up to 16 Icelandic Schools",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "867867c6-8de7-4dc0-8abf-ca87b73e13ee",
+        "url": "https://arstechnica.com/security/2026/11/hackers-exploited-ios-and-android-flaws-to-infect-phones/",
+        "title": "Hackers exploited iOS and Android flaws to infect phones",
+        "source": "Ars Technica security"
+      },
+      {
+        "id": "6822a2ef-5dc2-4171-8b82-1552807a2f03",
+        "url": "https://horizon3.ai/news/press-release/horizon3-expands-anz-team-apj-investment/",
+        "title": "Horizon3 Expands Australia and New Zealand Team, Strengthens APJ Investment",
+        "source": "Horizon3"
+      },
+      {
+        "id": "9e98a5cc-5a52-4c7c-80c2-224281b2eb2b",
+        "url": "https://www.theregister.com/security/2026/11/04/apple-turns-icloud-into-spy-cloud-will-start-looking-at-public-share-links/5307681",
+        "title": "Apple turns iCloud into spy cloud, will start looking at public share links",
+        "source": "The Register security"
+      },
+      {
+        "id": "57c0c35b-0c35-4d95-be04-27b5489fc4b0",
+        "url": "https://www.darkreading.com/application-security/critical-rails-bug-derail-vulnerable-servers",
+        "title": "Critical Rails Bug Threatens to Derail Vulnerable Servers",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "e2535ff7-952e-44d6-bdd7-ab1bcbb45301",
+        "url": "https://www.bleepingcomputer.com/news/security/vercel-rolls-out-new-protection-against-stolen-session-cookie-attacks/",
+        "title": "Vercel rolls out new protection against stolen session cookie attacks",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "d17c6150-1685-41c2-b623-8d0f4f82e4b1",
+        "url": "https://therecord.media/asian-airlines-announce-data-breach-it-provider-incident",
+        "title": "More Asian airlines announce data breaches after attack on Spanish IT provider Amadeus",
+        "source": "The Record"
+      },
+      {
+        "id": "c2383184-75f8-417d-a869-082110e5fb6b",
+        "url": "https://www.bleepingcomputer.com/news/security/zyxel-fixes-zero-day-exploited-to-hack-nearly-1-000-network-switches/",
+        "title": "Zyxel fixes zero-day exploited to hack nearly 1,000 network switches",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "473ed228-95dc-4858-ab29-80cbac1ffc0c",
+        "url": "https://techcrunch.com/2026/11/04/hackers-stole-dreamhost-customer-files-and-inboxes-during-months-long-attack/",
+        "title": "Hackers stole DreamHost customer files and inboxes during months-long attack",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "4ff95e7c-1be8-405d-b358-b94d1bb26edd",
+        "url": "https://cyberscoop.com/canadian-extradited-cryptomining-universities/",
+        "title": "Officials extradite Canadian man to US for alleged cryptomining spree",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "4811e1c3-2d42-4003-95f1-0a2748992970",
+        "url": "https://therecord.media/canadian-nationals-accused-us-education-hacks-cryptomining",
+        "title": "Canadian extradited to US for allegedly hacking schools in at least four states",
+        "source": "The Record"
+      },
+      {
+        "id": "8378dd87-ac92-44bb-95aa-0c95804c4ead",
+        "url": "https://www.wired.com/story/wired-world-fair-2026-clement-delangue-hugging-face/",
+        "title": "Hugging Face’s CEO Says His P(Doom) Is ‘Close to Zero’",
+        "source": "Wired security"
+      },
+      {
+        "id": "cd1d682c-e1a4-4f45-9907-f1b0c8c8025f",
+        "url": "https://www.bleepingcomputer.com/news/security/dreamhost-confirms-data-breach-exposed-ftp-logins-and-webmail-sessions/",
+        "title": "DreamHost confirms data breach exposed FTP logins and webmail sessions",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "c9a1f137-3a98-475b-b4c5-a5af5b2f8280",
+        "url": "https://therecord.media/french-bank-confirms-cyber-heist",
+        "title": "French bank confirms cyber heist, hackers suspected to have stolen an estimated $133 million",
+        "source": "The Record"
+      },
+      {
+        "id": "9e76409a-14fa-45ee-a7d5-38f062d77b3d",
+        "url": "https://www.malwarebytes.com/blog/scams/2026/11/the-fake-750-apple-cash-reward-that-pays-out-nothing",
+        "title": "The fake $750 Apple Cash reward that pays out nothing",
+        "source": "Malwarebytes Labs"
+      },
+      {
+        "id": "4e9e6ef2-5372-4076-9f61-e639fa192750",
+        "url": "https://techcrunch.com/podcast/building-on-open-source-ai-hugging-faces-policy-chief-on-the-costs-risks-and-trade-offs/",
+        "title": "Building on open source AI? Hugging Face’s policy chief on the costs, risks, and trade-offs",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "8bce88b1-bb49-4b7d-bb2c-f871ce90a7c7",
+        "url": "https://databreaches.net/2026/11/04/hackers-steal-320000-uk-school-files-and-publish-them-on-dark-web/",
+        "title": "Hackers steal 320,000 UK school files and publish them on dark web",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "6c33157b-fc74-46da-b9dd-e0f88e4b9aa5",
+        "url": "https://databreaches.net/2026/11/04/cyberattack-wipes-cloud-data-at-major-russian-hosting-provider-beget/",
+        "title": "Cyberattack wipes cloud data at major Russian hosting provider Beget",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "c7e70870-610e-450c-b2b2-5126bfef1137",
+        "url": "https://www.bleepingcomputer.com/news/security/cyberattack-disrupts-blood-storage-refrigeration-systems-in-france/",
+        "title": "Cyberattack disrupts blood storage refrigeration systems in France",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "3cc26560-5b4c-44f2-b6e0-12a73e3decda",
+        "url": "https://www.malwarebytes.com/blog/data-breaches/2026/11/msecure-tells-users-to-change-passwords-but-wont-say-why",
+        "title": "mSecure tells users to change passwords but won’t say why",
+        "source": "Malwarebytes Labs"
+      },
+      {
+        "id": "f5ad3a3d-73bb-4c84-8fce-28c692398d20",
+        "url": "https://thehackernews.com/2026/11/debian-and-ubuntu-apt-flaw-lets-mitm.html",
+        "title": "Debian and Ubuntu APT Flaw Lets MitM Attackers Swap Verified Packages and Run Code as Root",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "64b2ffe9-1ca1-460e-821a-9fa64af7716d",
+        "url": "https://thehackernews.com/2026/11/sonicwall-wont-patch-eol-gms-flaws-that.html",
+        "title": "SonicWall Won't Patch EoL GMS Flaws That Could Expose Files, Alter Database Records",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "d5db5ec1-0d20-4372-bebc-d3025b32cc2c",
+        "url": "https://www.reversinglabs.com/blog/binance-heist-what-we-know-and-what-rl-sees-in-tradertraitors-toolkit",
+        "title": "Binance heist: what we know, and what RL sees in TraderTraitor's toolkit",
+        "source": "ReversingLabs"
+      },
+      {
+        "id": "26a0068f-c23d-4d2a-8b0d-6df0ef553fda",
+        "url": "https://www.bleepingcomputer.com/news/security/nikke-pc-game-launcher-hacked-to-spread-remote-access-data-stealing-malware/",
+        "title": "NIKKE PC game launcher hacked to spread remote access, data-stealing malware",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "714bd53b-08d0-4e08-af47-bf11eb640873",
+        "url": "https://www.rapid7.com/blog/post/ai-iso-iec-42001-certification-achieved",
+        "title": "Rapid7 Achieves ISO/IEC 42001 Certification for its AI Management System",
+        "source": "Rapid7"
+      },
+      {
+        "id": "42eec98a-4fa9-4d8b-ac05-fcac9383a1fa",
+        "url": "https://www.darkreading.com/endpoint-security/google-13-million-device-strong-xcpe-botnet",
+        "title": "Google, Partners Disrupts 1.3 Million-Device-Strong XCPE Botnet",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "ca5b7e48-be8c-40ff-9c50-a8d76333cbcb",
+        "url": "https://www.cybersecuritydive.com/news/attacker-microsoft-entra-id-downstream-msp/873744/",
+        "title": "Attacker abuses Microsoft Entra ID to target downstream MSP clients",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "42153a7b-9b09-4176-992d-ef07ce433db2",
+        "url": "https://therecord.media/ukraine-kyiv-independent-cyberattack",
+        "title": "Ukrainian news outlet Kyiv Independent hit by suspected Russian cyberattack",
+        "source": "The Record"
+      },
+      {
+        "id": "515e3e3a-8902-4d49-8159-a830fd4e0936",
+        "url": "https://thehackernews.com/2026/11/researchers-uncover-prompt-adware.html",
+        "title": "Researchers Uncover Prompt Adware Hidden in OpenAI Codex Jailbreak Toolkit",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "9425bb7e-a7b7-4b1e-947b-01db128619e5",
+        "url": "https://arstechnica.com/information-technology/2026/11/binance-says-hackers-who-stole-billions-in-crypto-spent-months-planning-heist/",
+        "title": "Binance says hackers who stole billions in crypto spent months planning heist",
+        "source": "Ars Technica security"
+      },
+      {
+        "id": "514f7e94-e029-4191-96e4-bd711dd1645b",
+        "url": "https://arstechnica.com/information-technology/2026/11/binance-says-hackers-who-stole-billions-in-crypto-spent-months-planning-the-heist/",
+        "title": "Binance says hackers who stole billions in crypto spent months planning the heist",
+        "source": "Ars Technica security"
+      },
+      {
+        "id": "af495312-b5fb-49b5-9220-82515f3a3c18",
+        "url": "https://www.bleepingcomputer.com/news/security/msecure-password-manager-hack-prompts-password-reset-warnings/",
+        "title": "mSecure password manager hack prompts password reset warnings",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "e94554ed-6ae8-4a76-bce7-db5dc799e46c",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-cucs-rce-LzHSFRDQ?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20UCS%20Central%20Software%20Remote%20Code%20Execution%20Vulnerability%26vs_k=1",
+        "title": "Cisco UCS Central Software Remote Code Execution Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "c6710199-6668-46a1-b60a-ee7d8a648fce",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-cucm-xss-5mQn2U5z?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Unified%20Communications%20Manager%20Cross-Site%20Scripting%20Vulnerability%26vs_k=1",
+        "title": "Cisco Unified Communications Manager Cross-Site Scripting Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "03a2caf5-731d-4324-a817-4b625c3a9f92",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ise-cert-mE9BD5GO?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Identity%20Services%20Engine%20Authorization%20Bypass%20Vulnerability%26vs_k=1",
+        "title": "Cisco Identity Services Engine Authorization Bypass Vulnerability",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "34deb735-8a57-4715-9bd8-ec9edd332746",
+        "url": "https://www.theregister.com/security/2026/11/04/us-gov-it-worker-pleads-guilty-to-sending-top-secret-files-to-ethiopia/5307595",
+        "title": "US gov IT worker pleads guilty to sending Top Secret files to Ethiopia",
+        "source": "The Register security"
+      },
+      {
+        "id": "5f11fadb-a8b7-4e2a-970b-6f9680139c3d",
+        "url": "https://www.cybersecuritydive.com/news/ai-security-governance-spending-dnsfilter/873725/",
+        "title": "Companies spending more on cybersecurity but still struggling with AI oversight",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "786258ca-a871-4aa0-b02f-f48cf1a6b786",
+        "url": "https://portswigger.net/research/making-http-header-injection-critical-with-one-prompt",
+        "title": "Making HTTP header injection critical with one prompt",
+        "source": "PortSwigger research"
+      },
+      {
+        "id": "73b277fc-f785-45c1-a878-6df6eefb8784",
+        "url": "https://www.bleepingcomputer.com/news/security/google-calendar-phishing-campaign-hijacks-sessions-bypasses-mfa/",
+        "title": "Google Calendar phishing campaign hijacks sessions, bypasses MFA",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "5342bdf7-788b-4710-bd75-91105a4c137f",
+        "url": "https://www.infosecurity-magazine.com/news/slippynunchucks-sogou-dns-hijacking/",
+        "title": "China-Aligned Group Abuses Sogou Input Method to Deliver Malware",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "71470f69-fe5e-479f-8ce8-9bf86f32f0e1",
+        "url": "https://www.bleepingcomputer.com/news/security/sonicwall-warns-of-unpatched-flaws-in-end-of-life-gms-software/",
+        "title": "SonicWall warns of unpatched flaws in end-of-life GMS software",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "8b1d07e5-d5b7-4535-9378-3b327d88fa23",
+        "url": "https://www.securityweek.com/sysdig-adds-runtime-security-and-governance-for-ai-agents/",
+        "title": "Sysdig Adds Runtime Security and Governance for AI Agents",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "91305252-5c2e-43b7-8bf7-ff5f467534a5",
+        "url": "https://thehackernews.com/2026/11/apt29-linked-hackers-hijack-web.html",
+        "title": "APT29-Linked Hackers Hijack Web Analytics Script to Deliver iOS and Android Exploits",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "c07b903a-ae83-4e9f-824f-d98771aefb9d",
+        "url": "https://www.securityweek.com/barracuda-email-security-gateway-authentication-bypass-opens-path-to-root/",
+        "title": "Barracuda ESG Authentication Bypass Flaw Opens Path to Root",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "ee92abdb-1c5a-4d39-ac31-7e6e7f4e4f46",
+        "url": "https://www.darkreading.com/cybersecurity-operations/incidents-move-fast-pen-paper",
+        "title": "Incidents Move Too Fast for Pen & Paper",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "6f0edf06-a212-4779-a69e-62f8e363afb3",
+        "url": "https://www.securityweek.com/agentic-data-security-firm-sentra-raises-150-million/",
+        "title": "Agentic Data Security Firm Sentra Raises $150 Million",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "2c8a08e1-5aaf-4bcb-b927-11030776453d",
+        "url": "https://www.rapid7.com/blog/post/it-racing-the-three-day-clock-cisa-bod-26-04",
+        "title": "The Race Against the 3-Day Clock: How Rapid7 Helps Meet BOD 26-04 Compliance",
+        "source": "Rapid7"
+      },
+      {
+        "id": "9a695ee1-a0d9-42a5-9f29-d2b456e0f2cf",
+        "url": "https://www.sentinelone.com/labs/verifiedida-making-llm-driven-reverse-engineering-inspectable-continuable-and-reusable/",
+        "title": "VerifiedIDA | Making LLM-Driven Reverse Engineering Inspectable, Continuable and Reusable",
+        "source": "SentinelLabs"
+      },
+      {
+        "id": "b3c325fc-58f2-4ef1-986b-38c44db863a7",
+        "url": "https://www.infosecurity-magazine.com/news/apt29-watering-holes-iphones/",
+        "title": "APT29 Watering Holes Target Unpatched iPhones and Android Devices",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "93323df9-eeaf-4ec7-ba3e-e022709f84ca",
+        "url": "https://therecord.media/russia-cyberattack-beget-cloud",
+        "title": "Cyberattack wipes cloud data at major Russian hosting provider Beget",
+        "source": "The Record"
+      },
+      {
+        "id": "b0e9dc3c-104a-4cb4-8eb3-a4c863fc5d22",
+        "url": "https://therecord.media/france-cyberattack-blood-refrigeration",
+        "title": "French blood service hit by Europe-wide cyberattacks on refrigeration",
+        "source": "The Record"
+      },
+      {
+        "id": "04590dae-dbc8-4419-a891-ae7626a08790",
+        "url": "https://isc.sans.edu/diary/rss/33488",
+        "title": "The Classics Return: Vulnerable E-Mail Scripts, (Wed, Nov 4th)",
+        "source": "SANS ISC"
+      },
+      {
+        "id": "fbdd15f6-a32b-4202-b891-ecf4ee5e5265",
+        "url": "https://www.bleepingcomputer.com/news/security/us-charges-two-canadians-accused-of-hacking-us-universities/",
+        "title": "US charges two Canadians accused of hacking US universities",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "f3daac05-7676-43d1-a51a-0b0306c95850",
+        "url": "https://www.infosecurity-magazine.com/news/france-blood-service-cyberattack/",
+        "title": "France Blood Service Cyber-Attack Sends Blood Storage Temperatures to 110°C",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "5f480d6a-6637-41cf-8d5c-708bedc4fe11",
+        "url": "https://www.securityweek.com/ai-linked-breaches-mount-as-workos-northflank-trigger-dev-disclose-hacks/",
+        "title": "AI-Linked Breaches Mount as WorkOS, Northflank, Trigger.dev Disclose Hacks",
+        "source": "SecurityWeek"
+      }
+    ]
+  }
+}
