@@ -1,0 +1,340 @@
+{
+  "day": "2026-11-06",
+  "title": "Long passwords, ineffective patches and cold-chain warnings",
+  "overview": "An emergency OpenSSH fix closes a password bypass on Alpine and other musl-based Linux systems. Zyxel switches need replacement firmware despite earlier patching, while US agencies issue new guidance after refrigeration attacks.",
+  "duration_s": 412,
+  "chars": 5674,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-06.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-06.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Friday, the sixth of November, twenty twenty-six.",
+    "A password too long to hash can get you into an account that doesn't have a password. That's *sshole, disclosed by researcher Özgün Kültekin, and OpenSSH shipped emergency release 10.6p2 yesterday to fix it.",
+    "The conditions matter. It's musl-based Linux, including Alpine, running OpenSSH without PAM, with PasswordAuthentication yes. The target account's password field contains an asterisk, and another account has a dollar-five-dollar or dollar-six-dollar hash. Because that asterisk can't supply a salt, sshd borrows the other account's salt — behaviour introduced in twenty sixteen. Give musl a password between two hundred and fifty-seven and one thousand and twenty-four bytes, and crypt returns an asterisk on failure. It matches. A failed hash becomes a successful login.",
+    "On affected Alpine tiny-cloud images, the alpine account has passwordless doas, so that login reaches root. Glibc distributions and PAM setups aren't affected; no attacks have been reported. I'd patch this before coffee. Alpine has fixed packages back to 3.16: run apk upgrade -U -a, then rc-service sshd restart. The upgrade doesn't restart the daemon for you. If you can't update, set PasswordAuthentication no, validate with sshd -t and restart. Check /var/log/messages for Accepted password against accounts that have none.",
+    "And yesterday's Zyxel fix now has a crucial qualification: June's Patch 2 never stopped the attack. Binarly says the GS1900 campaign exploited a different flaw, CVE-2026-107441, which still isn't in KEV. The web handler copies an oversized parameter before checking its counter; by then, the attacker can redirect a function call and run commands as root without authentication. Binarly says reachability to the management service is enough. Patch 3 is out for ten models; on the GS1900-8, that's 2.90(AAHH.3)C0. Switches patched in June still need it. What bugs me here is that doing the prescribed work didn't buy protection. Check the actual model-specific build, not a completed patch ticket.",
+    "That gap between a closed ticket and a safe system matters rather more when the system controls a freezer. Five US agencies have now issued joint refrigeration guidance, calling the attacks an ongoing threat. The second European wave is now counted at more than a hundred and fifteen stores across six countries. Get controller panels off the public internet; necessary remote access should sit behind an updated firewall or edge device. Put controllers on a dedicated OT VLAN and replace default passwords. The guidance also calls for phishing-resistant MFA, retiring unsupported controllers and alerting on unsafe setpoint changes. Censys now counts three thousand one hundred and twenty-four exposed hosts, down from six thousand six hundred and ninety-five in October; that doesn't tell us why they disappeared. The Pentagon is reportedly investigating August freezer failures as a suspected cyberattack.",
+    "Back on hosting servers, XLab says a fake updater replaces Control Web Panel's cwpsrv binary with CWPdoor, awakened by an encrypted X-Ngx-Integrity-Data header; victims already exist. Check for the ngx_http_integrity_helper Unix socket or integrity strings in the binary; confirmed infections need a legitimate replacement and an upgrade, followed by credential rotation and a wider malware hunt. And for older intrusions, Cloudflare's Matthew Prince says PHP2Shell was probably exploited years before disclosure; Cloudflare is searching backwards through its logs. I'd extend affected management-interface investigations over months, rather than just the days around disclosure.",
+    "That longer view matters for quieter attacks too: Securelist describes Storm-2603 probing on-premises SharePoint on the twentieth of December, then returning on Christmas Eve with ToolShell code execution entirely inside the IIS worker process. Verify the existing ToolShell patches, correlate isolated probes with activity days later, and hunt in memory rather than relying on disk artefacts.",
+    "Holiday timing also features in CERT-In's new Crafty Falcon warning: the AI-assisted actor targets Indian financial businesses and has revisited victims after incomplete remediation, so separate test environments from production credentials and access, and keep monitoring staffed through holidays. Separately, sixty-two internet-facing ARTEX consoles served a backdoored build giving root access; tear down installations obtained from third-party Docker namespaces. On the defensive side of AI, Check Point found that another nested frame in ChatGPT's HTML preview could reach an unmodified popup function, escaping the sandbox and bypassing Lockdown Mode to steal chats silently. OpenAI fixed it server-side on the eighteenth of September; there's nothing for you to patch, but that hardening switch wasn't a reliable data-loss boundary.",
+    "And a final distinction between new danger and old paperwork: Mozilla's advisory replay has reached twenty ten, with thirty republished entries spanning MFSA 2010-57 through 2010-84, plus 2011-01 and 2011-02. Extend archive-date suppression back through that range; the exploitation language is historical, not evidence of attacks today.",
+    "I'd make sure an Alpine upgrade actually ends with the SSH daemon restarted. For the switch work, keep the ticket open until the installed firmware matches Patch 3 for that model. Hope Friday gives you a quiet finish.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [],
+    "news": [
+      {
+        "id": "274b4c59-42de-4b03-8479-a1630fc3db9b",
+        "url": "https://www.theregister.com/networks/2026/11/06/ai-agents-are-a-bane-for-some-website-operators-says-cloudflare/5308022",
+        "title": "AI agents are a ‘bane’ for some website operators, says Cloudflare",
+        "source": "The Register security"
+      },
+      {
+        "id": "8b3f94db-1f2d-441a-9316-7df3f353982f",
+        "url": "https://news.risky.biz/risky-bulletin-some-openssh-instances-take-any-password-longer-than-256-characters/",
+        "title": "Risky Bulletin: Some OpenSSH instances take any password longer than 256 characters",
+        "source": "Risky Business News"
+      },
+      {
+        "id": "4bf08603-2246-49fe-8634-7784e4bdd517",
+        "url": "https://www.theregister.com/security/2026/11/06/threat-actor-targets-indian-fintechs-on-weekends-when-defenders-arent-watching/5308000",
+        "title": "Threat actor targets Indian fintechs on weekends when defenders aren’t watching",
+        "source": "The Register security"
+      },
+      {
+        "id": "52bf9cfa-e2de-43b1-8c72-efe786f7a2fa",
+        "url": "https://www.bleepingcomputer.com/news/security/fbi-cisa-warn-of-cyberattacks-targeting-refrigeration-systems/",
+        "title": "FBI, CISA warn of cyberattacks targeting refrigeration systems",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "36f1681a-0b76-4808-88d8-cf3159ede61a",
+        "url": "https://arstechnica.com/security/2026/11/vulnerability-allows-attackers-to-log-into-some-linux-devices-sans-password/",
+        "title": "Meet *sshole, the vulnerability that lets hackers SSH into Linux devices",
+        "source": "Ars Technica security"
+      },
+      {
+        "id": "5939184c-f00d-41c9-b962-fb5ad71eacae",
+        "url": "https://www.theregister.com/security/2026/11/05/feds-warn-grocers-dont-chill-on-cyber-defenses-as-freezer-hacking-spree-heats-up/5307978",
+        "title": "Feds warn grocers: Don't chill on cyber defenses as freezer hacking spree heats up",
+        "source": "The Register security"
+      },
+      {
+        "id": "54027bb0-ec19-4ea6-b580-4712ba08dd23",
+        "url": "https://censys.com/blog/european-refrigeration-controller-exposure-sitrep/",
+        "title": "European Refrigeration Controller Exposure: A Second Attack Wave",
+        "source": "Censys"
+      },
+      {
+        "id": "421fe75b-063c-4975-b2dd-833b9eff36aa",
+        "url": "https://therecord.media/cyberattacks-refrigeration-cisa-fbi",
+        "title": "Harden cooling systems now, feds warn critical infrastructure operators amid attacks",
+        "source": "The Record"
+      },
+      {
+        "id": "ae6492c1-2ef1-4692-a3a1-facb0995b878",
+        "url": "https://techcrunch.com/2026/11/05/u-s-government-warns-of-ongoing-cyber-threat-amid-mass-hacks-of-industrial-retail-and-military-freezers/",
+        "title": "U.S. government warns of ‘ongoing cyber threat’ amid mass-hacks of industrial retail and military freezers",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "018ae7a1-6563-4ada-9692-0c05db41e6cb",
+        "url": "https://www.theregister.com/security/2026/11/05/get-root-on-a-musl-linux-system-by-slamming-it-with-an-overly-long-password/5307910",
+        "title": "Get root on a musl Linux system by slamming it with an overly long password",
+        "source": "The Register security"
+      },
+      {
+        "id": "c37775fa-2a95-4f33-bc56-8f2b2c699040",
+        "url": "https://www.bleepingcomputer.com/news/security/openssh-flaw-lets-attackers-log-into-password-disabled-linux-accounts/",
+        "title": "OpenSSH flaw lets attackers log into password-disabled Linux accounts",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "aa50a1df-4d10-491f-ac6d-1d60fbe9b330",
+        "url": "https://thehackernews.com/2026/11/openssh-issues-emergency-fix-for-flaw.html",
+        "title": "OpenSSH Issues Emergency Fix for Flaw Letting Long Passwords Bypass SSH Auth on Alpine Linux",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "67bd8bfe-5835-47df-a6ec-f0843ea26548",
+        "url": "https://thehackernews.com/2026/11/researchers-bypass-chatgpt-lockdown.html",
+        "title": "Researchers Bypass ChatGPT Lockdown Mode to Exfiltrate Chats Without User Interaction",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "90dd0bc3-98bf-45f8-99fa-fd18d79e1b6c",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-backdoor-linux-servers-using-trojanized-cwp-web-server/",
+        "title": "Hackers backdoor Linux servers using trojanized CWP web server",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "fee06ed8-e98b-41c0-84b9-6a6e54197a0e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-76/",
+        "title": "MFSA 2010-76 Chrome privilege escalation with window.open and element",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "fe4199c3-dea6-4afc-a15e-75474709c9cb",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-82/",
+        "title": "MFSA 2010-82 Incomplete fix for CVE-2010-0179",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "efcce294-1797-4b13-9884-40d10ed1560c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-83/",
+        "title": "MFSA 2010-83 Location bar SSL spoofing using network error page",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e9794ab2-0b83-44a2-9935-99eb5f79347d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-63/",
+        "title": "MFSA 2010-63 Information leak via XMLHttpRequest statusText",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d3a1f93f-7ef5-4eb5-886d-a945bbb9f2a7",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-66/",
+        "title": "MFSA 2010-66 Use-after-free error in nsBarProp",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c9e6f491-6b9a-4385-b786-99c68e21b9a3",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-84/",
+        "title": "MFSA 2010-84 XSS hazard in multiple character encodings",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "aa4fb404-0c83-42eb-b03d-db0972ceedd0",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-69/",
+        "title": "MFSA 2010-69 Cross-site information disclosure via modal calls",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a89489a9-9986-4d70-8ea8-2e02f7168400",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-75/",
+        "title": "MFSA 2010-75 Buffer overflow while line breaking after document.write with long string",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a5cffcca-ce52-4df5-94e1-055e1cb75cd7",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-72/",
+        "title": "MFSA 2010-72 Insecure Diffie-Hellman key exchange",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9aa8fd84-2316-4fb5-874d-b233c9c69d71",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-68/",
+        "title": "MFSA 2010-68 XSS in gopher parser when parsing hrefs",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "919bf0b3-6a51-4fa5-b1af-128b549a7c5e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-65/",
+        "title": "MFSA 2010-65 Buffer overflow and memory corruption using document.write",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "885f7318-c52e-4978-b1bc-204ef80c2648",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-64/",
+        "title": "MFSA 2010-64 Miscellaneous memory safety hazards (rv:1.9.2.11/ 1.9.1.14)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "87b8ded7-ad2e-4920-a0bb-8d36c0e400da",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-81/",
+        "title": "MFSA 2010-81 Integer overflow vulnerability in NewIdArray",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "8337b35e-14df-42fa-823b-e839ca2cee2f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-67/",
+        "title": "MFSA 2010-67 Dangling pointer vulnerability in LookupGetterOrSetter",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "83265b46-9be6-42ba-93a6-1602c6516b59",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-62/",
+        "title": "MFSA 2010-62 Copy-and-paste or drag-and-drop into designMode document allows XSS",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7ea85878-416b-4a1a-81af-c5185b9944af",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-80/",
+        "title": "MFSA 2010-80 Use-after-free error with nsDOMAttribute MutationObserver",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "78e9daa0-a758-4c1a-901f-d4c3ad01021b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-73/",
+        "title": "MFSA 2010-73 Heap buffer overflow mixing document.write and DOM insertion",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "722ae04b-7036-4210-8e1b-b6e094e01ed8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-61/",
+        "title": "MFSA 2010-61 UTF-7 XSS by overriding document charset using type attribute",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "63b01fbd-9699-4d18-a315-5dac7d31b85a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-79/",
+        "title": "MFSA 2010-79 Java security bypass from LiveConnect loaded via data: URL meta refresh",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5564c98f-68bf-49dd-b411-534df8b572a9",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-74/",
+        "title": "MFSA 2010-74 Miscellaneous memory safety hazards (rv:1.9.2.13/ 1.9.1.16)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "41cf36a8-af94-4161-95f1-5ce0a3b52ffa",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-01/",
+        "title": "MFSA 2011-01 Miscellaneous memory safety hazards (rv:1.9.2.14/ 1.9.1.17)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3e698473-ea53-4b05-83cc-2d75916e02b9",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-77/",
+        "title": "MFSA 2010-77 Crash and remote code execution using HTML tags inside a XUL tree",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3d5acc3d-ec09-4237-944f-874b28119752",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-60/",
+        "title": "MFSA 2010-60 XSS using SJOW scripted function",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "2935eb86-1d4a-46e4-acd2-aefbc43dbaa4",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-78/",
+        "title": "MFSA 2010-78 Add support for OTS font sanitizer",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "280e4b3b-636e-48bb-8497-fd3720bfeff7",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2011-02/",
+        "title": "MFSA 2011-02 Recursive eval call causes confirm dialogs to evaluate to true",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1e4323a3-7326-4958-9c48-bc0ed844d190",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-58/",
+        "title": "MFSA 2010-58 Crash on Mac using fuzzed font in data: URL",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1887943f-8891-4160-9d60-1b7ab1868a4e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-70/",
+        "title": "MFSA 2010-70 SSL wildcard certificate matching IP addresses",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "10bcd76a-d323-4747-a2b2-943346295f9d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-57/",
+        "title": "MFSA 2010-57 Crash and remote code execution in normalizeDocument",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0df0fd8c-1ec8-42d7-9905-4ec180002be5",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-71/",
+        "title": "MFSA 2010-71 Unsafe library loading vulnerabilities",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "05bfe75a-efb8-4642-b11c-4f8a1b6e2dff",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-59/",
+        "title": "MFSA 2010-59 SJOW creates scope chains ending in outer object",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5a8a92b5-23a4-4e19-89d8-1ca694ddd343",
+        "url": "https://www.infosecurity-magazine.com/news/zyxel-gs1900-patch-missed-flaw/",
+        "title": "Zyxel Switch Patch Missed Flaw Behind Wave of Attacks",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "f276bf68-1eab-4dea-8c65-89049c50643c",
+        "url": "https://www.infosecurity-magazine.com/news/india-warns-ai-cyberattacks/",
+        "title": "India Warns of New AI-Driven Cyber-Attacks Targeting Financial and Crypto Businesses",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "a8c13d8b-bebd-4c21-a18d-ec14734ade00",
+        "url": "https://research.checkpoint.com/2026/chatgpt-lockdown-mode-bypass-phishing-malware-delivery-and-silent-data-exfiltration/",
+        "title": "ChatGPT Lockdown Mode Bypass: Phishing, Malware Delivery, and Silent Data Exfiltration",
+        "source": "Check Point Research"
+      },
+      {
+        "id": "38c500ec-71b1-42f6-901c-b01104024bca",
+        "url": "https://www.cisa.gov/resources-tools/resources/us-government-partners-urge-hardening-industrial-refrigeration-and-cold-chain-monitoring-systems",
+        "title": "US Government Partners Urge Hardening Industrial Refrigeration and Cold Chain Monitoring Systems",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "d1406135-e04a-480a-87df-2a10e80ad994",
+        "url": "https://www.securityweek.com/zyxel-switch-hacks-blamed-on-patched-flaw-actually-exploited-a-zero-day/",
+        "title": "Zyxel Switch Hacks Blamed on Patched Flaw Actually Exploited a Zero-Day",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "28e4b29d-351a-456a-bb41-c8a4fc128795",
+        "url": "https://securelist.com/storm-2603-fileless-toolshell-attack/121467/",
+        "title": "The SOC Files 5: Ghost in the pipeline, or a fileless SharePoint breach by Storm-2603",
+        "source": "Securelist"
+      },
+      {
+        "id": "d6ea0cc1-defe-4997-a3eb-e91f7ed402e4",
+        "url": "https://thehackernews.com/2026/11/backdoored-docker-image-for-artex-ai.html",
+        "title": "CERT-In Flags AI-Driven Attacks as Backdoored ARTEX Exposes 62 Consoles to Root Access",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "0415d099-0d82-4450-8294-b135e5ee4548",
+        "url": "https://thehackernews.com/2026/11/zyxel-gs1900-patch-fails-to-block-zero.html",
+        "title": "Zyxel GS1900 Patch Fails to Block Zero-Day Exploit Allowing Root Command Execution",
+        "source": "The Hacker News"
+      }
+    ]
+  }
+}
