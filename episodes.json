@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-11-07",
+    "title": "MFA bypassed, SSH exploited, and patching with the door shut",
+    "duration_s": 351,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-07.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-07.md"
+  },
+  {
     "day": "2026-11-06",
     "title": "Long passwords, ineffective patches and cold-chain warnings",
     "duration_s": 412,

@@ -1,0 +1,108 @@
+{
+  "day": "2026-11-07",
+  "title": "MFA bypassed, SSH exploited, and patching with the door shut",
+  "overview": "SonicWall patches an exploited SSL-VPN authentication bypass, while SSHole attacks have reached an Alpine honeypot. QNAP, WordPress and Paint need careful remediation, and malicious security tools are targeting the people doing that work.",
+  "duration_s": 351,
+  "chars": 4754,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-07.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-07.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Saturday, the seventh of November, twenty twenty-six.",
+    "An MFA prompt doesn't protect a VPN login if someone can take another route round it. SonicWall has patched an exploited authentication bypass in SonicOS, the firmware on its firewalls, and CISA has added it to KEV. The affected service is SSL-VPN configured to use SAML authentication.",
+    "The catch is that the attacker needs valid credentials for an alternate authentication method. Those can let them bypass the SAML controls, potentially skipping the MFA enforced there and getting through the remote-access front door. That's CVE-2026-19868, which SonicWall scores seven point one. I'd put the evidence of exploitation ahead of the score when deciding where this lands in the weekend queue.",
+    "Affected releases are Gen7 at 7 point 3 point 3-7015 and earlier, and Gen8 at 8 point 2 point 2-8015 and earlier. Upgrade to 7 point 3 point 4-7013 or 8 point 2 point 3-8015. SonicWall says there are no workarounds; federal civilian agencies have until the twentieth of November. Friday's updates fix seven flaws altogether, including unauthenticated management-interface operations under specific conditions. They also address pre-authentication buffer overflows that could knock over SSL-VPN or TACACS+, alongside weak password hashing on virtual appliances.",
+    "And yesterday's SSH password bypass has moved from urgent disclosure to observed exploitation. SSHole now has an identifier, CVE-2026-123158, rated eight point one. Previdian saw the first attempt less than nine hours after publication, confirmed root access on an Alpine honeypot, and counted eight attempts from the same address. Public proofs of concept exist too. That is a very short grace period. Newly named Alpine fixed packages include edge's 10 point 6_p2-r0 and release 3 point 24's 10 point 3_p1-r2. If an affected host stayed exposed, I'd look beyond the patch job now: review doas activity and changes to authorised keys. If you can't rule out an unauthorised login, treat the machine as compromised.",
+    "Which brings us from stopping entry to cleaning up afterwards: QNAP says customers' NAS devices appear to have been compromised through Plex2Shell, and Plex Media Server needs updating through App Center to 1 point 43 point 3 point 10861. If a vulnerable server was web-exposed, treat the NAS and its content as compromised: check QNAP's indicators, clean-reinstall QTS or QuTS hero and reset credentials; turn off remote Plex features and port forwarding, using a VPN instead.",
+    "But even installing a fix can leave one last opening: Picus researcher Umut Bayram found that the exploited WordPress flaw can still yield PHP execution during an update, because unpacking uses the old code. Before updating to 7 point 1 point 4 or your branch's fixed release, deny web access to wp-content/upgrade and verify a four-oh-three response; WP-CLI uses the same updater, so it isn't an escape route.",
+    "And a green scanner result isn't necessarily the end either: Windows Paint's code-execution fix comes through the Microsoft Store, not Windows Update, and the advisory requires 11 point 2609 point 401 point 0, while the CVE record's older cutoff can wrongly pass unfixed builds. Check every user's installed copy and the provisioned package, update through the Store or an Intune Store-app scan, then verify that build or later.",
+    "Away from patch delivery, the tools doing the probing are changing: Microsoft says Cambodia-based Storm-3358 began targeting financial organisations in October using the agentic offensive framework ARTEX, exploiting flaws including anonymous file upload and server-side request forgery. Watch for varied requests followed by retries and next-stage actions at machine speed; Microsoft's guidance includes decoys and tarpits, with Entra risk detections feeding Conditional Access decisions.",
+    "And the people running security tools are targets themselves: Dr. Web says fake GitHub security projects have backdoored more than two thousand Windows machines, including a repository posing as an Fscan output formatter. Build unfamiliar projects in a throwaway VM and inspect pre-build events for hidden execution; hunt for Microsoft.exe and unexpected Defender exclusions, using Dr. Web's full indicator list to widen the search.",
+    "I'd give the exploited remote-access fixes the first maintenance window available. For anything exposed while vulnerable, keep the investigation open separately from the patch ticket. Hope your Saturday leaves room for something other than a console.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-19868"
+    ],
+    "news": [
+      {
+        "id": "e87d596a-f617-4fe1-b806-85e3a2c3bdec",
+        "url": "https://www.microsoft.com/en-us/security/blog/2026/11/06/artex-abuse-expands-as-cybercriminals-target-financial-sector/",
+        "title": "ARTEX abuse expands as cybercriminals target financial sector",
+        "source": "Microsoft Security Blog"
+      },
+      {
+        "id": "aa7249a3-5b4a-4df5-815e-4485fe231173",
+        "url": "https://www.bleepingcomputer.com/news/security/sonicwall-warns-of-new-ssl-vpn-mfa-bypass-flaw-exploited-in-attacks/",
+        "title": "SonicWall warns of new SSL-VPN MFA bypass flaw exploited in attacks",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "b62f74cf-b886-47fc-b2ea-e0c5f3d67f34",
+        "url": "https://horizon3.ai/attack-research/vulnerabilities/cve-2026-123158/",
+        "title": "CVE-2026-123158 | OpenSSH musl Password Authentication Bypass & Remote Code Execution Vulnerability (*sshole)",
+        "source": "Horizon3"
+      },
+      {
+        "id": "58d73cb1-29cf-4c6d-a252-cb967fb69991",
+        "url": "https://www.bleepingcomputer.com/news/security/fake-security-tools-on-github-push-backdoors-and-infostealers/",
+        "title": "Fake security tools on GitHub push backdoors and infostealers",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "667b9f17-c981-43f4-b688-1e0c13e0ba30",
+        "url": "https://www.bleepingcomputer.com/news/security/qnap-says-hackers-breaching-nas-devices-in-plex2shell-attacks/",
+        "title": "QNAP says hackers breaching NAS devices in Plex2Shell attacks",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "6db37294-0098-456e-b384-013d2ef3333a",
+        "url": "https://thehackernews.com/2026/11/installing-fix-for-exploited-wordpress.html",
+        "title": "Installing the Fix for an Exploited WordPress Flaw Can Expose Some Sites One Last Time",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "1f0731f5-2940-4490-912f-3cf7b5a08e09",
+        "url": "https://www.cybersecuritydive.com/news/hackers-artex-github-repositories-exposed-secrets/874007/",
+        "title": "Hackers enlist Artex to scan GitHub repositories for exposed secrets",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "19f64dee-5fce-4aa1-ab3b-b16ba4432f38",
+        "url": "https://thehackernews.com/2026/11/hackers-exploited-openssh-sshole-flaw.html",
+        "title": "Hackers Target OpenSSH SSHole Flaw Within Hours of Disclosure, Gain Root on Honeypot",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "b02462bc-b5a6-4bab-989a-c3cc210dc6c6",
+        "url": "https://databreaches.net/2026/11/06/any-long-password-will-do-ssh-flaw-lets-hackers-into-alpine-systems-routers-and-more/",
+        "title": "Any long password will do: SSH flaw lets hackers into Alpine systems, routers and more",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "bb8ec2f4-9560-49a2-9ea5-20438ad81f12",
+        "url": "https://www.securityweek.com/openssh-rushes-patches-for-sshole-authentication-bypass/",
+        "title": "OpenSSH Rushes Patches for ‘SSHole’ Authentication Bypass",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "02458078-d6f8-4324-af41-ebc72f8743b6",
+        "url": "https://thehackernews.com/2026/11/microsoft-paint-rce-fix-now-available.html",
+        "title": "Microsoft Paint RCE Fix Now Available, but Windows Update Won't Deliver It",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "bc4df167-871e-411c-a9fc-8bf6a8fb97fb",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/11/06/cisa-adds-one-known-exploited-vulnerability-catalog",
+        "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "f467f793-a3bd-4a01-88b3-dde0c1732604",
+        "url": "https://thehackernews.com/2026/11/hackers-hide-linux-backdoor-in-control.html",
+        "title": "Hackers Hide Linux Backdoor in Control Web Panel Server to Execute Commands Without Logs",
+        "source": "The Hacker News"
+      }
+    ]
+  }
+}
