@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-11-09",
+    "title": "SSH scans climb, uploads execute, and clinic tokens linger",
+    "duration_s": 370,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-09.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-09.md"
+  },
+  {
     "day": "2026-11-08",
     "title": "Permission remembered, secrets published, and gateways needing attention",
     "duration_s": 331,
