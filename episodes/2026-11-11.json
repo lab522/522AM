@@ -1,0 +1,780 @@
+{
+  "day": "2026-11-11",
+  "title": "Outlook hash theft leads another thousand-fix Patch Tuesday",
+  "overview": "Microsoft's November patches include an exploited Outlook flaw that exposes NTLMv2 hashes, while Xen Orchestra attackers can reach root on managed hosts. There's also confirmed Barracuda exploitation, new N-central scanning and a busy patch queue across browsers and enterprise software.",
+  "duration_s": 441,
+  "chars": 6208,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-11.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-11.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Wednesday, the eleventh of November, twenty twenty-six.",
+    "Microsoft has passed a thousand fixes for the second month running, but the one attackers are already using scores just six point five. I'd put that ahead of the impressive-looking criticals. It's CVE-2026-124194 in Outlook: opening a specially crafted message file makes the client connect to an attacker's network location without the usual external-content warning, handing over your NTLMv2 hash. That can be relayed live to impersonate you, or cracked offline. The Preview Pane doesn't trigger it.",
+    "Patch supported classic Outlook installations first, including Microsoft 365 Apps and Office LTSC 2021 and 2024. CISA's deadline for US agencies is the twenty-fourth of November. Then prioritise Exchange and domain controllers: Windows Search has a nine point eight code-execution flaw reachable through an attachment Exchange indexes automatically; Windows LDAP has another nine point eight reachable through crafted calls. Neither needs user interaction. ZDI counts thirty wormable flaws this month and flags Schannel's pre-authentication code execution as more likely to be exploited. And there's a support-clock problem underneath the patch queue: November is the last monthly update for Windows 11 23H2 Enterprise and Education. .NET 8 LTS and PowerShell 7 point 4 LTS reach their end dates today.",
+    "But the management-console emergency is rather smaller than a thousand bugs. An empty JSON object is enough. Vates says attackers are exploiting Xen Orchestra, the console controlling XCP-ng hosts and virtual machines: a crafted authentication cookie becomes an empty object, which the token store treats as an unfiltered lookup. It returns the first token; if that's unexpired, the attacker becomes its owner. Admin access can lead to root across managed hosts. That's an astonishingly short journey.",
+    "Install Xen Orchestra 6 point 9 point 1 stable or 6 point 10 point 0 latest, with xo-server 5 point 211 point 2 or 5 point 213 point 1 respectively. Otherwise isolate the console on a dedicated management network. Hunt through HTTP monitoring, not just application logs, for the crafted cookie; a VM named pivot2 is another indicator. If you find evidence, rotate all passwords and secrets.",
+    "Back in the scheduled patch queue, SAP has four maximum-severity fixes: update the kernel and Web Dispatchers together, and check the Gateway proxy access controls. On release 7 point 93, patch level 419 is still vulnerable; use the updated 401 Stack Kernel or 420 onwards, with 402 also fixed once released. And Chrome's eighth exploited zero-day this year is an XML use-after-free: open About Google Chrome and relaunch into 157 point 0 point 8103 point 50 or later. Android users need the Google Play update too; US agencies have until the twenty-fourth.",
+    "Apple has now joined the patch list for the exploited Brotli flaw we covered earlier, alongside new iMessage fixes stopping outsiders joining group chats or new members reading earlier messages. Install the platform updates; iOS and iPadOS 27 point 2 point 1 cover those issues, but the 18 point 7 point 12 and watchOS 26 point 6 point 1 notes don't list them. Adobe's November batch is much bigger than October's, at roughly a hundred and ten fixes: prioritise Connect and Experience Manager, with six Connect flaws scoring ten. Adobe reports no attacks, so the creative tools can take the normal workstation cycle.",
+    "For Ivanti, match installed versions against the five advisories covering User Workspace Manager and Sentry, plus Endpoint Manager Mobile, Cloud Services Application and Endpoint Manager; there's no evidence of exploitation. Ivanti expects more disclosures as it expands LLM-assisted security work. And FortiAuthenticator has a hard-coded password allowing unauthenticated access in certain circumstances: upgrade the 8 point 0 branch to 8 point 0 point 4, or 6 point 6 to 6 point 6 point 11. No known exploitation, but no workaround either.",
+    "The next deadlines do come with exploitation evidence: CISA has added Cisco BroadWorks' XML external-entity flaw and Openwave Webtop Media Transcoder to KEV, both due by the twenty-fourth for US agencies. BroadWorks needs the applicable 2026 point 07 or RI point 2026 point 07 release; Openwave needs 1 point 1 point 22 point 0.",
+    "For exposed appliances, Friday comes sooner: Barracuda now confirms attackers are chaining the Email Security Gateway flaws we mentioned last week to get root, with a thirteenth-of-November federal deadline. Restrict the admin interface to trusted internal networks and verify the automatic patch actually landed; otherwise apply the relevant product hotfix manually and investigate possible compromise. Meanwhile, N-able now reports scanning associated with Able2Shell, though it still reports no successful customer exploitation. Yesterday's midday Eastern hotfix target has passed without a remediation build in the latest guidance here; what bugs me is that N-able also didn't answer whether it can check its server logs for exploitation.",
+    "Away from patching, ESET attributes the Cereal espionage toolset to Turla: compromised government Exchange servers in Kazakhstan and Romania became their own command-and-control infrastructure, with Romanian collection targeting NATO and EU correspondence. This is a hunt, not a patch: use ESET's indicators and inspect EdgeTransport.exe injection or hijacked existing transport-agent handlers, because Cereal adds no new agent.",
+    "And away from real incidents, Mozilla's archive replay has widened to more than eighty entries, reaching back to MFSA 2009-12 through 2010-27. Extend yesterday's suppression into two thousand and nine and check for automatically opened tickets; those aren't fresh emergencies.",
+    "I'd get a named owner on the exposed Xen Orchestra consoles before the wider patch rollout starts. For N-central, a promised time isn't confirmation that recovery is safe. Hope your Wednesday gives you a clear run at it.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-111560",
+      "CVE-2026-111793",
+      "CVE-2026-116606",
+      "CVE-2026-124194",
+      "CVE-2026-125350",
+      "CVE-2026-20320",
+      "CVE-2026-121351",
+      "CVE-2026-121352",
+      "CVE-2026-121353",
+      "CVE-2026-121356",
+      "CVE-2026-121889"
+    ],
+    "news": [
+      {
+        "id": "7428bd94-79f0-4227-9b48-41100f765073",
+        "url": "https://www.jpcert.or.jp/english/at/2026/at260035.html",
+        "title": "Security Alert: Microsoft Releases November 2026 Security Updates",
+        "source": "JPCERT"
+      },
+      {
+        "id": "ff1b3f49-6607-4b48-bf2b-e51b66c3d905",
+        "url": "https://blog.talosintelligence.com/microsoft-patch-tuesday-for-november-2026/",
+        "title": "Microsoft Patch Tuesday for November 2026 — Snort rules and prominent vulnerabilities",
+        "source": "Cisco Talos"
+      },
+      {
+        "id": "67983e18-e586-4547-bae1-a587138a9f85",
+        "url": "https://www.theregister.com/security/2026/11/10/november-patch-tuesday-boasts-over-1000-bugs-but-only-one-zero-day-so-far/5308946",
+        "title": "November Patch Tuesday boasts over 1,000 bugs but only one zero-day so far",
+        "source": "The Register security"
+      },
+      {
+        "id": "6612aea0-50d1-401e-9ca1-6f7dd8698531",
+        "url": "https://www.darkreading.com/vulnerabilities-threats/november-patch-tuesday-cornucopia-cves",
+        "title": "November Patch Tuesday: An Overflowing Cornucopia of CVEs",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "80fb71a7-91cb-475b-8986-e8cabbf526d1",
+        "url": "https://www.rapid7.com/blog/post/patch-tuesday-november-2026-em",
+        "title": "Patch Tuesday - November 2026",
+        "source": "Rapid7"
+      },
+      {
+        "id": "46ed1db0-cd3c-4fe1-847e-6a94c70ff97d",
+        "url": "https://krebsonsecurity.com/2026/11/microsoft-fixes-nearly-1100-security-vulnerabilities/",
+        "title": "Microsoft Fixes Nearly 1,100 Security Vulnerabilities",
+        "source": "Krebs on Security"
+      },
+      {
+        "id": "64d09c4f-c640-4b3c-9420-ced812f7fa4c",
+        "url": "https://cyberscoop.com/microsoft-patch-tuesday-november-2026/",
+        "title": "Microsoft fixes over 1,000 vulnerabilities in November Patch Tuesday",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "5dcc149b-6363-441c-8b0f-6b3579c692ef",
+        "url": "https://therecord.media/patch-tuesday-microsoft-1000-bugs-again",
+        "title": "Microsoft’s Patch Tuesday surpasses 1,000 bugs for second month in a row",
+        "source": "The Record"
+      },
+      {
+        "id": "f9e917fa-45ac-4684-bb10-abdff703aaf8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-17/",
+        "title": "MFSA 2009-17 Same-origin violations when Adobe Flash loaded via view-source: scheme",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f523e695-b75f-4763-b553-89e6d5635f2a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-24/",
+        "title": "MFSA 2009-24 Crashes with evidence of memory corruption (rv:1.9.0.11)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f40dc8b2-32ea-4633-b6f0-f9dc1bf81753",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-31/",
+        "title": "MFSA 2009-31 XUL scripts bypass content-policy checks",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "efffeede-b60e-4114-80de-fa6ceb0ab51c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-20/",
+        "title": "MFSA 2009-20 Malicious search plugins can inject code into arbitrary sites",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e1530535-6fcd-4d84-b270-b2ffba0f3515",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-22/",
+        "title": "MFSA 2009-22 Firefox allows Refresh header to redirect to javascript: URIs",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c4bab75b-503e-4fb5-860e-78686df445c8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-21/",
+        "title": "MFSA 2009-21 POST data sent to wrong site when saving web page with embedded frame",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "bbb7da65-bfd5-460d-b63a-2725c3bc41f6",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-19/",
+        "title": "MFSA 2009-19 Same-origin violations in XMLHttpRequest and XPCNativeWrapper.toString",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "bbaa4171-f8ca-4843-9220-1b45b6c59b40",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-39/",
+        "title": "MFSA 2009-39 setTimeout loses XPCNativeWrappers",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b9f1c135-9f59-4939-ba92-22b897cd33fe",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-27/",
+        "title": "MFSA 2009-27 SSL tampering via non-200 responses to proxy CONNECT requests",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b1b51159-d365-4ddd-9f54-cc137c89c3f9",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-28/",
+        "title": "MFSA 2009-28 Race condition while accessing the private data of a NPObject JS wrapper class object",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a37093b3-53c9-41fb-815a-b4d5bba5e2eb",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-23/",
+        "title": "MFSA 2009-23 Crash in nsTextFrame::ClearTextRun()",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "8209f6d5-09bc-4cca-b2f4-299d603488bd",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-33/",
+        "title": "MFSA 2009-33 Crash viewing multipart/alternative message with text/enhanced part",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7bb0fe19-1596-4e11-890b-5f7930a50ae6",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-35/",
+        "title": "MFSA 2009-35 Crash and remote code execution during Flash player unloading",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "733f56fc-4dfd-4abb-8a71-910c7656b9db",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-18/",
+        "title": "MFSA 2009-18 XSS hazard using third-party stylesheets and XBL bindings",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "6fcccae4-ffb2-4204-83f7-b91c508f9316",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-41/",
+        "title": "MFSA 2009-41 Corrupt JIT state after deep return from native function",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "6b363630-3ec6-44f5-b6ef-b64665e5c4eb",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-12/",
+        "title": "MFSA 2009-12 XSL Transformation vulnerability",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "64c3f7e9-a70a-4ebb-b394-151bec5ba2a7",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-16/",
+        "title": "MFSA 2009-16 jar: scheme ignores the content-disposition: header on the inner URI",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "61beff32-668c-420b-a63d-aaedf7118aed",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-29/",
+        "title": "MFSA 2009-29 Arbitrary code execution using event listeners attached to an element whose owner document is null",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5ea93540-69ff-4d5b-b4d6-1749d8a5989c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-25/",
+        "title": "MFSA 2009-25 URL spoofing with invalid unicode characters",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "59c9f42c-cd1f-4545-baf0-df0eae6df260",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-37/",
+        "title": "MFSA 2009-37 Crash and remote code execution using watch and __defineSetter__ on SVG element",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "563be2f6-8997-4e0a-bd3e-834a1d15c23b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-38/",
+        "title": "MFSA 2009-38 Data corruption with SOCKS5 reply containing DNS name longer than 15 characters",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "545cce0c-5284-4594-9685-05d24772f23c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-13/",
+        "title": "MFSA 2009-13 Arbitrary code execution via XUL tree element",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "4cabb125-ba02-42c2-a607-059cad5790fa",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-14/",
+        "title": "MFSA 2009-14 Crashes with evidence of memory corruption (rv:1.9.0.9)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "47eb9e48-9604-4668-b98c-63ad4d4fa34f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-26/",
+        "title": "MFSA 2009-26 Arbitrary domain cookie access by local file: resources",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "45bd324b-668b-4ff5-8c43-d02a441ab8b7",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-15/",
+        "title": "MFSA 2009-15 URL spoofing with box drawing character",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3e8e0866-34b1-4592-b255-7084274c5f14",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-32/",
+        "title": "MFSA 2009-32 JavaScript chrome privilege escalation",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "31d13864-5d95-4273-92c2-73cc4089a567",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-34/",
+        "title": "MFSA 2009-34 Crashes with evidence of memory corruption (rv:1.9.1/1.9.0.12)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "20895b8e-86b1-4865-bc34-07befcc15ab6",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-36/",
+        "title": "MFSA 2009-36 Heap/integer overflows in font glyph rendering libraries",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "06938505-66e2-407a-a33f-706af9c51a2d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-30/",
+        "title": "MFSA 2009-30 Incorrect principal set for file: resources loaded via location bar",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e28938f0-91f4-425d-8e01-626a828773d4",
+        "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-releases-windows-10-kb5131096-extended-security-update/",
+        "title": "Microsoft releases Windows 10 KB5131096 extended security update",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "6b342bb7-400a-4d22-ad18-3d4849843d3d",
+        "url": "https://www.securityweek.com/exploited-outlook-zero-day-among-1094-flaws-patched-by-microsoft/",
+        "title": "Exploited Outlook Zero-Day Among 1,094 Flaws Patched by Microsoft",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "c36becd8-fb9a-49e8-a7c6-bd58f86c7369",
+        "url": "https://isc.sans.edu/diary/rss/33508",
+        "title": "Microsoft Patch Tuesday November 2027 , (Tue, Nov 10th)",
+        "source": "SANS ISC"
+      },
+      {
+        "id": "fe10ce84-b1ea-476f-8938-eb2980c7bb32",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-55/",
+        "title": "MFSA 2009-55 Crash in proxy auto-configuration regexp parsing",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "fd870248-7199-4d6c-b986-34e33182c005",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-67/",
+        "title": "MFSA 2009-67 Integer overflow, crash in libtheora video library",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e8e2941e-6095-4fa6-9d72-5d1533d1d598",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-68/",
+        "title": "MFSA 2009-68 NTLM reflection vulnerability",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e711a15a-3ef9-423e-8106-5e92c4ac4713",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-46/",
+        "title": "MFSA 2009-46 Chrome privilege escalation due to incorrectly cached wrapper",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e5975eac-65cd-42d0-8bc5-2aa3e8e5015b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-43/",
+        "title": "MFSA 2009-43 Heap overflow in certificate regexp parsing",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "ddd26fe4-b0f8-4cff-a5cf-26def8362147",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-45/",
+        "title": "MFSA 2009-45 Crashes with evidence of memory corruption (rv:1.9.1.2/1.9.0.13)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "dabf8fdb-f1fa-4d9b-a5bd-23bc3de65710",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-40/",
+        "title": "MFSA 2009-40 Multiple cross origin wrapper bypasses",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d0ebe461-364e-49f3-bfe3-17f4a94ed4f8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-49/",
+        "title": "MFSA 2009-49 TreeColumns dangling pointer vulnerability",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d0a2acfb-b8fc-46a6-be05-90060ccf9f22",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-42/",
+        "title": "MFSA 2009-42 Compromise of SSL-protected communication",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "bd7a4f09-64d7-4642-b4f3-fadba5c21fb5",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-47/",
+        "title": "MFSA 2009-47 Crashes with evidence of memory corruption (rv:1.9.1.3/ 1.9.0.14)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "ba1d056b-ff6b-499c-b09c-4a346fb20cf9",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-61/",
+        "title": "MFSA 2009-61 Cross-origin data theft through document.getSelection()",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "ba067d53-50d1-4438-9efc-480734760c5f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-69/",
+        "title": "MFSA 2009-69 Location bar spoofing vulnerabilities",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b9d248ac-45b8-45b6-aef4-f9e3bcc52587",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-56/",
+        "title": "MFSA 2009-56 Heap buffer overflow in GIF color map parser",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b609bee6-f628-4743-875a-7675de93aba2",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-66/",
+        "title": "MFSA 2009-66 Memory safety fixes in liboggplay media library",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a65c2b7c-5719-4e9e-8284-a16a119c527a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-59/",
+        "title": "MFSA 2009-59 Heap buffer overflow in string to number conversion",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9fd8fb0a-0eba-4cac-ac0d-97839d8fa7d2",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-48/",
+        "title": "MFSA 2009-48 Insufficient warning for PKCS11 module installation and removal",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9bfc1e24-cf12-4f5a-b7f1-b983a3e89f95",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-63/",
+        "title": "MFSA 2009-63 Upgrade media libraries to fix memory safety bugs",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "88a97cb6-cc23-4b9a-88ba-3a35aa9971b2",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-70/",
+        "title": "MFSA 2009-70 Privilege escalation via chrome window.opener",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "81cb6bc7-07b4-4e14-8281-bc074d1f8d0a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-71/",
+        "title": "MFSA 2009-71 GeckoActiveXObject exception messages can be used to enumerate installed COM objects",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "706319c0-3650-4d8f-ab09-55d5a2cd0677",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-57/",
+        "title": "MFSA 2009-57 Chrome privilege escalation in XPCVariant::VariantDataToJS()",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "6e8e7a96-0e87-4629-bf64-8e8807538a46",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-50/",
+        "title": "MFSA 2009-50 Location bar spoofing via tall line-height Unicode characters",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "4a4e684e-0c05-459d-a50c-12fc131abe9b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-65/",
+        "title": "MFSA 2009-65 Crashes with evidence of memory corruption (rv:1.9.1.6/ 1.9.0.16)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3e4f601a-5dfd-4aa3-8171-42e3a62b3ab4",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-64/",
+        "title": "MFSA 2009-64 Crashes with evidence of memory corruption (rv:1.9.1.4/ 1.9.0.15)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3a31a598-36d4-4aac-8dec-52c43bc6e12e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-54/",
+        "title": "MFSA 2009-54 Crash with recursive web-worker calls",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "318dcf85-d18c-4566-9db9-41bd42e1b144",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-53/",
+        "title": "MFSA 2009-53 Local downloaded file tampering",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1fe96bbb-d271-4640-9547-1dc30285757f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-51/",
+        "title": "MFSA 2009-51 Chrome privilege escalation with FeedWriter",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1cc8a9ac-eb6a-45af-88a3-5c07794ad005",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-62/",
+        "title": "MFSA 2009-62 Download filename spoofing with RTL override",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1af71f90-b071-4725-8719-14991920b983",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-52/",
+        "title": "MFSA 2009-52 Form history vulnerable to stealing",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0ae79725-f584-461c-91b8-6ee1fe2380ae",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2009-44/",
+        "title": "MFSA 2009-44 Location bar and SSL indicator spoofing via window.open() on invalid URL",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b161ad92-2212-48db-b440-f9e148b0d9ad",
+        "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-november-2026-patch-tuesday-fixes-1-235-flaws-outlook-zero-day/",
+        "title": "Microsoft November 2026 Patch Tuesday fixes 1,235 flaws, Outlook zero-day",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "836d82bd-7bb0-40ae-b516-775a35fc6638",
+        "url": "https://www.thezdi.com/blog/2026/11/10/the-november-2026-security-update-review",
+        "title": "The November 2026 Security Update Review",
+        "source": "Zero Day Initiative blog"
+      },
+      {
+        "id": "6de96a99-ae2f-44a7-a3e5-9c46ef2a3e66",
+        "url": "https://www.theregister.com/security/2026/11/10/barracudas-email-security-gateways-bitten-by-make-me-root-vulns/5308883",
+        "title": "Barracuda’s email security gateways bitten by make-me-root vulns",
+        "source": "The Register security"
+      },
+      {
+        "id": "309085ce-d519-4a6d-9c41-a54e973fb019",
+        "url": "https://www.bleepingcomputer.com/news/microsoft/windows-11-kb5132061-and-kb5131087-cumulative-updates-released/",
+        "title": "Windows 11 KB5132061 & KB5131087 cumulative updates released",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "d53b0b5c-dc74-4335-91f3-ac109fd354df",
+        "url": "https://thehackernews.com/2026/11/hackers-exploit-critical-xen-orchestra.html",
+        "title": "Hackers Exploit Critical Xen Orchestra Auth Bypass Flaw to Gain Admin Access",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "40fd69a3-3782-44e5-b7cc-96490a5e1881",
+        "url": "https://www.securityweek.com/adobe-patches-110-vulnerabilities-across-9-products/",
+        "title": "Adobe Patches 110 Vulnerabilities Across 9 Products",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "95fa37d2-8793-47e4-b8c9-1578efb3f824",
+        "url": "https://www.bleepingcomputer.com/news/security/critical-xen-orchestra-auth-bypass-flaw-exploited-to-hijack-vm-servers/",
+        "title": "Critical Xen Orchestra auth bypass flaw exploited to hijack VM servers",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "c32c223d-3558-4eec-b7c6-136d1af1556f",
+        "url": "https://techcrunch.com/2026/11/10/n-able-takes-its-remote-access-service-offline-after-researcher-publishes-dozens-of-zero-day-bugs/",
+        "title": "N-able takes its remote access service offline after researcher publishes dozens of zero-day bugs",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "5a52b0fb-8bcd-4250-8202-62a9b00ac89b",
+        "url": "https://www.ivanti.com/blog/november-2026-security-update",
+        "title": "November 2026 Security Update",
+        "source": "Ivanti advisories"
+      },
+      {
+        "id": "f1853aa6-ac02-47d0-92a4-4e3bbd76043d",
+        "url": "https://www.securityweek.com/sap-patches-critical-icm2shell-proxygate-vulnerabilities/",
+        "title": "SAP Patches Critical ICM2SHELL, ProxyGate Vulnerabilities",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "84cc26fb-80af-4270-9858-1063d816b339",
+        "url": "https://www.infosecurity-magazine.com/news/turla-cereal-exchange-email/",
+        "title": "Russia-Linked Turla Hijacks Exchange Servers to Spy on NATO and EU Emails",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "f0c4e0bd-63bc-40c0-88a3-334951ac549b",
+        "url": "https://www.rapid7.com/blog/post/etr-critical-vulnerabilities-in-n-able-n-central-prompt-hosted-shutdown",
+        "title": "Critical vulnerabilities in N-able N-central prompt hosted shutdown",
+        "source": "Rapid7"
+      },
+      {
+        "id": "fa57e57b-b8c2-4c48-b755-95296767dedb",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-27/",
+        "title": "MFSA 2010-27 Use-after-free error in nsCycleCollector::MarkRoots()",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "eb1fc7cd-75bb-4c93-867f-e9cd4dfd76b0",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-26/",
+        "title": "MFSA 2010-26 Crashes with evidence of memory corruption (rv:1.9.2.4/ 1.9.1.10)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e87ec519-8399-47b4-ba1c-96fe304cda69",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-04/",
+        "title": "MFSA 2010-04 XSS due to window.dialogArguments being readable cross-domain",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d22dbf79-038d-4559-957b-874b155812bb",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-25/",
+        "title": "MFSA 2010-25 Re-use of freed object due to scope confusion",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c8fde289-dcc8-47e5-9664-ce6ed0608558",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-08/",
+        "title": "MFSA 2010-08 WOFF heap corruption due to integer overflow",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c6e5bc40-6325-43c3-acf5-6bedc3a046a3",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-14/",
+        "title": "MFSA 2010-14 Browser chrome defacement via cached XUL stylesheets",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c4c89796-a7e5-4d75-b4e3-974dd67fc261",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-06/",
+        "title": "MFSA 2010-06 Scriptable plugin execution in SeaMonkey mail",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c4330b20-f7d3-4873-b040-b02c0ad4f089",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-17/",
+        "title": "MFSA 2010-17 Remote code execution with use-after-free in nsTreeSelection",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b9df697f-af30-4239-b72f-08565a51ce12",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-21/",
+        "title": "MFSA 2010-21 Arbitrary code execution with Firebug XMLHttpRequestSpy",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "af16dc87-e5c0-4350-8355-bd3228cacf6b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-10/",
+        "title": "MFSA 2010-10 XSS via plugins and unprotected Location object",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9e9d2407-89fd-495e-89ac-035afb4e7e79",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-19/",
+        "title": "MFSA 2010-19 Dangling pointer vulnerability in nsPluginArray",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9e4801d9-6181-41b2-babc-efa8919468f7",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-13/",
+        "title": "MFSA 2010-13 Content policy bypass with image preloading",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "93835be0-4ab4-473e-92de-02aaede6eb9a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-23/",
+        "title": "MFSA 2010-23 Image src redirect to mailto: URL opens email editor",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "92852dba-07d8-48a9-adf5-f7b32c2b6c54",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-12/",
+        "title": "MFSA 2010-12 XSS using addEventListener and setTimeout on a wrapped object",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "8d240dd4-20c7-4a30-ae9b-cde1f977376b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-22/",
+        "title": "MFSA 2010-22 Update NSS to support TLS renegotiation indication",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7b225903-090b-49e0-a9be-09a5446bc9a1",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-11/",
+        "title": "MFSA 2010-11 Crashes with evidence of memory corruption (rv:1.9.2.2/ 1.9.1.8/ 1.9.0.18)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5e49b8db-1861-43c4-86df-2edeb54c7053",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-07/",
+        "title": "MFSA 2010-07 Fixes for potentially exploitable crashes ported to the legacy branch",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "4234a629-61b2-472d-a10d-4a0d50a3966b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-16/",
+        "title": "MFSA 2010-16 Crashes with evidence of memory corruption (rv:1.9.2.2/ 1.9.1.9/ 1.9.0.19)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3e5ed3ad-bc2f-414a-9789-d219b5f424a4",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-18/",
+        "title": "MFSA 2010-18 Dangling pointer vulnerability in nsTreeContentView",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3cef2db8-d242-4723-a9fc-5dca57e4958d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-15/",
+        "title": "MFSA 2010-15 Asynchronous Auth Prompt attaches to wrong window",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "2e26d627-8c14-48f5-b220-b745d4a95c42",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-24/",
+        "title": "MFSA 2010-24 XMLDocument::load() doesn't check nsIContentPolicy",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "2541b3dc-4578-4820-8144-d406beb46a37",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-05/",
+        "title": "MFSA 2010-05 XSS hazard using SVG document and binary Content-Type",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "15aae6ed-1bfd-4503-85e4-93a3351fc3fb",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-01/",
+        "title": "MFSA 2010-01 Crashes with evidence of memory corruption (rv:1.9.1.8/ 1.9.0.18)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "154fd889-75ac-4888-981f-e043a8828427",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-09/",
+        "title": "MFSA 2010-09 Deleted frame reuse in multipart/x-mixed-replace image",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "069d3743-bc6d-4870-b745-2af3813e4524",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-02/",
+        "title": "MFSA 2010-02 Web Worker Array Handling Heap Corruption Vulnerability",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "052a2112-f11e-40ec-89c1-ed7881086bac",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-03/",
+        "title": "MFSA 2010-03 Use-after-free crash in HTML parser",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "011e29f7-04ba-42fd-ad01-267ba6952dc8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2010-20/",
+        "title": "MFSA 2010-20 Chrome privilege escalation via forced URL drag and drop",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5efa8a5d-43db-4fa2-a5c3-b43e53f4d50e",
+        "url": "https://www.theregister.com/security/2026/11/10/chrome-zero-day-whack-a-mole-continues-as-2026-tally-hits-8/5308732",
+        "title": "Chrome zero-day whack-a-mole continues as 2026 tally hits 8",
+        "source": "The Register security"
+      },
+      {
+        "id": "6eb86818-c488-42fe-a2d2-7e7b3e53fce0",
+        "url": "https://www.malwarebytes.com/blog/bugs/2026/11/update-chrome-now-to-fix-a-flaw-attackers-are-exploiting",
+        "title": "Update Chrome now to fix a flaw attackers are exploiting",
+        "source": "Malwarebytes Labs"
+      },
+      {
+        "id": "086754f1-a29f-41fa-8fc8-2fb46807eb7a",
+        "url": "https://therecord.media/russia-hackers-espionage-romania-kazakhstan",
+        "title": "Russian hackers compromised government email servers to steal NATO, EU correspondence",
+        "source": "The Record"
+      },
+      {
+        "id": "2eaa7457-9287-4204-b1e9-57532007d10d",
+        "url": "https://isc.sans.edu/diary/rss/33506",
+        "title": "Apple Patches Everyting: November 2026 Edition, (Tue, Nov 10th)",
+        "source": "SANS ISC"
+      },
+      {
+        "id": "6638c89e-756b-49e0-8ec3-b41048627797",
+        "url": "https://www.bleepingcomputer.com/news/security/sap-patches-four-maximum-severity-security-vulnerabilities/",
+        "title": "SAP patches ICM2SHELL and PROXYGATE maximum severity flaws",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "943a4ec6-41c7-45d9-b237-0252fcd9a2dc",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/11/10/cisa-adds-six-known-exploited-vulnerabilities-catalog",
+        "title": "CISA Adds Six Known Exploited Vulnerabilities to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "a8b30aed-1c90-445d-bb5b-183c38b0f020",
+        "url": "https://thehackernews.com/2026/11/apple-patches-imessage-group-chat.html",
+        "title": "Apple Patches iMessage Group Chat Privacy Flaws and Bluetooth Pairing Vulnerabilities",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "c2037801-55b0-48de-9355-a589b31cd6af",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-exploit-barracuda-email-security-gateway-flaws-to-get-root-access/",
+        "title": "Hackers now exploit critical Barracuda ESG flaws to gain root access",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "cd94f80d-2a6a-44aa-8560-ef1b501f2458",
+        "url": "https://thehackernews.com/2026/11/russian-turla-hackers-use-new-cereal.html",
+        "title": "Russian Turla Hackers Use New Cereal Malware to Steal Emails From Government Exchange Servers",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "f5ef94f6-3550-497d-883b-a3bad0fab750",
+        "url": "https://www.bleepingcomputer.com/news/security/turla-hackers-use-new-ceral-malware-to-spy-on-govt-exchange-servers/",
+        "title": "Turla hackers use new Cereal malware to spy on govt Exchange servers",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "0f95deeb-e92a-4716-a8f5-18f675d17831",
+        "url": "https://thehackernews.com/2026/11/sap-patches-four-cvss-100-flaws.html",
+        "title": "SAP Patches Four CVSS 10.0 Flaws, Including Two Enabling Remote Code Execution",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "378bceb3-5310-4378-8525-8f409cd11a77",
+        "url": "https://cyberscoop.com/russian-turla-group-used-new-toolset-to-silently-pilfer-emails-from-kazakhstan-romanian-governments/",
+        "title": "Russian Turla group used new toolset to silently pilfer emails from Kazakhstan, Romanian governments",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "a656323e-8e01-46a7-a632-c1c6173ca181",
+        "url": "https://www.securityweek.com/n-able-takes-n-central-offline-as-researcher-drops-over-30-zero-days/",
+        "title": "N-able Takes N-central Offline as Researcher Drops Over 30 Zero-Days",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "c4dc891e-f4c1-41f3-a18b-f77a2ae54be9",
+        "url": "https://www.bleepingcomputer.com/news/security/google-patches-eighth-chrome-zero-day-exploited-in-attacks-this-year/",
+        "title": "Google patches eighth Chrome zero-day exploited in attacks this year",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "fa5ecc63-a27d-486d-9083-9d6728f380ab",
+        "url": "https://fortiguard.fortinet.com/psirt/FG-IR-26-271",
+        "title": "Authentication bypass",
+        "source": "FortiGuard PSIRT"
+      }
+    ]
+  }
+}

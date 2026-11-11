@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-11-11",
+    "title": "Outlook hash theft leads another thousand-fix Patch Tuesday",
+    "duration_s": 441,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-11.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-11.md"
+  },
+  {
     "day": "2026-11-10",
     "title": "N-central goes dark as public exploits reach root",
     "duration_s": 406,
