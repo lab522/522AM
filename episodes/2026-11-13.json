@@ -1,0 +1,213 @@
+{
+  "day": "2026-11-13",
+  "title": "N-central hotfix defeated as miners reach patched servers",
+  "overview": "Fresh N-central exploits work against Hotfix 2, with production servers already compromised. ScreenConnect investigators identify a blank-key authentication flaw and confirm the technician-side patch works. Plus gateway wiping, GitHub secret theft and persistence that survives patching.",
+  "duration_s": 330,
+  "chars": 4464,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-13.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-13.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Friday, the thirteenth of November, twenty twenty-six.",
+    "Yesterday's N-central recovery ticket needs reopening. Two fresh exploit chains work against Hotfix 2, build 2026 point 4 point 1 point 26, and Huntback now counts at least twenty-one compromised production servers. Nineteen were on that latest build. They're running XMRig miners; I'd worry much more about who now owns the management server than the electricity bill.",
+    "Sean Bales published 4EverAble2Shell and Agent2Shell yesterday. The first enters through Apache Axis flaw CVE-2026-90436, running unauthenticated commands as the nable service account. A privileged helper and a symbolic link then make a root-owned script writable, and serverControl executes it as root. That route needs the Legacy API enabled. Agent2Shell reaches SYSTEM on managed Windows endpoints if the attacker knows the appliance ID.",
+    "For internet-exposed on-premises N-central, confirm Legacy API access is disabled, its default setting. N-able says hosted environments aren't affected by this issue; it's disabled the Intune integration and is restricting features while fixes are developed. Hotfix 2 isn't a clean bill of health. Hunt requests to /dms/services/ServerUI referencing jline.internal.TerminalLineSettings, and look for an unexpected xvd.service or files under /tmp/.xvd and /var/tmp/.xvd. Treat a hit as full server compromise.",
+    "There's a firmer answer on the other management-console incident, too. The ScreenConnect toolkit is now named SCKit, with sixteen components, and the count's reached two hundred and eighty-eight endpoints across forty-eight organisations. Huntress now points to RMM+ 1 point 0 point 31 and 1 point 0 point 32: if an administrator hadn't configured an access key, a blank one passed authentication. An empty key opening the door. That's painfully literal.",
+    "And there's welcome news about the technician trap: RelayTrap replaces the legitimate Guest process and attempts CVE-2026-84869 when someone connects. Huntress and Blackpoint say the fix in 26 point 6 point 5 blocks it, with no successful technician-workstation propagation observed. Make sure the technician clients are updated. That protects against this step, not the extension flaw; current server builds were among those breached.",
+    "Away from support consoles, PHP2Shell is now confirmed against Check Point Security Gateways through Mobile Access portals, in a separate campaign chaining a DynamicCLI escalation to root and progressing to ESXi and a wiper at Israeli organisations. Patch the gateway and PHP stack now; hunt zz*.tpl files and gateway SSH connections to ESXi as vpxuser. And stolen access is feeding wfx-loot on GitHub: four thousand eight hundred and thirty-seven hijacked accounts helped run a CI secret stealer in at least eighteen hundred and six repositories. Search for wfx-docs branches and pull requests titled “docs: dependency audit notes”; where it ran, rotate reachable workflow secrets and revoke the attacker's access, and treat machines that ran npm install on an affected commit as compromised.",
+    "On Windows, the public SignDrop proof of concept claims local SYSTEM through the Common Log File System driver's own anti-tamper feature; Microsoft hasn't confirmed it and there's no patch. Check Mode under HKLM\\SYSTEM\\CurrentControlSet\\Services\\CLFS\\Authentication: zero or one means in scope, and watch for EDR self-protection tampering.",
+    "Back on exposed services, SANS now sees attempts against GPUStack, the GPU-cluster manager, spoofing X-Gpustack-Real-IP as 127.0.0.1 to bypass authentication. Upgrade to 2 point 2 point 0 and strip that header at the edge; the observed source is 144.91.73.103. But patching doesn't evict an established visitor: Microsoft sees attackers planting the legitimate GSocket remote-access tool on exploited Linux servers to survive the fix. Remove it and confirm relay connections stop, then audit persistence, including cron and systemd; the guidance also calls for patching CVE-2026-43284.",
+    "I'd establish N-central's exposure before accepting any completed patch ticket today. And where a management server's been compromised, I'd keep the investigation open beyond removal of the miner. Hope Friday leaves you a quiet weekend.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [],
+    "news": [
+      {
+        "id": "2d867111-f609-477c-b825-199d7dcf1068",
+        "url": "https://www.bleepingcomputer.com/news/security/new-worm-like-sckit-malware-targets-msps-in-screenconnect-attacks/",
+        "title": "New worm-like 'SCKit' malware targets MSPs in ScreenConnect attacks",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "1f0e08af-d141-4a0b-ac31-51ca6119a93c",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-compromise-4-800-github-accounts-to-steal-cloud-credentials/",
+        "title": "Hackers compromise 4,800 GitHub accounts to steal cloud credentials",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "582bce41-2299-41a8-a7c4-fed310ffde7d",
+        "url": "https://cyberscoop.com/connectwise-screenconnect-sckit-attack/",
+        "title": "Rogue remote-access campaign spread through ScreenConnect add-on, researchers say",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "b342fccb-8190-4cf5-8133-397809ae047e",
+        "url": "https://horizon3.ai/attack-research/vulnerabilities/cve-2026-119618/",
+        "title": "CVE-2026-119618 | Apache HTTP Server mod_http2 Race Condition Remote Code Execution Vulnerability",
+        "source": "Horizon3"
+      },
+      {
+        "id": "5cd508ad-7576-4181-887a-a77352e7996b",
+        "url": "https://www.bleepingcomputer.com/news/security/new-n-able-4everable2shell-zero-day-exploited-hours-after-poc-released/",
+        "title": "New N-able \"4EverAble2Shell\" zero-day exploited hours after PoC released",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "239b1d6d-cdd3-4545-814a-fe5f807b5961",
+        "url": "https://www.bleepingcomputer.com/news/security/apache-http-server-patches-critical-http-2-remote-code-execution-flaw/",
+        "title": "Apache HTTP Server patches critical HTTP/2 remote code execution flaw",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "045cd678-8892-4ac1-8b20-0089c274ca0a",
+        "url": "https://www.wiz.io/blog/aspm-ai-era-pt-3-fixing-risk-code-speed",
+        "title": "ASPM in the AI Era Part 3: Fixing Risk at the Speed of Code",
+        "source": "Wiz"
+      },
+      {
+        "id": "510e93d7-a22e-4ed4-bdf2-3b9b6a7cc8af",
+        "url": "https://thehackernews.com/2026/11/new-signdrop-zero-day-exploit-turns.html",
+        "title": "New SignDrop Zero-Day Exploit Turns Windows CLFS Security Feature Into SYSTEM Access",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "f5cb12dd-24e4-41e8-82c3-2cbec944961b",
+        "url": "https://therecord.media/connectwise-screenconnect-breaches-third-party-tool",
+        "title": "ConnectWise investigates ScreenConnect breaches after reports of incidents at nearly 50 organizations",
+        "source": "The Record"
+      },
+      {
+        "id": "7d858cc3-2fc8-4141-bc14-f46a6b7f9fd4",
+        "url": "https://www.bleepingcomputer.com/news/security/new-windows-signdrop-zero-day-gives-hackers-system-privileges/",
+        "title": "New Windows SignDrop zero-day gives hackers SYSTEM privileges",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "328ebaa8-301c-4672-b6f3-c84681545d18",
+        "url": "https://www.securityweek.com/apache-patches-critical-http-server-rce-found-by-anthropic-google/",
+        "title": "Apache Patches Critical HTTP Server RCE Found by Anthropic, Google",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "8eb97419-e23c-40eb-9686-3b2a78e8771f",
+        "url": "https://www.wordfence.com/blog/2026/11/cve-2026-119618-apache-http2/",
+        "title": "PSA: Critical Apache HTTP/2 Vulnerability: What WordPress Site Owners Should Know",
+        "source": "Wordfence"
+      },
+      {
+        "id": "e7b84f2e-1880-4aee-ad4b-3f89ae069bbe",
+        "url": "https://www.wired.com/story/apples-homeview-tries-face-authentication-without-faceid/",
+        "title": "Apple’s HomeView Tries Face Authentication Without FaceID",
+        "source": "Wired security"
+      },
+      {
+        "id": "ccbdb4f7-8881-4781-a20e-2520f7ad9d09",
+        "url": "https://research.checkpoint.com/2026/php2shell-exploitation-on-check-point-gateway/",
+        "title": "PHP2Shell Exploitation on Check Point Gateway",
+        "source": "Check Point Research"
+      },
+      {
+        "id": "a2c00bd8-4008-4d1d-8d80-109a80f53c7a",
+        "url": "https://www.securityweek.com/attacker-targets-60000-github-repositories-in-credential-theft-campaign/",
+        "title": "Attacker Targets 60,000 GitHub Repositories in Credential Theft Campaign",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "d292b081-184c-4903-884c-d643c9eda3d6",
+        "url": "https://thehackernews.com/2026/11/sckit-malware-targets-screenconnect.html",
+        "title": "SCKit Malware Turns ScreenConnect Support Sessions Into Potential MSP Attack Paths",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "6c481b2e-b897-4797-99f3-3b7cdd308316",
+        "url": "https://www.theregister.com/security/2026/11/12/hackers-exploiting-screenconnect-plugin-flaw-to-spread-malware-across-hundreds-of-pcs/5309361",
+        "title": "Hackers exploiting ScreenConnect plugin flaw to spread malware across hundreds of PCs",
+        "source": "The Register security"
+      },
+      {
+        "id": "28ea9f13-d320-416b-99cc-946ff784469b",
+        "url": "https://databreaches.net/2026/11/12/active-screenconnect-attacks-breach-msps-impact-dozens-of-organizations/",
+        "title": "Active ScreenConnect attacks breach MSPs, impact dozens of organizations",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "d85cd9eb-e43d-4f4a-8006-9e937246ab9f",
+        "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-316-04",
+        "title": "Siemens RUGGEDCOM APE1808",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "b21cca70-3639-42af-8e05-372d229c9ffa",
+        "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-316-02",
+        "title": "Siemens Desigo, Gridscale",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "a6fa8130-0f62-4f09-aa14-d1c825aa1858",
+        "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-316-03",
+        "title": "Siemens Industrial Edge Management",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "6d592260-e31a-4c7b-8807-2aa671e29a9e",
+        "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-316-01",
+        "title": "Siemens Building Automation and Energy Products",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "0e82b504-8651-484a-b7f1-d05cd796b2c2",
+        "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-316-05",
+        "title": "Siemens RUGGEDCOM APE1808",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "68f436a5-4b9c-4668-91a3-35f4f293dc93",
+        "url": "https://isc.sans.edu/diary/rss/33514",
+        "title": "Exploit Attempts for GPUStack Authentication Bypass (CVE-2026-102895), (Thu, Nov 12th)",
+        "source": "SANS ISC"
+      },
+      {
+        "id": "a7c58ee0-1c54-4240-89cb-4dcbe75398b9",
+        "url": "https://thehackernews.com/2026/11/new-n-central-exploits-work-against.html",
+        "title": "New N-central Exploits Work Against Patched Servers, Enable Root RCE and Windows SYSTEM Access",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "894cea11-07f8-4d70-b5aa-46dbd0774ee4",
+        "url": "https://www.infosecurity-magazine.com/news/shift-patching-mitigation-ai-era/",
+        "title": "Security Teams Must Shift from Patching to Mitigation in the AI Era",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "bf6d1682-44fc-498b-a15a-8a1f030a5848",
+        "url": "https://www.securityweek.com/hackers-deploy-malware-in-fresh-screenconnect-campaign/",
+        "title": "Hackers Deploy Malware in Fresh ScreenConnect Campaign",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "363fbc48-c0f0-4106-bded-68c91fa4874c",
+        "url": "https://www.securityweek.com/hackers-target-n-central-zero-days-as-n-able-rushes-patches/",
+        "title": "Hackers Target N-central Zero-Days as N-able Rushes Patches",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "c28a2221-289a-4dba-b31a-fe96ec5e6c73",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-plant-gsocket-on-linux-servers-for-persistent-access/",
+        "title": "Hackers plant GSocket on Linux servers for persistent access",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "14bfd417-8a7c-412b-ba33-b589f78708e8",
+        "url": "https://thehackernews.com/2026/11/4837-hijacked-github-accounts-ran-ci.html",
+        "title": "Attacker Used 4,837 Hijacked GitHub Accounts to Run a CI Secret Stealer in 1,806+ Repositories",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "1bd445d6-08df-4c72-8cce-053780c9d280",
+        "url": "https://thehackernews.com/2026/11/critical-apache-http2-flaw-could-let.html",
+        "title": "Critical Apache HTTP/2 Flaw Could Let Unauthenticated Attackers Execute Code Remotely",
+        "source": "The Hacker News"
+      }
+    ]
+  }
+}
