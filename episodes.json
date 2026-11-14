@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-11-14",
+    "title": "Microsoft's outage took the security consoles down too",
+    "duration_s": 396,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-14.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-14.md"
+  },
+  {
     "day": "2026-11-13",
     "title": "N-central hotfix defeated as miners reach patched servers",
     "duration_s": 330,

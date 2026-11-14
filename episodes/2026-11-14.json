@@ -1,0 +1,143 @@
+{
+  "day": "2026-11-14",
+  "title": "Microsoft's outage took the security consoles down too",
+  "overview": "Microsoft 365's day-long outage left security teams with a visibility gap to investigate. Check Point now has emergency fixes for the exploited gateway escalation, alongside urgent updates for UnrealIRCd, PostgreSQL, NetScaler and refrigeration supervisors.",
+  "duration_s": 396,
+  "chars": 5373,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-14.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-14.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Saturday, the fourteenth of November, twenty twenty-six.",
+    "An inbox coming back doesn't mean the incident's over. Microsoft 365's roughly day-long outage began around lunchtime on the US East Coast on Thursday, spreading across more than seventy countries. Outlook and Teams were among the casualties, but the bit I'd worry about now is the security tooling: Defender XDR and Defender for Office 365 were affected too, along with Intune and Purview. The platform you needed to watch the disruption was having a disruption of its own.",
+    "Microsoft repeatedly ruled out a cyberattack. Its initial explanation was servers failing automated health checks, leaving the remaining infrastructure overloaded; it now says an earlier network capacity upgrade introduced a problem that surfaced after a recent network change. A full post-incident account is promised. Meanwhile, I'd treat those missing hours as an incident window, not just an availability ticket. Review sign-ins and account changes, then mailbox rules and endpoint activity, using evidence from devices rather than relying on the platform that went dark. Email queue time was extended to forty-eight hours, so backlogs may still be clearing. Expect fake support calls and Microsoft-branded login links: Check Point puts Microsoft at thirty-three per cent of brand-phishing attempts last quarter. Plenty of camouflage in a delayed inbox.",
+    "There's a more concrete answer for yesterday's separate Check Point gateway incident: emergency hotfixes are out, and the November Jumbo Hotfix covers both PHP2Shell and the DynamicCLI escalation. CVE-2026-123039 scores seven point eight and is now in KEV, with US agencies due to fix it by Monday, the sixteenth. Check Point says a couple of dozen customers were exploited.",
+    "The newly detailed escalation is brutally simple: a root daemon accepts commands through the world-writable local socket /tmp/dynamic_socket without authenticating the connecting process. One command becomes root. Apply the Jumbo Hotfix across Management Servers and Security Gateways, prioritising internet-facing Mobile Access; affected families also include log servers and multi-domain systems, plus Maestro Orchestrator. If deployment has to wait, stop dynamic_server and prevent its restart. I'd take that stopgap seriously. Hunt for upload_progress_pwn in session files and unexpected CPconfigdaemon processes. The ESXi wiper now has a name, destroy_v6, with DREAM_ANNEXATION.txt notes; suggested links between the backdoor tooling and Armory Castle remain tentative.",
+    "And another exposed management interface is earning somebody mining money: Huntress found GeoVision camera-software abuse at thirteen organisations, starting from GeoStartupAgentService.exe, often running as SYSTEM, with attempts to disable Defender and XMRig delivered as ApplyUpdate.exe. Remove unnecessary public access; hunt unexpected shells launched by that service, and isolate affected hosts while preserving evidence before cleanup. Elsewhere on exposed services, UnrealIRCd's CVE-2026-114713 is now in KEV with the same Monday federal deadline: an unescaped reply label lets a user inject server-to-server commands with server authority on networks with linked servers. If you run this IRC server from 6 point 0 point 0, upgrade to 6 point 2 point 7 point 1.",
+    "Away from confirmed exploitation, PostgreSQL has fixed fifty-two flaws, including a twenty-two-year-old type confusion letting database users who can create objects execute code as the PostgreSQL operating-system account; no attacks are reported, and another fix prevents unauthenticated clients restarting version 18 servers. Update to 18 point 7, 17 point 12, 16 point 16, 15 point 20 or 14 point 25, matching your major release, and rebuild or update C-language extensions too—old builds still load without protection—then update client tools wherever they run and leave composite_type_mismatch checks enabled. Staying with the patch queue, Citrix has fixed twenty-eight NetScaler ADC and Gateway bugs, nine critical, plus a nine point four Console flaw allowing unauthenticated access to restricted resources. Move ADC and Gateway to 14 point 1 dash 73 point 57 or 13 point 1 dash 64 point 39, FIPS to 14 point 1 dash 73 point 58, or 13 point 1 FIPS and NDcPP to 13 point 1 dash 37 point 293; Console needs 14 point 1 dash 74 point 34, and check Citrix's preconditions for priority while treating the affected authentication log as leaked material.",
+    "And for the refrigeration attacks we covered earlier, there's finally something to patch: VulnCheck disclosed fourteen XWEB EVO supervision flaws, all yielding root or admin in testing, with at least two exploited; the login page runs the submitted username as a shell command before checking the password. Apply Copeland's latest patched XWEB release and keep it off the public internet; unsupported legacy supervisors need taking off the network rather than waiting for a fix.",
+    "I'd put the exploited systems ahead of the routine weekend queue. And don't let restored email close the investigation into those missing hours of visibility. Hope you get a quiet Saturday.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-114713",
+      "CVE-2026-123039"
+    ],
+    "news": [
+      {
+        "id": "9560ebd8-b7f0-41cb-8cc6-9671f24dba5f",
+        "url": "https://cyberscoop.com/copeland-dixell-refrigeration-vulnerabilities/",
+        "title": "Researchers continue to find serious vulnerabilities in internet connected refrigerators",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "d9fcb714-546a-4e11-b7bb-c608553cf738",
+        "url": "https://www.wired.com/story/microsoft-365-crawls-back-to-life-after-a-24-hour-outage/",
+        "title": "Microsoft 365 Crawls Back to Life After a 24-Hour Outage",
+        "source": "Wired security"
+      },
+      {
+        "id": "5f14a5ea-8fe4-4290-b887-4bdb25e72ebf",
+        "url": "https://www.wired.com/story/the-microsoft-outage-is-a-warning-for-the-world/",
+        "title": "The Microsoft Outage Is a Warning for the World",
+        "source": "Wired security"
+      },
+      {
+        "id": "bb224750-323b-43a8-8002-55cfd02f0235",
+        "url": "https://thehackernews.com/2026/11/postgresql-patches-52-flaws-including.html",
+        "title": "PostgreSQL Patches 52 Flaws, Including 22-Year-Old Bug Enabling Authenticated RCE",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "0ec82593-4213-4f9b-8818-731d3480c1ae",
+        "url": "https://www.bleepingcomputer.com/news/security/check-point-gateways-hacked-via-php2shell-to-deploy-vmware-esxi-wiper/",
+        "title": "Check Point gateways hacked via PHP2Shell to deploy VMware ESXi wiper",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "b4a008c6-4573-448f-9c5b-6dd040efdf98",
+        "url": "https://databreaches.net/2026/11/13/hospitals-airlines-and-governments-hit-by-microsoft-outage-as-employee-risk-warnings-mount/",
+        "title": "Hospitals, airlines and governments hit by Microsoft outage as employee risk warnings mount",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "db33be4c-3384-4e0d-91a1-5e153d04c840",
+        "url": "https://databreaches.net/2026/11/13/microsoft-outage-2026-what-happened-and-what-the-law-says/",
+        "title": "Microsoft Outage 2026: What Happened and What the Law Says",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "fd7e78a9-90ed-4ca3-b121-734b1d23b8b9",
+        "url": "https://www.huntress.com/blog/geovision-camera-software-xmrig-cryptominer",
+        "title": "GeoVision Camera Software Abused to Deploy XMRig Cryptominer",
+        "source": "Huntress"
+      },
+      {
+        "id": "7ec15431-0c6c-4bc0-b18b-9138d700d456",
+        "url": "https://www.securityweek.com/microsoft-struggles-to-restore-email-and-other-services-in-a-global-outage/",
+        "title": "Microsoft Struggles to Restore Email and Other Services in a Global Outage",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "e3b57bb9-4438-4988-ba83-eca635e95b7d",
+        "url": "https://techcrunch.com/2026/11/13/microsoft-latest-email-outage-turned-into-a-full-blown-global-cloud-crisis/",
+        "title": "Microsoft’s latest email outage turned into a full blown global cloud crisis",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "91e039fa-8017-44d0-a8a0-4bcb98da04dd",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/11/13/cisa-adds-two-known-exploited-vulnerabilities-catalog",
+        "title": "CISA Adds Two Known Exploited Vulnerabilities to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "508b0726-e7e0-4edf-94a5-edc892846163",
+        "url": "https://www.bleepingcomputer.com/news/security/check-point-patches-zero-day-that-lets-hackers-get-root-access/",
+        "title": "Check Point warns of zero-day flaw exploited for root access",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "33ae0dee-061a-4a88-9b9f-805e57b87560",
+        "url": "https://www.infosecurity-magazine.com/news/microsoft-365-outage-security/",
+        "title": "Microsoft 365 Outage Set to Ramp up Security Risks to Organizations",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "134ca528-e5eb-4cb9-ad65-489a05b26ee4",
+        "url": "https://www.securityweek.com/citrix-patches-10-critical-netscaler-vulnerabilities/",
+        "title": "Citrix Patches 10 Critical NetScaler Vulnerabilities",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "ee718d1f-1b97-4904-bdce-91e3fa956a12",
+        "url": "https://www.computerweekly.com/news/366654819/Microsoft-outage-Impact-shows-risk-of-M365-bundle-lock-in",
+        "title": "Microsoft outage: Impact shows risk of M365 bundle lock-in",
+        "source": "Computer Weekly security"
+      },
+      {
+        "id": "36218392-4b23-4c33-bc97-2c2f7850e670",
+        "url": "https://www.malwarebytes.com/blog/news/2026/11/worldwide-microsoft-365-outage-disrupts-outlook-sharepoint-teams-and-more",
+        "title": "Worldwide Microsoft 365 outage disrupts Outlook, SharePoint, Teams, and more",
+        "source": "Malwarebytes Labs"
+      },
+      {
+        "id": "d939bda1-83ee-45c3-aa4a-fb993ec30552",
+        "url": "https://thehackernews.com/2026/11/hackers-exploit-php2shell-flaws-in.html",
+        "title": "Hackers Exploit PHP2Shell Flaws in Check Point Gateways to Deploy TSGA Backdoor and Wipe ESXi Files",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "4cded22c-adf7-4cc4-b2b6-b16556d09385",
+        "url": "https://www.securityweek.com/php2shell-exploited-in-destructive-check-point-gateway-attacks/",
+        "title": "PHP2Shell Exploited in Destructive Check Point Gateway Attacks",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "2a9c1131-4448-4eb3-aa40-a0888cd45a73",
+        "url": "https://www.computerweekly.com/news/366654608/Global-Microsoft-outage-leaves-users-open-to-phishing-attacks",
+        "title": "Global Microsoft outage leaves users open to phishing attacks",
+        "source": "Computer Weekly security"
+      }
+    ]
+  }
+}
