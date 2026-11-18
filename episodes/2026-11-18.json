@@ -1,0 +1,556 @@
+{
+  "day": "2026-11-18",
+  "title": "Java4Shell puts the runtime on the emergency patch list",
+  "overview": "Oracle has patched Java4Shell, a Base64 decoder flaw that researchers demonstrated could give unauthenticated attackers code execution in major enterprise applications. Optimizely's cleanup is complete, but the exposure review isn't; there are also management-plane fixes, an Uber supplier breach and another Mozilla advisory replay.",
+  "duration_s": 320,
+  "chars": 4540,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-18.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-18.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Wednesday, the eighteenth of November, twenty twenty-six.",
+    "Thursday's Apache warning now has company a layer down in the runtime. Different flaw, different fix: Java4Shell, CVE-2026-114938, lets malformed Base64 reach unauthenticated code execution in Java applications. Calif demonstrated it against default Keycloak and Jenkins installations, among other enterprise products. CISA wants Java users patching immediately. I'd make room for this one before the planned work.",
+    "The clever, nasty bit is the optimisation. Once decoding runs hot, HotSpot substitutes an accelerated routine whose padded-tail calculation reaches minus one. That opens the write mask fully and sends sixty-two bytes beyond the heap array. The trigger? Sixty-four A characters and an equals sign; on Java 17, a hundred and twenty-eight As instead. Basic authentication can feed the decoder before credentials are checked, so a login prompt isn't protection.",
+    "Exposure starts at OpenJDK 17 point 0 point 6, across the affected 17 and later branches, including downstream distributions, on x86-64 processors with AVX-512 VBMI. ARM is out, as are Java 11 and standard Java 8. Oracle's Tuesday fixes for those affected branches are 17 point 0 point 21 point 1, 21 point 0 point 13 point 1, 25 point 0 point 5 point 1 and 27 point 0 point 1 point 1. If you can't patch yet, start the JVM with -XX:-UseBASE64Intrinsics. Check inside container images: updating the host's JDK doesn't update theirs. There's a public reproducer, and GreyNoise is monitoring scanning and exploitation attempts; that's not confirmation of successful attacks.",
+    "From code beneath your application to code borrowed by your pages: there's better news on Optimizely. It's now publicly confirmed the incident and says remediation is complete, with added Cloudflare protections. Scott Helme says all infected files are clean. But the loader sat in the customer's Project JavaScript field and fired at page load, without waiting for consent.",
+    "The payload was rebuilt twenty-six times during the day; the crypto haul is now around seven thousand five hundred dollars. Thirty-two affected sites were finance or banking sites, and only twenty-four of the hundred and seventy-eight had a CSP that fully blocked it. That's the bit I'd take into the review, not just the cleanup notice. Reconstruct when affected pages ran the snippet; if it ran unblocked beside your own card form, count every card entered as exposed. A payment processor's hosted iframe was outside this skimmer's reach. Tighten the CSP rather than treating the vendor fix as the end.",
+    "The management-plane work isn't finished either: N-central's 2026 point 4 Hotfix 3 patches seventeen disclosed zero-days, and researcher Bales has published details of another twenty-four flaws he says are patched; hosted servers are updated, but on-premises servers need action. Upgrade Agents and Probes too—N-able warns that leaving them behind permits impersonation. And Puppet, the configuration-management system, has an actively exploited report-deserialisation flaw, CVE-2026-115731: any CA-signed agent certificate can get code running as the Puppet Server service user. Patch to 8 point 22 point 2 or 9 point 1 point 3, or the Enterprise fixes 2023 point 8 point 13 and 2025 point 12 point 1, and stop certificate autosigning; US federal agencies have until December first.",
+    "Valid credentials are also the uncomfortable detail at Uber: a supplier disclosed stolen credentials on October ninth, and attackers accessed supplier-specific cloud storage containing names and driving-licence data for nearly a hundred and fifty thousand people, without alerting Uber's cloud security team because the credentials were valid. For supplier cloud stores, limit credential scope and lifetime, and alert on bulk reads—not merely failed logins. Meanwhile, an alert that really does need suppression: Mozilla's replay now reaches MFSA 2007-32 through MFSA 2008-50. Extend archive-date suppression back to two thousand and seven and check for tickets opened overnight.",
+    "I'd reserve the first change window for affected Java runtimes, with the image owners involved from the outset. Keep the website exposure review open even though the injected files are gone. Hope your Wednesday leaves you time for a proper breakfast.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-115731"
+    ],
+    "news": [
+      {
+        "id": "e3cfc1ac-43db-4642-a0da-ae0b00577ba3",
+        "url": "https://www.theregister.com/security/2026/11/18/oracle-reveals-fix-this-asap-grade-java4shell-bug-that-allows-attacks-on-many-third-party-apps/5310661",
+        "title": "Oracle reveals fix-this-ASAP-grade Java4Shell bug that allows attacks on many third-party apps",
+        "source": "The Register security"
+      },
+      {
+        "id": "d6caa15b-1b49-4f4a-8723-0f15b176f51f",
+        "url": "https://krebsonsecurity.com/2026/11/attackers-used-optimizely-to-a-b-test-malware-on-top-websites/",
+        "title": "Attackers Used Optimizely to A/B Test Malware on Top Websites",
+        "source": "Krebs on Security"
+      },
+      {
+        "id": "10317759-9590-48e6-98c5-9a5e63285ee3",
+        "url": "https://blog.talosintelligence.com/java4shell/",
+        "title": "CVE-2026-114938: Critical vulnerability in OpenJDK JAVA",
+        "source": "Cisco Talos"
+      },
+      {
+        "id": "43a0f46c-f171-45b0-a61c-f8b0b823c4ec",
+        "url": "https://therecord.media/uber-says-150000-impacted-third-party-breach",
+        "title": "Uber says nearly 150,000 impacted by third-party breach",
+        "source": "The Record"
+      },
+      {
+        "id": "2f4b836c-460a-4bba-b86b-dc95d0fb3fd8",
+        "url": "https://censys.com/blog/mch-and-caishen-supply-chain-poisoning-pushes-ios-exploits/",
+        "title": "MCH and Caishen: supply chain poisoning pushes iOS exploits",
+        "source": "Censys"
+      },
+      {
+        "id": "29855532-62b5-4397-8e33-40e05a16c12b",
+        "url": "https://horizon3.ai/attack-research/vulnerabilities/cve-2026-114938/",
+        "title": "CVE-2026-114938 | Oracle Java SE and OpenJDK Base64 Decoder Heap Buffer Overflow Vulnerability (Java4Shell)",
+        "source": "Horizon3"
+      },
+      {
+        "id": "8afd3f02-464c-4957-a67d-e349ed18c4e6",
+        "url": "https://webflow.sysdig.com/blog/java4shell-cve-2026-114938-pre-auth-rce-in-openjdk",
+        "title": "Java4Shell (CVE-2026-114938): Pre-auth RCE in OpenJDK, and the challenge of image and feature bloat",
+        "source": "Sysdig"
+      },
+      {
+        "id": "072269ac-ecd9-459b-aaf5-65d13106538d",
+        "url": "https://www.greynoise.io/blog/global-event-java4shell-cve-2026-114938-live-activity-report",
+        "title": "Global Event: Java4Shell (CVE-2026-114938) Live Activity Report",
+        "source": "GreyNoise"
+      },
+      {
+        "id": "3d240ef2-68b0-4e1f-940f-33dda713d82a",
+        "url": "https://www.bleepingcomputer.com/news/security/critical-java4shell-flaw-allows-rce-attacks-on-major-java-applications/",
+        "title": "Critical Java4Shell flaw allows RCE attacks on major Java applications",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "4edf77b0-4ec8-410d-b03c-0fb917cceb6c",
+        "url": "https://www.darkreading.com/cyber-risk/optimizely-malware-attacks-third-party-vendor-risks",
+        "title": "Optimizely Malware Attacks Highlight Third-Party Vendor Risks",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "fa280281-7e58-40e6-a67f-9f27e6f188a4",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-34/",
+        "title": "MFSA 2007-34 Possible file stealing through sftp protocol",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f486c4a9-07ec-482d-b3ed-cb99462b4c16",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-09/",
+        "title": "MFSA 2008-09 Mishandling of locally-saved plain text files",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f11ec39d-8d86-45d9-be34-8a41909b9bd5",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-10/",
+        "title": "MFSA 2008-10 URL token stealing via stylesheet redirect",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e3f9876b-692d-45e4-a678-f05f45c4bc72",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-07/",
+        "title": "MFSA 2008-07 Possible information disclosure in BMP decoder",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e3760a36-5b15-43a3-a481-9b7a0c460efd",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-06/",
+        "title": "MFSA 2008-06 Web browsing history and forward navigation stealing",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "df8ef905-3170-4b27-9769-055ed9069738",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-32/",
+        "title": "MFSA 2007-32 File input focus stealing vulnerability",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d98dc35a-4bf5-499f-91ed-207a9a31d50f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-17/",
+        "title": "MFSA 2008-17 Privacy issue with SSL Client Authentication",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d8c22a04-73ac-4356-b746-25329940310e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-35/",
+        "title": "MFSA 2007-35 XPCNativeWraper pollution using Script object",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d85fc9b1-b0c5-4f5e-b6a3-c8ad53c4546f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-36/",
+        "title": "MFSA 2007-36 URIs with invalid %-encoding mishandled by Windows",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "cf606215-5854-4efd-8143-fefc47125c2e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-18/",
+        "title": "MFSA 2008-18 Java socket connection to any local port via LiveConnect",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "cb421abb-3890-402e-b9e1-c3a06f3fb186",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-02/",
+        "title": "MFSA 2008-02 Multiple file input focus stealing vulnerabilities",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c8eb1325-56f7-473c-b7e9-226e6a3f6f1e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-05/",
+        "title": "MFSA 2008-05 Directory traversal via chrome: URI",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b61036fd-538b-4052-aa72-0221440900ce",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-16/",
+        "title": "MFSA 2008-16 HTTP Referrer spoofing with malformed URLs",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a134445e-86dc-419b-8316-3338f32fa293",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-15/",
+        "title": "MFSA 2008-15 Crashes with evidence of memory corruption (rv:1.8.1.13)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9f4694ca-7200-4889-a7b3-b520a27a3297",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-19/",
+        "title": "MFSA 2008-19 XUL popup spoofing variant (cross-tab popups)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "95698505-ef9b-4498-84ea-356eabafa4a0",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-12/",
+        "title": "MFSA 2008-12 Heap buffer overflow in external MIME bodies",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7bf58b31-ad78-430c-8e1e-a5327e390018",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-13/",
+        "title": "MFSA 2008-13 Multiple XSS vulnerabilities from character encoding",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "79be34ac-7d97-4fd9-9a08-853bf333e8fc",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-03/",
+        "title": "MFSA 2008-03 Privilege escalation, XSS, Remote Code Execution",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "794ababf-39b0-455b-a060-bfef84f66e07",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-40/",
+        "title": "MFSA 2007-40 Upgraded Thunderbird 1.5.0.13 missing fix for MFSA 2007-23",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5d6ad85b-5184-4c1e-91cc-5dddf65f660b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-39/",
+        "title": "MFSA 2007-39 Referer-spoofing via window.location race condition",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "583bb9fd-fe3c-408c-90ae-a7a358bce740",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-37/",
+        "title": "MFSA 2007-37 jar: URI scheme XSS hazard",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "55f8ab32-1aa8-456b-947e-6605eea8773e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-33/",
+        "title": "MFSA 2007-33 XUL pages can hide the window titlebar",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "53b96c1e-10ce-45e6-9ed0-c18eed1187b2",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-14/",
+        "title": "MFSA 2008-14 JavaScript privilege escalation and arbitrary code execution",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "4defe1f8-8c50-4808-9594-55ec92c746ef",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-01/",
+        "title": "MFSA 2008-01 Crashes with evidence of memory corruption (rv:1.8.1.12)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "4255580b-6246-46d1-bacf-95d5ab9c4bd3",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-04/",
+        "title": "MFSA 2008-04 Stored password corruption",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3b9d4f7f-ff5d-47d3-b8f5-1a7a713210ad",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-20/",
+        "title": "MFSA 2008-20 Crash in JavaScript garbage collector",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "37eb04f6-ab12-464a-91dc-1fc46c08f101",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-38/",
+        "title": "MFSA 2007-38 Memory corruption vulnerabilities (rv:1.8.1.10)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "191cd896-a849-4429-b0a4-d555792377c0",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-08/",
+        "title": "MFSA 2008-08 File action dialog tampering",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0d0a2bde-5434-40e6-a0a1-8bbf98e8542d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-11/",
+        "title": "MFSA 2008-11 Web forgery overwrite with div overlay",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f2458bd6-265a-4ba5-9d47-fb095b628e05",
+        "url": "https://arstechnica.com/security/2026/11/malicious-code-delivered-through-optimizely-hits-visitors-to-hundreds-of-sites/",
+        "title": "Malicious code delivered through Optimizely hits visitors to hundreds of sites",
+        "source": "Ars Technica security"
+      },
+      {
+        "id": "8bcb4023-e158-42b3-9ef9-30ae764a11e7",
+        "url": "https://www.wiz.io/blog/cve-2026-114938-rce-java4shell-openjdk",
+        "title": "CVE-2026-114938 RCE in OpenJDK: Everything You Need to Know",
+        "source": "Wiz"
+      },
+      {
+        "id": "5ac2762f-ba29-43c1-878b-9082bb905d0a",
+        "url": "https://cyberscoop.com/java4shell-critical-java-flaw-openjdk/",
+        "title": "A vulnpocalypse bug worthy of attention: Researchers disclose critical flaw in Java with help of AI",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "1d404e2a-3866-40b8-8dde-1afb8c8f8878",
+        "url": "https://therecord.media/optimizely-malicious-code-customer-sites",
+        "title": "Website management platform Optimizely confirms hackers put malicious code into customer sites",
+        "source": "The Record"
+      },
+      {
+        "id": "b380b95d-79e1-49e6-91a9-4687bc23ace3",
+        "url": "https://unit42.paloaltonetworks.com/optimjack-supply-chain-attack/",
+        "title": "Borrowed Code, Real Consequences: What OPTIMJACK Teaches Us",
+        "source": "Unit 42"
+      },
+      {
+        "id": "2153fa4d-8467-4a59-9995-a1a4afadbe43",
+        "url": "https://www.rapid7.com/blog/post/etr-cve-2026-114938-reported-critical-pre-authentication-remote-code-execution-java-17",
+        "title": "CVE-2026-114938: Reported Critical Pre-authentication Remote Code Execution in Java 17",
+        "source": "Rapid7"
+      },
+      {
+        "id": "7db92d69-26e8-43dc-b6e8-61bbcba0beaf",
+        "url": "https://www.reversinglabs.com/blog/optimjack-when-trusted-javascript-becomes-a-supply-chain-attack",
+        "title": "OPTIMJACK: When Trusted JavaScript Becomes a Supply Chain Attack",
+        "source": "ReversingLabs"
+      },
+      {
+        "id": "ef6ce68e-5144-4e89-b515-2641b4e53590",
+        "url": "https://www.theregister.com/security/2026/11/17/hackers-smash-n-grab-ai-vendor-take-off-with-license-data-of-uber-drivers/5310464",
+        "title": "Hackers smash 'n' grab AI vendor: Take off with license data of Uber drivers",
+        "source": "The Register security"
+      },
+      {
+        "id": "0a910a02-79ce-479d-8180-58d6c2b6eb15",
+        "url": "https://thehackernews.com/2026/11/oracle-to-patch-11-java-flaws-today-as.html",
+        "title": "Oracle to Patch 11 Java Flaws Today as Critical OpenJDK RCE (CVE-2026-114938) Report Emerges",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "ffbb3f2f-2e61-42d3-9243-1048f0e9ad88",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-31/",
+        "title": "MFSA 2008-31 Peer-trusted certs can use alt names to spoof",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "ffb6337f-9c94-42ec-8a49-88852a9414db",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-46/",
+        "title": "MFSA 2008-46 Heap overflow when canceling newsgroup message",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f4fc7941-b38c-48fc-bb39-9305013f666c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-28/",
+        "title": "MFSA 2008-28 Arbitrary socket connections with Java LiveConnect on Mac OS X",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "dfb81a87-865c-4518-82b9-002443cb1852",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-41/",
+        "title": "MFSA 2008-41 Privilege escalation via XPCnativeWrapper pollution",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d8876748-1997-4722-aeed-4aa21486c179",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-27/",
+        "title": "MFSA 2008-27 Arbitrary file upload via originalTarget and DOM Range",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d54e6edc-cf07-4d9c-8888-e6f5da326125",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-47/",
+        "title": "MFSA 2008-47 Information stealing via local shortcut files",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "be3fa961-55fa-4b43-9e09-a27bd251b9f8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-22/",
+        "title": "MFSA 2008-22 XSS through JavaScript same-origin violation",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "ba58964d-9ccd-4f4d-91df-5c0862355fc8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-36/",
+        "title": "MFSA 2008-36 Crash with malformed GIF file on Mac OS X",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b876e722-51c5-4c74-9fee-650ce8ce4471",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-38/",
+        "title": "MFSA 2008-38 nsXMLDocument::OnChannelRedirect() same-origin violation",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b7f11ea5-fa6d-40b1-88d3-45a9e82fd674",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-33/",
+        "title": "MFSA 2008-33 Crash and remote code execution in block reflow",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "af1e7817-a57a-484e-87ff-9aec3a83136b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-30/",
+        "title": "MFSA 2008-30 File location URL in directory listings not escaped properly",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a22ed3e7-7f23-4120-be33-ff4455f0ba39",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-34/",
+        "title": "MFSA 2008-34 Remote code execution by overflowing CSS reference counter",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a0cd1af1-ddfd-4492-b683-88aaaf8d77d1",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-29/",
+        "title": "MFSA 2008-29 Faulty .properties file results in uninitialized memory being used",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9b45c419-78b1-460b-ab97-797643dc8b4f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-35/",
+        "title": "MFSA 2008-35 Command-line URLs launch multiple tabs when Firefox not running",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9b033f58-52ec-48c4-bcf9-d6f9eca4bcc8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-49/",
+        "title": "MFSA 2008-49 Arbitrary code execution via Flash Player dynamic module unloading",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "97cd9f37-dafb-4673-ace9-178b834ad77e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-39/",
+        "title": "MFSA 2008-39 Privilege escalation using feed preview page and XSS flaw",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "912c51a1-844b-45eb-a1c9-0df5972a5880",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-48/",
+        "title": "MFSA 2008-48 Image stealing via canvas and HTTP redirect",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "8d5aca46-e752-4dae-9974-a748d39d7cd6",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-50/",
+        "title": "MFSA 2008-50 Crash and remote code execution via __proto__ tampering",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "78e265ce-cfda-44ed-bb55-efdda15fde0c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-26/",
+        "title": "MFSA 2008-26 Buffer length checks in MIME processing",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "6a73ede0-b087-49c6-bfb3-733a70a0a60c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-40/",
+        "title": "MFSA 2008-40 Forced mouse drag",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "68f890fc-43e4-464f-be53-77c76aa8f6ab",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-24/",
+        "title": "MFSA 2008-24 Chrome script loading from fastload file",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "6841c225-f926-4f8e-adc9-963034fa8c94",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-44/",
+        "title": "MFSA 2008-44 resource: traversal vulnerabilities",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5cbc8d72-8071-4ce7-bcca-4540a74686cc",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-21/",
+        "title": "MFSA 2008-21 Crashes with evidence of memory corruption (rv:1.8.1.15)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "4a115bae-d282-4bbc-9eaa-bb08302b3d6a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-23/",
+        "title": "MFSA 2008-23 Signed JAR tampering",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "40a49516-e341-4dba-8a82-ab826b8f339c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-43/",
+        "title": "MFSA 2008-43 BOM characters, low surrogates stripped from JavaScript before execution",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "34b379cd-e164-4114-940c-5f3aef032b24",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-37/",
+        "title": "MFSA 2008-37 UTF-8 URL stack buffer overflow",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "2fde4481-54fb-4c27-b5ef-d34bf2648344",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-45/",
+        "title": "MFSA 2008-45 XBM image uninitialized memory reading",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0c1a25f6-4e9e-490a-84c3-170a94a8c4d4",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-32/",
+        "title": "MFSA 2008-32 Remote site run as local file via Windows URL shortcut",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0a82b023-a40b-4c7d-b8d2-f6495746d0d8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-42/",
+        "title": "MFSA 2008-42 Crashes with evidence of memory corruption (rv:1.9.0.2/1.8.1.17)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "02031c66-3c0d-442f-8476-4fbba22775cf",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2008-25/",
+        "title": "MFSA 2008-25 Arbitrary code execution in mozIJSSubScriptLoader.loadSubScript()",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b359be28-959b-41bc-be0d-39034bb479c6",
+        "url": "https://www.infosecurity-magazine.com/news/optimizely-hack-malware-178-orgs/",
+        "title": "Optimizely Flaw Exploited to Serve Malicious Code to Visitors of 178 Organizations",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "15535aa9-de7f-4b30-89aa-26876cc36985",
+        "url": "https://databreaches.net/2026/11/17/iphone-users-targeted-in-major-website-security-breach/",
+        "title": "iPhone Users Targeted in Major Website Security Breach",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "45755cc8-ca33-4564-8edd-72d7c0b28b96",
+        "url": "https://www.malwarebytes.com/blog/news/2026/11/cnn-bbc-zoom-and-other-sites-served-malicious-code-in-supply-chain-attack",
+        "title": "CNN, BBC, Zoom, and other sites served malicious code in supply-chain attack",
+        "source": "Malwarebytes Labs"
+      },
+      {
+        "id": "f42cc644-3b1e-42e1-893b-be12e2d07a25",
+        "url": "https://www.securityweek.com/n-able-kills-legacy-apis-patches-17-n-central-zero-days/",
+        "title": "N-able Kills Legacy APIs, Patches 17 N-central Zero-Days",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "b1eb2d40-1691-4345-b044-6723d3cab95f",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/11/17/cisa-adds-one-known-exploited-vulnerability-catalog",
+        "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "95e90ad5-0a11-41e0-a37f-53b317897199",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/11/17/critical-java-vulnerability-requires-immediate-patching",
+        "title": "Critical Java Vulnerability Requires Immediate Patching",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "5d99a302-ae35-4f22-b5d1-b7f0c7cc6811",
+        "url": "https://www.securityweek.com/optimizely-vulnerability-exploited-to-serve-malware-on-major-websites/",
+        "title": "Optimizely Vulnerability Exploited to Serve Malware on Major Websites",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "0c8245a5-fae1-45f0-8923-7d418a2c9327",
+        "url": "https://www.bleepingcomputer.com/news/security/uber-notifies-drivers-of-data-breach-affecting-nearly-150-000-people/",
+        "title": "Uber notifies drivers of data breach affecting nearly 150,000 people",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "84735b9f-99ce-4bd9-8796-5fcd9c8b8d40",
+        "url": "https://thehackernews.com/2026/11/hijacked-optimizely-scripts-served-card.html",
+        "title": "Hijacked Optimizely Scripts Served Card Skimmer and iOS Exploit Kits to CNN, BBC and Zoom Visitors",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "5f366189-fd64-41e5-bdf6-2579cd3f5171",
+        "url": "https://thehackernews.com/2026/11/n-able-patches-17-n-central-flaws-as.html",
+        "title": "N-able Patches 17 N-central Flaws as Attackers Exploit Earlier Bugs to Deploy Crypto Miners",
+        "source": "The Hacker News"
+      }
+    ]
+  }
+}
