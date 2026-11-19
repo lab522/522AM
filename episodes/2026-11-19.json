@@ -1,0 +1,225 @@
+{
+  "day": "2026-11-19",
+  "title": "NGINX needs a patch, not just a reload",
+  "overview": "NGINX gets emergency fixes for five unauthenticated code-execution flaws, while Microsoft's official Agent Framework package ships a credential stealer. There's also an afternoon PHP patch window, fresh Java4Shell product guidance and action on actively exploited vulnerabilities.",
+  "duration_s": 373,
+  "chars": 5152,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-19.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-19.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Thursday, the nineteenth of November, twenty twenty-six.",
+    "NGINX needs an emergency patch, and a reload won't finish the job. F5 has fixed five unauthenticated code-execution flaws in the web server and reverse proxy. The worst, CVE-2026-123007, needs only HTTP/2 enabled on a listening port. It's been there since September twenty fifteen.",
+    "The clever bit is broken bookkeeping: cancelling queued responses returns too much flow-control credit. An unsigned subtraction wraps, and that enormous counter becomes a negative response length, sending memcpy outside its buffer. Attackers get code running as the NGINX worker; Xint chained it with a separate Linux kernel SCTP flaw to reach root. There's public demonstration code, limited to a freshly started local Docker container, but no reported evidence of attacks in the wild. I'd move before that changes.",
+    "Open-source releases from 1 point 9 point 5 through 1 point 31 point 8 are affected with HTTP/2 on. Upgrade to 1 point 31 point 9 mainline or 1 point 30 point 7 stable; for NGINX Plus, the fixes are 37 point 3 point 0 point 1 or 37 point 0 point 8 point 1. Fully restart, or use the live binary upgrade: a reload leaves old workers running. Can't patch? Set http2 off and remove http2 from listen directives. That blocks two flaws, not all five.",
+    "From the code serving your site to the code building it: Microsoft's official agent-framework package on PyPI, its toolkit for building AI-agent workflows, shipped credential stealers in versions 1 point 26 point 1 and 1 point 26 point 2 on Tuesday evening. Both are quarantined; 1 point 26 point 0 remains clean. The second upload arrived after the first was pulled. That's the uncomfortable part: publishing access hadn't been stopped.",
+    "The wheels plant a dot-pth file that executes on Python startup, including pip, without importing Agent Framework. It steals stored credentials and requests fresh cloud tokens, while legitimate dependencies keep applications working. I'd treat affected CI runners as a credential incident, not a bad dependency to uninstall. Hunt those versions in build environments and images; isolate affected systems, rebuild clean with 1 point 26 point 0 pinned, and rotate exposed credentials from a clean machine. Review Azure sign-ins and GitHub Actions trust.",
+    "Back at the web front door, F5 also has six separate BIG-IP data-plane overflows: unauthenticated traffic can crash the traffic-handling process and may execute code, though none are reported exploited. Check virtual-server configurations against the advisory's affected iRule commands and APM agent pair, then request engineering hotfixes; there's no workaround. And PHP has another release coming, separate from the earlier exploitation chain: all supported branches get security fixes between two and half past two this afternoon, UTC, with the critical issues requiring unusual or non-default setups. Until you upgrade, set session.upload_progress.enabled to zero and restart PHP workers.",
+    "Under those applications, yesterday's Java4Shell emergency now has product names attached: Cisco names Catalyst Center and Intersight Virtual Appliance among affected products, without dated fixes or workarounds, while Fortinet has dozens under investigation but clears FortiOS and FortiWeb. Keycloak confirms affected runtime builds in image tags 26 point 8 point 2 dash 1 and dash 2; follow the appliance vendors' advisories rather than assuming a runtime fix is an appliance fix.",
+    "And there's confirmed exploitation elsewhere in Java: Apache Roller, the blogging platform, has an unauthenticated deserialisation flaw, CVE-2026-129448, fixed in 6 point 1 point 6. Upgrade, or set enabledForExtensions to false in WEB-INF/web.xml and restart Roller; switching XML-RPC off in the admin screen isn't enough. Staying with active attacks, CISA's KEV now includes code execution in LiteLLM, the AI-model gateway, and unauthenticated code injection in REDCap, the research-data platform: patch LiteLLM beyond the April eighth twenty twenty-six build and follow your institution's REDCap advisory, with federal deadlines of December second and November twenty-first respectively. Synology DSM and BeeStation OS also join the catalogue alongside the previously covered Apache Axis flaw, all due November twenty-first for federal agencies; move the storage appliances to their fixed vendor builds.",
+    "From servers to the browser reaching them: Chrome 158 fixes two hundred and four vulnerabilities, six critical, with no exploitation mentioned by Google. Push 158 point 0 point 8127 point 36 and get browsers relaunched—the new build doesn't apply until then.",
+    "I'd give exposed NGINX deployments the first change window, with exploited systems taking precedence wherever they're found. Keep an eye on distribution packages too: Ubuntu and Debian hadn't shipped NGINX fixes as of Wednesday. Hope Thursday leaves you a little breathing room.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2024-10441",
+      "CVE-2026-40217",
+      "CVE-2026-90436",
+      "CVE-2026-90817"
+    ],
+    "news": [
+      {
+        "id": "6b77b1c5-e8be-41c3-9e88-1e03435d6b7e",
+        "url": "https://thehackernews.com/2026/11/php-warns-of-critical-security-flaws.html",
+        "title": "PHP Warns of Critical Security Flaws Affecting All Supported Versions, Fixes Coming November 19",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "dbcde892-6ac8-4f2b-9f86-d5aeb4964188",
+        "url": "https://www.zscaler.com/blogs/security-research/cve-2026-114938-openjdk-base64-decoder-vulnerable-pre-authentication-rce",
+        "title": "CVE-2026-114938: OpenJDK Base64 Decoder Vulnerable To Pre-Authentication RCE (Java4Shell)",
+        "source": "Zscaler ThreatLabz"
+      },
+      {
+        "id": "92bef71f-d425-4da1-a715-d866e020840d",
+        "url": "https://censys.com/blog/nginx2root-a-simple-test-for-the-http-2-flaw-and-three-use-after-free-reproductions/",
+        "title": "nginx2root: A simple test for the HTTP/2 flaw and three use-after-free reproductions",
+        "source": "Censys"
+      },
+      {
+        "id": "b78c22f6-0b36-42dd-aec0-1e9c19f1cea2",
+        "url": "https://www.theregister.com/patches/2026/11/18/get-ready-for-another-critical-php-security-release-to-drop/5310911",
+        "title": "Get ready for another critical PHP security release to drop",
+        "source": "The Register security"
+      },
+      {
+        "id": "334c54d1-2683-4b5b-bf35-b72789c3dede",
+        "url": "https://www.wordfence.com/blog/2026/11/nginx-http2-vulnerabilities-wordpress/",
+        "title": "PSA: Critical NGINX HTTP/2 Vulnerabilities: What WordPress Site Owners Should Know",
+        "source": "Wordfence"
+      },
+      {
+        "id": "25d58dd4-ca84-4b78-9861-c8105ea26808",
+        "url": "https://www.theregister.com/security/2026/11/18/ai-found-more-critical-bugs-in-another-widely-used-technology-running-225m-websites/5310887",
+        "title": "AI found more critical bugs in another widely used technology running 225M websites",
+        "source": "The Register security"
+      },
+      {
+        "id": "2d17c49d-4154-4950-b3a9-0b768468f767",
+        "url": "https://isc.sans.edu/diary/rss/33532",
+        "title": "Java4Shell, NGINX2Shell and more: Why we are not at \"Yellow\", (Wed, Nov 18th)",
+        "source": "SANS ISC"
+      },
+      {
+        "id": "5c6de1d0-986a-440f-92b6-e45fa6bb4493",
+        "url": "https://cyberscoop.com/nginx-critical-vulnerabilities-exploits/",
+        "title": "It’s NGINX’s turn to cause vulnpocalypse headaches",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "50caa7ab-d65e-4e4f-8e78-d46a1318b0d8",
+        "url": "https://thehackernews.com/2026/11/10-year-old-nginx-http2-flaw-lets.html",
+        "title": "10-Year-Old NGINX HTTP/2 Flaw Lets Unauthenticated Attackers Execute Code on Servers",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "e90c19d4-8386-4789-b680-588a4cc5d87d",
+        "url": "https://cert.europa.eu/publications/security-advisories/2026-022/",
+        "title": "2026-022: Critical vulnerabilities in Nginx",
+        "source": "CERT-EU advisories"
+      },
+      {
+        "id": "33cbc878-f68d-4e2b-9731-e1f79696a50c",
+        "url": "https://thehackernews.com/2026/11/f5-warns-6-critical-big-ip-flaws-can.html",
+        "title": "F5 Warns 6 Critical BIG-IP Flaws Can Crash Traffic in Specific Setups, May Allow RCE",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "0ed8480a-01a4-4eae-af02-17a7413b1d51",
+        "url": "https://www.theregister.com/security/2026/11/18/microsofts-official-python-agent-framework-hijacked-to-distribute-malware/5310858",
+        "title": "Microsoft's official Python agent framework hijacked to distribute malware",
+        "source": "The Register security"
+      },
+      {
+        "id": "f9cbbd03-ba58-4e6d-b786-1cd412a306c3",
+        "url": "https://thehackernews.com/2026/11/critical-apache-roller-rce-flaw-under.html",
+        "title": "Critical Apache Roller RCE Flaw Under Active Exploitation, No Authentication Required",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "7f13875d-e671-4a4c-bb1c-a13b9df08794",
+        "url": "https://www.bleepingcomputer.com/news/security/microsofts-agent-framework-pypi-package-compromised-to-steal-credentials/",
+        "title": "Microsoft’s Agent Framework PyPI package compromised to steal credentials",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "0e413115-5abe-4e97-a565-3a063e199bd7",
+        "url": "https://www.infosecurity-magazine.com/news/five-critical-vulnerabilities/",
+        "title": "Five Critical Vulnerabilities Found in World's Most Widely Used Open-Source Web Server",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "33850eb7-07f2-4d42-b43f-9e00817f7dec",
+        "url": "https://www.darkreading.com/vulnerabilities-threats/java4shell-flaw-threatens-global-java-application-ecosystem",
+        "title": "Java4Shell Flaw Threatens Global Enterprises, Java Application Ecosystem",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "e2980c0c-9dda-466a-b5e6-8e05e2254cc9",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-nov2026-java-rce-eCa6ss9z?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Vulnerability%20in%20Oracle%20OpenJDK%20(Java4Shell)%20Affecting%20Cisco%20Products:%20November%202026%26vs_k=1",
+        "title": "Vulnerability in Oracle OpenJDK (Java4Shell) Affecting Cisco Products: November 2026",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "798cab80-6c8a-4f65-a0f9-70c24590792a",
+        "url": "https://www.wiz.io/blog/nginx-http2-rce-vulnerabilities",
+        "title": "Unauthenticated Remote Code Execution in NGINX: CVE-2026-123633 and CVE-2026-123007",
+        "source": "Wiz"
+      },
+      {
+        "id": "ce6c7c7e-1ebe-468f-8a3a-16bd5c8a97de",
+        "url": "https://www.cybersecuritydive.com/news/java-vulnerability-oracle-ai-java4shell/875029/",
+        "title": "Critical Java vulnerability could help hackers compromise many popular applications",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "9cedd8ee-0f7b-4273-b6ed-a71f50be986a",
+        "url": "https://www.rapid7.com/blog/post/ve-cve-2026-123007-critical-nginx-http-2-integer-underflow-leads-to-rce-fixed",
+        "title": "CVE-2026-123007: Critical NGINX HTTP/2 Integer Underflow Leads to RCE (FIXED)",
+        "source": "Rapid7"
+      },
+      {
+        "id": "79b1f6b9-cd7d-49a8-86a2-7a56f5fc1fc6",
+        "url": "https://www.infosecurity-magazine.com/news/java4shell-vulnerability-remote/",
+        "title": "Java4Shell Vulnerability Allows Remote Attacks on Major Java Apps",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "e57d55a8-e44f-4b23-afd1-aa5c3cb068d4",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/11/18/cisa-adds-four-known-exploited-vulnerabilities-catalog",
+        "title": "CISA Adds Four Known Exploited Vulnerabilities to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "c5c38796-d648-4f46-b140-2df2d3658fca",
+        "url": "https://www.securityweek.com/chrome-158-patches-204-vulnerabilities/",
+        "title": "Chrome 158 Patches 204 Vulnerabilities",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "2c29952a-e1d1-45be-934f-e750d3c24c47",
+        "url": "https://www.malwarebytes.com/blog/bugs/2026/11/java4shell-a-critical-flaw-with-a-narrow-reach",
+        "title": "Java4Shell: A critical flaw with a narrow reach",
+        "source": "Malwarebytes Labs"
+      },
+      {
+        "id": "040faddf-117f-4474-880f-d443fa8d72fe",
+        "url": "https://www.securityweek.com/microsoft-agent-framework-releases-poisoned-with-credential-stealer/",
+        "title": "Microsoft Agent Framework Releases Poisoned With Credential Stealer",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "a338dd85-5d95-4b6c-810d-ecca2882bb5c",
+        "url": "https://www.bleepingcomputer.com/news/security/apache-warns-of-roller-rce-vulnerability-exploited-in-attacks/",
+        "title": "Apache warns of Roller RCE vulnerability exploited in attacks",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "2cad542e-845e-4559-ac25-8a72526a4c76",
+        "url": "https://cert.europa.eu/publications/security-advisories/2026-021/",
+        "title": "2026-021: High Severity Vulnerability in Java SE and OpenJDK",
+        "source": "CERT-EU advisories"
+      },
+      {
+        "id": "20f41b1e-41e3-481d-8b89-c5763a36636c",
+        "url": "https://www.securityweek.com/oracle-patches-640-vulnerabilities-with-november-2026-cspu/",
+        "title": "Oracle Patches 640 Vulnerabilities With November 2026 CSPU",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "15a0b0e1-e68c-40b0-b957-7e800657865d",
+        "url": "https://thehackernews.com/2026/11/cisa-urges-immediate-patching-of.html",
+        "title": "CISA Urges Immediate Patching of Java4Shell Flaw That Could Allow Remote Code Execution",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "86bf5f0b-645b-42c7-8670-874a142288b8",
+        "url": "https://fortiguard.fortinet.com/psirt/FG-IR-26-278",
+        "title": "Java4Shell Vulnerability - CVE-2026-114938",
+        "source": "FortiGuard PSIRT"
+      },
+      {
+        "id": "e6515f4c-0f46-4d24-af30-d1124cc93427",
+        "url": "https://www.securityweek.com/java4shell-vulnerability-puts-many-enterprise-applications-at-risk-of-takeover/",
+        "title": "Java4Shell Vulnerability Puts Many Enterprise Applications at Risk of Takeover",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "3feb0068-51fb-46a8-a8de-cf0c6f300666",
+        "url": "https://thehackernews.com/2026/11/attackers-compromise-microsofts-agent.html",
+        "title": "Attackers Compromise Microsoft's Agent Framework PyPI Package to Steal Cloud Credentials",
+        "source": "The Hacker News"
+      }
+    ]
+  }
+}

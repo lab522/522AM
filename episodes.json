@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-11-19",
+    "title": "NGINX needs a patch, not just a reload",
+    "duration_s": 373,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-19.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-19.md"
+  },
+  {
     "day": "2026-11-18",
     "title": "Java4Shell puts the runtime on the emergency patch list",
     "duration_s": 320,
