@@ -1,0 +1,377 @@
+{
+  "day": "2026-11-20",
+  "title": "vCenter's patch arrives two months after the attackers",
+  "overview": "Broadcom has patched a vCenter zero-day used since September to steal signing keys and forge administrator access. PHP's promised fixes are out, Java4Shell exploitation attempts have begun, and there are fresh actions for Expressway and Drupal operators.",
+  "duration_s": 398,
+  "chars": 5476,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-20.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-20.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Friday, the twentieth of November, twenty twenty-six.",
+    "Armory Castle has had a way into vCenter since early September. Broadcom's emergency patch arrived yesterday. Mandiant and Google Threat Intelligence say the suspected Chinese state-sponsored group exploited CVE-2026-123890, a nine point eight authentication bypass, more than two months before the fix. That's access to the console managing your ESXi hosts, not just another compromised web application.",
+    "The clever bit is predictable timestamps in UUID generation: an unauthenticated attacker reaching VMware Directory Service on port twenty twelve can obtain a session key and become administrator at vsphere dot local. BONESAW then steals the directory database and extracts the SAML signing key; SAWSNAKE forges tokens that bypass MFA. The campaign reached ESXi hosts. What bugs me is that Broadcom's advisory doesn't mention exploitation. Google's evidence does.",
+    "I'd put this through an emergency change. Fixed vCenter builds are 9 point 1 point 1 point 0200 and 9 point 0 point 2 point 0200; on version eight, it's 8 point 0 U3m. Cloud Foundation 5.x needs 5 point 2 point 5. There's no workaround, and Quick Patch can't install these fixes. Version seven has no public patch: extended-support customers need Broadcom Support. Then hunt for new SSO administrator accounts and webshells. Patching doesn't take a stolen signing key back.",
+    "From the virtual estate to the applications inside it: yesterday's promised PHP release has landed, fixing eighteen CVEs, including seven critical code-execution flaws. The headline is phpAfterShell, CVE-2026-126714, which October's patches don't cover. Interrupt a write to the default file-based session store and it can retain old bytes alongside new ones; those leftovers can become attacker-chosen objects when the session's loaded. There's also PHP-FPM request smuggling through unread body bytes on reused connections, and another incomplete earlier fix. No exploitation of these new flaws is reported.",
+    "Move to PHP 8 point 2 point 36 or 8 point 3 point 37; newer branches need 8 point 4 point 28, 8 point 5 point 13 or 8 point 6 point 0. Rebuild images and restart the PHP-FPM master or web server. Yesterday's mitigation alone isn't enough: if patching has to wait, also disable FastCGI connection reuse. The new builds disable upload progress by default, so check applications that need it.",
+    "And the runtime race has sharpened: Java4Shell exploitation attempts are now being observed, though those sensor accounts don't establish successful compromise, and VulnCheck has supplied customers with a full code-execution exploit. Patch bundled Java runtimes and restart every JVM; Keycloak's fixed images include 26 point 8 point 2 dash 3, while Palo Alto now names fixed builds and Siemens recommends taking affected Industrial Edge Management instances offline.",
+    "Elsewhere, confirmed compromise: F6 says attackers exploited Cisco Expressway's CVE-2026-76466 after public proof-of-concept code appeared, breaching two exposed devices and reaching two internal cluster nodes. Move to Cisco's fixed release; while waiting, F6 recommends restricting TCP ports forty-three seventy-one and forty-three seventy-two to trusted cluster nodes and checking Erlang logs. And a bug wasn't even needed in Symantec's PowerPanel Business case: CyberPower's UPS-management software ran malicious scripts on a domain controller. Restrict console access to designated administrator machines and inspect its script folders; indicators mean Active Directory credential resets.",
+    "Back at the web layer, Drupal's bundled installer can let an unauthenticated attacker attempt to reinstall a running site, potentially taking it over, though vulnerable configurations are uncommon. Update to 10 point 6 point 22, 11 point 3 point 22 or 11 point 4 point 13, which also fix a deserialisation gadget chain, and block the installer afterwards. And Oracle's November update also fixes two E-Business Suite flaws that Horizon3 has chained into unauthenticated operating-system commands over HTTP. For EBS 12 point 2 point 3 through 12 point 2 point 15, use the advisory's Patch Availability Document; there's no workaround.",
+    "Not everything arriving in the advisory queue is new: Mozilla's replay has added thirty older entries, MFSA 2007-02 through 2007-31. Widen the archive suppression to cover them and check for unwanted tickets.",
+    "From advisory machinery to the agency behind it: CISA nominee Michael LoSapio ducked budget and staffing questions at his confirmation hearing, and Democrats called him disqualified after he repeatedly declined to call January sixth an attack. Watch the committee outcome rather than looking for a patch action. And Rapid7's vendor guide to preemptive MDR offers one useful question: after a provider contains a host, who owns fixing the same weakness elsewhere? I'd get that ownership written down alongside the boundary between pre-authorised actions and actions needing your approval.",
+    "Give vCenter the emergency window, with time reserved for the compromise hunt rather than calling the patch job done. Keep watching appliance vendors for Java fixes that actually cover their bundled runtimes. Hope Friday gives you a clean handover.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [],
+    "news": [
+      {
+        "id": "3d9267d7-5c3f-47dc-972d-c380fff64d32",
+        "url": "https://www.theregister.com/security/2026/11/20/flaws-in-vmware-and-kvm-need-attention-if-you-have-time-while-fixing-java-php-and-everything-else/5311193",
+        "title": "Flaws in VMware and KVM need attention, if you have time while fixing Java, PHP, and everything else",
+        "source": "The Register security"
+      },
+      {
+        "id": "a59a050e-9593-4a89-952e-d283738dbfd3",
+        "url": "https://www.bleepingcomputer.com/news/security/vmware-patches-vcenter-zero-day-exploited-in-attacks-since-september/",
+        "title": "VMware patches vCenter zero-day exploited in attacks since September",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "5fa11308-bc87-4307-a0b8-eb7cb66ee2b7",
+        "url": "https://security.paloaltonetworks.com/CVE-2026-114938",
+        "title": "CVE-2026-114938 Portfolio Status: Impact of Java Vulnerability (CVE-2026-114938) on Palo Alto Networks Products (Severity: CRITICAL)",
+        "source": "Palo Alto Networks advisories"
+      },
+      {
+        "id": "82d78286-ac2b-419d-ae55-0cc0748d5fbe",
+        "url": "https://www.wiz.io/blog/phpaftershell-critical-php-rce-vulnerabilities-cve-2026-126714",
+        "title": "phpAfterShell and Critical PHP RCE Vulnerabilities: Everything You Need To Know",
+        "source": "Wiz"
+      },
+      {
+        "id": "3fff7354-d4ff-4fb0-9759-15782248c3c0",
+        "url": "https://www.cybersecuritydive.com/news/chinese-espionage-zero-day-flaw-vmware-vcenter/875273/",
+        "title": "Chinese espionage group targets critical flaw in VMware vCenter",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "604bd497-80d9-485e-8bec-ff942cff4d75",
+        "url": "https://www.rapid7.com/blog/post/etr-cve-2026-123890-critical-authentication-bypass-vmware-vcenter",
+        "title": "CVE-2026-123890: Critical Authentication Bypass in VMware vCenter",
+        "source": "Rapid7"
+      },
+      {
+        "id": "bada759c-a2da-4a87-aeb2-88d0c5e17de4",
+        "url": "https://www.darkreading.com/application-security/critical-php-flaws-code-execution-panic-php2shell",
+        "title": "Critical PHP Flaws Allow Code Execution, But Don't Panic 'PHP2Shell'-Style",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "95adbac7-3072-4d31-9219-64ac7928c96a",
+        "url": "https://horizon3.ai/attack-research/vulnerabilities/cve-2026-114924-cve-2026-114925/",
+        "title": "CVE-2026-114924 / CVE-2026-114925 | Oracle E-Business Suite Authorization Bypass & Remote Code Execution Vulnerabilities",
+        "source": "Horizon3"
+      },
+      {
+        "id": "ff4e2ec3-0431-40af-9ec9-ff5495acd137",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-27/",
+        "title": "MFSA 2007-27 Unescaped URIs passed to external programs",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e8a1ac4f-0957-4cc1-b7a1-51c1a0c95db8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-24/",
+        "title": "MFSA 2007-24 Unauthorized access to wyciwyg:// documents",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e64f1f4f-8fa2-467c-a3e5-a3be94eb4a94",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-02/",
+        "title": "MFSA 2007-02 Improvements to help protect against Cross-Site Scripting attacks",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e4cb2181-971a-47e2-9a04-20693d31f5e4",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-06/",
+        "title": "MFSA 2007-06 Mozilla Network Security Services (NSS) SSLv2 buffer overflows",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e1d43785-ab59-439e-a391-19b1410c452d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-11/",
+        "title": "MFSA 2007-11 FTP PASV port-scanning",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e0c60c5d-bb93-47d5-b826-bd7c86e2f553",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-05/",
+        "title": "MFSA 2007-05 XSS and local file access by opening blocked popupsand local file access by opening blocked popups",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e03f8812-a1e0-4f23-abc4-97d36029374f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-13/",
+        "title": "MFSA 2007-13 Persistent Autocomplete Denial of Service",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "da019196-5f4d-4179-8404-7d7496066e73",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-07/",
+        "title": "MFSA 2007-07 Embedded nulls in location.hostname confuse same-domain checks",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d5eef470-8acc-4bdd-8648-d641d2c5e93a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-28/",
+        "title": "MFSA 2007-28 Code execution via QuickTime Media-link files",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "ca6f0dde-3516-4572-91df-6ee3d18691fb",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-04/",
+        "title": "MFSA 2007-04 Spoofing using custom cursor and CSS3 hotspot",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c7850915-fe1e-45c1-8e74-39f7f9af261e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-20/",
+        "title": "MFSA 2007-20 Frame spoofing while window is loading",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c7815ac0-16b4-417d-984a-ec1f5fc2795a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-29/",
+        "title": "MFSA 2007-29 Crashes with evidence of memory corruption (rv:1.8.1.8)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c4d4248b-dcd1-4819-aef8-849a6f258b35",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-10/",
+        "title": "MFSA 2007-10 Potential integer overflow with text/enhanced mail",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b2db213c-97fd-40e4-854f-fc73b992335a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-08/",
+        "title": "MFSA 2007-08 onUnload + document.write() memory corruption",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "95c20a5b-a281-4ac0-ad9e-e52a155db0bf",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-21/",
+        "title": "MFSA 2007-21 Privilege escallation using an event handler attached to an element not in the document",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "8371d5ba-16eb-4ede-a192-5210e8ee1c22",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-23/",
+        "title": "MFSA 2007-23 Remote code execution by launching Firefox from Internet Explorer",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7ec727d5-3a6f-4f0f-8db1-ed3de302bd5e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-17/",
+        "title": "MFSA 2007-17 XUL Popup Spoofing",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7b6bc5e4-17ee-45e8-8906-e07c2a9e39a7",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-18/",
+        "title": "MFSA 2007-18 Crashes with evidence of memory corruption (rv:1.8.1.5)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7ace7d12-8774-4abf-a90f-36c11626c99e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-12/",
+        "title": "MFSA 2007-12 Crashes with evidence of memory corruption (rv:1.8.0.12/1.8.1.4)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "79afb6b7-c1e8-4abe-b133-9f896c86dcba",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-14/",
+        "title": "MFSA 2007-14 Path Abuse in Cookies",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "746b6d96-cca3-4a2d-83cb-c9d3d39ca887",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-15/",
+        "title": "MFSA 2007-15 Security Vulnerability in APOP Authentication",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5e6bb13a-0f73-43ef-a930-4afdae3cdd5d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-22/",
+        "title": "MFSA 2007-22 File type confusion due to %00 in name",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "47f7219c-3324-474f-8f27-72420b09a21e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-26/",
+        "title": "MFSA 2007-26 Privilege escalation through chrome-loaded about:blank windows",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "384bb721-165f-491d-be90-6ff209d71f9b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-03/",
+        "title": "MFSA 2007-03 Information disclosure through cache collisions",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "2e173041-4041-4b46-a346-c849e24a3418",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-30/",
+        "title": "MFSA 2007-30 onUnload Tailgating",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "21e4f952-0235-4b25-b939-eea71b8053e8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-09/",
+        "title": "MFSA 2007-09 Privilege escalation by setting img.src to javascript: URI",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1f997823-5e45-43bb-ae3f-1a03098cb0c3",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-31/",
+        "title": "MFSA 2007-31 Digest authentication request splitting",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0f159924-dc46-4c18-9089-b8fa0dc62470",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-16/",
+        "title": "MFSA 2007-16 XSS using addEventListener",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0df5393c-2f78-4be7-bb1b-0923b009d2fe",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-19/",
+        "title": "MFSA 2007-19 XSS using addEventListener and setTimeout",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0c3dc441-d647-4a91-8261-aa65a6b326ae",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-25/",
+        "title": "MFSA 2007-25 XPCNativeWrapper pollution",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "14d9445e-b2f4-497e-aa28-da2958cf437c",
+        "url": "https://www.securityweek.com/newly-patched-vmware-vcenter-flaw-exploited-as-zero-day-by-chinese-apt/",
+        "title": "Newly Patched VMware vCenter Flaw Exploited as Zero-Day by Chinese APT",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "024bf608-25e5-432b-8c32-41f8792c947c",
+        "url": "https://horizon3.ai/attack-research/vulnerabilities/cve-2026-132165/",
+        "title": "CVE-2026-132165 | Drupal Core Installer Remote Code Execution Vulnerability",
+        "source": "Horizon3"
+      },
+      {
+        "id": "d524d107-72bf-4d63-a2a7-e4127db8c7c3",
+        "url": "https://cyberscoop.com/michael-losapio-cisa-confirmation-hearing/",
+        "title": "Dems call CISA nominee ‘disqualified’ after nomination hearing",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "09167171-3a27-417d-9ead-522bde704195",
+        "url": "https://therecord.media/cisa-losapio-nomination-trump",
+        "title": "CISA nominee LoSapio vows to bolster cyber defenses while denying Jan. 6 Capitol attack",
+        "source": "The Record"
+      },
+      {
+        "id": "1979ebf4-fbbb-4ee0-aaa0-0f9c21b580e8",
+        "url": "https://thehackernews.com/2026/11/phpaftershell-explained-how-hackers.html",
+        "title": "phpAfterShell Explained: How Hackers Could Turn a PHP Session Flaw Into Code Execution",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "fce1ddb6-5ae4-4792-84f1-fda42ebedfa4",
+        "url": "https://www.bleepingcomputer.com/news/security/php-security-updates-fix-18-flaws-including-critical-rce-bugs/",
+        "title": "PHP security updates fix 18 flaws, including critical RCE bugs",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "6b84ad05-aeb0-4923-a8b8-6508c0986c7a",
+        "url": "https://www.cybersecuritydive.com/news/cisa-nominee-michael-losapio-confirmation-hearing/875197/",
+        "title": "Trump’s CISA director pick ducks questions about budget, staffing, priorities",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "abf3e6c2-2ae9-4f55-8fc8-73b384ec759a",
+        "url": "https://www.reversinglabs.com/blog/java4shell-is-inside-the-software-you-run-can-you-find-every-copy",
+        "title": "Java4Shell is inside the software you run. Can you find every copy?",
+        "source": "ReversingLabs"
+      },
+      {
+        "id": "257c16a9-77dd-4588-826f-451b880b226a",
+        "url": "https://www.rapid7.com/blog/post/dr-what-is-preemptive-mdr-security-leaders-guide",
+        "title": "What Is Preemptive MDR? A Guide For Security Leaders",
+        "source": "Rapid7"
+      },
+      {
+        "id": "538efcaf-ea66-4ba1-9684-95a499ac0566",
+        "url": "https://www.securityweek.com/php-patches-seven-critical-rce-vulnerabilities/",
+        "title": "PHP Patches Seven Critical RCE Vulnerabilities",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "972fb1f2-9ddd-48fd-a1e8-be30c006a138",
+        "url": "https://www.infosecurity-magazine.com/news/ups-software-abused-domain/",
+        "title": "CyberPower PowerPanel Exploited to Run Malicious Code on Domain Controller",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "c0862f9d-6b3e-4733-8058-c5b7283908d3",
+        "url": "https://www.infosecurity-magazine.com/news/php-releases-patches-fix-18/",
+        "title": "PHP Releases Patches to Fix 18 Vulnerabilities",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "4695ad56-687d-4cf1-9efd-32ba2c30e79b",
+        "url": "https://thehackernews.com/2026/11/critical-vmware-vcenter-flaw-cvss-98.html",
+        "title": "Critical VMware vCenter Flaw (CVSS 9.8) Lets Network Attackers Bypass Authentication",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "5ea4806b-b838-4e69-8a22-cf4b9c057edb",
+        "url": "https://thehackernews.com/2026/11/php-fixes-7-critical-flaws-including.html",
+        "title": "PHP Fixes 7 Critical Flaws, Including Bugs That Could Allow Remote Code Execution",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "4c20a659-c428-4193-8564-679c14271da8",
+        "url": "https://thehackernews.com/2026/11/drupal-patches-critical-installer-flaw.html",
+        "title": "Drupal Patches Critical Installer Flaw That Could Give Unauthenticated Attackers Control of Sites",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "74016d40-e70d-4ce3-8dbb-fb81520d8f64",
+        "url": "https://cloud.google.com/blog/topics/threat-intelligence/armory-castle-exploits-vsphere",
+        "title": "ARMORY CASTLE Exploits vSphere",
+        "source": "Google Threat Intelligence"
+      },
+      {
+        "id": "d45e5a6d-7083-4456-9d5a-d28d9a0b1113",
+        "url": "https://www.securityweek.com/hackers-exploit-cisco-expressway-vulnerability-soon-after-poc-release/",
+        "title": "Hackers Exploit Cisco Expressway Vulnerability Soon After PoC Release",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "55da7a68-8cdb-463c-b2cc-cff73ae2b959",
+        "url": "https://www.bleepingcomputer.com/news/security/drupal-patches-critical-rce-flaw-warns-exploits-may-surface-quickly/",
+        "title": "Drupal patches critical RCE flaw, warns exploits may surface quickly",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "eb627adb-e3c8-42f3-bfec-7a2f7aefdae5",
+        "url": "https://www.securityweek.com/java4shell-exploitation-attempts-begin-as-vendors-rush-out-advisories/",
+        "title": "Java4Shell Exploitation Attempts Begin as Vendors Rush Out Advisories",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "2d7f621d-e318-4261-9af8-92fb33c1f642",
+        "url": "https://www.securityweek.com/php-readies-critical-security-updates-to-patch-another-rce-flaw/",
+        "title": "PHP Readies Critical Security Updates to Patch Another RCE Flaw",
+        "source": "SecurityWeek"
+      }
+    ]
+  }
+}

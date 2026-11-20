@@ -1,5 +1,12 @@
 [
   {
+    "day": "2026-11-20",
+    "title": "vCenter's patch arrives two months after the attackers",
+    "duration_s": 398,
+    "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-20.mp3",
+    "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-20.md"
+  },
+  {
     "day": "2026-11-19",
     "title": "NGINX needs a patch, not just a reload",
     "duration_s": 373,
