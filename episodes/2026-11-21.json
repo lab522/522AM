@@ -1,0 +1,423 @@
+{
+  "day": "2026-11-21",
+  "title": "Supplier breaches put financial customers in the phishing queue",
+  "overview": "Supplier breaches expose financial customer data, while Bell Canada and N-able disclose attacks on their own systems. CISA adds four exploited flaws with Monday deadlines, and new fixes demand attention across WordPress, contact-centre software and threat-intelligence tooling.",
+  "duration_s": 967,
+  "chars": 13915,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-21.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-21.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Saturday, the twenty-first of November, twenty twenty-six.",
+    "Customer data linked to JPMorgan Chase, Visa and Mastercard is out in public after attacks on third-party providers. The n0n extortion gang has leaked it. Researchers say the Visa and Mastercard data doesn't contain card numbers or passwords; it does contain information useful for phishing. That's the distinction I'd carry into customer communications: not a direct route to draining an account, but useful ammunition for someone pretending to protect it. JPMorgan and Visa say these breaches aren't related to the recent technology disruptions.",
+    "And the supplier problem stretches across the Atlantic. Ireland's Data Protection Commission has received more than forty breach notifications from credit unions using a Belfast data processor, following a breach that went unnoticed for six weeks. Meanwhile, Bell Canada confirms an attacker stole enterprise customer data on the seventeenth, including information from its telecommunications circuit ordering and provisioning system. Bell calls the attacker “agentic”. That label tells us less than knowing which customer records went.",
+    "For another provider, the immediate consequence is availability: N-able says attackers breached one server and caused a major worldwide outage affecting Mail Assure and SpamExperts Hosted Cloud. Elsewhere, recovery has arrived: The Container Store says its website and systems are restored after last weekend's cyberattack.",
+    "Government operators have a less settled picture. West Virginia's legislature was still dealing with Thursday's incident on Friday, although a spokesperson says other government entities weren't affected. At the US Department of Agriculture, numerous applications have been taken offline over several days in response to a security incident. Separately, the NSA has resumed normal operations after internal network disruption, with some facilities still under Code Orange restrictions for non-essential staff.",
+    "The data-loss side is grim too. SBC Medical Group says a breach of databases associated with clinics in Japan affects more than two million people. Music distributor Too Lost has landed in Have I Been Pwned with seven hundred and twenty-four thousand, three hundred and twenty-three unique email addresses, following an unauthorised party's claim to have obtained its data. And TechCrunch found a transcription firm's cloud server exposed without a password, including police interview and bodycam transcripts. Sensitive source material doesn't become less sensitive because somebody turned it into text.",
+    "Which is precisely why convincing impersonation matters. Unit 42 has been examining Com affiliates using voice phishing to steal cloud data and extort healthcare and finance organisations. A separate campaign floods inboxes before fake IT helpdesk staff offer assistance. I'd make that sequence recognisable to the service desk: the flood itself can be the opening move, not merely something to clear away.",
+    "On Android, researchers have also uncovered Bazuka, a malware framework using fake screen overlays to conceal credential theft and device control, with large language model integration for managing victims. WhatsApp has a scam-related fix too; we'll get to the update shortly.",
+    "Even buying your way out of trouble can bring another problem. The CTO and co-founder of Florida's RansomwareHelp has been charged with wire fraud following an FBI sting; the business claimed advanced cryptographic tools could recover encrypted data. An indictment isn't a conviction. In Ukraine, authorities have released further details about four arrests in the Chaos ransomware affiliate investigation. And Rubrik puts median ransomware recovery at twenty days, with twenty-eight per cent of cases taking more than six weeks. Recovery promises deserve rather more scrutiny than a glossy timeline.",
+    "The AI attack story with an actual server at the end comes from Amazon. Its researchers say a China-linked actor used the open-source Cairn penetration-testing framework against two universities. In one case, agents apparently found a previously unknown flaw in a medical imaging application and exploited it to gain full control of a server. The zero-day finding remains qualified; the claim is much more specific than the usual “AI-powered attacker” branding.",
+    "Meanwhile, researchers planted two million digital tripwires in requests passing through AI services and found sensitive information leaking through that supply chain. Signal is drawing a boundary at the endpoint: it now blocks Apple and Google AI screenshot access to messages by default, with explicit user permission required for agent access. I'd want that choice made deliberately, rather than treating every assistant on a device as another intended recipient.",
+    "Privacy boundaries are moving in court as well. The Investigatory Powers Tribunal has confirmed that the UK served Apple with a Technical Capability Notice, rejecting the government's attempt to keep even its existence secret. That doesn't tell us every demand inside it. And the Dutch data watchdog is advising consumers against AI smart glasses after safety testing raised concerns beyond their recording capabilities.",
+    "The people building AI aren't outside the threat model either: TechCrunch covers warnings about honey-trap approaches targeting the industry. In Washington, House committee chairmen are criticising US companies' use of Chinese open-weight models following an investigation into the risks.",
+    "Inside the SOC, a survey cited in coverage of AI autonomy says thirty-six per cent of CISOs at organisations with more than a thousand employees are already comfortable with agents taking low-risk actions autonomously. “Low-risk” needs a shared meaning. Dark Reading makes the related case for disciplined security communication, while Horizon3 argues against letting the vulnerability backlog dictate priorities. Microsoft's latest Gartner SIEM leadership announcement is vendor recognition, not evidence that an autonomous action is safe.",
+    "There are more practical governance items alongside that: BleepingComputer examines the visibility lost when company passwords live in spreadsheets, and Huntress covers the NIST eight hundred dash one seventy-one Revision Three transition for defence contractors. Neither is a new vulnerability disclosure. The FCA is preparing new cyber guidance for UK financial services, while the FCC plans regulations for its Cyber Trust Mark connected-device labelling programme.",
+    "At the leadership level, Sean Cairncross is leaving the White House and Pentagon CIO Kirsten Davies has been named acting cyber czar. The US is also launching a centre intended to disrupt scams and warn victims earlier. Separately, the National Crime Agency says convicted fraudster Hugh Rodley has been sentenced for child sexual abuse offences following its investigation.",
+    "The smaller news round-ups cover Norwegian energy-firm cyberattacks and a supercomputer hack, alongside a new Nightmare Eclipse exploit. SecurityWeek also flags EU sanctions against NoName057(16), malware targeting Common Access Cards left in personal computers, and Gemini agents targeting Epoch AI. Dark Reading's video round-up discusses Jensen Huang's resignation from Nvidia and Microsoft's recent cloud outage. In the outage reactions, experts are questioning whether AI-accelerated patching contributed; that's a question, not an established cause. Their call for tested rollback plans doesn't depend on the answer.",
+    "And a brief escape from servers: Schneier revisits footage of the largest squid ever filmed, near Japan's Ogasawara Islands in December two thousand and six. His other curiosity is rather closer to our trade: researchers used CT scanning to recover the code for a four-hundred-year-old cryptex padlock. Respectable reminder that a lock's secrets don't necessarily stay inside the lock.",
+    "Back to locks that need changing now. CISA has added four flaws to KEV, all with a Monday, twenty-third of November deadline for US agencies. Two advance yesterday's stories: vCenter now has that formal deadline, with affected Telco Cloud products also requiring attention through Broadcom's KB463116. Cisco Expressway joins it; the fixed release is X15 point 5 point 20. Those are new scheduling facts, not reasons to restart yesterday's analysis.",
+    "The newly urgent one for web operators is Apache Roller, the Java blogging platform. CVE-2026-129448 lets an unauthenticated attacker execute code because its XML-RPC endpoint deserialises extension types before checking who sent them. Versions 4 point 0 point 0 through 6 point 1 point 4 are named, but this corrects an earlier advisory that named 6 point 1 point 5. Don't stop there: upgrade to 6 point 1 point 6 or later. That disables the extension types and rejects XML-RPC requests when the feature is switched off.",
+    "The other KEV addition is quieter on the score sheet, not in the queue. SAP NetWeaver Enterprise Portal 7 point 50 has CVE-2025-42884: an unauthenticated attacker can inject JNDI properties or supply a lookup URL, steering the server towards an unintended provider and exposing or modifying server information. Apply SAP's remediation by Monday if you're under the federal deadline. A six point five with confirmed exploitation outranks plenty of theoretical tens.",
+    "For the scam update promised earlier, WhatsApp has fixed three security flaws. Its team found CVE-2026-23871 while disrupting a campaign and suspects the Android bug was used to make scam messages more credible. Update the app; safe build numbers haven't been given here.",
+    "Then there's a cloud isolation failure worth watching closely. Researchers exploiting Linux KVM's CVE-2026-99312 on AMD hosts read about a hundred and twenty-seven gigabytes of a DigitalOcean server's memory from their own guest VM. On shared hardware, host memory can include other customers' virtual machines. I'd put affected-kernel status straight to the platform owner; there's no fixed kernel version identified yet.",
+    "Shared components are making appliance inventories interesting too. Cisco has published an affected-product advisory after nginx announced fixes for critical remote-code-execution flaws on Wednesday. Palo Alto has a critical portfolio advisory covering the same nginx issues. Check the product-specific status rather than assuming an appliance's own version tells you which nginx it contains.",
+    "On the runtime side, the new PHP angle is Wordfence's warning that CVE-2026-129289 is the issue most directly relevant to WordPress owners. Make sure hosting providers have applied the current PHP security releases. Separately, The Register looks at stricter behaviour in PHP 8 point 6, so don't confuse security deployment with an untested major runtime migration.",
+    "And the WordPress plugin queue remains substantial: Wordfence counted three hundred and eighty-eight vulnerabilities across two hundred and eighty-eight plugins and twenty-nine themes in its November ninth-to-fifteenth roundup, with a hundred and seventy-eight researchers contributing. Today's specific actions include Paul Ryan's Authorizer: upgrade anything before 3 point 17 point 2 to fix unauthenticated privilege escalation.",
+    "More alarming is User Registration Aide through 1 point 5 point 3 point 8. CVE-2026-121385 lets someone who knows a username and email address change that account's password, including an administrator's, without the existing password or a reset token. No fixed release is named. I'd disable the plugin rather than leave that account-takeover route available.",
+    "Another application that can hand over its server is Tegsoft Contact Center, the customer-contact platform. CVE-2026-14914 permits unauthenticated upload of a webshell. Upgrade builds before latest-202611161510 to that fixed build. And D-Link DIR-600L firmware 2 point 17b02 has a remotely reachable, unauthenticated command-injection flaw in its GENA handler, CVE-2026-133493, with a public exploit. No fix is named; keep the vulnerable service out of untrusted reach while arranging remediation or replacement.",
+    "For home automation, Gladys Assistant through 4 point 71 point 0 has two publicly documented exploits in backup restoration. One feeds the file_url argument into operating-system command injection and requires high privileges; the other is path traversal requiring user interaction. Version 4 point 72 point 0 fixes both. That's one upgrade, not two separate projects.",
+    "On the operational-technology side, all versions of Danfoss's legacy AK-SC 355 and AK-SM 800 refrigeration controllers are affected by unauthorised access when default or known passwords remain in use. Change those credentials and restrict management access. The default passwords were printed in the manual; obscurity wasn't doing much work here.",
+    "And for the tooling used to investigate everyone else, Flowintel before 4 point 1 point 0 disables certificate verification for MISP connections and uses unverified TLS contexts for mail. An attacker on the path can impersonate those servers and intercept sensitive data. Upgrade to 4 point 1 point 0. Encryption without checking the other end is a particularly unhelpful surprise in threat-intelligence software.",
+    "One final change-management wrinkle: Microsoft has begun automatically moving eligible unmanaged devices to Windows 11 26H2. That's specifically devices outside IT management, not a blanket announcement for managed fleets.",
+    "I'd use the weekend window for the Monday KEV deadlines, with Roller getting a fresh look rather than sitting behind yesterday's tickets. Keep an eye on the nginx appliance notices as vendors clarify their exposure. Hope you get a quiet Saturday.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2025-42884",
+      "CVE-2026-123890",
+      "CVE-2026-129448",
+      "CVE-2026-76466",
+      "CVE-2026-133500",
+      "CVE-2026-133493",
+      "CVE-2026-133501",
+      "CVE-2026-129056",
+      "CVE-2026-121385",
+      "CVE-2026-14914",
+      "CVE-2026-127057",
+      "CVE-2026-133648"
+    ],
+    "news": [
+      {
+        "id": "3ba7d1d8-7c23-4aeb-bb21-b45655f42133",
+        "url": "https://krebsonsecurity.com/2026/11/cto-of-ransomwarehelp-indicted-for-wire-fraud/",
+        "title": "CTO of ‘RansomwareHelp’ Indicted for Wire Fraud",
+        "source": "Krebs on Security"
+      },
+      {
+        "id": "dc8e4c7b-8287-4061-96a7-c44c3bd9d15d",
+        "url": "https://databreaches.net/2026/11/20/ransomware-what-we-know-about-the-arrests-of-chaos-affiliates/",
+        "title": "Ransomware: What we know about the arrests of Chaos affiliates",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "37bc8793-59c0-4722-8b91-77363028141e",
+        "url": "https://www.theregister.com/devops/2026/11/20/php-86-things-are-gonna-get-a-lot-more-strict-around-here/5311486",
+        "title": "PHP 8.6: Things are gonna get a lot more strict around here",
+        "source": "The Register security"
+      },
+      {
+        "id": "7b3e2f17-99fb-422f-ba34-8129c0d1fbfa",
+        "url": "https://security.paloaltonetworks.com/CVE-2026-123633",
+        "title": "CVE-2026-123633 Portfolio Status: Impact of NGINX Vulnerabilities (CVE-2026-123633, CVE-2026-123007) on Palo Alto Networks Products (Severity: CRITICAL)",
+        "source": "Palo Alto Networks advisories"
+      },
+      {
+        "id": "e3d9317a-3a63-4038-8747-6881a55b6a04",
+        "url": "https://www.wordfence.com/blog/2026/11/cve-2026-129289-wordpress-php-vulnerabilities/",
+        "title": "CVE-2026-129289 and Other Critical PHP Vulnerabilities: What WordPress Site Owners Need to Know",
+        "source": "Wordfence"
+      },
+      {
+        "id": "1c4571b6-cd40-4b4f-a43d-0b47a6aa51d3",
+        "url": "https://www.schneier.com/blog/archives/2026/11/friday-squid-blogging-the-largest-squid-ever-filmed.html",
+        "title": "Friday Squid Blogging: The Largest Squid Ever Filmed",
+        "source": "Schneier on Security"
+      },
+      {
+        "id": "de02dd09-b8b3-488f-ab66-f6d21e186aae",
+        "url": "https://unit42.paloaltonetworks.com/com-affiliate-vishing-attacks/",
+        "title": "Dialing for Data: Inside the Com’s High-Profile Heists",
+        "source": "Unit 42"
+      },
+      {
+        "id": "3a863bd6-66a0-4c86-b344-b993b9c6a809",
+        "url": "https://therecord.media/west-virginia-legislature-cyberattack",
+        "title": "West Virginia Legislature hit with cyber incident affecting IT systems",
+        "source": "The Record"
+      },
+      {
+        "id": "0fa6e6d4-ce2a-43d5-aa2b-af5b02a1bc8e",
+        "url": "https://www.theregister.com/cyber-crime/2026/11/20/visa-mastercard-theft-included-info-useful-for-phishing-but-not-draining-bank-accounts-say-researchers/5311478",
+        "title": "Visa, Mastercard theft included info useful for phishing, but not draining bank accounts, say researchers",
+        "source": "The Register security"
+      },
+      {
+        "id": "9c22c2f8-05a4-42d3-aa03-45e3c29ec975",
+        "url": "https://www.darkreading.com/cyberattacks-data-breaches/china-armory-castle-vmware-vcenter-zero-day",
+        "title": "China's 'Armory Castle' Lays Siege to VMware vCenter Zero-Day",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "c795f2f2-da50-4dc9-8ad1-23a03b7500a4",
+        "url": "https://arstechnica.com/security/2026/11/a-leaky-ai-supply-chain-is-exposing-secret-user-data-at-an-alarming-rate/",
+        "title": "A leaky AI supply chain is exposing secret user data at an alarming rate",
+        "source": "Ars Technica security"
+      },
+      {
+        "id": "4a93033d-2b4f-4db0-8dfb-db13f3e7dbc3",
+        "url": "https://techcrunch.com/2026/11/20/experts-warn-nearly-everyone-in-ai-is-susceptible-to-a-honey-trap-scheme-right-now/",
+        "title": "Experts warn: nearly everyone in AI is susceptible to a honey trap scheme right now",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "90bcd2dc-9994-4141-a7f6-a8493e0d3480",
+        "url": "https://www.theregister.com/security/2026/11/20/signal-slams-door-on-prying-ai-agents-to-protect-privacy/5311466",
+        "title": "Signal slams door on prying AI agents to protect privacy",
+        "source": "The Register security"
+      },
+      {
+        "id": "edd776f6-00d8-4be3-b018-f06667e13584",
+        "url": "https://therecord.media/chinese-open-weight-AI-use-by-US-companies-house-investigation",
+        "title": "US companies’ use of Chinese open weight AI draws rebuke from House chairmen",
+        "source": "The Record"
+      },
+      {
+        "id": "4fba772f-49f7-422f-830f-780c1b104292",
+        "url": "https://cyberscoop.com/signal-blocks-apple-google-ai-screenshots/",
+        "title": "Signal blocks Apple, Google AI screenshotting in response to ‘existential threat’ to privacy app",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "953e3858-e561-47dd-abca-92501425efea",
+        "url": "https://therecord.media/container-store-restores-systems-cyberattack",
+        "title": "Container Store restores systems after cyberattack",
+        "source": "The Record"
+      },
+      {
+        "id": "53abf010-c5f7-487b-8b78-41f005dc6c7f",
+        "url": "https://haveibeenpwned.com/Breach/TooLost",
+        "title": "Too Lost - 724,323 breached accounts",
+        "source": "Have I Been Pwned"
+      },
+      {
+        "id": "547c7ca2-ea5c-4b19-8a44-29444406717e",
+        "url": "https://www.cybersecuritydive.com/news/fcc-cyber-trust-mark-internet-of-things-regulation-proposal/875328/",
+        "title": "FCC to propose regulations for Cyber Trust Mark IoT labeling program",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "9b324bc0-5a0f-4bc7-a7bc-c36240350781",
+        "url": "https://www.bitdefender.com/en-us/blog/hotforsecurity/n0n-extortion-leaks-data-jpmorgan-chase-visa-mastercard",
+        "title": "n0n extortion gang leaks data of JPMorgan Chase, Visa, and Mastercard customers",
+        "source": "Graham Cluley"
+      },
+      {
+        "id": "2b69e0f2-c696-410d-80c0-ab787ad45dd7",
+        "url": "https://databreaches.net/2026/11/20/bell-canada-says-agentic-hacker-stole-enterprise-customer-data/",
+        "title": "Bell Canada says ‘agentic’ hacker stole enterprise customer data",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "989d0112-db8e-4f6b-934a-4ca4261a82bf",
+        "url": "https://www.bleepingcomputer.com/news/security/bell-canada-says-agentic-hacker-stole-enterprise-customer-data/",
+        "title": "Bell Canada says 'agentic' hacker stole enterprise customer data",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "10098821-797f-4753-a2a5-c4e3cc26785b",
+        "url": "https://databreaches.net/2026/11/20/u-s-department-of-agriculture-grapples-with-security-breach-as-it-staff-take-multiple-systems-offline/",
+        "title": "U.S. Department of Agriculture grapples with security breach as IT staff take multiple systems offline",
+        "source": "DataBreaches.net"
+      },
+      {
+        "id": "3b837f0d-a4fc-4f73-88cb-36f03835aab5",
+        "url": "https://www.darkreading.com/cybersecurity-operations/security-words-matter",
+        "title": "In Security, Words Matter as Much as Tools, Maybe More",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "61995d34-6c7b-44bc-9cc8-026db24e2ffd",
+        "url": "https://thehackernews.com/2026/11/whatsapp-patches-3-security-flaws.html",
+        "title": "WhatsApp Patches 3 Security Flaws, Including Android Bug Suspected of Use in Scams",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "ef82e354-fe96-491c-b004-c8b360d9e9de",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-use-autonomous-ai-tool-cairn-to-find-zero-day-take-over-server/",
+        "title": "Hackers use autonomous AI tool Cairn to find zero-day, take over server",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "3f0598d9-8b63-44cf-8694-2a4eae09649f",
+        "url": "https://www.theregister.com/security/2026/11/20/china-attackers-deployed-ai-agents-that-autonomously-found-and-exploited-a-0-day-to-take-over-a-university-server/5311382",
+        "title": "China attackers deployed AI agents that autonomously found and exploited a 0-day to take over a university server",
+        "source": "The Register security"
+      },
+      {
+        "id": "2b1289cc-9063-4551-a12f-410679ad138d",
+        "url": "https://therecord.media/amazon-research-cairn-ai-university-attacks-possible-zero-day",
+        "title": "Amazon says Chinese hackers used Cairn AI tool to discover apparent zero-day during attack on university",
+        "source": "The Record"
+      },
+      {
+        "id": "c1d4f8ce-8b03-42e8-862c-a4f65a4d4823",
+        "url": "https://www.darkreading.com/cyber-risk/what-we-missed-nvidia-ceo-scandal-rocks-ai-industry",
+        "title": "What We Missed: Nvidia CEO Scandal Rocks AI Industry",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "31a8bfd0-a546-479d-9714-5be1e6cc2ad6",
+        "url": "https://www.microsoft.com/en-us/security/blog/2026/11/20/microsoft-named-a-leader-in-the-2026-gartner-magic-quadrant-for-siem/",
+        "title": "Microsoft named a Leader in the 2026 Gartner® Magic Quadrant™ for SIEM",
+        "source": "Microsoft Security Blog"
+      },
+      {
+        "id": "98da7aa8-cdd6-43a9-bdec-2ef051af00b7",
+        "url": "https://thehackernews.com/2026/11/bazuka-android-malware-uses-fake-screen.html",
+        "title": "Bazuka Android Malware Uses Fake Screen Overlays to Hide Credential Theft and Device Control",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "b34cddce-eda1-40ba-9be9-5d1df117d666",
+        "url": "https://www.theregister.com/security/2026/11/20/dutch-data-watchdog-highlights-safety-issues-with-ai-glasses/5311345",
+        "title": "Dutch data watchdog highlights safety issues with AI glasses",
+        "source": "The Register security"
+      },
+      {
+        "id": "4973b7e6-3846-407d-b213-dc642941a29e",
+        "url": "https://horizon3.ai/customer-story/law-firm-vulnerability-prioritization/",
+        "title": "When the Vulnerability Backlog Stops Calling the Shots",
+        "source": "Horizon3"
+      },
+      {
+        "id": "8888ade7-f04c-4ff3-8529-7a12fadd6c15",
+        "url": "https://therecord.media/nsa-resumes-normal-operations-following-internal-disruptions",
+        "title": "NSA resumes normal operations following internal network disruptions",
+        "source": "The Record"
+      },
+      {
+        "id": "e110d5a3-a49a-4ea6-8785-df8bcfa62641",
+        "url": "https://www.securityweek.com/whatsapp-fixes-flaw-uncovered-while-disrupting-scam-campaign/",
+        "title": "WhatsApp Fixes Flaw Uncovered While Disrupting Scam Campaign",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "9606aa29-7b70-47a3-b084-a95a5c229969",
+        "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-nginx-nov-2026-e8jska2s?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Vulnerabilities%20in%20nginx%20Affecting%20Cisco%20Products:%20November%202026%26vs_k=1",
+        "title": "Vulnerabilities in nginx Affecting Cisco Products: November 2026",
+        "source": "Cisco PSIRT"
+      },
+      {
+        "id": "e96ea7df-5cf0-4ea2-9e93-65c503d7c73f",
+        "url": "https://www.wordfence.com/blog/2026/11/wordfence-intelligence-weekly-wordpress-vulnerability-report-november-9-2026-to-november-15-2026/",
+        "title": "Wordfence Intelligence Weekly WordPress Vulnerability Report (November 9, 2026 to November 15, 2026)",
+        "source": "Wordfence"
+      },
+      {
+        "id": "fa29bb3c-7c36-4bc5-812e-c249a5e62e3b",
+        "url": "https://www.bleepingcomputer.com/news/security/vendor-data-breach-exposes-chase-visa-mastercard-customer-info/",
+        "title": "Vendor data breach exposes Chase, Visa, Mastercard customer info",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "b34b60d9-327e-41b2-b79d-7613c138b570",
+        "url": "https://www.cybersecuritydive.com/news/jpmorgan-visa-customer-data-leaked-third-party-hacks/875333/",
+        "title": "JPMorgan, Visa confirm customer data taken in third-party vendor hacks",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "0cd44c3c-60e2-4fe2-8c45-9289a135a4b0",
+        "url": "https://techcrunch.com/2026/11/20/a-transcription-firm-used-by-police-prosecutors-and-tech-giants-exposed-customer-data-online/",
+        "title": "A transcription firm used by police, prosecutors and tech giants exposed customer data online",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "57f016b0-6cc7-4e0e-aaa2-e13c4c102bc2",
+        "url": "https://www.bleepingcomputer.com/news/security/still-tracking-company-passwords-in-spreadsheets-youre-flying-blind/",
+        "title": "Still tracking company passwords in spreadsheets? You’re flying blind.",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "843159a7-c774-44f7-8f49-f6613a3c2723",
+        "url": "https://www.securityweek.com/in-other-news-norwegian-energy-firm-cyberattacks-supercomputer-hack-new-nightmare-eclipse-exploit/",
+        "title": "In Other News: Norwegian Energy Firm Cyberattacks, Supercomputer Hack, New Nightmare Eclipse Exploit",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "eca556f2-a5c1-4d52-85c2-0ed600638e67",
+        "url": "https://www.nationalcrimeagency.gov.uk/news/lord-of-fraud-hugh-rodley-sentenced-for-child-sexual-abuse-offences",
+        "title": "‘Lord of Fraud’ Hugh Rodley sentenced for child sexual abuse offences",
+        "source": "National Crime Agency"
+      },
+      {
+        "id": "7acd55c6-f901-4827-9d15-f362bf6bc2b7",
+        "url": "https://therecord.media/sean-cairncross-out-as-national-cyber-director",
+        "title": "Cyber Director Cairncross out as White House resets cyber leadership",
+        "source": "The Record"
+      },
+      {
+        "id": "76c67dc0-70cd-450f-ad7e-a87c01d87ee0",
+        "url": "https://therecord.media/dozens-of-credit-unions-hit-by-supplier-breach",
+        "title": "Dozens of credit unions hit by supplier breach that went unnoticed for six weeks",
+        "source": "The Record"
+      },
+      {
+        "id": "fefe25fb-df02-4480-9d01-28a02acce19f",
+        "url": "https://www.infosecurity-magazine.com/news/ransomware-recovery-20-days/",
+        "title": "Ransomware Recovery Takes 20 Days for the Typical Victim, Report Finds",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "8c1bff24-4e9f-4df4-83ab-9c83177d6ed3",
+        "url": "https://www.huntress.com/blog/handling-the-nist-800-171-rev-3-transition",
+        "title": "Handling the NIST 800-171 Rev 3 Transition",
+        "source": "Huntress"
+      },
+      {
+        "id": "f78fbe4b-c738-4d8b-b22a-e4cbb183f7aa",
+        "url": "https://www.malwarebytes.com/blog/news/2026/11/us-launches-center-to-disrupt-scams-and-warn-victims-sooner",
+        "title": "US launches center to disrupt scams and warn victims sooner",
+        "source": "Malwarebytes Labs"
+      },
+      {
+        "id": "724ce8fa-f0de-4f32-b384-0841f0433ed1",
+        "url": "https://www.bleepingcomputer.com/news/microsoft/n-able-says-recent-security-breach-led-to-major-service-outage/",
+        "title": "N-able says recent security breach led to major service outage",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "0b91c896-9c07-45b4-9e93-6272eca152f0",
+        "url": "https://www.malwarebytes.com/blog/data-breaches/2026/11/hackers-leak-data-linked-to-visa-mastercard-and-jpmorgan-customers",
+        "title": "Hackers leak data linked to Visa, Mastercard, and JPMorgan customers",
+        "source": "Malwarebytes Labs"
+      },
+      {
+        "id": "6c23abb5-3985-4ca0-ad5f-e89193fab10a",
+        "url": "https://www.securityweek.com/industry-reactions-to-major-outages-and-ai-patching-questions-feedback-friday/",
+        "title": "Industry Reactions to Major Outages and AI Patching Questions: Feedback Friday",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "9b69fe21-9c4d-4140-b8a3-953134ab010c",
+        "url": "https://www.computerweekly.com/news/366655173/FCA-lines-up-new-cyber-guidance-for-UK-financial-services-sector",
+        "title": "FCA lines up new cyber guidance for UK financial services sector",
+        "source": "Computer Weekly security"
+      },
+      {
+        "id": "697368e4-c16d-4d58-baf7-8f30ec5a10c2",
+        "url": "https://thehackernews.com/2026/11/new-linux-kvm-flaw-cve-2026-99312-lets.html",
+        "title": "Linux KVM Flaw CVE-2026-99312 Lets Guest VMs Access Host Memory on AMD Hosts",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "625792c0-85be-4e52-83c5-e39b8b32fbb0",
+        "url": "https://www.theregister.com/security/2026/11/20/uk-government-cant-keep-its-encryption-busting-order-to-apple-a-secret-tribunal-rules/5311292",
+        "title": "UK government can't keep its encryption-busting order to Apple a secret, tribunal rules",
+        "source": "The Register security"
+      },
+      {
+        "id": "0f1ce793-4b8c-4751-bf23-82bf132f319a",
+        "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-now-automatically-installs-windows-11-26h2-on-personal-and-unmanaged-pcs/",
+        "title": "Microsoft now automatically installs Windows 11 26H2 on unmanaged devices",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "8104459f-0a62-4e6d-beb4-b8cf4efb858d",
+        "url": "https://www.computerweekly.com/news/366655193/Ransomware-What-we-know-about-the-arrests-of-Chaos-affiliates",
+        "title": "Ransomware: What we know about the arrests of Chaos affiliates",
+        "source": "Computer Weekly security"
+      },
+      {
+        "id": "ec5749cf-5207-449b-b8e3-e2ba6c648c5e",
+        "url": "https://www.schneier.com/blog/archives/2026/11/opening-a-400-year-old-cryptex.html",
+        "title": "Opening a 400-Year-Old Cryptex",
+        "source": "Schneier on Security"
+      },
+      {
+        "id": "240e1fc5-8ac2-4352-911f-b0511c004115",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/11/20/cisa-adds-four-known-exploited-vulnerabilities-catalog",
+        "title": "CISA Adds Four Known Exploited Vulnerabilities to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "1cb51e83-0756-4f3e-8aa1-159464243dcb",
+        "url": "https://thehackernews.com/2026/11/the-path-to-ai-autonomy-in-soc.html",
+        "title": "The Path to AI Autonomy in the SOC",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "4f7bdc0a-8a4d-4f27-8980-475e9c8d33a6",
+        "url": "https://www.infosecurity-magazine.com/news/mail-bombing-attacks-it-helpdesk/",
+        "title": "Mail Bombing Attacks Fuel IT Helpdesk Impersonation Scams",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "f25ddc82-bfd7-493c-ac1e-3e770adebe16",
+        "url": "https://www.securityweek.com/sbc-medical-group-data-breach-impacts-over-2-million/",
+        "title": "SBC Medical Group Data Breach Impacts Over 2 Million",
+        "source": "SecurityWeek"
+      }
+    ]
+  }
+}
