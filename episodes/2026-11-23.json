@@ -1,0 +1,55 @@
+{
+  "day": "2026-11-23",
+  "title": "GL.iNet cloud breach leaves malware behind after the fix",
+  "overview": "Attackers used GL.iNet’s management cloud to plant malware on routers and KVM devices, while Cleverbridge disclosed stolen payment card details. Ghostscript needs attention in document-processing services, and there are updates on AI prompt theft and N-able MailAssure.",
+  "duration_s": 374,
+  "chars": 5312,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-23.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-23.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Monday, the twenty-third of November, twenty twenty-six.",
+    "GL.iNet has blocked the cloud attack that let intruders install malware on customers’ routers and KVM devices. But blocking the door doesn’t evict anyone already inside. Its small routers and remote KVM boxes are used for branch connectivity and remote access to computers; attackers reached them through the vendor’s own management cloud, with affected owners finding root-level reverse shells.",
+    "The cloud flaw hasn’t been disclosed. RemoteToHome Consulting found a possible command injection in the GoodCloud client’s AstroWarp handler: cloud-supplied values went into shell commands running as root. GL.iNet hasn’t confirmed that was the route. One compromised KVM downloaded a malicious installer on the nineteenth of November; it persists through startup scripts and scheduled tasks, disguises itself as ‘crond -i /tmp/.log’, and replaces netstat with a script that hides connections to its server. That last bit is particularly nasty: the tool you reach for to check connections has been taught to lie.",
+    "If you use GoodCloud-managed devices, check for that process and use the community scanner linked from GL.iNet’s support pages. Preserve evidence before resetting, don’t restore old configurations, and rotate credentials and access keys. Analyse computers attached to infected KVMs too; whether those were compromised is still under investigation. There’s no customer count or answer on data theft yet.",
+    "Install security firmware even if the scan finds nothing. For RM10 and RM1, use 1 point 10 point 3 or later; that also covers RM1V2, RM1PE and RM4PE. RM10RC needs 1 point 10 point 3 beta or later, while RMQ1 needs 1 point 8 point 7 or later. Stable router and KVM builds were due yesterday, so check the support pages for your model. I’d treat cleanup and patching as separate jobs here. The vendor explicitly says its cloud fix doesn’t remove existing malware.",
+    "And another supplier’s platform has exposed something you can’t fix with firmware: the card used to buy software. Cleverbridge, the checkout and subscription platform behind vendors including Red Hat and Veeam, detected unauthorised activity on the fourth of November. It took systems offline and restored them that day, but later found attackers had copied stored payment card data. Notifications began on Friday.",
+    "The stolen details include card numbers and expiry dates. Security codes too. What bugs me is why those codes were accessible at all; Cleverbridge hasn’t answered that, or explained the route in. It says this wasn’t ransomware, and the notification excludes names and billing details. Which vendors’ buyers were affected remains undisclosed. If you’ve bought through Cleverbridge, identify the card and review its statements, then contact the issuer about replacement. Look out for a notification through TransUnion’s Cyberscout, with complimentary fraud assistance and credit monitoring.",
+    "From payment processing to the processing you might not know you’re doing: Ghostscript can turn an uploaded document into commands running as your rendering account. Researchers demonstrated CVE-2026-125396, a sandbox escape scored eight point five, fixed in 10 point 08 point 0 on the eighth of September. A use-after-free in font loading lets a crafted document disable the checks in dash-d-SAFER.",
+    "The clever bit is the disguise. Image libraries can hand PostScript content to Ghostscript even when the filename ends in dot png. Exposed paths include anonymous Debian print queues and Roundcube attachment processing, as well as public uploads through Forminator or Essential Addons for Elementor. There’s a published proof of concept; don’t confuse that with confirmed exploitation.",
+    "Update Ghostscript to 10 point 08 point 0, including copies inside application bundles and containers. Debian 12 is listed as vulnerable; SUSE and Amazon Linux fixes are pending. Apply WordPress 7 point 0 point 4 for CVE-2026-65640 as well. Until then, require authentication on print queues and restrict accepted file types in image processors.",
+    "Away from document uploads, Saturday’s AI tripwire research has consequences: Dragos says attackers stole requests inside three inference providers for months, including Zero Data Retention traffic, and OpenRouter has removed three providers and withdrawn that eligibility from a hundred and twenty-five endpoints. Rotate credentials sent during the affected windows, starting with Phala’s published exposure window. And back in the patch queue, N-able MailAssure, also called SpamExperts, has CVE-2026-134624, scored nine point three: an authenticated API user can abuse the LDAP connection check to probe internal hosts and send crafted data to their services. Update builds before 20261121 point 1943 to that build or later, and review who has API access meanwhile.",
+    "I’d give an infected remote-access box a recovery window, not just a firmware appointment. And I’d ask whoever owns document rendering to show which Ghostscript binary actually runs the job. Hope Monday gives you room to get ahead of it.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-134624"
+    ],
+    "news": [
+      {
+        "id": "65158022-05da-4b7e-94b4-0fdc4aefd773",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-exploit-glinet-cloud-flaw-to-infect-routers-kvm-devices/",
+        "title": "Hackers exploit GL.iNet cloud flaw to infect routers, KVM devices",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "242c18c7-fd64-41bd-90f7-b4bebe9f8aaf",
+        "url": "https://www.bleepingcomputer.com/news/security/cleverbridge-warns-hackers-stole-credit-card-numbers-cvvs-in-data-breach/",
+        "title": "Cleverbridge warns hackers stole credit card numbers, CVVs in data breach",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "4be79650-22af-46cb-84e6-bb976e565ec7",
+        "url": "https://thehackernews.com/2026/11/openrouter-drops-3-providers-after.html",
+        "title": "OpenRouter Drops 3 Providers After Researchers Catch Months of Prompt Theft at AI Hosting Firms",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "f51e5014-b737-4fdf-8823-866229fa58f3",
+        "url": "https://thehackernews.com/2026/11/researchers-demonstrate-ghostscript.html",
+        "title": "Researchers Demonstrate Ghostscript Sandbox-Escape RCE via Crafted File Uploads in Popular Apps",
+        "source": "The Hacker News"
+      }
+    ]
+  }
+}
