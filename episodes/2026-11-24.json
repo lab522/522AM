@@ -1,0 +1,350 @@
+{
+  "day": "2026-11-24",
+  "title": "Azure APIM attackers leave stolen credentials valid",
+  "overview": "Attackers have stolen credentials from Azure API Management Classic, and Microsoft's fix doesn't invalidate them. An abandoned ASP.NET security library is also under active exploitation, while new findings sharpen the response to Expressway attacks and AI-provider breaches.",
+  "duration_s": 362,
+  "chars": 5150,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-24.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-24.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Tuesday, the twenty-fourth of November, twenty twenty-six.",
+    "Microsoft has fixed an Azure API Management flaw, but credentials stolen through it still work. APIM is Microsoft's hosted API gateway, sitting in front of applications and holding credentials for services behind them. Norway's security authority names Equinor and Skagerak Energi among those affected; both say they've found no evidence of data theft.",
+    "Microsoft identified the problem on the eighteenth and deployed its mitigation the next day, rotating Microsoft-controlled keys. It says Classic instances outside its recommended security configurations allowed unauthorised management access, including secrets management. That covers ignored network guidance or secrets stored directly in APIM rather than referenced from Key Vault. Developer and Basic tiers are affected, alongside Standard and Premium. Classic Consumption and all v2 tiers aren't.",
+    "If you run affected Classic tiers, treat stored secrets and named values as compromised and rotate them. I'd put forgotten development instances in that search too: a test gateway can still hold a very real credential. Investigate the services those credentials reach and review available logs. Microsoft says remediation is fully deployed; Norway's authority still advises checking runtime patch thresholds. The distinction that matters: fixing APIM doesn't stop a stolen key being used directly against another service.",
+    "And there's another urgent job beyond yesterday's rendering patch: an abandoned ASP.NET security library is now an actively exploited route into servers. Mandiant flags CVE-2026-131914 in Idunno.AntiCsrf versions 0 point 9 point 1 point 0 and 0 point 9 point 1 Beta, scored nine point three. Its WebForms module deserialises attacker-controlled CSRF form data without verifying a signature or MAC. One unauthenticated POST can run code as the IIS worker process. A security check becoming the execution path. That's grim. There's no patch: find references to Idunno.AntiCsrf in Web.config and application bin directories, then replace the library with a supported defence. Hunt anomalous POSTs to dot aspx endpoints; if you find exploitation, rotate application configuration secrets and inspect webroots for unauthorised files.",
+    "On the other live attacks, Expressway's US agency deadline passed yesterday, while Cisco updated its advisory to say it has no direct evidence of exploitation, despite CISA's listing and F6's observed case. Check erlang.log for F6's indicator, nodeup followed by “wombat at 127 point 0 point 0 point 1”; F6 also says the attack scripts suggest AI assistance. Meanwhile, yesterday's MailAssure flaw is now in KEV, with a Thursday deadline for US agencies, and N-able says it emerged from the Hosted Cloud breach investigation. API and OAuth tokens have been revoked, so integrations need replacement credentials; Local Cloud operators still need to verify their patch status.",
+    "Outside that confirmed-exploitation queue, Cribl Stream, which routes telemetry between systems, has critical flaws through 4 point 20 point 4: read-only access can become Leader code execution, while attacker-controlled REST pagination data can execute on a Worker without a Cribl login. An SSO flaw can also steal sessions; check Cribl's advisory for the fixed build, because these records don't name one. From securing those systems to buying the suppliers, CrowdStrike has agreed to acquire Zscaler for forty-three point nine billion dollars in shares, the biggest cybersecurity deal yet. Nothing changes operationally today: shareholder and regulatory approval are still needed, with closing expected in the second half of CrowdStrike's fiscal twenty twenty-eight.",
+    "Both companies are pitching AI security, while the AI-provider investigation has some uncomfortable new detail: OpenRouter's removals were Together AI and Phala, along with Novita; Atlas Cloud withdrew voluntarily. Dragos says none detected the intrusions themselves, and some stolen credentials came from requests rejected before a model ran — a failed request isn't evidence your secret stayed safe. And on AI-assisted intrusions, Wiz reports twenty further disclosed incidents in three weeks, with its own incident-response requests tripling. Its ARTEX-Harvester campaign gives defenders something concrete to hunt: pentest-recon user agents and incrementing task counters in session or resource names. For a quieter bit of automation trouble, Mozilla's advisory replay now reaches back to MFSA 2006-48, through MFSA 2007-01. Extend archive-date suppression to that earlier boundary and check for spurious overnight tickets.",
+    "I'd give the APIM credential rotation an owner today, separate from whoever confirms Microsoft's remediation. And I'd ask application owners to search deployed files for that abandoned DLL, rather than trust the patch inventory. Hope Tuesday gives you a clear run at it.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-133968",
+      "CVE-2026-134624",
+      "CVE-2026-115873",
+      "CVE-2026-115899",
+      "CVE-2026-115901"
+    ],
+    "news": [
+      {
+        "id": "fe24d382-7571-4651-a0c4-bb2ba10dbc28",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-75/",
+        "title": "MFSA 2006-75 RSS Feed-preview referrer leak",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e7f13430-b9b3-497e-94fc-e80b27cce376",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-55/",
+        "title": "MFSA 2006-55 Crashes with evidence of memory corruption (rv:1.8.0.5)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d1e5df2a-76f2-4fb0-92f4-fe6f20c0f658",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-57/",
+        "title": "MFSA 2006-57 JavaScript Regular Expression Heap Corruption",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c897db6a-409a-4b7a-afb8-d44967791341",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-54/",
+        "title": "MFSA 2006-54 XSS with XPCNativeWrapper(window).Function(...)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c44f01ae-e2ab-46bd-b7a1-7b5e0fa81934",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-70/",
+        "title": "MFSA 2006-70 Privilege escalation using watch point",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "bfbf9dd5-8cbf-40d9-94c5-a172a2cbed05",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-66/",
+        "title": "MFSA 2006-66 RSA Signature Forgery (variant)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "bc37917f-8d3b-4fac-bfdc-c442f21eafc4",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2007-01/",
+        "title": "MFSA 2007-01 Crashes with evidence of memory corruption (rv:1.8.0.10/1.8.1.2)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b9e65ef0-8f55-4799-9fd2-f9f5aa583712",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-51/",
+        "title": "MFSA 2006-51 Privilege escalation using named-functions and redefined \"new Object()\"",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "aec61144-2ac2-4d23-a5a2-1216da1cdd51",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-50/",
+        "title": "MFSA 2006-50 JavaScript engine vulnerabilities",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "aad557dd-05ca-4a29-8ece-579f06177bee",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-59/",
+        "title": "MFSA 2006-59 Concurrency-related vulnerability",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9de1b320-9abc-4655-bccf-e6a5dbb2f7b5",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-76/",
+        "title": "MFSA 2006-76 XSS using outer window's Function object",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9357177d-4a05-47b7-a560-af3cc69bec63",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-64/",
+        "title": "MFSA 2006-64 Crashes with evidence of memory corruption (rv:1.8.0.7)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "89749296-2f81-4da9-b3c5-a2205b61f158",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-67/",
+        "title": "MFSA 2006-67 Running Script can be recompiled",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7934aacb-2f14-415a-93d8-a6b71987093f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-73/",
+        "title": "MFSA 2006-73 Mozilla SVG Processing Remote Code Execution",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7485b3f8-f8ed-4db5-a9bb-53e7e03b5a88",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-68/",
+        "title": "MFSA 2006-68 Crashes with evidence of memory corruption (rv:1.8.0.9/1.8.1.1)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "6fc94a3b-f6ca-433f-bd62-180c270f1606",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-62/",
+        "title": "MFSA 2006-62 Popup-blocker cross-site scripting (XSS)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "6f76c113-2fde-4af6-a9a9-e525da077115",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-69/",
+        "title": "MFSA 2006-69 CSS cursor image buffer overflow (Windows only)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "6e4f440d-97ca-47b0-ab50-4f86b763990e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-72/",
+        "title": "MFSA 2006-72 XSS by setting img.src to javascript: URI",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "68384a1b-488f-459b-985a-26993f2f70aa",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-63/",
+        "title": "MFSA 2006-63 JavaScript execution in mail via XBL",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "655295ad-3898-4887-9188-0a71cc4f93be",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-48/",
+        "title": "MFSA 2006-48 JavaScript new Function race condition",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5f854838-8447-491d-b22e-10c4c48de91d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-56/",
+        "title": "MFSA 2006-56 chrome: scheme loading remote content",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "4238b969-0fa0-4f47-92b2-696d6f99fdbb",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-61/",
+        "title": "MFSA 2006-61 Frame spoofing using document.open()",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3e356d80-d126-452d-8adc-d5f9cc379cef",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-60/",
+        "title": "MFSA 2006-60 RSA Signature Forgery",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "36dcb7f4-29e7-4d70-b917-5e6f2d079040",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-58/",
+        "title": "MFSA 2006-58 Auto-update compromise through DNS and SSL spoofing",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "23b43881-5ab8-4ff3-aa89-75ed7de1ab39",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-49/",
+        "title": "MFSA 2006-49 Heap buffer overwrite on malformed VCard",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1f8e5b2f-1e7e-4f69-b057-cae7ed936d19",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-74/",
+        "title": "MFSA 2006-74 Mail header processing heap overflows",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1960aa2d-8ebc-4246-92ee-b7546549f41f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-53/",
+        "title": "MFSA 2006-53 UniversalBrowserRead privilege escalation",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "12e35636-c130-4929-9c93-9e45af8546fb",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-71/",
+        "title": "MFSA 2006-71 LiveConnect crash finalizing JS objects",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "08c7405f-03f3-4bb3-a2ed-67f769c8a551",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-65/",
+        "title": "MFSA 2006-65 Crashes with evidence of memory corruption (rv:1.8.0.8)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "06fde7bf-7a1f-47a5-9b82-5dca0250bc82",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-52/",
+        "title": "MFSA 2006-52 PAC privilege escalation using Function.prototype.call",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b4a1cb90-9462-4676-ba16-88934a9598ec",
+        "url": "https://www.darkreading.com/endpoint-security/crowdstrike-ai-security-push-zscaler-deal",
+        "title": "CrowdStrike Makes AI Security Push With Blockbuster Zscaler Deal",
+        "source": "Dark Reading"
+      },
+      {
+        "id": "429827a3-a725-4ba7-9227-601878d2597d",
+        "url": "https://www.bleepingcomputer.com/news/security/openrouter-drops-ai-providers-over-leaked-prompts-and-secrets/",
+        "title": "OpenRouter drops AI providers over leaked prompts and secrets",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "4aa98093-d48a-4cb7-853b-f3141dd49dab",
+        "url": "https://www.bleepingcomputer.com/news/security/microsoft-azure-flaw-exploited-to-steal-customers-api-credentials/",
+        "title": "Microsoft Azure flaw exploited to steal customers' API credentials",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "5d05b1fe-f213-48d4-b304-2eb37e33d69d",
+        "url": "https://www.theregister.com/security/2026/11/23/critical-cisco-remote-code-execution-bug-under-attack/5311722",
+        "title": "Critical Cisco remote code execution bug under attack",
+        "source": "The Register security"
+      },
+      {
+        "id": "ebbe2d10-7e00-4859-b7ed-7e6284c7be72",
+        "url": "https://therecord.media/crowdstrike-zscaler",
+        "title": "CrowdStrike to purchase Zscaler for $43.9 billion",
+        "source": "The Record"
+      },
+      {
+        "id": "53ffbc21-62a2-4ad0-9ed4-9de8c8ce25f9",
+        "url": "https://techcrunch.com/2026/11/23/crowdstrike-to-acquire-zscaler-for-44-billion/",
+        "title": "CrowdStrike to acquire Zscaler for $44 billion",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "e28d3cc1-987e-42f2-bf86-e7934307edf6",
+        "url": "https://cyberscoop.com/crowdstrike-to-acquire-zscaler/",
+        "title": "CrowdStrike agrees to buy Zscaler for $43.9 billion in network security expansion",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "baf0d259-b2dc-4086-b352-1eae25e683b3",
+        "url": "https://www.cybersecuritydive.com/news/crowdstrike-acquire-zscaler-439-billion-turbulent-threat/875477/",
+        "title": "CrowdStrike to acquire Zscaler for $43.9 billion amid turbulent threat environment",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "e431c93b-347b-4eca-9308-b058a52b8bad",
+        "url": "https://www.securityweek.com/azure-flaw-exploited-to-target-secrets-at-norwegian-energy-firms/",
+        "title": "Azure Flaw Exploited to Target Secrets at Norwegian Energy Firms",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "c55c96cb-eca0-4fd9-a842-38dd8d8827a6",
+        "url": "https://therecord.media/norway-microsoft-cyberattack-equinor",
+        "title": "Norway says hackers exploited Microsoft security flaw to attack energy firms Equinor, Skagerak Energi",
+        "source": "The Record"
+      },
+      {
+        "id": "857ec5b3-d712-4ebf-8a36-316f1653f69e",
+        "url": "https://www.infosecurity-magazine.com/news/crowdstrike-to-acquire-zscaler/",
+        "title": "CrowdStrike to Acquire Zscaler in Record $44 Billion Deal",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "7a35736f-f883-4cee-9d2f-ecd0c67246bf",
+        "url": "https://thehackernews.com/2026/11/weekly-recap-vmware-0-day-java4shell.html",
+        "title": "⚡ Weekly Recap: VMware 0-Day, Java4Shell, NGINX2Root, Ruby2Shell, and a Whole Lot of Shell Trouble",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "9994d8be-3be7-45b6-9fc5-93bbe92c969f",
+        "url": "https://www.securityweek.com/n-able-patches-critical-flaw-disclosed-after-mail-assure-cyberattack/",
+        "title": "N-able Patches Critical Flaw Disclosed After Mail Assure Cyberattack",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "a63eee8b-e708-4230-b661-0a98019e6eda",
+        "url": "https://www.wiz.io/blog/agentic-attacks-artex-offensive-ai-frameworks",
+        "title": "Agentic Attacks: In The Wild",
+        "source": "Wiz"
+      },
+      {
+        "id": "7ab9e824-c08a-48fd-a561-16486cf7d109",
+        "url": "https://www.theregister.com/security/2026/11/23/norway-links-energy-firm-cyberattacks-to-critical-azure-api-management-flaw/5311598",
+        "title": "Norway links energy firm cyberattacks to critical Azure API Management flaw",
+        "source": "The Register security"
+      },
+      {
+        "id": "d0a72d76-7c82-45ef-9b28-283677e6268c",
+        "url": "https://thehackernews.com/2026/11/n-able-discloses-critical-mail-assure.html",
+        "title": "N-able Discloses Critical Mail Assure Vulnerability Found During Breach Investigation",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "32c78aec-79c7-4bb7-8b28-9e68c43b5778",
+        "url": "https://www.securityweek.com/ai-inference-providers-failed-to-detect-hacking-and-prompt-theft-says-dragos/",
+        "title": "AI Inference Providers Failed to Detect Hacking and Prompt Theft, Says Dragos",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "21a3fc52-68b7-471e-95d2-90fa06b2043b",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/11/23/cisa-adds-two-known-exploited-vulnerabilities-catalog",
+        "title": "CISA Adds Two Known Exploited Vulnerabilities to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "a2977d56-58c3-4cd7-b2dd-eff072b8ee62",
+        "url": "https://www.securityweek.com/sap-netweaver-cisco-expressway-flaws-exploited-in-attacks/",
+        "title": "SAP NetWeaver, Cisco Expressway Flaws Exploited in Attacks",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "441531e7-3678-48f6-8eb7-c34f695e1a66",
+        "url": "https://www.securityweek.com/crowdstrike-to-acquire-zscaler-in-43-9-billion-deal/",
+        "title": "CrowdStrike to Acquire Zscaler in $43.9 Billion Deal",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "62d51005-b8a3-4365-86e5-e61e208bcb28",
+        "url": "https://www.infosecurity-magazine.com/news/critical-cisco-expressway-flaw/",
+        "title": "Critical Cisco Expressway Flaw Exploited in Attacks",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "263646c4-c35d-4fef-b231-145cc69adf10",
+        "url": "https://thehackernews.com/2026/11/hackers-exploit-critical-aspnet-anti.html",
+        "title": "Hackers Exploit Critical ASP.NET Anti-CSRF Library Flaw Allowing Unauthenticated RCE",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "830ffda5-f7b7-4ef4-9322-14b88d4faa91",
+        "url": "https://www.bleepingcomputer.com/news/security/cisa-flags-critical-cisco-expressway-rce-flaw-as-actively-exploited/",
+        "title": "CISA flags critical Cisco RCE flaw as actively exploited in attacks",
+        "source": "BleepingComputer"
+      }
+    ]
+  }
+}
