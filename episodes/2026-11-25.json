@@ -1,0 +1,769 @@
+{
+  "day": "2026-11-25",
+  "title": "Attackers take the servers that control the firewalls",
+  "overview": "GreyNoise has tracked compromises of Check Point management servers at twenty-two organisations, with credentials and internal certificate authority files stolen. There's another vCenter authentication bypass to patch, alongside fresh exploitation alerts and exposed Radware log-export credentials.",
+  "duration_s": 391,
+  "chars": 5597,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-25.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-25.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Wednesday, the twenty-fifth of November, twenty twenty-six.",
+    "The attackers didn't break the firewall; they took the server that tells it what to allow. GreyNoise says its GT13 actor compromised twenty-four Check Point Security Management servers at twenty-two organisations across seventeen countries. These hold the gateway policy database and the internal certificate authority the estate trusts. The attackers stole those, along with credentials. In one environment, they unloaded the security policy, effectively disabling firewall protection. That's the bit I'd lose sleep over.",
+    "This isn't the earlier DynamicCLI incident. GreyNoise couldn't establish the initial entry point, but saw the attackers subsequently use CVE-2026-16232, July's SmartConsole authentication bypass, to obtain an administrator login token. Its confirmed visibility runs from the seventeenth of October to the second of November; it believes persistent access means the campaign continues. If you run Check Point management servers, verify July's protections and hunt with GreyNoise's indicators. Review SmartConsole administrator logins and certificate operations back to mid-October. For an affected server, treat its contents as stolen: rotate the credentials it held and reissue internal CA material. Then check the installed firewall policy against what you intended, not merely whether the gateway looks healthy.",
+    "And the other console controlling rather a lot underneath it needs attention again. Broadcom's twenty-three-flaw batch includes CVE-2026-123903, another nine point eight authentication bypass in vCenter's directory service. Broadcom says it's distinct from last week's bug: network access to the service can become unauthorised system access, without credentials. No exploitation is known for this one. ESX also gets three critical fixes, including flaws that could allow host code execution. The new fixed builds are 9 point 1 point 2 and 9 point 0 point 2 point 0300; Cloud Foundation's is 5 point 2 point 5. Already installed vCenter 8 point 0 U3m last week? You're covered for vCenter — a small mercy. On 7 point 0, contact Broadcom Support. Other affected VMware products still need their updates, and last week's SDDC Manager fixes remain a separate job.",
+    "Away from management consoles, there's confirmed exploitation at the package registry hex dot pm: on Monday, a crafted Erlang request body exploited CVE-2026-129514 to run operating-system commands without authentication. If you self-host hexpm, update past commit 379b0a29 and treat instances left unpatched before Monday as potentially compromised. And Friday's Drupal installer story has now reached KEV on evidence of active exploitation, with a Friday federal deadline shared by Idunno AntiCsrf and Optimizely Web Experimentation. Apply Drupal's update today if outstanding, and block install dot php at the web server even afterwards.",
+    "From compromised applications to the keys they keep: Radware says an internet-exposed, unauthenticated internal Cloud WAF management API leaked customer contact details and some log-export credentials; customers have reported unfamiliar attempts against their AWS buckets. Rotate whichever export credentials you've configured, whether for S3 or Azure Blob Storage, or an SFTP destination, and review storage access logs back to at least the nineteenth of November. Meanwhile, Inception's extortion campaign is obtaining SSO access by phone: Okta and ReversingLabs link it to twenty-one phishing domains capturing passwords, then codes or push approvals. Use phishing-resistant authentication and verify callers before help-desk resets; review identity-provider activity alongside DNS and proxy logs back to the twenty-first of October.",
+    "That pressure on exposed services is also showing up in the NCSC's incident reporting: it says AI-assisted attacks have risen markedly since September, causing some service downtime or system compromise. Put exposed services behind identity-aware access with phishing-resistant authentication where possible, prioritise their patches, and investigate broad request bursts with unusually high error rates. Which makes Horizon3's change-freeze example rather pointed: fifty days after we covered Zammad's exploited session flaw, some estates still haven't patched it. I'd make that exception request today, then verify the vendor update actually stops unauthenticated session disclosure.",
+    "But don't let old feed traffic compete with that work: Mozilla's replay now reaches MFSA 2005-01 through MFSA 2006-47. Extend archive-date suppression to that earlier boundary; even the exploit-code references belong to those old advisories. By contrast, a genuinely recent browser threat put a card skimmer inside a shared Naviga payment widget on about eighty US newspaper sites, live from the thirteenth to the twenty-second of November and loading roughly fifteen thousand times daily. For payment-page owners, inventory and monitor third-party scripts, restricting outbound connections including WebRTC; if you entered card details on an affected subscription page, watch your statement.",
+    "I'd give the management-server investigation an owner before the morning patch meeting. And I'd keep the change-freeze exceptions moving — an exploited flaw doesn't observe the shopping calendar. Hope Wednesday gives you a clear run at it.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-131914",
+      "CVE-2026-132165",
+      "CVE-2026-132224",
+      "CVE-2026-129514"
+    ],
+    "news": [
+      {
+        "id": "c2ed3959-ef93-4981-8837-e9cb606a5696",
+        "url": "https://news.risky.biz/risky-bulletin-card-stealer-found-on-80-major-us-news-sites/",
+        "title": "Risky Bulletin: Card stealer found on 80 major US news sites",
+        "source": "Risky Business News"
+      },
+      {
+        "id": "f35bd9c3-a242-4ef2-b34b-432684463532",
+        "url": "https://horizon3.ai/intelligence/blogs/black-friday-change-freeze-security-exception/",
+        "title": "Black Friday Change Freeze: When a Security Risk Justifies an Exception",
+        "source": "Horizon3"
+      },
+      {
+        "id": "eaf58fb9-1a74-4a59-83d1-fbc04eb6ed97",
+        "url": "https://www.bleepingcomputer.com/news/security/new-inception-extortion-gang-launches-large-scale-vishing-campaign/",
+        "title": "New Inception extortion gang launches large-scale vishing campaign",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "20db1695-2e43-4538-b1a6-ae54d64c686b",
+        "url": "https://www.theregister.com/security/2026/11/24/we-are-not-shinyhunters-says-criminal-hacking-crew-that-looks-and-acts-just-like-shinyhunters/5311978",
+        "title": "'We are not ShinyHunters,' says criminal hacking crew that looks and acts just like ShinyHunters",
+        "source": "The Register security"
+      },
+      {
+        "id": "2eeb587a-fd6f-470f-9a18-5c55e6ce31f8",
+        "url": "https://techcrunch.com/2026/11/24/uk-warns-ai-driven-cyberattacks-are-exposing-years-of-weak-security/",
+        "title": "UK warns AI-driven cyberattacks are exposing years of weak security",
+        "source": "TechCrunch security"
+      },
+      {
+        "id": "62322920-2b8d-44a9-82cc-4b7265941852",
+        "url": "https://www.bleepingcomputer.com/news/security/radware-discloses-breach-exposing-customer-cloud-access-keys/",
+        "title": "Radware discloses breach exposing customer cloud access keys",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "82198767-f67e-4733-a6a7-63127e067330",
+        "url": "https://cyberscoop.com/uk-ncsc-ai-assisted-cyberattacks/",
+        "title": "UK cyber agency, threat companies tracking rise in AI-assisted hacks",
+        "source": "CyberScoop"
+      },
+      {
+        "id": "fc5e7ccc-2fad-43d2-8d8d-865d60390b25",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-19/",
+        "title": "MFSA 2005-19 Autocomplete data leak",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "fb030ee4-ebd5-472a-8550-925dd3d11df8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-20/",
+        "title": "MFSA 2005-20 XSLT can include stylesheets from arbitrary hosts",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f64bb29a-3c2b-43ad-b819-0ae26e27f3de",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-11/",
+        "title": "MFSA 2005-11 Mail responds to cookie requests",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f52d545a-6ad3-428c-90a5-70c1d2619037",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-15/",
+        "title": "MFSA 2005-15 Heap overflow possible in UTF8 to Unicode conversion",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e7639b46-f086-4b0a-9c8d-d474c1d494a5",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-10/",
+        "title": "MFSA 2005-10 javascript: links in Thunderbird launch Internet Explorer",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d733be31-4b2a-4db5-a108-7ae98067e520",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-12/",
+        "title": "MFSA 2005-12 javascript: Livefeed bookmarks can steal cookies",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d13a3d84-10f6-47f4-8ce5-65c97fa50783",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-08/",
+        "title": "MFSA 2005-08 Synthetic middle-click event can steal clipboard contents",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b2750178-8cdf-4b32-8bf9-c66c37e002c7",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-03/",
+        "title": "MFSA 2005-03 Secure site lock can be spoofed with a binary download",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a69a102d-c8b5-4d06-ba1f-c5bf62183b2c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-17/",
+        "title": "MFSA 2005-17 Install source spoofing with user:pass@host",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a06c7946-ad7c-495d-b4fd-0be4ec0c6717",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-09/",
+        "title": "MFSA 2005-09 Browser responds to proxy auth request from non-proxy server (ssl/https)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "8b493331-a225-4eb3-889f-181ff89584e6",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-02/",
+        "title": "MFSA 2005-02 Opened attachments are temporarily saved world-readable",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "6270a4ca-1bbf-43ed-b6a2-abb0a330a332",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-01/",
+        "title": "MFSA 2005-01 Link opened in new tab can load a local file",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "51e4d782-cb74-44a5-b9da-8351df91543b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-06/",
+        "title": "MFSA 2005-06 Heap overrun handling malicious news: URL",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "4e9dc1ad-6f4a-46ce-8f7c-b8288b09c842",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-07/",
+        "title": "MFSA 2005-07 Script-generated event can download without prompting",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "4856fd2f-4bec-41f7-a3df-382c406a29fa",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-14/",
+        "title": "MFSA 2005-14 SSL \"secure site\" indicator spoofing",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "43c4c955-ed2e-4ec8-a0e4-65c4dc787b44",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-04/",
+        "title": "MFSA 2005-04 Secure site lock can be spoofed with view-source:",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "36421b3a-b2bd-4a3b-81da-925963851377",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-18/",
+        "title": "MFSA 2005-18 Memory overwrite in string library",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "22d0270a-0deb-438e-a939-420c820a942f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-13/",
+        "title": "MFSA 2005-13 Window Injection Spoofing",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "199d9da0-524e-4f77-8b07-9c84f0367755",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-05/",
+        "title": "MFSA 2005-05 Input stealing from other tabs",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "167fb9ba-e260-4fab-af1c-2cbfe49f320e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-16/",
+        "title": "MFSA 2005-16 Spoofing download and security dialogs with overlapping windows",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7a505807-68af-4bc2-98c5-4c4c44887a9d",
+        "url": "https://www.securityweek.com/vmware-updates-patch-critical-esx-vcenter-vulnerabilities/",
+        "title": "VMware Updates Patch Critical ESX, vCenter Vulnerabilities",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "5d41f121-2879-4fb3-b224-ce24f13ed44d",
+        "url": "https://www.infosecurity-magazine.com/news/inception-extortion-sso-vishing/",
+        "title": "New Inception Extortion Brand Tied to SSO Vishing Campaign",
+        "source": "Infosecurity Magazine"
+      },
+      {
+        "id": "f5fc935c-66ce-4e3a-8ba8-af7d5944b7a3",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-22/",
+        "title": "MFSA 2005-22 Download dialog spoofing using Content-Disposition header",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "f035da78-823f-4690-9102-52674659bf4f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-44/",
+        "title": "MFSA 2005-44 Privilege escalation via non-DOM property overrides",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "e7325c5e-9233-49c4-9812-b28e31677d32",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-33/",
+        "title": "MFSA 2005-33 Javascript \"lambda\" replace exposes memory contents",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "cced49ab-ee72-4bc2-8672-042405346d16",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-28/",
+        "title": "MFSA 2005-28 Unsafe /tmp/plugtmp directory exploitable to erase user's files",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "be86e055-62c9-484d-9b1f-dfb1ce6860f5",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-38/",
+        "title": "MFSA 2005-38 Search plugin cross-site scripting",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "bcfc8a4e-7765-4bcb-91a4-b7141a60abdd",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-42/",
+        "title": "MFSA 2005-42 Code execution via javascript: IconURL",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "bcea6055-14fe-406f-a66f-53a092fe43b2",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-23/",
+        "title": "MFSA 2005-23 Download dialog source spoofing",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b5fa4d5a-a7e1-4473-8a60-672638ff2d00",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-30/",
+        "title": "MFSA 2005-30 GIF heap overflow parsing Netscape extension 2",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b417824a-5187-4fc7-a41c-b52a99f465b6",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-49/",
+        "title": "MFSA 2005-49 Script injection from Firefox sidebar panel using data:",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a289fa8b-f1ab-4fae-97d8-ddfe1ee93312",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-47/",
+        "title": "MFSA 2005-47 Code execution via \"Set as Wallpaper\"",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a1c3866d-6f8c-4ac3-b0af-430cab8a6bcb",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-43/",
+        "title": "MFSA 2005-43 \"Wrapped\" javascript: urls bypass security checks",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "99810c5f-0716-4af3-ad40-705e167d26e1",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-24/",
+        "title": "MFSA 2005-24 HTTP auth prompt tab spoofing",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "92434152-b648-472e-87f4-8fd93d0d578e",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-34/",
+        "title": "MFSA 2005-34 PLUGINSPAGE privileged javascript execution",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "87adef79-7973-4db5-b00a-5ba67c4c012c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-26/",
+        "title": "MFSA 2005-26 Cross-site scripting by dropping javascript: link on tab",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "81cb9371-8f60-44d6-b2b9-bf3ab720572a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-21/",
+        "title": "MFSA 2005-21 Overwrite arbitrary files downloading .lnk twice",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "80281cff-8228-4b8b-b9ea-e95fcce054d8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-36/",
+        "title": "MFSA 2005-36 Cross-site Scripting through global scope pollution",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7ceef75d-54fe-442e-badf-582d41c6db83",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-39/",
+        "title": "MFSA 2005-39 Arbitrary code execution from Firefox sidebar panel II",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7bfa8c44-b1f7-461a-9c4e-e3b6d32319dd",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-48/",
+        "title": "MFSA 2005-48 Same-origin violation with InstallTrigger callback",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7455bf42-8e65-4a8f-8a63-fd612ebed288",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-46/",
+        "title": "MFSA 2005-46 XBL scripts ran even when Javascript disabled",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "60ffc302-7f17-45e7-a466-ae9dab7d3ed2",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-40/",
+        "title": "MFSA 2005-40 Missing Install object instance checks",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5ff80844-6bcc-407e-8aad-c9be2f7d0a10",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-25/",
+        "title": "MFSA 2005-25 Image drag and drop executable spoofing",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "592924a3-3b9b-4543-8f8b-44058777af98",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-45/",
+        "title": "MFSA 2005-45 Content-generated event vulnerabilities",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "33c76edc-ac7b-42c7-96d9-900add798e20",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-29/",
+        "title": "MFSA 2005-29 Internationalized Domain Name (IDN) homograph spoofing",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "2f7dcb23-cfb1-42f7-adee-2c3cb396fd8d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-27/",
+        "title": "MFSA 2005-27 Plugins can be used to load privileged content",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "2dd17cdb-1bdc-4ecf-8168-60a1989ccdac",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-37/",
+        "title": "MFSA 2005-37 Code execution through javascript: favicons",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "254602bc-9a82-44ee-8027-f6310fdea0e0",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-31/",
+        "title": "MFSA 2005-31 Arbitrary code execution from Firefox sidebar panel",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0ef677bd-5953-438f-ba05-dc5b538c99a2",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-35/",
+        "title": "MFSA 2005-35 Showing blocked javascript: popup uses wrong privilege context",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0a6907a3-c674-448e-8fd1-c0b3c84e8ea4",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-41/",
+        "title": "MFSA 2005-41 Privilege escalation via DOM property overrides",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "071d1b1d-6c97-49f0-9a0e-493ae45a06a3",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-32/",
+        "title": "MFSA 2005-32 Drag and drop loading of privileged XUL",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a8ed7db4-7edf-4353-8e71-02fc2669b019",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-compromise-check-point-servers-in-22-organizations/",
+        "title": "Hackers compromise Check Point Servers in 22 organizations",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "43b7e9ce-c453-4559-859d-5b1faa45c751",
+        "url": "https://www.cybersecuritydive.com/news/ai-enabled-campaign-targets-check-point-security-management-servers/875622/",
+        "title": "AI-enabled campaign targets Check Point Security Management servers",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "803bd59f-6ac7-4640-9df5-e4f449461cb9",
+        "url": "https://www.securityweek.com/check-point-security-management-servers-hacked-in-ai-assisted-campaign/",
+        "title": "Check Point Security Management Servers Hacked in AI-Assisted Campaign",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "eb422d43-dc42-4824-af00-6e077d508509",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-14/",
+        "title": "MFSA 2006-14 Privilege escalation via XBL.method.eval",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "dfdf88bb-c97f-4d59-9770-6338379ca3df",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-08/",
+        "title": "MFSA 2006-08 \"AnyName\" entrainment and access control hazard",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "df968f5e-ccea-4510-b3a1-96b201d8669a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-54/",
+        "title": "MFSA 2005-54 Javascript prompt origin spoofing",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d6221dc7-d01c-4ae5-8114-68a33cd31894",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-56/",
+        "title": "MFSA 2005-56 Code execution through shared function objects",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d1bd8296-6014-4de0-a91e-794255eff8e4",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-16/",
+        "title": "MFSA 2006-16 Accessing XBL compilation scope via valueOf.call()",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d053d4f0-9a37-4468-8808-444f92098af9",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-09/",
+        "title": "MFSA 2006-09 Cross-site JavaScript injection using event handlers",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "cf9dcbc7-fd99-4fec-abfb-83d805cf5c27",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-53/",
+        "title": "MFSA 2005-53 Standalone applications can run arbitrary code through the browser",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "cd7b8e88-05e7-4bd9-a124-45ba6353d7b4",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-12/",
+        "title": "MFSA 2006-12 Secure-site spoof (requires security warning dialog)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c627e657-38e0-4f2d-8598-0c726a5181c4",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-15/",
+        "title": "MFSA 2006-15 Privilege escalation using a JavaScript function's cloned parent",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "be7887bf-ef91-4c7c-b929-978750b195dd",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-06/",
+        "title": "MFSA 2006-06 Integer overflows in E4X, SVG, and Canvas",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b452bafd-0fb1-4ec1-bd63-6071a0f98ed3",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-58/",
+        "title": "MFSA 2005-58 Firefox 1.0.7 / Mozilla Suite 1.7.12 Vulnerability Fixes",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "b23ccab9-06d7-451f-b89d-83fddfd09ed4",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-57/",
+        "title": "MFSA 2005-57 IDN heap overrun using soft-hyphens",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "aea04d41-246a-40f8-ab90-28c964475bb1",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-20/",
+        "title": "MFSA 2006-20 Crashes with evidence of memory corruption (rv:1.8.0.2)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "a67ec2b8-e64e-4770-98af-6d512e7a9406",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-13/",
+        "title": "MFSA 2006-13 Downloading executables with \"Save Image As...\"",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "8e55cebd-66c3-422f-b3fc-c6c36e47a924",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-02/",
+        "title": "MFSA 2006-02 Changing position:relative to static corrupts memory",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "8da42240-5bd5-424b-a997-247cbfaad302",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-59/",
+        "title": "MFSA 2005-59 Command-line handling on Linux allows shell execution",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "8d859d93-1e1a-470c-aaa2-8b5de1d75881",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-17/",
+        "title": "MFSA 2006-17 cross-site scripting through window.controllers",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "8982875a-efb8-4066-86f6-c786af37b2e8",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-10/",
+        "title": "MFSA 2006-10 JavaScript garbage-collection hazard audit",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7e96724d-53ad-41cb-8d76-7a6c547628b3",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-51/",
+        "title": "MFSA 2005-51 The return of frame-injection spoofing",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7441665d-dd64-402d-bbfa-e5e861601e8a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-07/",
+        "title": "MFSA 2006-07 Read beyond buffer while parsing XML",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "725c4919-6739-4a1f-830d-12fb484410c1",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-19/",
+        "title": "MFSA 2006-19 Cross-site scripting using .valueOf.call()",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "715ce156-d87c-4316-b0be-1c0f603f2b3b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-50/",
+        "title": "MFSA 2005-50 Exploitable crash in InstallVersion.compareTo",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "6fb221ca-d184-47fe-9629-0fba773025cc",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-01/",
+        "title": "MFSA 2006-01 JavaScript garbage-collection hazards",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "652c5e95-e0a5-4695-aa15-ad393c7cb4c3",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-55/",
+        "title": "MFSA 2005-55 XHTML node spoofing",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "53c1b42c-5680-4e0a-b0b4-e9f8b9969ea2",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-05/",
+        "title": "MFSA 2006-05 Localstore.rdf XML injection through XULDocument.persist()",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3fcd8078-c6b2-4fb1-aac4-da927fbe277b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2005-52/",
+        "title": "MFSA 2005-52 Same origin violation: frame calling top.focus()",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "2106d5df-b49a-4e86-bd7e-45f82053cf7b",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-11/",
+        "title": "MFSA 2006-11 Crashes with evidence of memory corruption (rv:1.8)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1358ac35-4fa1-448c-add5-79be1d3a4a48",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-18/",
+        "title": "MFSA 2006-18 Mozilla Firefox Tag Order Vulnerability",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0d30abc9-f881-41d6-bd0d-e8e9a6ef1e48",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-03/",
+        "title": "MFSA 2006-03 Long document title causes startup denial of service",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0174774e-e887-4d12-82a7-397bf241555c",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-04/",
+        "title": "MFSA 2006-04 Memory corruption via QueryInterface on Location, Navigator objects",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "d27174f5-ed21-4cf6-a67a-4e9c6969bb47",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-35/",
+        "title": "MFSA 2006-35 Privilege escalation through XUL persist.",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "ca2aae1d-fc2a-4ecb-9f1f-bae832376301",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-31/",
+        "title": "MFSA 2006-31 EvalInSandbox escape (Proxy Autoconfig, Greasemonkey)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c9618dc3-6206-4c27-9e7d-37dd601584f4",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-34/",
+        "title": "MFSA 2006-34 XSS viewing javascript: frames or images from context menu",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "c6e18e2b-e930-4835-8a42-d9e555736aed",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-42/",
+        "title": "MFSA 2006-42 Web site XSS using BOM on UTF-8 pages",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9ee4c7c5-cd5a-456f-9f24-52e4fd0b4937",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-25/",
+        "title": "MFSA 2006-25 Privilege escalation through Print Preview",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9c63ef5e-5395-4235-b96e-dd97b1c942d2",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-21/",
+        "title": "MFSA 2006-21 JavaScript execution in mail when forwarding in-line",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "9bfbe302-4115-4323-bece-927071b44e3f",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-23/",
+        "title": "MFSA 2006-23 File stealing by changing input type",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "8bdde900-8901-4408-b9a5-3a094f33ef43",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-38/",
+        "title": "MFSA 2006-38 Buffer overflow in crypto.signText()",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "8b9ed456-cac8-44cd-804d-112cd6ec79fb",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-29/",
+        "title": "MFSA 2006-29 Spoofing with translucent windows",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "81c896aa-e935-4693-a944-c21436c667d3",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-26/",
+        "title": "MFSA 2006-26 Mail Multiple Information Disclosure",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "7a568753-e28a-4024-9bb0-fd596c7b8149",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-36/",
+        "title": "MFSA 2006-36 PLUGINSPAGE privileged JavaScript execution II",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "75349fbb-797b-49e4-9d28-9d14ade79757",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-43/",
+        "title": "MFSA 2006-43 Privilege escalation using addSelectionListener",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "5b5f4339-145d-4ad4-8445-8235f5348878",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-32/",
+        "title": "MFSA 2006-32 Fixes for crashes with potential memory corruption (rv:1.8.0.4)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "587ab84d-ad04-4e5d-860f-b104a2b9206d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-41/",
+        "title": "MFSA 2006-41 File stealing by changing input type (variant)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "54fe429d-5993-44b7-a041-a0582d421d3d",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-46/",
+        "title": "MFSA 2006-46 Memory corruption with simultaneous events",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "525ea879-c38d-419b-b86b-4cd7ff71df12",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-47/",
+        "title": "MFSA 2006-47 Native DOM methods can be hijacked across domains",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "4ba29dc9-e399-46ca-99ea-fd376fecee2a",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-40/",
+        "title": "MFSA 2006-40 Double-free on malformed VCard",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "416f5c41-6ab2-4c9b-bca7-5ce520931190",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-37/",
+        "title": "MFSA 2006-37 Remote compromise via content-defined setter on object prototypes",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3ff4263d-598d-423b-96e7-6eeb36ae9460",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-45/",
+        "title": "MFSA 2006-45 Javascript navigator Object Vulnerability",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "3d7970df-4031-4fdd-b0ad-8a43c9957a98",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-44/",
+        "title": "MFSA 2006-44 Code execution through deleted frame reference",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "387bca41-3dca-415d-af7d-24f4942798a0",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-39/",
+        "title": "MFSA 2006-39 \"View Image\" local resource linking (Windows)",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "36a611e4-de64-4d99-9792-2363ba399cfb",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-28/",
+        "title": "MFSA 2006-28 Security check of js_ValueToFunctionObject() can be circumvented",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "2ffd88f6-402d-4922-a8ff-7d86fd2fd0ba",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-22/",
+        "title": "MFSA 2006-22 CSS Letter-Spacing Heap Overflow Vulnerability",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "294838d9-b3f4-459e-90bc-5fc614450e48",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-33/",
+        "title": "MFSA 2006-33 HTTP response smuggling",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "1d687d29-d297-46a1-9fd8-466c27bf6bc7",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-30/",
+        "title": "MFSA 2006-30 Deleted object reference when designMode=\"on\"",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "0bda3279-0025-4f05-92af-562141dca3a9",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-27/",
+        "title": "MFSA 2006-27 Table Rebuilding Code Execution Vulnerability",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "01f9d158-38d5-485e-973e-93587016c7df",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2006-24/",
+        "title": "MFSA 2006-24 Privilege escalation using crypto.generateCRMFRequest",
+        "source": "Mozilla security advisories"
+      },
+      {
+        "id": "75da28f5-ecfa-4fa6-876a-b7f22831438b",
+        "url": "https://therecord.media/cyberattacks-uk-artificial-intelligence",
+        "title": "UK cyber agency seeing ‘marked rise’ in AI-driven attacks",
+        "source": "The Record"
+      },
+      {
+        "id": "b8109ece-31f6-4d11-a187-f3f34a7b8f68",
+        "url": "https://thehackernews.com/2026/11/vmware-vcenter-hit-by-another-critical.html",
+        "title": "VMware vCenter Hit by Another Critical 9.8-Rated Auth Bypass Flaw After Zero-Day Exploitation",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "c2bfeae5-4097-41e2-940f-f2ac21ce2d85",
+        "url": "https://thehackernews.com/2026/11/okta-links-shinyhunters-associated.html",
+        "title": "Okta Links ShinyHunters-Associated Vishing Group to New INCEPTION Data Leak Site",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "b8b2de53-3183-4aee-9d27-18a09f4cb7fd",
+        "url": "https://www.ncsc.gov.uk/blogs/familiar-weaknesses-exploited-faster-defending-against-agentic-cyber-attacks",
+        "title": "Familiar weaknesses, exploited faster: defending against agentic cyber attacks",
+        "source": "NCSC"
+      },
+      {
+        "id": "402a82b0-e6d1-42c8-bad3-9a181c836b26",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/11/24/cisa-adds-three-known-exploited-vulnerabilities-catalog",
+        "title": "CISA Adds Three Known Exploited Vulnerabilities to Catalog",
+        "source": "CISA advisories"
+      }
+    ]
+  }
+}
