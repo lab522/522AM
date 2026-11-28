@@ -1,0 +1,110 @@
+{
+  "day": "2026-11-28",
+  "title": "The file server is the foothold",
+  "overview": "NFS2ROOT turns reachable Linux file servers into a route to root, while an unpatched Cacti flaw needs just four HTTP requests. SAP confirms a development-environment incident, CISA sets Monday deadlines, and trusted Windows downloads deliver unwelcome surprises.",
+  "duration_s": 417,
+  "chars": 5749,
+  "audio": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-28.mp3",
+  "script": "https://raw.githubusercontent.com/lab522/522AM/main/episodes/2026-11-28.md",
+  "paragraphs": [
+    "Good morning, it's 5:22 AM. Saturday, the twenty-eighth of November, twenty twenty-six.",
+    "A file server answering on TCP port twenty forty-nine deserves your attention before coffee. NFS2ROOT, CVE-2026-99362, is a twelve-year-old heap overflow in Linux's NFS server that lets an attacker reach root without logging in. The server runs inside the kernel, so a crafted request writes beyond its buffer into kernel memory. The exploit reads memory to bypass KASLR, then plants a callback carrying a command. Close the NFS connection and the kernel runs it as root. That's an especially unpleasant goodbye.",
+    "The affected service is nfsd running NFS version four point one or four point two, with that port reachable. Internet-facing storage is the urgent case, but I'd check internal reachability too. Fixed kernels are 6 point 12 point 117 and 6 point 18 point 61, alongside 7 point 3 point 2 and 7 point 4 release candidate one; use your distribution's security update and reboot. Can't patch immediately? Restrict the port to trusted clients, or disable NFS serving where it isn't needed. There are no reported attacks, but ANSSI submitted a fix in August and OpenSec handed maintainers a working remote-root exploit in September. The hard part's already been done. There's no network signature to lean on: investigate nfsd4_check_resp_size warnings or shells spawned by kernel workers, and watch for bursts of short NFS sessions from one source.",
+    "And the monitoring box watching that storage has its own unwelcome shortcut. Cacti, the network graphing platform, has a public four-request exploit against guest-enabled installations. It was tested on the latest release, 1 point 2 point 31; earlier versions aren't settled. Guest access is disabled by default, which matters rather more than the exploit's dramatic name.",
+    "The clever bit is where the command starts: a graph-display preference that should contain a number. Cacti stores a string instead, later feeds it into a SQL LIMIT clause, and accepts extra SQL statements. Those change the poller configuration; a realtime graph request then hands the stored command to PHP's popen. That's execution as the service account, not necessarily root, despite the original demonstration. But Cacti holds device credentials, so a modest account can still open expensive doors. No patch or CVE yet, and no reported attacks as of yesterday. Turn off the guest account and restrict the interface. Check poller entries for unexpected commands, and logs for non-numeric graph-setting warnings. Publishing before telling the maintainers has left operators doing the containment work.",
+    "From commands smuggled into configuration to code changed at its source: SAP has confirmed suspicious activity after insiders described stolen employee tokens being used to copy and alter GitHub source code. Its response reportedly included suspending automated development and replacing software-signing keys. There's no evidence of access to customer business data, SAP says, and nobody's reported tampered code reaching customer software. Those are different questions, though, and what bugs me is that SAP won't say whether customers taking downloads should act.",
+    "If your builds pull SAP repositories, inventory those dependencies and verify anything fetched in the past fortnight. Obtain replacement signing keys directly from SAP rather than a cache. Whether proprietary code was reached, or the incident is contained, remains unanswered; watch for a concrete customer advisory, not reassurance by omission.",
+    "At least the next action dates are explicit: yesterday's second Drupal installer flaw now has a nine point eight CVSS score and a CISA KEV entry, with US agencies required to fix it by Monday, the thirtieth. The GeoServer pair we covered on Thursday has joined KEV too: the XML injection is CVE-2026-120705, alongside the incorrect-authorisation flaw, and both carry that same Monday deadline; apply the current security fixes now.",
+    "Back to downloads that arrive wearing the right badge: AhnLab found Python RAT payloads in official SoftwareOK installers and updates, affecting Q-Dir 12 point 83 point 0 point 0 through 12 point 85 point 0 point 0, plus DesktopOK 12 point 82 point 0 point 0 and 12 point 85 point 0 point 0. Check installer SHA-256 hashes and hunt unexpected Python environments or scheduled tasks; reinstalling the utility won't evict an existing RAT. Separately, eSentire traced Vinci RAT to a bogus snipping-tool download using a Microsoft-signed installer to install the Store app Setup Assistant, published by ETPS Ltd. Hunt that app and AMSI-disabling PowerShell, especially tasks firing every ten minutes; Microsoft's response called it no violation, which is not the reassurance that phrase usually promises.",
+    "And on the legitimate-update side, Windows Server 2025 hotpatch KB5138318 fixes crashes introduced by KB5131077 when IPv6 routes expire: it's arriving automatically through Windows Update for hotpatch-enrolled servers, needs no restart, and is worth confirming on router-advertisement-enabled machines. Windows 11's November hotpatch has separate Office and third-party application failures, plus printing trouble with Forcepoint's DLP Endpoint Agent; don't assume the server fix addresses those.",
+    "I'd give reachable NFS servers the first maintenance window, with a reachability restriction while that's arranged. For Cacti, I'd switch off guest access now rather than wait for a patch announcement. Hope your Saturday leaves some room for something other than a console.",
+    "five twenty-two AM, brought to you by Lab five twenty-two, a technology partner for mid-market businesses, providing cyber security services and enterprise operational software. Find us at lab five twenty-two dot co dot uk."
+  ],
+  "sources": {
+    "cves": [
+      "CVE-2026-120705",
+      "CVE-2026-129243",
+      "CVE-2026-136716"
+    ],
+    "news": [
+      {
+        "id": "eb6e95b5-f2af-43af-9b6e-a3b6bc4b1eb4",
+        "url": "https://www.cybersecuritydive.com/news/sap-investigates-attack-source-code/875820/",
+        "title": "SAP investigates suspected attack impacting source code",
+        "source": "Cybersecurity Dive"
+      },
+      {
+        "id": "493d3c5e-ff68-4448-b703-54d5656ade6d",
+        "url": "https://www.bleepingcomputer.com/news/security/unpatched-cacti-zero-day-with-public-poc-gives-remote-code-execution/",
+        "title": "Unpatched Cacti zero-day with public PoC gives remote code execution",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "d9c38405-e889-4f88-9fdf-83f6f1ad754b",
+        "url": "https://www.malwarebytes.com/blog/bugs/2026/11/drupal-sites-are-being-hijacked-and-a-follow-up-flaw-is-already-under-attack",
+        "title": "Drupal sites are being hijacked, and a follow-up flaw is already under attack",
+        "source": "Malwarebytes Labs"
+      },
+      {
+        "id": "959d4054-0ba0-4627-90e4-dfc0d6bc4145",
+        "url": "https://therecord.media/sap-germany-cyberattack-github",
+        "title": "Software giant SAP confirms cyber incident amid reports of source code breach",
+        "source": "The Record"
+      },
+      {
+        "id": "f1b14f0e-7840-467b-afd3-a59505fd4666",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/11/27/cisa-adds-three-known-exploited-vulnerabilities-catalog",
+        "title": "CISA Adds Three Known Exploited Vulnerabilities to Catalog",
+        "source": "CISA advisories"
+      },
+      {
+        "id": "a18ef687-70f4-44e1-8755-5ce908f0b7e8",
+        "url": "https://thehackernews.com/2026/11/microsoft-store-app-found-delivering.html",
+        "title": "Microsoft Store App Found Delivering Vinci RAT Capable of Remote System Control",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "574e9387-8c59-4c26-a920-e1b2bb233271",
+        "url": "https://www.bleepingcomputer.com/news/security/drupal-warns-of-new-access-bypass-flaw-exploited-in-attacks/",
+        "title": "Drupal warns of new site takeover flaw exploited in attacks",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "35cf03e8-cb26-44ab-80c5-c59911f5e96f",
+        "url": "https://www.bleepingcomputer.com/news/security/sap-confirms-security-incident-after-suspicious-github-activity/",
+        "title": "SAP confirms security incident after suspicious GitHub activity",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "3d9d5def-6bec-4e1b-8a3a-9a0475f72b6a",
+        "url": "https://thehackernews.com/2026/11/hackers-trojanize-official-q-dir-and.html",
+        "title": "Hackers Trojanize Official Q-Dir and DesktopOK Downloads to Deliver Remote Access Malware",
+        "source": "The Hacker News"
+      },
+      {
+        "id": "e8d339bb-8e42-4bf5-a521-e331ce63fe5c",
+        "url": "https://www.bleepingcomputer.com/news/microsoft/new-out-of-band-oob-emergency-hotpatch-fixes-windows-server-2025-crashes/",
+        "title": "Microsoft pushes emergency hotpatch to fix Windows Server crashes",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "32ff5f77-e2ff-4c31-a713-b025d0c5e5b0",
+        "url": "https://www.bleepingcomputer.com/news/security/new-nfs2root-linux-flaw-can-let-attackers-gain-root-privileges/",
+        "title": "New NFS2ROOT Linux flaw can let attackers gain root privileges",
+        "source": "BleepingComputer"
+      },
+      {
+        "id": "31023c14-b351-4951-b113-df23e6d7715c",
+        "url": "https://www.securityweek.com/sap-confirms-cyberattack-source-code-reportedly-compromised/",
+        "title": "SAP Confirms Cyberattack, Source Code Reportedly Compromised",
+        "source": "SecurityWeek"
+      },
+      {
+        "id": "061addff-b8ae-49c5-a6e2-94f78ab0d28b",
+        "url": "https://thehackernews.com/2026/11/unpatched-cacti-zero-day-enables-rce-in.html",
+        "title": "Unpatched Cacti Zero-Day Enables RCE in Just Four HTTP Requests via Guest Access",
+        "source": "The Hacker News"
+      }
+    ]
+  }
+}
